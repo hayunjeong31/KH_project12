@@ -4,17 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>index</title>
+<title>아이디 찾기</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
-
-<style>
-input {
-    text-align: center;
-}
-td {
-    text-align: center;
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <style>
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700&display=swap");
@@ -221,7 +214,7 @@ input:placeholder-shown + label {
   background: rgb(249, 63, 76);
   color: white;
   font-weight: bold;
-  padding: 8px 15px; /* 조정된 패딩 값 */
+  padding: 8px 15px;
   margin-top: 20px;
   border-radius: 50px;
   cursor: pointer;
@@ -328,71 +321,13 @@ header {
 </style>
 </head>
 <body>
-<c:choose>
-    <c:when test="${not empty sessionScope.loginID}">
-        <table border="1" align="center">
-            <tr>
-                <th colspan="4">${sessionScope.loginID}님 환영합니다.</th>
-            </tr>
-            <tr>
-                <td>
-                    <button id="logout">로그아웃</button>
-                    <button id="myinfo">내정보</button>
-                </td>      
-            </tr>
-        </table>
-
-        <script>
-            $(document).ready(function() {
-                $("#logout").on("click", function() {
-                    console.log("로그아웃 버튼 클릭");
-                    location.href = "/logout.members";
-                });
-                
-                $("#myinfo").on("click", function() {
-                    console.log("내정보 버튼 클릭");
-                    location.href = "/mypage.members";
-                });
-            });
-        </script>
-    </c:when>
-
-    <c:otherwise>
-        <form action="/login.members" method="post">
-            <table border="1" align="center">
-                <tr>
-                    <th>Login</th>
-                </tr>
-                <tr>
-                    <td><input type="text" placeholder="ID를 입력하세요" name="id" required></td>
-                </tr>
-                <tr>
-                    <td><input type="password" placeholder="비밀번호를 입력하세요" name="pw" required></td>
-                </tr>
-                <tr align="center">
-                    <td>
-                        <button type="submit" id="login">로그인</button>
-                        <button type="button" id="signup">회원가입</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </c:otherwise>
-</c:choose>
-
-<script>
-    $(document).ready(function() {
-        $("#signup").on("click", function() {
-            console.log("회원가입 버튼 클릭");
-            location.href = "/members/signup.jsp";
-
 <header>
     <div class="header-container">
         <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
         <nav>
             <ul>
                 <li>
-                    <a href="index.html">홈</a>
+                    <a href="${pageContext.request.contextPath}/index.jsp">홈</a>
                     <div class="dropdown"></div>
                 </li>
                 <li>
@@ -439,45 +374,23 @@ header {
 <main class="main">
     <section class="sign-up">
         <article class="signup-left">
-            <h1></h1>
             <div class="wc_message"></div>
         </article>
         <article class="form-area">
-            <c:choose>
-                <c:when test="${not empty sessionScope.loginID}">
-                    <div class="organize-form form-area-signin">
-                        <h2>${sessionScope.loginID}님 환영합니다.</h2>
-                        <div class="form-field">
-                            <button id="logout" class="btn-sign btn-in">로그아웃</button>
-                        </div>
-                        <div class="form-field">
-                            <button id="myinfo" class="btn-sign btn-in">내정보</button>
-                        </div>
+            <div class="organize-form form-area-signin">
+                <h2>아이디 찾기</h2>
+                <form class="form" method="post">
+                    <div class="form-field">
+                        <label for="email"></label>
+                        <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
                     </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="organize-form form-area-signin">
-                        <h2>SIGN IN</h2>
-                        <form class="form" action="/login.members" method="post">
-                            <div class="form-field">
-                                <label for="email-in"></label>
-                                <input type="text" name="id" id="email-in" placeholder="ID를 입력하세요" required />
-                            </div>
-                            <div class="form-field">
-                                <label for="password-in"></label>
-                                <input type="password" name="pw" id="password-in" placeholder="비밀번호를 입력하세요" required />
-                            </div>
-                            <button type="submit" class="btn-sign btn-in">로그인</button>
-                            <p>계정이 없으신가요? <a href="${pageContext.request.contextPath}/members/signup.jsp" class="link-up">회원가입</a></p>
-                            <div class="form-field links-container">
-                                <a href="${pageContext.request.contextPath}/emails/findId.jsp" class="link-up">아이디 찾기</a>
-								<a href="${pageContext.request.contextPath}/emails/findPw.jsp" class="link-up">비밀번호 찾기</a>
-
-                            </div>
-                        </form>
+                    <button type="button" class="btn-sign btn-in" id="auth_btn" disabled>인증 코드 받기</button>
+                    <div class="form-field">
+                        <input type="text" class="mail-check-input" placeholder="인증 코드를 입력하세요" disabled>
                     </div>
-                </c:otherwise>
-            </c:choose>
+                    <div id="mail-check-input-info" class="form-field"></div>
+                </form>
+            </div>
         </article>
         <article class="signup-right">
             <i class="fas fa-2x fa-bars bars-style"></i>
@@ -485,18 +398,49 @@ header {
     </section>
 </main>
 <script>
-    $(document).ready(function() {
-        $("#logout").on("click", function() {
-            console.log("로그아웃 버튼 클릭");
-            location.href = "/logout.members";
-        });
+    $('#email').on('input', function() {
+        if ($(this).val() === '') {
+            $('#auth_btn').attr('disabled', true);
+        } else {
+            $('#auth_btn').attr('disabled', false);
+        }
+    });
 
-        $("#myinfo").on("click", function() {
-            console.log("내정보 버튼 클릭");
-            location.href = "/mypage.members";
+    $('#auth_btn').click(function() {
+        var email = $('#email').val();
+        var checkInput = $('.mail-check-input');
+
+        $.ajax({
+            type: 'GET',
+            url: '${pageContext.request.contextPath}/sendAuthCode.members?email=' + email,
+            success: function(data) {
+                alert(data);
+                checkInput.attr('disabled', false);
+            },
+        });
+    });
+
+    $('.mail-check-input').on('input', function() {
+        var email = $('#email').val();
+        var inputCode = $(".mail-check-input").val();
+        var checkResult = $("#mail-check-input-info");
+
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/verifyAuthCode.members',
+            data: { email: email, authCode: inputCode },
+            success: function(data) {
+                checkResult.html(data);
+                if (data.indexOf('회원님의 아이디는') !== -1) {
+                    alert(data);
+                    window.location.href = "${pageContext.request.contextPath}/index.jsp";
+                }
+            },
+            error: function(err) {
+                checkResult.html("오류 발생: " + err);
+            }
         });
     });
 </script>
-
 </body>
 </html>

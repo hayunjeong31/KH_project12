@@ -87,9 +87,10 @@ public class DashboardDAO {
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
-				selectedOneMember = new MembersDTO(userSeq,userId,userPwd,userName,nickName,phone,email,gender,signout,birth_date,join_date,updated_date,adminKey);
+				String tempCode = rs.getString("temp_code");
+				selectedOneMember = new MembersDTO(userSeq,userId,userPwd,userName,nickName,phone,email,gender,signout,birth_date,join_date,updated_date,adminKey,tempCode);
 				selectedAllmemberList.add(selectedOneMember);
-				
+				//수정예정
 			}
 
 		} catch (Exception e) {
