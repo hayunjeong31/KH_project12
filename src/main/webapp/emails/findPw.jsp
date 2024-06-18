@@ -384,17 +384,14 @@ header {
                         <label for="email"></label>
                         <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
                     </div>
-                    <button type="button" class="btn-sign btn-in" id="auth_btn" disabled>인증 코드 받기</button>
+                    <button type="button" class="btn-sign btn-in" id="auth_btn">인증 코드 받기</button>
                     <div class="form-field">
                         <input type="text" class="mail-check-input" id="authCode" placeholder="인증 코드를 입력하세요" disabled>
                     </div>
                     <div id="mail-check-input-info" class="form-field"></div>
-                    <button type="button" class="btn-sign btn-in" id="find_pw_btn" disabled>비밀번호 찾기</button>
+                    <button type="button" class="btn-sign btn-in" id="find_pw_btn" disabled>임시 비밀번호로 재설정</button>
                 </form>
-<<<<<<< HEAD
                 <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-check">로그인 페이지로 돌아가기</button>
-=======
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
             </div>
         </article>
         <article class="signup-right">
@@ -443,7 +440,7 @@ header {
                 }
             },
             error: function(err) {
-                checkResult.html("오류 발생: " + err);
+                checkResult.html("오류 발생: " + JSON.stringify(err));
             }
         });
     });
@@ -472,14 +469,18 @@ header {
 
         $.ajax({
             type: 'POST',
-            url: '${pageContext.request.contextPath}/getPasswordByEmail.members',
+            url: '${pageContext.request.contextPath}/resetPassword.members',
             data: { email: email },
             success: function(data) {
-                alert(data);
-                location.href = "${pageContext.request.contextPath}/index.jsp";
+                if (data.indexOf('성공') !== -1) {
+                    alert(data);
+                    location.href = "${pageContext.request.contextPath}/index.jsp";
+                } else {
+                    alert("오류 발생: " + data);
+                }
             },
             error: function(err) {
-                alert("오류 발생: " + err);
+                alert("오류 발생: " + JSON.stringify(err));
             }
         });
     });

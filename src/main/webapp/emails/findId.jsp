@@ -12,7 +12,6 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700&display=swap");
 
-<<<<<<< HEAD
 
 .btn-sign {
   border: none;
@@ -49,8 +48,6 @@
 }
 
 
-=======
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 * {
   margin: 0;
   padding: 0;
@@ -248,7 +245,6 @@ input:placeholder-shown + label {
   background: rgb(230, 57, 69);
 }
 
-<<<<<<< HEAD
 .btn-inline {
   width: 110px;
   margin-top: 0;
@@ -259,22 +255,6 @@ input:placeholder-shown + label {
   margin-top: 20px;
   margin-left: 10px;
   border-radius: 50px;
-=======
-.btn-check {
-  border: none;
-  background: rgb(249, 63, 76);
-  color: white;
-  font-weight: bold;
-  padding: 8px 15px;
-  margin-top: 20px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 0.1s ease 0.1s;
-}
-
-.btn-check:hover {
-  background: rgb(230, 57, 69);
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 }
 
 .signup-right {
@@ -436,7 +416,6 @@ header {
                         <label for="email"></label>
                         <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
                     </div>
-<<<<<<< HEAD
                     <div class="form-field input-group">
                         <input type="text" class="mail-check-input" placeholder="인증 코드를 입력하세요" disabled>
                         <button type="button" class="btn-sign btn-inline" id="auth_btn" disabled>인증 코드 받기</button>
@@ -444,14 +423,6 @@ header {
                     <div id="mail-check-input-info" class="form-field"></div>
                 </form>
                 <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-sign btn-full-width">로그인 페이지로 돌아가기</button>
-=======
-                    <button type="button" class="btn-sign btn-in" id="auth_btn" disabled>인증 코드 받기</button>
-                    <div class="form-field">
-                        <input type="text" class="mail-check-input" placeholder="인증 코드를 입력하세요" disabled>
-                    </div>
-                    <div id="mail-check-input-info" class="form-field"></div>
-                </form>
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
             </div>
         </article>
         <article class="signup-right">
