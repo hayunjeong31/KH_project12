@@ -48,12 +48,15 @@ public class MembersController extends HttpServlet {
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {
+                        System.out.println("회원가입 성공");
                         response.setStatus(HttpServletResponse.SC_OK);
                         response.sendRedirect("/index.jsp");
                     } else {
+                        System.out.println("회원가입 실패");
                         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "회원 가입에 실패했습니다.");
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     request.setAttribute("error", e.getMessage());
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
                 }

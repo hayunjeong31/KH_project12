@@ -391,6 +391,7 @@ header {
                     <div id="mail-check-input-info" class="form-field"></div>
                     <button type="button" class="btn-sign btn-in" id="find_pw_btn" disabled>비밀번호 찾기</button>
                 </form>
+                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-check">로그인 페이지로 돌아가기</button>
             </div>
         </article>
         <article class="signup-right">

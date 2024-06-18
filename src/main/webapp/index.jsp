@@ -263,8 +263,13 @@ input:placeholder-shown + label {
 
 .links-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
+}
+
+.links-container a {
+  margin: 0 10px;
+  display: inline-block;
 }
 
 .hidden {
@@ -406,8 +411,7 @@ header {
                             <p>계정이 없으신가요? <a href="${pageContext.request.contextPath}/members/signup.jsp" class="link-up">회원가입</a></p>
                             <div class="form-field links-container">
                                 <a href="${pageContext.request.contextPath}/emails/findId.jsp" class="link-up">아이디 찾기</a>
-								<a href="${pageContext.request.contextPath}/emails/findPw.jsp" class="link-up">비밀번호 찾기</a>
-
+                                <a href="${pageContext.request.contextPath}/emails/findPw.jsp" class="link-up">비밀번호 찾기</a>
                             </div>
                         </form>
                     </div>

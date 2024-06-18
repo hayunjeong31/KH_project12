@@ -52,34 +52,36 @@ body {
 }
 
 .signup-left {
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   font-size: 14px;
   background: rgba(249, 63, 75, 0.704);
   border-radius: 10px 0 0 10px;
-  height: 100vh;
+  height: 70vh;
 }
 
 .signup-right {
-  width: 50%;
+  width: 40%;
   padding: 20px;
   background: rgba(255, 255, 255, 0.591);
   border-radius: 0 10px 10px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 70vh;
 }
 
 .card {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 1);
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
   width: 450px;
   max-width: 100%;
+  position: absolute;
+  left: 32%;
 }
 
 .card-header, .btn {
@@ -583,15 +585,17 @@ header {
             console.log(formData); // 폼 데이터 확인
             $.ajax({
                 type: "POST",
-                url: "/signup.members",
+                url: "/signup.members", // URL 경로 수정
                 data: formData,
                 success: function(response) {
                     alert("회원가입이 완료되었습니다.");
                     location.href = "/index.jsp";
                 },
-                error: function(error) {
+                error: function(xhr, status, error) {
                     alert("회원가입 중 오류가 발생했습니다.");
-                    console.error(error);
+                    console.error("Error Status: ", status);
+                    console.error("Error: ", error);
+                    console.error("Response: ", xhr.responseText);
                 }
             });
         }

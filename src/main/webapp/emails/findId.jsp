@@ -12,6 +12,42 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700&display=swap");
 
+
+.btn-sign {
+  border: none;
+  background: rgb(249, 63, 76);
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.1s ease 0.1s;
+}
+
+.btn-sign:hover {
+  background: rgb(230, 57, 69);
+}
+
+.input-group input {
+  width: calc(100% - 120px); /* 버튼 옆에 있는 입력 칸의 너비를 조정합니다 */
+  margin-right: 10px; /* 입력 칸과 버튼 사이의 간격을 조정합니다 */
+}
+
+.btn-inline {
+  width: 110px; /* 버튼의 너비를 조정합니다 */
+  margin-top: 0; /* 상단 마진을 제거하여 입력 칸과 맞춥니다 */
+}
+
+.btn-full-width {
+  width: calc(100% - 20px); /* 로그인 페이지로 돌아가기 버튼의 너비를 인증 코드 받기 버튼과 동일하게 조정합니다 */
+  margin-top: 20px;
+  margin-left: 10px; /* 양쪽 마진을 동일하게 주기 위해 추가 */
+  border-radius: 50px;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -209,20 +245,16 @@ input:placeholder-shown + label {
   background: rgb(230, 57, 69);
 }
 
-.btn-check {
-  border: none;
-  background: rgb(249, 63, 76);
-  color: white;
-  font-weight: bold;
-  padding: 8px 15px;
-  margin-top: 20px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: background 0.1s ease 0.1s;
+.btn-inline {
+  width: 110px;
+  margin-top: 0;
 }
 
-.btn-check:hover {
-  background: rgb(230, 57, 69);
+.btn-full-width {
+  width: calc(100% - 20px);
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 50px;
 }
 
 .signup-right {
@@ -384,12 +416,13 @@ header {
                         <label for="email"></label>
                         <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
                     </div>
-                    <button type="button" class="btn-sign btn-in" id="auth_btn" disabled>인증 코드 받기</button>
-                    <div class="form-field">
+                    <div class="form-field input-group">
                         <input type="text" class="mail-check-input" placeholder="인증 코드를 입력하세요" disabled>
+                        <button type="button" class="btn-sign btn-inline" id="auth_btn" disabled>인증 코드 받기</button>
                     </div>
                     <div id="mail-check-input-info" class="form-field"></div>
                 </form>
+                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-sign btn-full-width">로그인 페이지로 돌아가기</button>
             </div>
         </article>
         <article class="signup-right">

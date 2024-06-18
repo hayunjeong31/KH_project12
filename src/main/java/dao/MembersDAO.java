@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -97,7 +98,10 @@ public class MembersDAO {
             pstat.setString(9, dto.getBirth_date());
             pstat.setInt(10, dto.getAdminKey());
             pstat.setString(11, dto.getTempCode());
-            return pstat.executeUpdate();
+
+            int result = pstat.executeUpdate();
+            System.out.println("Insert 결과: " + result);
+            return result;
         }
     }
 
