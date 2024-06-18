@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+=======
 <%@ page language="java" contentType="text/html; charset=UTF-8" ageEncoding="UTF-8"%>
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -9,165 +14,97 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <style>
-.form-container {
-	border: 1px solid;
-	width: 30%;
-	margin: 0 auto;
-}
-
-.form-row {
-	display: flex;
-	border-bottom: 1px solid;
-}
-
-.form-label {
-	width: 20%;
-	font-weight: bold;
-	padding: 8px;
-	box-sizing: border-box;
-	background-color: #F93F4CFF;
-	color: white;
-}
-
-.form-value {
-	width: 80%;
-	padding: 8px;
-	box-sizing: border-box;
-}
-
-.form-value[contenteditable="true"] {
-	background-color: #f0f0f0;
-}
-
-.button-container {
-	text-align: center;
-	margin-top: 20px;
-}
-
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	padding-top: 100px;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 25px;
-	border: 1px solid #fefefe;
-	width: 20%;
-}
-
-.modal-close {
-	color: gray;
-	float: right;
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.modal-close:hover, .modal-close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.input-container {
-	display: flex;
-	align-items: center;
-}
-
-.input-container p {
-	margin-right: 10px;
-	width: 140px;
-}
-
-.input-container input {
-	flex: 1;
-}
-
-#pwdContent {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 25px;
-	border: 1px solid #fefefe;
-	width: 30%;
-}
+    .form-container {
+        border: 1px solid;
+        width: 30%;
+        margin: 0 auto;
+    }
+    .form-row {
+        display: flex;
+        border-bottom: 1px solid;
+    }
+    .form-label {
+        width: 20%;
+        font-weight: bold;
+        padding: 8px;
+        box-sizing: border-box;
+        background-color: #F93F4CFF;
+        color: white;
+    }
+    .form-value {
+        width: 80%;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    .form-value[contenteditable="true"] {
+        background-color: #f0f0f0;
+    }
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
 </style>
 <body>
-	<c:choose>
-		<c:when test="${dto == null }">
+   <c:choose>
+    <c:when test="${dto == null }">
         에러
     </c:when>
-		<c:otherwise>
-			<form action="/edit.members" id="edit_form" method="post">
-				<div class="form-container">
-					<div class="form-row">
-						<div class="form-label">ID</div>
-						<div class="form-value" id="userId" contenteditable="false">${dto.userId}</div>
-						<input type="hidden" name="userId" id="hiddenUserId"
-							value="${dto.userId}">
-					</div>
-					<div class="form-row">
-						<div class="form-label">Name</div>
-						<div class="form-value" id="userName" contenteditable="false">${dto.userName}</div>
-						<input type="hidden" name="userName" id="hiddenUserName"
-							value="${dto.userName}">
-					</div>
-					<div class="form-row">
-						<div class="form-label">Nickname</div>
-						<div class="form-value" id="nickName" contenteditable="false">${dto.nickName}</div>
-						<input type="hidden" name="nickName" id="hiddenNickName"
-							value="${dto.nickName}">
-					</div>
-					<div class="form-row">
-						<div class="form-label">Phone</div>
-						<div class="form-value" id="phone" contenteditable="false">${dto.phone}</div>
-						<input type="hidden" name="phone" id="hiddenPhone"
-							value="${dto.phone}">
-					</div>
-					<div class="form-row">
-						<div class="form-label">Email</div>
-						<div class="form-value" id="email" contenteditable="false">${dto.email}</div>
-						<input type="hidden" name="email" id="hiddenEmail"
-							value="${dto.email}">
-					</div>
-					<div class="form-row">
-						<div class="form-label">Join Date</div>
-						<div class="form-value">
-							<fmt:formatDate value="${dto.join_date}" pattern="yyyy.MM.dd" />
-						</div>
-					</div>
-				</div>
-				<div class="button-container">
-					<button type="button" id="edit">수정하기</button>
-					<button type="button" id="pwdChange">비밀번호 변경</button>
-					<button type="button" id="back">홈으로</button>
-					<button type="submit" id="ok" style="display: none;">수정 완료</button>
-					<button type="button" id="cancel" style="display: none;">취소하기</button>
-					<button type="button" id="memberout">회원탈퇴</button>
-				</div>
-			</form>
-		</c:otherwise>
-	</c:choose>
+    <c:otherwise>
+        <form action="/edit.members" id="edit_form" method="post">
+            <div class="form-container">
+                <div class="form-row">
+                    <div class="form-label">ID</div>
+                    <div class="form-value" id="userId" contenteditable="false">${dto.userId}</div>
+                    <input type="hidden" name="userId" id="hiddenUserId" value="${dto.userId}">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Name</div>
+                    <div class="form-value" id="userName" contenteditable="false">${dto.userName}</div>
+                    <input type="hidden" name="userName" id="hiddenUserName" value="${dto.userName}">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Nickname</div>
+                    <div class="form-value" id="nickName" contenteditable="false">${dto.nickName}</div>
+                    <input type="hidden" name="nickName" id="hiddenNickName" value="${dto.nickName}">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Phone</div>
+                    <div class="form-value" id="phone" contenteditable="false">${dto.phone}</div>
+                    <input type="hidden" name="phone" id="hiddenPhone" value="${dto.phone}">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Email</div>
+                    <div class="form-value" id="email" contenteditable="false">${dto.email}</div>
+                    <input type="hidden" name="email" id="hiddenEmail" value="${dto.email}">
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Join Date</div>
+                    <div class="form-value"><fmt:formatDate value="${dto.join_date}" pattern="yyyy.MM.dd" /></div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="edit">수정하기</button>
+                <button type="button" id="back">홈으로</button>
+                <button type="submit" id="ok" style="display: none;">수정 완료</button>
+                <button type="button" id="cancel" style="display: none;">취소 하기</button>
+                <button type="button" id="memberout">회원탈퇴</button>
+            </div>
+        </form>
+    </c:otherwise>
+</c:choose>
 
-	<!-- 회원탈퇴 모달창 -->
-	<div id="myModal" class="modal">
-		<div class="modal-content" id="myContent">
-			<span class="modal-close">&times;</span>
-			<p>정말 탈퇴하시겠습니까?</p>
-			<button id="confirmMemberOut">예</button>
-			<button id="cancelMemberOut">아니오</button>
-		</div>
-	</div>
+   <script>
+      $("#memberout").on("click",function(){
+          location.href="/memberout.members?userId=${dto.userId}";
+      });
+   
+      $("#edit").on("click", function() {
+          $("#userName[contenteditable='false']").attr("contenteditable", "true");         
+          $("#phone[contenteditable='false']").attr("contenteditable", "true");
+          $("#email[contenteditable='false']").attr("contenteditable", "true");
 
+<<<<<<< HEAD
+=======
 	<!-- 비밀번호 변경 모달창 -->
 	<div id="pwdModal" class="modal">
 		<div class="modal-content" id="pwdContent">
@@ -387,6 +324,7 @@
           $("#phone[contenteditable='false']").attr("contenteditable", "true");
           $("#email[contenteditable='false']").attr("contenteditable", "true");
 
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
           $("#edit").hide();
           $("#back").hide();
           $("#ok").show();

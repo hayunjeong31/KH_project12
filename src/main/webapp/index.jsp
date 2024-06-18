@@ -8,11 +8,26 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"></script>
+<<<<<<< HEAD
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+=======
 
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 <style>
-input {
-    text-align: center;
+@import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1.5em;
+  color: #747474;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
 }
+<<<<<<< HEAD
+=======
 td {
     text-align: center;
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
@@ -29,6 +44,7 @@ td {
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
 }
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 
 body {
   height: 100vh;
@@ -270,10 +286,22 @@ input:placeholder-shown + label {
 
 .links-container {
   display: flex;
+<<<<<<< HEAD
+  justify-content: center;
+  width: 100%;
+}
+
+.links-container a {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+=======
   justify-content: space-between;
   width: 100%;
 }
 
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 .hidden {
   display: none;
 }
@@ -328,6 +356,107 @@ header {
 </style>
 </head>
 <body>
+<<<<<<< HEAD
+<header>
+    <div class="header-container">
+        <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">홈</a>
+                    <div class="dropdown"></div>
+                </li>
+                <li>
+                    <a href="#">게임</a>
+                    <div class="dropdown">
+                        <a href="win.html">명예의 전당</a>
+                        <a href="#">Subitem 2</a>
+                        <a href="#">랭킹</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="board.html">게시판</a>
+                    <div class="dropdown">
+                        <a href="board.html">게시판</a>
+                        <a href="#">Q&A</a>
+                        <a href="#">공지사항</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">마이페이지</a>
+                    <div class="dropdown">
+                        <a href="#">내 정보 수정</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">관리자 페이지</a>
+                    <div class="dropdown">
+                        <a href="#">대시보드</a>
+                        <a href="#">통계</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="header-buttons">
+            <button class="login-button" onclick="location.href='/members/signup.jsp'">Login</button>
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="main">
+    <section class="sign-up">
+        <article class="signup-left">
+            <h1></h1>
+            <div class="wc_message"></div>
+        </article>
+        <article class="form-area">
+            <c:choose>
+                <c:when test="${not empty sessionScope.loginID}">
+                    <div class="organize-form form-area-signin">
+                        <h2>${sessionScope.loginID}님 환영합니다.</h2>
+                        <div class="form-field">
+                            <button id="logout" class="btn-sign btn-in">로그아웃</button>
+                        </div>
+                        <div class="form-field">
+                            <button id="myinfo" class="btn-sign btn-in">내정보</button>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="organize-form form-area-signin">
+                        <h2>SIGN IN</h2>
+                        <form class="form" action="/login.members" method="post">
+                            <div class="form-field">
+                                <label for="email-in"></label>
+                                <input type="text" name="id" id="email-in" placeholder="ID를 입력하세요" required />
+                            </div>
+                            <div class="form-field">
+                                <label for="password-in"></label>
+                                <input type="password" name="pw" id="password-in" placeholder="비밀번호를 입력하세요" required />
+                            </div>
+                            <button type="submit" class="btn-sign btn-in">로그인</button>
+                            <p>계정이 없으신가요? <a href="${pageContext.request.contextPath}/members/signup.jsp" class="link-up">회원가입</a></p>
+                            <div class="form-field links-container">
+                                <a href="${pageContext.request.contextPath}/emails/findId.jsp" class="link-up">아이디 찾기</a>
+                                <a href="${pageContext.request.contextPath}/emails/findPw.jsp" class="link-up">비밀번호 찾기</a>
+                            </div>
+                        </form>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </article>
+        <article class="signup-right">
+            <i class="fas fa-2x fa-bars bars-style"></i>
+        </article>
+    </section>
+</main>
+<script>
+    $(document).ready(function() {
+=======
 <c:choose>
     <c:when test="${not empty sessionScope.loginID}">
         <table border="1" align="center">
@@ -486,6 +615,7 @@ header {
 </main>
 <script>
     $(document).ready(function() {
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
         $("#logout").on("click", function() {
             console.log("로그아웃 버튼 클릭");
             location.href = "/logout.members";
