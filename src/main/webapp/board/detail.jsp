@@ -220,19 +220,24 @@
 	    	}
 	    });	// ajax로 댓글 불러오기. getcomment
 	    
+	    
+	    // 댓글 수정하기 버튼 클릭 시 
 	    $("#comment-box").on("click", ".co_edit", function() {
             var editableBox = $(this).parent().siblings(".comment").find(".col3");
-         // <br> 태그를 줄바꿈 문자로 변환
+        	 // <br> 태그를 줄바꿈 문자로 변환
             editableBox.html(editableBox.html().replace(/<br\s*\/?>/g, '\n'));
             editableBox.attr("contenteditable", "true");
+            editableBox.css("white-space","pre-wrap");
             editableBox.focus();
-            $(this).css("display", "none");
-            $(this).next().css("display", "inline");
+            $(this).hide(); // 수정하기 버튼 숨기기
+            $(this).siblings(".co_delete").hide(); // 삭제하기 버튼 숨기기
+            $(this).siblings(".co_edit_complete").show(); // 수정완료 버튼 보이기
+            $(this).siblings(".co_cancel").show(); // 수정취소 버튼 보이기
         });
 
 
   
-   
+   		// 댓글 수정완료 버튼 클릭 시 
 	   $("#comment-box").on("click", ".co_edit_complete", function(){
 		   var editableBox = $(this).parent().siblings(".comment").find(".col3");
 		   editableBox.attr("contenteditable", "false");
@@ -242,12 +247,15 @@
 		   
 		   $("#edit_c_seq").val(c_seq);
 		   $("#edit_contents").val(editContents);
+		   $(this).hide(); // 수정완료 버튼 숨기기
+           $(this).siblings(".co_edit").show(); // 수정하기 버튼 보이기
+           $(this).siblings(".co_delete").show(); // 삭제하기 버튼 보이기
+           $(this).siblings(".co_cancel").hide(); // 수정취소 버튼 숨기기
 		   
-		   
-		   $(this).css("display","none");
-		   $(this).prev(".co_edit").css("display","inline");
 		   $("#editForm").submit();
 	   })
+	   
+	   // 댓글 수정취소 버튼 클릭 시 
 		$("#comment-box").on("click", ".co_delete", function() {
 			if (confirm('정말 삭제하시겠습니까?')) {
 	            
