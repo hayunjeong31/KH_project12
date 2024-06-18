@@ -8,20 +8,20 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import commons.EncryptionUtils;
 import dao.MembersDAO;
 import dto.MembersDTO;
 
 @WebServlet("*.members")
 public class MembersController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cmd = request.getRequestURI();
         System.out.println("사용자 요청: " + cmd);
@@ -41,10 +41,11 @@ public class MembersController extends HttpServlet {
                 String signout = request.getParameter("signout");
                 String birth_date = request.getParameter("birth_date");
                 int adminKey = Integer.parseInt(request.getParameter("adminKey"));
+
                 String tempCode = null; // 가입 시에는 임시 코드 없음
 
                 MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey, tempCode);
-
+               response.setStatus(HttpServletResponse.SC_OK);
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {
@@ -72,11 +73,18 @@ public class MembersController extends HttpServlet {
                 String id = request.getParameter("id");
                 String pw = request.getParameter("pw");
                 String spw = EncryptionUtils.getSHA512(pw);
+
+                boolean result = dao.login(id, spw);
+                if (result) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loginID", id);
+
                 MembersDTO member = dao.login(id, spw);
                 if (member != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginID", member.getUserId());
                     session.setAttribute("adminKey", member.getAdminKey());
+
                     response.sendRedirect("/index.jsp");
                 } else {
                     response.sendRedirect("/login.jsp"); // 로그인 실패 시 처리
@@ -86,12 +94,15 @@ public class MembersController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
+
             } else if(cmd.equals("/mypage.members")) {
+
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
                 MembersDTO dto = dao.myInfor(result);
                 request.setAttribute("dto", dto);
                 request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
+
             } else if(cmd.equals("/edit.members")) {
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
@@ -105,6 +116,32 @@ public class MembersController extends HttpServlet {
                 } else {
                     response.sendRedirect("/mypage.members");
                 }
+
+            }
+            // 비밀번호 변경
+            else if (cmd.equals("/pwdChange.members")) {
+                HttpSession session = request.getSession();
+                String loginID = (String) session.getAttribute("loginID");
+                String currentPwd = request.getParameter("currentPwd");
+                String newPwd = request.getParameter("newPwd");
+
+                // 현재 비밀번호 확인
+                boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
+
+                if (isPwdCorrect) {
+                    // 비밀번호 변경
+                    boolean updateSuccess = dao.updatePwd(loginID, newPwd);
+                    if (updateSuccess) {
+                        response.getWriter().write("{\"success\": true}");
+                    } else {
+                        response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
+                    }
+                } else {
+                    // 현재 비밀번호가 일치하지 않았을 시
+                    response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
+                }
+            }
+            // 회원탈퇴
             } else if(cmd.equals("/memberout.members")) {
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
@@ -193,4 +230,5 @@ public class MembersController extends HttpServlet {
             e.printStackTrace();
         }
     }
+
 }
