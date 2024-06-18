@@ -3,34 +3,77 @@ package dto;
 import java.sql.Timestamp;
 
 public class QBoardDTO {
-	
-	private int queSeq;
+	private int seq;
 	private int categorySeq;
-	private String userId;
-	private String title;
-	private String content;
-	private Timestamp reg_date;
+	private String writer;
+	private String title; 
+	private String contents;
+	private Timestamp write_date; 
+	private Timestamp upd_date;
 	private int view_count;
-	private String inAnswered;
+	private String password;
+	private String isAnswered;
+	private int adminKey;
 	
 	
-	public int getQueSeq() {
-		return queSeq;
+	public QBoardDTO() {}
+	
+
+	public QBoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
+			Timestamp upd_date, int view_count, String password, String isAnswered, int adminKey) {
+		super();
+		this.seq = seq;
+		this.categorySeq = categorySeq;
+		this.writer = writer;
+		this.title = title;
+		this.contents = contents;
+		this.write_date = write_date;
+		this.upd_date = upd_date;
+		this.view_count = view_count;
+		this.password = password;
+		this.isAnswered = isAnswered;
+		this.adminKey = adminKey;
 	}
-	public void setQueSeq(int queSeq) {
-		this.queSeq = queSeq;
+
+
+	public Timestamp getUpd_date() {
+		return upd_date;
 	}
+	public void setUpd_date(Timestamp upd_date) {
+		this.upd_date = upd_date;
+	}
+	public int getAdminKey() {
+		return adminKey;
+	}
+	public void setAdminKey(int adminKey) {
+		this.adminKey = adminKey;
+	}
+
+
 	public int getCategorySeq() {
 		return categorySeq;
 	}
 	public void setCategorySeq(int categorySeq) {
 		this.categorySeq = categorySeq;
 	}
-	public String getUserId() {
-		return userId;
+
+	public int getSeq() {
+		return seq;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public String getIsAnswered() {
+		return isAnswered;
+	}
+	public void setIsAnswered(String isAnswered) {
+		this.isAnswered = isAnswered;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getTitle() {
 		return title;
@@ -38,17 +81,17 @@ public class QBoardDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public Timestamp getReg_date() {
-		return reg_date;
+	public Timestamp getWrite_date() {
+		return write_date;
 	}
-	public void setReg_date(Timestamp reg_date) {
-		this.reg_date = reg_date;
+	public void setWrite_date(Timestamp write_date) {
+		this.write_date = write_date;
 	}
 	public int getView_count() {
 		return view_count;
@@ -56,28 +99,11 @@ public class QBoardDTO {
 	public void setView_count(int view_count) {
 		this.view_count = view_count;
 	}
-	public String getInAnswered() {
-		return inAnswered;
+	public String getPassword() {
+		return password;
 	}
-	public void setInAnswered(String inAnswered) {
-		this.inAnswered = inAnswered;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
-	public QBoardDTO() {}
-	
-	public QBoardDTO(int queSeq, int categorySeq, String userId, String title, String content, Timestamp reg_date,
-			int view_count, String inAnswered) {
-		super();
-		this.queSeq = queSeq;
-		this.categorySeq = categorySeq;
-		this.userId = userId;
-		this.title = title;
-		this.content = content;
-		this.reg_date = reg_date;
-		this.view_count = view_count;
-		this.inAnswered = inAnswered;
-	}
-	
-	
-	
+
 }

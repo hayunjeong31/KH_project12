@@ -8,6 +8,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +65,26 @@ public class MembersController extends HttpServlet {
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
                 }
 
+<<<<<<< HEAD
+=======
+                String tempCode = null; // 가입 시에는 임시 코드 없음
+
+                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey, tempCode);
+               response.setStatus(HttpServletResponse.SC_OK);
+                try {
+                    int result = dao.addMember(dto);
+                    if (result > 0) {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.sendRedirect("/index.jsp");
+                    } else {
+                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "회원 가입에 실패했습니다.");
+                    }
+                } catch (Exception e) {
+                    request.setAttribute("error", e.getMessage());
+                    request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                }
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
             } else if (cmd.equals("/idcheck.members")) {
                 String userId = request.getParameter("userId");
                 boolean isAvailable = dao.isUserIdAvailable(userId);
@@ -75,11 +99,26 @@ public class MembersController extends HttpServlet {
                 String id = request.getParameter("id");
                 String pw = request.getParameter("pw");
                 String spw = EncryptionUtils.getSHA512(pw);
+<<<<<<< HEAD
                 MembersDTO member = dao.login(id, spw);
                 if (member != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginID", member.getUserId());
                     session.setAttribute("adminKey", member.getAdminKey());
+=======
+
+                boolean result = dao.login(id, spw);
+                if (result) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loginID", id);
+
+                MembersDTO member = dao.login(id, spw);
+                if (member != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loginID", member.getUserId());
+                    session.setAttribute("adminKey", member.getAdminKey());
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
                     response.sendRedirect("/index.jsp");
                 } else {
                     response.sendRedirect("/login.jsp"); // 로그인 실패 시 처리
@@ -89,12 +128,22 @@ public class MembersController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
+<<<<<<< HEAD
             } else if(cmd.equals("/mypage.members")) {
+=======
+
+            } else if(cmd.equals("/mypage.members")) {
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
                 MembersDTO dto = dao.myInfor(result);
                 request.setAttribute("dto", dto);
                 request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
+<<<<<<< HEAD
+=======
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
             } else if(cmd.equals("/edit.members")) {
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
@@ -108,6 +157,35 @@ public class MembersController extends HttpServlet {
                 } else {
                     response.sendRedirect("/mypage.members");
                 }
+<<<<<<< HEAD
+=======
+
+            }
+            // 비밀번호 변경
+            else if (cmd.equals("/pwdChange.members")) {
+                HttpSession session = request.getSession();
+                String loginID = (String) session.getAttribute("loginID");
+                String currentPwd = request.getParameter("currentPwd");
+                String newPwd = request.getParameter("newPwd");
+
+                // 현재 비밀번호 확인
+                boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
+
+                if (isPwdCorrect) {
+                    // 비밀번호 변경
+                    boolean updateSuccess = dao.updatePwd(loginID, newPwd);
+                    if (updateSuccess) {
+                        response.getWriter().write("{\"success\": true}");
+                    } else {
+                        response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
+                    }
+                } else {
+                    // 현재 비밀번호가 일치하지 않았을 시
+                    response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
+                }
+            }
+            // 회원탈퇴
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
             } else if(cmd.equals("/memberout.members")) {
                 HttpSession session = request.getSession();
                 String result = (String)session.getAttribute("loginID");
@@ -196,4 +274,8 @@ public class MembersController extends HttpServlet {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
 }
