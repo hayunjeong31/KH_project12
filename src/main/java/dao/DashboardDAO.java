@@ -116,4 +116,20 @@ public class DashboardDAO {
 		return ageList;
 	}
 	// 사용자 성별 받아오는 DAO
+	
+	public List<String> getAllGenderFromUser(){
+		String getAllGenderFromUser = "select gender from members";
+		List<String> genderList = new ArrayList<>();
+		try (Connection conn = this.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(getAllGenderFromUser);
+				ResultSet rs = pstmt.executeQuery();) {
+			while(rs.next()) {
+				String gender = rs.getString("gender");
+				genderList.add(gender);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return genderList;
+	}
 }

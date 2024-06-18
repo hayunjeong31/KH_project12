@@ -2,6 +2,7 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+
 <html lang="ko">
 
 <head>
@@ -210,20 +211,28 @@ div {
 				</div>
 				<!-- chart.js 통계 들어갈 자리 -->
 				<div id="static-div"
-					class="card justify-content-center align-items-center d-flex">
-					<div class="row w-100 h-100" class="card justify-content-center">
+					class="row card justify-content-center align-items-center d-flex">
+					<div class="w-100 h-100 d-flex"
+						class="card justify-content-center d-flex"
+						style="flex-direction: row !important">
 						<!--성별별 통계-->
 						<div
-							class="w-50 h-100 justify-content-center align-items-center d-flex flex-column">
-							<h5>성별별 통계</h5>
-							<canvas id="myChart"></canvas>
+							class="w-50 h-80 justify-content-center align-items-center d-flex card m-3">
+							<div>
+								<h5>성별별 통계</h5>
+								<div style="border: none;">
+									<canvas id="myChart" class="w-80 h-80"></canvas>
+								</div>
+							</div>
 						</div>
 						<!--연령별 통계-->
 						<div
-							class="w-50 h-100 justify-content-center align-items-center d-flex flex-column">
-							<h5>연령별 통계</h5>
-							<div style="border: none;">
-								<canvas id="myChart2" class="w-80 h-80"></canvas>
+							class="w-50 h-80 justify-content-center align-items-center d-flex card m-3">
+							<div>
+								<h5>연령별 통계</h5>
+								<div style="border: none;">
+									<canvas id="myChart2" class="w-80 h-80"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -268,7 +277,7 @@ div {
 						<a onclick="location.href = '/showAllMemberList.dashBoard'">사용자
 							관리 </a>
 					</h5>
-					<div style="border: none; overflow: auto;">
+					<div style="border: none; overflow: auto;" class="m-3">
 						<table class="table table-hover p-3">
 							<thead>
 								<tr>
@@ -286,7 +295,7 @@ div {
 										<td>${memberList.userName}</td>
 										<td>${memberList.nickName}</td>
 										<td>정상</td>
-										<td><button>편집</button></td>
+										<td class="h-80 w-80 "><button class="btn btn-primary">편집</button></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -296,9 +305,59 @@ div {
 			</div>
 		</div>
 	</div>
-	<c:set var='ageList' value='${ageList }'></c:set>
-	<h5>${ageList }</h5>
+	<c:set var='age' value='${ageList }'></c:set>
+	<c:forEach var='ageList' items='${ageList}' varStatus='status'>
+		<input type='hidden' value='${ageList}' name='ageList'>
+	</c:forEach>
+	<c:set var='gender' value='${genderList }'></c:set>
+	<c:forEach var='genderList' items='${gender}' varStatus='status'>
+		<input type='hidden' value='${genderList}' name='genderList'>
+	</c:forEach>
 	<script>
+	//input name = ageList에서 값 뽑아냄
+	let ageList = $("input[name='ageList']");
+	let teenagerAndUnder = 0;
+	let twenties = 0;
+	let thirties = 0;
+	let forties = 0;
+	let fifites = 0 ;
+	let sixties = 0;
+	let seventiesAndUpper = 0;
+	ageList.each(function(){
+		console.log($(this).val());
+		//나이대 계산하는 수식
+		let ageRange = Math.trunc((2024-($(this).val())+1)/10);
+		//10대거나 그 아래라면
+		if(ageRange === 1 || 0){
+			teenagerAndUnder++;
+		}else if(ageRange ===2){
+			twenties++;
+		}else if(ageRange ===3){
+			thirties++;
+		}else if(ageRange ===4){
+			forties++;
+		}else if(ageRange ===5){
+			fifites++;
+		}else if(ageRange ===6){
+			sixties++;
+		}else if(ageRange >=7){
+			seventiesAndUpper++;
+		}
+	})
+	
+	console.log(teenagerAndUnder+":"+twenties+":"+thirties+":"+forties+":"+fifites+":"+sixties+":"+seventiesAndUpper)
+	//genderList에서 값뽑아냄
+	let genderList =  $("input[name='genderList']");
+	let manCount = 0;
+	let femaleCount =0;
+	genderList.each(function(){
+		console.log($(this).val())
+		if($(this).val()==='M'){
+			manCount++;
+		}else if($(this).val() === 'F'){
+			femaleCount++;
+		}
+	})
 		function menuEvent() {
 			const menu = document.getElementById("sidenav-collapse-main");
 			if (menu.style.display === "block") {
@@ -314,19 +373,16 @@ div {
 				menu.style.display = "none";
 			}
 		}
-	</script>
-	<script>
 		const ctx = document.getElementById('myChart');
 
 		new Chart(ctx,
 				{
 					type : 'bar',
 					data : {
-						labels : [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple',
-								'Orange' ],
+						labels : [ '남성','여성'],
 						datasets : [ {
 							label : '# of Votes',
-							data : [ 12, 19, 3, 5, 2, 3 ],
+							data : [manCount, femaleCount],
 							borderWidth : 1
 						} ]
 					},
@@ -338,19 +394,17 @@ div {
 						}
 					}
 				});
-	</script>
-	<script>
+		
 		const ctx1 = document.getElementById('myChart2');
-
 		new Chart(ctx1,
 				{
 					type : 'doughnut',
 					data : {
-						labels : [ 'Red', 'Blue', 'Yellow', 'Green', 'Purple',
-								'Orange' ],
+						//나이 통계
+						labels : [ '10대 또는 그 이하', '20대', '30대', '40대', '50대', '60대', '70대 또는 그 이상'],
 						datasets : [ {
 							label : '# of Votes',
-							data : [ 12, 19, 3, 5, 2, 3 ],
+							data : [teenagerAndUnder,twenties,thirties,forties,fifites,sixties,seventiesAndUpper],
 							borderWidth : 1
 						} ]
 					},

@@ -33,24 +33,15 @@ public class DashboardController extends HttpServlet {
 			List<MembersDTO> memberList = dao.selectAllMembersAsAdmin();
 			List<Integer> ageList = dao.getAllAgeFromUsers();
 			List<Integer> subStringAgeList = new ArrayList<>();
-			JsonArray ageArray = new JsonArray();
+			List<String> genderList = dao.getAllGenderFromUser();
 			for(Integer age: ageList) {
-				String subStringAge =age.toString().substring(0,2);
-				if(subStringAge.contains("9") || subStringAge.contains("8")||subStringAge.contains("7")||
-						subStringAge.contains("6") || subStringAge.contains("5") || subStringAge.contains("4")||subStringAge.contains("3")) {
-					int birthYear = (Integer.parseInt("19"+subStringAge));
-					subStringAgeList.add((2024-(Integer)birthYear)%10);
-					ageArray.add((2024-(Integer)birthYear)%10);
-				}else {
-					int birthYear = (Integer.parseInt("20"+subStringAge));
-					subStringAgeList.add((2024-(Integer)birthYear)%10);
-					ageArray.add((2024-(Integer)birthYear)%10);
-					System.out.println((2024-(Integer)birthYear)%10);
-				}
+				Integer subStrAge =Integer.parseInt(age.toString().substring(0,4));
+				subStringAgeList.add(subStrAge);
 			}
 			session.setAttribute("memberList", memberList);
 			session.setAttribute("boardList", boardList);
-			session.setAttribute("ageList", ageArray);
+			session.setAttribute("ageList", subStringAgeList);
+			session.setAttribute("genderList", genderList);
 		}
 
 		request.getRequestDispatcher("/dashboard/dashboardIndex.jsp").forward(request, response);
