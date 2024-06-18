@@ -18,13 +18,12 @@ public class MembersDTO {
     private int adminKey;
     private String tempCode;  // 새로 추가된 필드
 
-    public MembersDTO() {}
+    public MembersDTO() {
+    super();
+    }
 
     public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone, String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date, int adminKey, String tempCode) {
-<<<<<<< HEAD
-=======
 
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
         this.userSeq = userSeq;
         this.userId = userId;
         this.userPwd = userPwd;
@@ -149,8 +148,6 @@ public class MembersDTO {
         return tempCode;
     }
 
-<<<<<<< HEAD
-=======
 	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
 	}
@@ -250,9 +247,6 @@ public class MembersDTO {
 	public void setAdminKey(int adminKey) {
 		this.adminKey = adminKey;
 	}
-
-    
-=======
 
     }
 
@@ -363,8 +357,6 @@ public class MembersDTO {
     public String getTempCode() {
         return tempCode;
     }
-
->>>>>>> a91a0e4e24369a7d37098e7fe4f080ccfb4a906b
     public void setTempCode(String tempCode) {
         this.tempCode = tempCode;
     }

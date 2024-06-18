@@ -29,11 +29,7 @@ public class FileController extends HttpServlet {
 		FilesDAO dao = new FilesDAO();
 		
 		try {
-			if(cmd.equals("/upload.file")) {
-		
-				
-			
-			}else if(cmd.equals("/download.file")) {
+			if(cmd.equals("/download.file")) {
 				String filepath = request.getServletContext().getRealPath("files");   // 다운 받을 파일의 위치 확보
 	            String sysname = request.getParameter("sysname");              		 // 다운 받을 파일 이름 확보
 	            String oriname = request.getParameter("oriname");
