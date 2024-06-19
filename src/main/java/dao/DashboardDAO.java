@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import dto.BoardDTO;
-import dto.FreeBoardDTO;
+import dto.BoardDTO;
 import dto.MembersDTO;
 
 public class DashboardDAO {
@@ -36,10 +36,10 @@ public class DashboardDAO {
 	}
 	// 게시판 전부 받아오는 DAO
 
-	public List<FreeBoardDTO> getAllBoardListAsAdmin() {
+	public List<BoardDTO> getAllBoardListAsAdmin() {
 		String getAllBoardListAsAdminSQL = "select * from Free_Board";
-		FreeBoardDTO selectedOneBoard = new FreeBoardDTO();
-		List<FreeBoardDTO> allBoardList = new ArrayList<>();
+		BoardDTO selectedOneBoard = new BoardDTO();
+		List<BoardDTO> allBoardList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllBoardListAsAdminSQL);
 				ResultSet rs = pstmt.executeQuery();) {
@@ -54,7 +54,7 @@ public class DashboardDAO {
 				int view_count = rs.getInt("view_count");
 				int adminKey = rs.getInt("adminkey");
 
-				selectedOneBoard = new FreeBoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
+				selectedOneBoard = new BoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
 						updated_date, view_count, adminKey);
 
 				allBoardList.add(selectedOneBoard);
