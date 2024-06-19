@@ -11,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import dao.DashboardDAO;
+import dto.BoardDTO;
 import dto.FreeBoardDTO;
 import dto.MembersDTO;
 
@@ -34,6 +31,7 @@ public class DashboardController extends HttpServlet {
 			List<Integer> ageList = dao.getAllAgeFromUsers();
 			List<Integer> subStringAgeList = new ArrayList<>();
 			List<String> genderList = dao.getAllGenderFromUser();
+			
 			for(Integer age: ageList) {
 				Integer subStrAge =Integer.parseInt(age.toString().substring(0,4));
 				subStringAgeList.add(subStrAge);

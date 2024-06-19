@@ -377,7 +377,7 @@ div {
 
 		new Chart(ctx,
 				{
-					type : 'bar',
+					type : 'pie',
 					data : {
 						labels : [ '남성','여성'],
 						datasets : [ {

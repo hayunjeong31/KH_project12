@@ -18,10 +18,28 @@ public class MembersDTO {
     private int adminKey;
     private String tempCode;  // 새로 추가된 필드
 
-    public MembersDTO() {}
+    public MembersDTO() {
+    	super();
+    }
 
-    public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone, String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date, int adminKey, String tempCode) {
-
+    public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone, 
+    		String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date, 
+    		int adminKey, String tempCode) {
+    	this.userSeq = userSeq;
+    	this.userId=userId;
+    	this.userPwd=userPwd;
+    	this.userName=userName;
+    	this.nickName=nickName;
+    	this.phone=phone;
+    	this.email=email;
+    	this.gender = gender;
+    	this.signout=signout;
+    	this.birth_date=birth_date;
+    	this.join_date=join_date;
+    	this.upd_date=upd_date;
+    	this.adminKey=adminKey;
+    	this.tempCode=tempCode;
+    	
     }
 
     public int getUserSeq() {

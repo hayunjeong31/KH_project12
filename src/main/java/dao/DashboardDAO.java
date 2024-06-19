@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import dto.BoardDTO;
 import dto.FreeBoardDTO;
 import dto.MembersDTO;
 
@@ -87,48 +88,50 @@ public class DashboardDAO {
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
-				String tempCode = rs.getString("temp_code");
-				selectedOneMember = new MembersDTO(userSeq,userId,userPwd,userName,nickName,phone,email,gender,signout,birth_date,join_date,updated_date,adminKey,tempCode);
+				String tempCode = rs.getString("tempcode");
+				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
+						signout, birth_date, join_date, updated_date, adminKey, tempCode);
 				selectedAllmemberList.add(selectedOneMember);
-				//수정예정
+				// 수정예정
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return selectedAllmemberList;
 	}
+
 	// 사용자 연령대 받아오는 DAO
-	public List<Integer> getAllAgeFromUsers(){
+	public List<Integer> getAllAgeFromUsers() {
 		String getAllAgeFromUsersSQL = "select birth_date from members";
 		List<Integer> ageList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllAgeFromUsersSQL);
 				ResultSet rs = pstmt.executeQuery();) {
-			while(rs.next()) {
+			while (rs.next()) {
 				int birthdate = rs.getInt("birth_date");
-				ageList.add((Integer)birthdate);
+				ageList.add((Integer) birthdate);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return ageList;
 	}
 	// 사용자 성별 받아오는 DAO
-	
-	public List<String> getAllGenderFromUser(){
+
+	public List<String> getAllGenderFromUser() {
 		String getAllGenderFromUser = "select gender from members";
 		List<String> genderList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllGenderFromUser);
 				ResultSet rs = pstmt.executeQuery();) {
-			while(rs.next()) {
+			while (rs.next()) {
 				String gender = rs.getString("gender");
 				genderList.add(gender);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return genderList;
