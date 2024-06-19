@@ -29,11 +29,7 @@ public class FileController extends HttpServlet {
 		FilesDAO dao = new FilesDAO();
 		
 		try {
-			if(cmd.equals("/upload.file")) {
-		
-				
-			
-			}else if(cmd.equals("/download.file")) {
+			if(cmd.equals("/download.file")) {
 				String filepath = request.getServletContext().getRealPath("files");   // 다운 받을 파일의 위치 확보
 	            String sysname = request.getParameter("sysname");              		 // 다운 받을 파일 이름 확보
 	            String oriname = request.getParameter("oriname");
@@ -56,18 +52,6 @@ public class FileController extends HttpServlet {
 			}
 		}
 			
-			// 파일 삭제 servlet - > 수정완료했을떼 실행되도록 해야함. 
-			else if (cmd.equals("/delete.file")) {
-	           
-	                String sysname = request.getParameter("sysname");
-	                int result = dao.deleteBySysname(sysname);
-	                if (result > 0) {
-	                    response.getWriter().write("success");
-	                } else {
-	                    response.getWriter().write("failure");
-	                }
-	           
-	        }	
 			
 			
 		
