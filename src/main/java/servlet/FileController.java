@@ -52,18 +52,6 @@ public class FileController extends HttpServlet {
 			}
 		}
 			
-			// 파일 삭제 servlet - > 수정완료했을떼 실행되도록 해야함. 
-			else if (cmd.equals("/delete.file")) {
-	           
-	                String sysname = request.getParameter("sysname");
-	                int result = dao.deleteBySysname(sysname);
-	                if (result > 0) {
-	                    response.getWriter().write("success");
-	                } else {
-	                    response.getWriter().write("failure");
-	                }
-	           
-	        }	
 			
 			
 		

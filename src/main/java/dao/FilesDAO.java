@@ -38,10 +38,11 @@ public class FilesDAO {
 			return pstat.executeUpdate();
 		}
 	}
-	public List<FilesDTO> selectAll(int parent_seq) throws Exception{
-		String sql = "select * from files where parent_seq=?";
+	public List<FilesDTO> selectAll(int parent_seq, int categorySeq) throws Exception{
+		String sql = "select * from files where parent_seq=? and categoryseq=?";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setInt(2, categorySeq );
 			pstat.setInt(1, parent_seq);
 			try(ResultSet rs = pstat.executeQuery()){
 					
@@ -51,7 +52,7 @@ public class FilesDAO {
 					String oriname = rs.getString("oriname");
 					String sysname = rs.getString("sysname");
 					int pseq = rs.getInt("parent_seq");
-					int categorySeq = rs.getInt("categorySeq");
+					
 					list.add(new FilesDTO(seq, oriname, sysname, pseq,categorySeq));
 					
 				}return list;
@@ -59,11 +60,12 @@ public class FilesDAO {
 		}
 	}
 		
-	 public int deleteBySysname(String sysname) throws Exception {
-	        String sql = "delete from files where sysname=?";
+	 public int deleteBySysname(String sysname, int categorySeq) throws Exception {
+	        String sql = "delete from files where sysname=? and categorySeq=?";
 	        try (Connection con = this.getConnection();
 	             PreparedStatement pstat = con.prepareStatement(sql)) {
 	            pstat.setString(1, sysname);
+	            pstat.setInt(2, categorySeq);
 	            return pstat.executeUpdate();
 	        }
 	    }

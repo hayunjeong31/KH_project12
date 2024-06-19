@@ -22,7 +22,6 @@ import dao.FilesDAO;
 import dao.ReplyDAO;
 import dto.BoardDTO;
 import dto.FilesDTO;
-import dto.QBoardDTO;
 import dto.ReplyDTO;
 
 @WebServlet("*.board")
@@ -110,10 +109,10 @@ public class BoardController extends HttpServlet {
 				
 				Enumeration<String> names = multi.getFileNames();
 				while(names.hasMoreElements()) {
+					int categorySeq =1;
 					String name = names.nextElement();
 					String oriname = multi.getOriginalFileName(name);
 					String sysname = multi.getFilesystemName(name);
-					int categorySeq =1;
 					if(oriname!=null) {
 						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq,categorySeq));
 					}
@@ -128,10 +127,11 @@ public class BoardController extends HttpServlet {
                 String loginID = (String)request.getSession().getAttribute("loginID");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				BoardDTO dto = dao.getinfo(seq);
+				int categorySeq = 1;
 				request.setAttribute("dto", dto);
 				request.setAttribute("iswriter", dto.getWriter().equals(loginID));
 				
-				List<FilesDTO> list = f_dao.selectAll(seq);
+				List<FilesDTO> list = f_dao.selectAll(seq, categorySeq);
 				request.setAttribute("list", list);
 				
 				dao.increaseViewCount(seq); 
@@ -144,20 +144,61 @@ public class BoardController extends HttpServlet {
 			else if (cmd.equals("/edit.board")) {
                 int seq = Integer.parseInt(request.getParameter("seq"));
                 BoardDTO dto = dao.getinfo(seq);
+                List<FilesDTO> list = f_dao.selectAll(seq,1);
+                request.setAttribute("list", list);
                 request.setAttribute("dto", dto);
                 request.getRequestDispatcher("/board/edit.jsp").forward(request, response);
+                
+                //
+                
 
             }	// 게시글 수정하기 
 			else if (cmd.equals("/update.board")) {
-                int seq = Integer.parseInt(request.getParameter("seq"));
-                System.out.println("seq: "+seq);
-                String title = request.getParameter("title");
-                System.out.println(title);
-                String contents = request.getParameter("contents");
-                System.out.println(contents);
-                dao.update(new BoardDTO(seq,0, null, title, contents, null,null,0, 0));
-                response.sendRedirect("/detail.board?seq=" +seq);
+               
+                //////////////////////////
+                int maxSize = 1024 * 1024 *10; 
+				String realPath = request.getServletContext().getRealPath("files");
+				File uploadPath = new File(realPath);  
+				if(!uploadPath.exists()) { 
+					uploadPath.mkdir(); 
+				}
+				MultipartRequest multi = new MultipartRequest(request,realPath,maxSize, "UTF8",new DefaultFileRenamePolicy());
+				String title = multi.getParameter("post-title");
+				String contents = multi.getParameter("contents");
+				
+				
+				int parent_seq = Integer.parseInt(multi.getParameter("post-seq"));
+				dao.update(new BoardDTO(parent_seq,0, null, title, contents, null,null,0, 0));
+				
+				
+				// 숨긴 파일 정보 받아서 삭제하기 .
+				String deletedFiles = multi.getParameter("deletedFilesInput"); // multi로 parameter받아와야함.! no 실수 !! 
+				System.out.println("Deleted Files Input: " + deletedFiles);
+				if(deletedFiles !=null && !deletedFiles.isEmpty()) {
+					String[] filesToDelete = deletedFiles.split(",");
+					for (String filename : filesToDelete) {
+                        f_dao.deleteBySysname(filename, 1); // categorySeq가 1인 파일 삭제
+                        new File(realPath+"/"+filename).delete();
+                        // 파일은 서버의 영향을 안받는 경우가 있어 제대로 삭제가 안되는 경우가 있다 .그럴 경우 다시 삭제를 할 수 있도록 logic 구현을 해주면 좋다! <강사님 曰>
+                    }
+				}
+				
+				// 업로드 된 파일 insert 하기 . 
+				Enumeration<String> names = multi.getFileNames();
+				while(names.hasMoreElements()) {
+					String name = names.nextElement();
+					String oriname = multi.getOriginalFileName(name);
+					String sysname = multi.getFilesystemName(name);
+					int categorySeq = 1;
+					if(oriname!=null) {
+						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq,categorySeq));
+					}
+				}
+				List<FilesDTO> updatedFileList  = f_dao.selectAll(parent_seq,1);
+				request.setAttribute("list", updatedFileList);
 
+				response.sendRedirect("/detail.board?seq=" +parent_seq);
+				
             }	//게시글 삭제하기 
 			else if (cmd.equals("/delete.board")) {
                 int seq = Integer.parseInt(request.getParameter("seq"));

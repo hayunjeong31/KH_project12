@@ -1,130 +1,357 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
-<style>
-	body {
-	  font-family: Inter, sans-serif;
-	  height: 100vh;
-	}
-	*{ box-sizing: border-box; margin:0; padding:0;}
-		
-        .container{width: 50%; margin:auto; border:1px solid black;}
-        .header{
-        	height:60px;
-        	display:flex; justify-content:center; align-items:center;
-        	border:1px solid black;   margin:5%;      	
-         }
-        .content{border:1px solid white; }
-        .row2{display: flex; width: 100%;border:1px solid white; margin-top:4%;margin-bottom:3;}
-        .col1{ margin-left:5px;}
-        .col2{ margin-left:5px;}
-        .writer_info{ margin-left:5px;}
-        .write_info{display: flex; width: 100%;border:1px solid black;}
-        .col4{ margin-left:5px;;}
-        .col5{ margin-left:5px;}
-
-         button {
-	        background: #b3f1a0de ; 
-	        color: white; 
-	        border: none; 
-	        padding: 10px 20px;
-	        margin:5px 0 5px 5px;
-	        
-	        font-size: 16px; 
-	        font-weight: bold; 
-	        border-radius: 5px; 
-	        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-	        cursor: pointer; 
-	        transition: background 0.3s ease, box-shadow 0.3s ease;
-	    }
-	    
-	    button:hover {
-	        background: #b3f1a0de; 
-	        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
-	    }
-	    
-	    button:active {
-	        background: #b3f1a0de; 
-	        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-	    }
-	    #title{width: 80%; height: 30px;padding:2%; margin-top:2%; margin-bottom: 1%;  border: 1px solid dodgerblue; border-radius: 10px;}
-	     
-</style> 
-</head>
-<body>
-
-   <div class="container" >
-       <div class="header">게시글 수정</div>
-       <form action="/update.board" method="post">
-       	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-   		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-       <div class="content">
-       	  	
-	       <div class="row2">
-	           <div class="col1" id="rc1">${dto.seq}</div>
-	           <input type="hidden" id="hidden_seq" name="seq">
-	           <input type="text" id="title" name="title" value="${dto.title}" placeholder="제목을 입력하세요.">
-	       </div>
-	       <div class="writer_info">
-	       		<div class="col3" id="rcwriter">${dto.writer}</div>
-	       </div>
-	       <div class="write_info">		
-	           	<div class="col4" id="rcwritedate">${dto.write_date}</div>
-	           	<div class="col5" id="rcview">${dto.view_count}</div>
-	       </div>
-	       <div class="row3">
-	       	<div id="summernote">${dto.contents}</div>
-	       </div>
-	       <input type="hidden" id="contents" name="contents">
-       </div>
-       <div class="row5">
-                <button type="submit" id="btncomplete">수정완료</button>
-                <button type="button" onclick="location.href='/detail.board?seq=${dto.seq}'">취소</button>
-    	</div>
-    	</form>  
-    </div>
-    <script>
-      $('#summernote').summernote({
-        placeholder: '내용을 입력해 주세요.',
-        tabsize: 2,
-        height: 400,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    </script>
-    <script>
-    	$("#btncomplete").on("click",function(){
-    		if($("#title").val() == ""){
-    			alert("제목을 입력하세요.");
-    			return false;
-    		}
-    		var markupStr = $('#summernote').summernote('code');
-    		if(markupStr =="<p><br></p>"){
-    			alert("내용을 입력해 주세요.");
-    			return false;
-    		}
-    		$("#hidden_seq").val($("#rc1").text().trim());
-    		$("#title").val();
-    		$("#contents").val(markupStr);
-    	
-    	})
-    </script>
 
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body,
+        html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('image/5033917.jpg');
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 60px;
+            background-image: url('image/9.png');
+        }
+
+     
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-color: #f4f4f463;
+            width: 80%;
+            height: 80%;
+            margin: 80px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .board-section,
+        .edit-post-section {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.412);
+        }
+
+        .board-left {
+            flex: 1;
+            background-color: rgba(195, 208, 23, 0.578);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .board-left h1 {
+            font-size: 36px;
+        }
+
+        .edit-post-area {
+            flex: 2;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-post-area h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .post-form {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-field {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .form-field input[type="text"],
+        .form-field input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc77;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-field input[type="file"] {
+            border: none;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .form-buttons button {
+            padding: 10px 20px;
+            border: none;
+            background-color: rgba(195, 208, 23, 0.578);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 48%;
+        }
+
+        .form-buttons button:hover {
+            background-color: rgba(221, 235, 16, 0.78);
+        }
+
+        .wc_message {
+            display: none;
+        }
+        
+        /* Summernote 배경색 설정 */
+        .note-editable {
+            background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+        }
+   
+	   .note-resizebar{
+	   	 	display: none;
+	   }
+	    #fileloading{
+	   	margin-bottom:0;
+	   	padding-bottom:0;
+	   }
+	   .uploadedFile .file-list{
+	  	padding-left:10px;
+	   	margin-bottom:2%;
+	   }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">홈</a>
+                    </li>
+                    <li>
+                        <a href="notice.html">공지사항</a>
+                    </li>
+                    <li>
+                        <a href="#">내 정보</a>
+                        <div class="dropdown">
+                            <a href="#">내 정보 보기</a>
+                            <a href="#">내 정보 수정</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">관리자 페이지</a>
+                        <div class="dropdown">
+                            <a href="#">대시보드</a>
+                            <a href="#">통계</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+                <button class="login-button" onclick="location.href='join.html'">Login</button>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="edit-post-section">
+            <article class="board-left">
+                <h1>자유 수정</h1>
+                <div class="wc_message"></div>
+            </article>
+            <article class="edit-post-area">
+                <h2></h2>
+                <form class="post-form" id="editform" action="/update.board" method="post" enctype="multipart/form-data">
+                    <div class="form-field">
+                        <label>글 제목</label>
+                        <input type="text" id="post-title" name="post-title" value="${dto.title}" placeholder="제목을 입력하세요." required>
+                        <input type="hidden" id="post-seq" name="post-seq" value="${dto.seq}">
+                    </div>
+                    <div class="form-field">
+                        <label>내용</label>
+                        <div id="summernote">${dto.contents}</div>
+                        <input type="hidden" id="contents" name="contents">
+                    </div>
+              
+              	 	<!-- 업로드 파일 갯수에 따른 input file 태그 갯수 생성 -->
+                     <div class="form-field" id="fileloading">
+                      <label>파일 업로드</label>
+   					 
+                        <c:choose>
+                        	<c:when test="${list.size() == 0}">
+	                        	<input type="file" name="file1"><br>
+						  		<input type="file" name="file2"><br>
+                        	</c:when>
+                        	<c:when test="${list.size() == 1}">
+                        		<input type="file" name="file1"><br>
+                        	</c:when>
+                        	<c:otherwise>
+                        	</c:otherwise>
+                       	</c:choose>
+                       	
+                       <div class="fileinputtag"></div>
+                       
+                    </div>
+   					 <!-- 수정 해야하는 부분 시작 .deleteFile 버튼 누르면 hide되게.  -->
+	                    <div class="uploadedFile">
+	                        <c:forEach var="file" items="${list}">
+                            	<div class="file-list">
+	                                <i class="fa-regular fa-file"></i>
+	                                ${file.oriname}
+	                                <button type="button" class="deleteFile" data-sysname="${file.sysname}">삭제<i class="fa-solid fa-trash"></i></button>
+	                        	</div>
+	                        </c:forEach>
+	                    </div>
+                    <!-- 수정된 부분 끝 -->
+                    
+                    <!--  숨긴 파일 정보 hidden에 저장하기  -->
+                    <input type="hidden" id="deletedFilesInput" name="deletedFilesInput">
+                                   
+                    <div class="form-buttons">
+                        <button type="button" id="btncomplete">수정완료</button>
+                        <button type="button" class="btn-cancel">취소</button>
+                    </div>
+                    
+                </form>
+            </article>
+        </section>
+    </main>
+    
+   <script>
+   
+   var deletedFiles = [];
+	$(document).ready(function(){
+	    $('#summernote').summernote({
+	        placeholder: '내용을 입력해 주세요.',
+	        tabsize: 2,
+	        height: 250,
+	        toolbar: [
+	          ['style', ['style']],
+	          ['font', ['bold', 'underline', 'clear']],
+	          ['color', ['color']],
+	          ['para', ['ul', 'ol', 'paragraph']],
+	          ['table', ['table']],
+	          ['insert', ['link', 'picture', 'video']],
+	          ['view', ['fullscreen', 'codeview', 'help']]
+	        ]
+	    });
+	
+	    // 게시글 수정취소 버튼
+	    $(".btn-cancel").on("click", function(){
+	        if (!confirm("수정을 취소하시겠습니까?")){
+	            event.preventDefault();
+	            return false;
+	        } else {
+	            location.href='/detail.board?seq=${dto.seq}';
+	        }
+	    });
+	
+	    // 파일 옆 삭제 버튼 클릭 시
+	    $(".deleteFile").on("click", function(){
+	        $(this).parent().hide(); // 해당 파일 항목 숨기기
+	        
+	        var sysname = $(this).data("sysname");
+	        $(this).parent().hide(); // 파일 숨기기
+	        console.log("삭제할 파일 sysname: " + sysname);
+	        
+	        // 삭제할 파일의 sysname을 deletedFiles 배열에 추가
+	     	 deletedFiles.push(sysname);
+	        
+	        // 새 파일 업로드 input 추가
+	        var fileCount = $(".fileinputtag input[type=file]").length + 1;
+	        var fileinput = $("<input>", {
+	            "type": "file",
+	            "name": "file" + fileCount+3
+	        });
+	        $(".fileinputtag").append(fileinput);
+	    });
+	
+	    // 게시글 수정완료 버튼 클릭 시
+	    $("#btncomplete").on("click", function(){
+	        if ($("#post-title").val() == ""){
+	            alert("제목을 입력하세요.");
+	            return false;
+	        }
+	        var markupStr = $('#summernote').summernote('code');
+	        if (markupStr === "<p><br></p>"){
+	            alert("내용을 입력해 주세요.");
+	            return false;
+	        }
+	        
+	        // 게시글 정보 및 삭제할 파일 목록(hidden input) 설정
+	        $("#deletedFilesInput").val(deletedFiles.join(","));
+	        
+	        $("#post-seq").val();
+	        $("#post-title").val();
+	        $("#contents").val(markupStr);
+	        
+	        $("#editform").submit();
+	    });
+	});
+</script>
+   
 </body>
+
 </html>
