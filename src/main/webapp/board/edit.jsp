@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,6 +14,8 @@
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
 
     <style>
         * {
@@ -111,19 +114,18 @@
         }
 
         .form-field {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: flex;
             flex-direction: column;
         }
 
         .form-field label {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: bold;
             font-size: 1em;
         }
 
         .form-field input[type="text"],
-        .form-field textarea,
         .form-field input[type="file"] {
             width: 100%;
             padding: 10px;
@@ -169,6 +171,14 @@
 	   .note-resizebar{
 	   	 	display: none;
 	   }
+	    #fileloading{
+	   	margin-bottom:0;
+	   	padding-bottom:0;
+	   }
+	   .uploadedFile .file-list{
+	  	padding-left:10px;
+	   	margin-bottom:2%;
+	   }
     </style>
 </head>
 
@@ -208,78 +218,140 @@
     <main class="main">
         <section class="edit-post-section">
             <article class="board-left">
-                <h1>게시물 수정</h1>
+                <h1>자유 수정</h1>
                 <div class="wc_message"></div>
             </article>
             <article class="edit-post-area">
                 <h2></h2>
-                <form class="post-form">
+                <form class="post-form" id="editform" action="/update.board" method="post" enctype="multipart/form-data">
                     <div class="form-field">
-                        <label for="post-title">글 제목</label>
+                        <label>글 제목</label>
                         <input type="text" id="post-title" name="post-title" value="${dto.title}" placeholder="제목을 입력하세요." required>
+                        <input type="hidden" id="post-seq" name="post-seq" value="${dto.seq}">
                     </div>
                     <div class="form-field">
-                        <label for="post-content">내용</label>
+                        <label>내용</label>
                         <div id="summernote">${dto.contents}</div>
                         <input type="hidden" id="contents" name="contents">
                     </div>
-                    <div class="form-field">
-                        <label for="post-file">파일 업로드</label>
-                        <input type="file" id="post-file" name="post-file"><br>
+              
+              	 	<!-- 업로드 파일 갯수에 따른 input file 태그 갯수 생성 -->
+                     <div class="form-field" id="fileloading">
+                      <label>파일 업로드</label>
+   					 
+                        <c:choose>
+                        	<c:when test="${list.size() == 0}">
+	                        	<input type="file" name="file1"><br>
+						  		<input type="file" name="file2"><br>
+                        	</c:when>
+                        	<c:when test="${list.size() == 1}">
+                        		<input type="file" name="file1"><br>
+                        	</c:when>
+                        	<c:otherwise>
+                        	</c:otherwise>
+                       	</c:choose>
+                       	
+                       <div class="fileinputtag"></div>
+                       
                     </div>
-                    <div class="uploadedFile">
-                        <!-- 업로드 했던 파일 리스트 -->
-                        <c:forEach var="i" items="${list}">
-                            <div>
-                                <i class="fa-regular fa-file"></i>
-                                <a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}" data-sysname="${i.sysname}">${i.oriname}</a>
-                                <button type="button" class="deleteFile" data-sysname="${i.sysname}"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </c:forEach>
+   					 <!-- 수정 해야하는 부분 시작 .deleteFile 버튼 누르면 hide되게.  -->
+	                    <div class="uploadedFile">
+	                        <c:forEach var="file" items="${list}">
+                            	<div class="file-list">
+	                                <i class="fa-regular fa-file"></i>
+	                                ${file.oriname}
+	                                <button type="button" class="deleteFile" data-sysname="${file.sysname}">삭제<i class="fa-solid fa-trash"></i></button>
+	                        	</div>
+	                        </c:forEach>
+	                    </div>
+                    <!-- 수정된 부분 끝 -->
+                    
+                    <!--  숨긴 파일 정보 hidden에 저장하기  -->
+                    <input type="hidden" id="deletedFilesInput" name="deletedFilesInput">
+                                   
+                    <div class="form-buttons">
+                        <button type="button" id="btncomplete">수정완료</button>
+                        <button type="button" class="btn-cancel">취소</button>
                     </div>
                     
-                    <div class="form-buttons">
-                        <button type="submit" id="btncomplete">수정완료</button>
-                        <button type="button" onclick="location.href='/detail.board?seq=${dto.seq}'">취소</button>
-                    </div>
                 </form>
             </article>
         </section>
     </main>
-    <script>
-         $('#summernote').summernote({
-        placeholder: '내용을 입력해 주세요.',
-        tabsize: 2,
-        height: 250,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
-
-      $("#btncomplete").on("click",function(){
-    		if($("#title").val() == ""){
-    			alert("제목을 입력하세요.");
-    			return false;
-    		}
-    		var markupStr = $('#summernote').summernote('code');
-    		if(markupStr =="<p><br></p>"){
-    			alert("내용을 입력해 주세요.");
-    			return false;
-    		}
-    		$("#hidden_seq").val($("#rc1").text().trim());
-    		$("#title").val();
-    		$("#contents").val(markupStr);
-    	
-    	})
-
-
-    </script>
+    
+   <script>
+   
+   var deletedFiles = [];
+	$(document).ready(function(){
+	    $('#summernote').summernote({
+	        placeholder: '내용을 입력해 주세요.',
+	        tabsize: 2,
+	        height: 250,
+	        toolbar: [
+	          ['style', ['style']],
+	          ['font', ['bold', 'underline', 'clear']],
+	          ['color', ['color']],
+	          ['para', ['ul', 'ol', 'paragraph']],
+	          ['table', ['table']],
+	          ['insert', ['link', 'picture', 'video']],
+	          ['view', ['fullscreen', 'codeview', 'help']]
+	        ]
+	    });
+	
+	    // 게시글 수정취소 버튼
+	    $(".btn-cancel").on("click", function(){
+	        if (!confirm("수정을 취소하시겠습니까?")){
+	            event.preventDefault();
+	            return false;
+	        } else {
+	            location.href='/detail.board?seq=${dto.seq}';
+	        }
+	    });
+	
+	    // 파일 옆 삭제 버튼 클릭 시
+	    $(".deleteFile").on("click", function(){
+	        $(this).parent().hide(); // 해당 파일 항목 숨기기
+	        
+	        var sysname = $(this).data("sysname");
+	        $(this).parent().hide(); // 파일 숨기기
+	        console.log("삭제할 파일 sysname: " + sysname);
+	        
+	        // 삭제할 파일의 sysname을 deletedFiles 배열에 추가
+	     	 deletedFiles.push(sysname);
+	        
+	        // 새 파일 업로드 input 추가
+	        var fileCount = $(".fileinputtag input[type=file]").length + 1;
+	        var fileinput = $("<input>", {
+	            "type": "file",
+	            "name": "file" + fileCount+3
+	        });
+	        $(".fileinputtag").append(fileinput);
+	    });
+	
+	    // 게시글 수정완료 버튼 클릭 시
+	    $("#btncomplete").on("click", function(){
+	        if ($("#post-title").val() == ""){
+	            alert("제목을 입력하세요.");
+	            return false;
+	        }
+	        var markupStr = $('#summernote').summernote('code');
+	        if (markupStr === "<p><br></p>"){
+	            alert("내용을 입력해 주세요.");
+	            return false;
+	        }
+	        
+	        // 게시글 정보 및 삭제할 파일 목록(hidden input) 설정
+	        $("#deletedFilesInput").val(deletedFiles.join(","));
+	        
+	        $("#post-seq").val();
+	        $("#post-title").val();
+	        $("#contents").val(markupStr);
+	        
+	        $("#editform").submit();
+	    });
+	});
+</script>
+   
 </body>
 
 </html>

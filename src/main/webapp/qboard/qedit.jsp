@@ -14,7 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="stylesheet" href="css/edit_styles.css">
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 
     <style>
@@ -114,22 +113,20 @@
         }
 
         .form-field {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: flex;
             flex-direction: column;
         }
 
         .form-field label {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: bold;
             font-size: 1em;
         }
 
         .form-field input[type="text"],
-        .form-field textarea,
         .form-field input[type="file"] {
             width: 100%;
-            padding: 10px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
@@ -171,6 +168,13 @@
 	   .note-resizebar{
 	   	 	display: none;
 	   }
+	   #fileloading{
+	   	margin-bottom:0;
+	   	padding-bottom:0;
+	   }
+	   .uploadedFile .file-list{
+	   	margin-bottom:2%;
+	   }
 	</style>
 </head>
 
@@ -210,7 +214,7 @@
     <main class="main">
         <section class="edit-post-section">
             <article class="board-left">
-                <h1>게시물 수정</h1>
+                <h1>qna 수정</h1>
                 <div class="wc_message"></div>
             </article>
             <article class="edit-post-area">
@@ -227,22 +231,22 @@
                             <div id="summernote">${dto.contents}</div>
                             <input type="hidden" id="contents" name="contents">
                         </div>
-                        <div class="form-field">
+                        <div class="form-field" id="fileloading">
                             <label for="post-file">파일 업로드</label>
                             <input type="file" id="post-file" name="post-file"><br>
                         </div>
                         <div class="uploadedFile">
                             <!-- 업로드 했던 파일 리스트 -->
                             <c:forEach var="i" items="${list}">
-                                <div>
+                                <div class="file-list">
                                     <i class="fa-regular fa-file"></i>
-                                    <a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}" data-sysname="${i.sysname}">${i.oriname}</a>
-                                    <button type="button" class="deleteFile" data-sysname="${i.sysname}"><i class="fa-solid fa-trash"></i></button>
+                                    ${i.oriname}
+                                    <button type="button" class="deleteFile" data-sysname="${i.sysname}">삭제<i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </c:forEach>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn-cancel" onclick="location.href='/detail.qboard?seq=${dto.seq}'">취소</button>
+                            <button type="button" class="btn-cancel">취소</button>
                             <button type="submit" class="btn-submit">수정</button>
                         </div>
                     </div>
@@ -265,6 +269,15 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
+        // 게시글 취소버튼 누를 시 confirm 버튼 
+        $(".btn-cancel").on("click",function(){
+        	if(!confirm("수정을 취소하시겠습니까?")){
+                event.preventDefault();
+                return false;
+            }else{
+           	 location.href='/detail.qboard?seq=${dto.seq}';
+            }
+        })
 
      // 게시글 수정완료 버튼 클릭 시 
         $(".btn-submit").on("click", function() {

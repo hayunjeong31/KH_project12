@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
     <style>
         /* Inline styles for specific to this HTML file */
@@ -203,8 +205,21 @@
         .pagination a.active{
         	font-size: 1.2em;
         	font-weight: bold;
-        	color: pink;
+        	color: violet;
         }
+        
+          .list-button {
+		    background: none;
+		    border: none;
+		    cursor: pointer;
+		    padding: 0;
+		}
+		
+		.list-button i {
+		    font-size: 1.5em;
+		    font-weight:bold;
+		    color: violet;
+		}
     </style>
     <title>게시판</title>
 </head>
@@ -284,26 +299,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="dto" items="${list}">
-	                        <tr>
-	                            <td>${dto.seq}</td>
-	                            <td>	
-                                    <a href="/detail.board?seq=${dto.seq}">${dto.title}</a>
-	                            </td>
-	                            <td>${dto.writer}</td>
-		                            <c:choose>
-		                            	<c:when test="${dto.upd_date != null}">
-		                            		<td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" /></td>
-				                            <td>${dto.view_count}</td>
-		                            	</c:when>
-		                            	<c:otherwise>
-		                            		<td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
-				                            <td>${dto.view_count}</td>
-		                            	</c:otherwise>
-		                            </c:choose>
-	                        </tr>
-                        </c:forEach>
-
+                    		<!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
+                    	 <c:choose>
+		                        <c:when test="${empty list}">
+		                            <tr>
+		                                <td colspan="6" style="text-align:center;">검색 결과 없음</td>
+		                            </tr>
+		                        </c:when>
+		                        <c:otherwise>
+		                            <c:forEach var="dto" items="${list}">
+		                                <tr>
+		                                    <td>${dto.seq}</td>
+		                                    <td>    
+		                                       <a href="/detail.board?seq=${dto.seq}">${dto.title}</a>
+		                                    </td>
+		                                    <td>${dto.writer}</td>
+		                                    <c:choose>
+		                                        <c:when test="${dto.upd_date != null}">
+		                                            <td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" /></td>
+		                                            <td>${dto.view_count}</td>
+		                                        </c:when>
+		                                        <c:otherwise>
+		                                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
+		                                            <td>${dto.view_count}</td>
+		                                        </c:otherwise>
+		                                    </c:choose>
+		                                </tr>
+		                            </c:forEach>
+		                        </c:otherwise>
+		                    </c:choose>
                     </tbody>
                 </table>
                 <form action="/search.board?">
@@ -314,6 +338,7 @@
                     </select>
                     <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
                     <button type="submit" id="searchBtn">검색</button>
+                    <button class="list-button" onclick="location.href='/list.board'"><i class="fa-solid fa-rotate-left"></i></button>
                </form>
                 <div class="pagination">
                     
@@ -392,7 +417,7 @@
 	    	    }
 	    	    for(let i = startNavi; i <= endNavi; i++){
 	    	    //    $(".pagination").append("<a href='/list.board?cpage=" + i + "'>" + i + "</a> ");
-                    $(".pagination").append("<a href='/list.qboard?cpage=" + i + "'"+(i==cpage?"class='active'":"")+ ">" + i + "</a> ");
+                    $(".pagination").append("<a href='/list.board?cpage=" + i + "'"+(i==cpage?"class='active'":"")+ ">" + i + "</a> ");
 
 	    	    }
 	    	    if(needNext == true){

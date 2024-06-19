@@ -1,144 +1,419 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
-<style>
-	*{ box-sizing: border-box; margin:0; padding:0;}
-		div{border:none;}
-        .container{width: 50%; margin:auto; border:1px solid black;}
-        .header{
-        	border:1px solid black;
-        	height:60px;
-        	display:flex; justify-content:center; align-items:center;
-         	
-         }
-        .content{border:1px solid black;}
-        .row2{display: flex; width: 100%; border:1px solid black;}
-        .col1{margin-left:5px;}
-        .col2{margin-left:5px;}
-        .col3{font-size:15px;font-weight:bold; margin-left:5px;}
-        
-        .write_info{display:flex; margin-left:5px;}
-      
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
 
-       	.row3{border:2px solid dodgerblue; border-radius:4%; min-height: 300px;	}
-        .colcol{
-        	word-wrap: break-word;  
-        	margin:5%;
+
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/header_styles.css">
+    <title>게시물 상세보기</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-         button {
-	        background: #b3f1a0de ; 
-	        color: white; 
-	        border: none; 
-	        padding: 5px 20px;
-	        margin:5px 0 5px 5px;
-	        font-size: 16px; 
-	        font-weight: bold; 
-	        border-radius: 5px; 
-	        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-	        cursor: pointer; 
-	        transition: background 0.3s ease, box-shadow 0.3s ease;
-	    }
-	    
-	    button:hover {
-	        background: #b3f1a0de; 
-	        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
-	    }
-	    
-	    button:active {
-	        background: #b3f1a0de; 
-	        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-	    }
-	    #comment{ width: 80%; margin: 5px 0 0 5px; padding: 5px 20px; }
-</style> 
+
+        body,
+        html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('image/5033917.jpg');
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: black;
+            height: 60px;
+            background-image: url('image/9.png');
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header .header-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin-left: auto;
+        }
+
+        header nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header nav ul li .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: black;
+            padding: 10px 0;
+        }
+
+        header nav ul li:hover .dropdown {
+            display: block;
+        }
+
+        header .header-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        header .login-button {
+            margin-left: 20px;
+            padding: 10px 20px;
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        header .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        header .hamburger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80%;
+            width: 80%;
+            margin: 80px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            background-color: rgba(244, 244, 244, 0.39);
+        }
+
+        .board-section {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .board-left {
+            flex: 1;
+            background-color: rgba(4, 134, 39, 0.454);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .board-left h1 {
+            font-size: 36px;
+        }
+
+       .board-area {
+		    flex: 2;
+		    padding: 20px;
+		    padding-top: 70px;
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: flex-start;
+		    align-items: center;
+		    overflow-y: auto;    max-height: 80vh;
+		}
+
+        .board-area h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: black;
+            text-align: center;
+        }
+
+        .post-details {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .post-details p {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: black;
+        }
+
+        .post-details strong {
+            font-weight: bold;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .post-actions button {
+            padding: 10px 20px;
+            border: none;
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 30%;
+        }
+
+        .post-actions button:hover {
+            background-color: rgba(13, 230, 71, 0.47);
+        }
+
+        .post-attachments {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .post-attachments h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .post-attachments ul {
+            list-style: none;
+        }
+
+        .post-attachments ul li {
+            margin-bottom: 5px;
+        }
+
+        .post-attachments ul li a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        .post-attachments ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .post-comments {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .post-comments h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .post-comments textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .post-comments button {
+            padding: 10px 20px;
+            border: none;
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .post-comments button:hover {
+            background-color: rgba(13, 230, 71, 0.47);
+        }
+        
+        #comment-box{
+        	width: 100%;
+        	margin-top:5%;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+        
+        .box_comment{
+        	width: 100%;
+        	padding:10px;
+        	margin-top:3%;
+        	border: 1px solid white;
+        	background-color: white;
+        	border-radius: 3%;
+        }
+    </style>
 </head>
+
 <body>
-<!-- 게시글 클릭 시점에 게시글 내용은 EL/JSTL로 출력하되 댓글 목록은 AJAX로 추가로 받아으는 문법으로 변경 -->
-   <div class="container" >
-   	   
-	       <div class="header">자유게시판</div>
-	       <div class="content">
-		       <div class="row2">
-		           <div class="col1" id="rc1">${dto.seq}</div>
-		           <input type="hidden" id="seq" name="seq" value="${dto.seq }">
-		           <div class="col2" id="rctitle">${dto.title}</div>
-		         
-		       </div>
-		       <div class="writer_info">
-		         <div class="col3" id="rcwriter">${dto.writer}</div>
-		       </div>
-		       <div class="write_info">
-		         <div class="col4" id="rcwritedate">
-		         		<c:choose>
+    <header>
+        <div class="header-container">
+            <img src="image/kakao.png" class="logo">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">홈</a>
+                        <div class="dropdown">
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">게임</a>
+                        <div class="dropdown">
+                            <a href="win.html">명예의 전당</a> <!-- 명예의 전당 페이지로 이동 -->
+                            <a href="#">Subitem 2</a>
+                            <a href="#">랭킹</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="board.html">게시판</a> <!-- 게시판 페이지로 이동 -->
+                        <div class="dropdown">
+                            <a href="board.html">게시판</a> <!-- 게시판 페이지로 이동 -->
+                            <a href="#">Q&A</a>
+                            <a href="#">공지사항</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">마이페이지</a>
+                        <div class="dropdown">
+                            <a href="#">내 정보 수정</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">관리자 페이지</a>
+                        <div class="dropdown">
+                            <a href="#">대시보드</a>
+                            <a href="#">통계</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+                <button class="login-button" onclick="location.href='join.html'">Login</button>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="board-section">
+            <article class="board-left">
+                <h1>게시물 상세 보기</h1>
+                <div class="wc_message"></div>
+            </article>
+            <article class="board-area">
+                <h2></h2>
+                <div class="post-details">
+                    <p><strong>제목</strong><br>${dto.title}</p>
+                    <p><strong>글쓴이</strong><br>${dto.writer}</p>
+                    <p><strong>내용</strong><br>${dto.contents}</p>
+                    <p><strong>조회수</strong><br>${dto.view_count}</p>
+                    <p><strong>작성일</strong><br>
+                        <c:choose>
 	                       	<c:when test="${dto.upd_date != null}">
-	                       		${dto.upd_date}
+	                       		<fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
 	                       	</c:when>
 	                       	<c:otherwise>
-	                       		${dto.write_date}
+	                       		<fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
 	                       	</c:otherwise>
                     	</c:choose>
-		         </div>
-		         <div class="col5" id="rcview"> 조회 ${dto.view_count}</div>
-		       </div>
-		       
-		       <div id="filelist">
-				<c:forEach var="i" items="${list }">
-					<div>${i.seq}.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
-				</c:forEach>
-			   </div>	
-		       
-		       <div class="row3">
-		       	<div class="colcol">${dto.contents}</div>	
-		       </div>
-	       </div>
-	       <div class="row5">
-	        <c:choose>
-	            <c:when test="${iswriter}">
-	                <button type="button" id="btnedit">수정하기</button>
-	                <button type="button" id="btndelete">삭제하기</button>
-	                <button type="button" id="btnlist">목록으로</button>
-	            </c:when>
-	            <c:otherwise>
-	                <button type="button" id="btnlist">목록으로</button>
-	            </c:otherwise>
-	        </c:choose>
-	    	</div>  
-	    	
-	    	
-	    	<div class="row_comment">
-	    		<div class="comment" style="border:1px solid black">
-	    			<div class="post-comments">
+                    </p>
+                </div>
+                <div class="post-actions">
+                    <c:choose>
+	                	<c:when test="${iswriter}">
+					        <button type="button" id="btnedit">수정</button>
+					        <button type="button" id="btndelete">삭제</button>
+			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+					    </c:when>
+			            <c:otherwise>
+			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			            </c:otherwise>
+			        </c:choose>
+                </div>
+                
+                <!-- 업로드한 첨부파일 불러오기  -->
+                <div class="post-attachments">
+                    <h3>첨부 파일</h3>
+                    <ul>
+                        <c:forEach var="i" items="${list }">
+							<div><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
+						</c:forEach>
+                    </ul>
+                </div>
+               		<div class="post-comments">
 	                    <h3>댓글</h3>
 	                    <textarea id="new-comment" placeholder="댓글 입력"></textarea>
 	                    <button type="button" id="submit-comment">등록</button>
 	                </div>
-	    		</div>
-	    	
-	    	</div>
-    	
-    	
-    	<div id="comment-box">
-    	
-		</div>
-		
-		<form action="/delete.reply" id="deleteForm" method="post">
-			<input type="hidden" name="c_seq"  id="c_seq" value=c_seq>
-			<input type="hidden" class="c_parent_seq" name="c_parent_seq" value="${dto.seq }">
-		</form>
-		<form action="/edit.reply" id="editForm" method="post">
-	       <input type="hidden" name="c_seq" id="edit_c_seq">
-	       <input type="hidden" name="c_parent_seq" id="edit_c_parent_seq" value="${dto.seq}">
-	       <input type="hidden" name="edit_contents" id="edit_contents">
-       </form>
-	
-    </div>
+
+                <div id="comment-box">
+                    <!-- ajax로 댓글 불러오기  -->
+                </div>
+                    
+                 <!-- 댓글 수정하기, 삭제하기 -->
+                 <form action="/delete.reply" id="deleteForm" method="post">
+                     <input type="hidden" name="c_seq" id="c_seq" value="">
+                     <input type="hidden" class="c_parent_seq" name="c_parent_seq" value="${dto.seq}">
+                 </form>
+                 <form action="/edit.reply" id="editForm" method="post">
+                     <input type="hidden" name="c_seq" id="edit_c_seq" value="">
+                     <input type="hidden" name="c_parent_seq" id="edit_c_parent_seq" value="${dto.seq}">
+                     <input type="hidden" name="edit_contents" id="edit_contents" value="">
+                 </form>
+
+            </article>
+        </section>
+    </main>
+
     <script>
-    $(document).ready(function(){
+        $(document).ready(function(){
     	
     	// 댓글 등록하기
 	    $("#submit-comment").on("click", function(){
@@ -221,13 +496,13 @@
 	    });	// ajax로 댓글 불러오기. getcomment
 	    
 	    
-	    // 댓글 수정하기 버튼 클릭 시 
+	    // 
 	    $("#comment-box").on("click", ".co_edit", function() {
             var editableBox = $(this).parent().siblings(".comment").find(".col3");
-        	 // <br> 태그를 줄바꿈 문자로 변환
+         // <br> 태그를 줄바꿈 문자로 변환
             editableBox.html(editableBox.html().replace(/<br\s*\/?>/g, '\n'));
             editableBox.attr("contenteditable", "true");
-            editableBox.css("white-space","pre-wrap");
+            editableBox.css("white-space", "pre-wrap"); // 줄바꿈 스타일 적용
             editableBox.focus();
             $(this).hide(); // 수정하기 버튼 숨기기
             $(this).siblings(".co_delete").hide(); // 삭제하기 버튼 숨기기
@@ -235,9 +510,6 @@
             $(this).siblings(".co_cancel").show(); // 수정취소 버튼 보이기
         });
 
-
-  
-   		// 댓글 수정완료 버튼 클릭 시 
 	   $("#comment-box").on("click", ".co_edit_complete", function(){
 		   var editableBox = $(this).parent().siblings(".comment").find(".col3");
 		   editableBox.attr("contenteditable", "false");
@@ -247,15 +519,12 @@
 		   
 		   $("#edit_c_seq").val(c_seq);
 		   $("#edit_contents").val(editContents);
-		   $(this).hide(); // 수정완료 버튼 숨기기
-           $(this).siblings(".co_edit").show(); // 수정하기 버튼 보이기
-           $(this).siblings(".co_delete").show(); // 삭제하기 버튼 보이기
-           $(this).siblings(".co_cancel").hide(); // 수정취소 버튼 숨기기
 		   
+		   
+		   $(this).css("display","none");
+		   $(this).prev(".co_edit").css("display","inline");
 		   $("#editForm").submit();
 	   })
-	   
-	   // 댓글 수정취소 버튼 클릭 시 
 		$("#comment-box").on("click", ".co_delete", function() {
 			if (confirm('정말 삭제하시겠습니까?')) {
 	            
@@ -289,11 +558,8 @@
 	    
 	    
 	 
-	    
-	   
-	  
-    </script>
-    
-    
+</script>
 </body>
+
 </html>
+	

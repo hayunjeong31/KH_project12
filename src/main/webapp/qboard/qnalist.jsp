@@ -203,11 +203,20 @@
         .pagination a.active{
         	font-size: 1.2em;
         	font-weight: bold;
-        	color: pink;
+        	color: violet;
         }
-        .search-info{
-        	
-        }
+       .qna-list-button {
+		    background: none;
+		    border: none;
+		    cursor: pointer;
+		    padding: 0;
+		}
+		
+		.qna-list-button i {
+		    font-size: 1.5em;
+		    font-weight:bold;
+		    color: violet;
+		}
     </style>
     <title>게시판</title>
 </head>
@@ -299,46 +308,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="dto" items="${list}">
-	                        <tr>
-	                            <td>${dto.seq}</td>
-	                            <td>	
-	                            	<a href="#" class="post-link" data-seq="${dto.seq }" data-password="${dto.password }">
-	                            		<c:choose>
-	                            			<c:when test="${dto.password == null }">${dto.title} <i class="fa-solid fa-lock-open"></i></c:when>
-	                            			<c:otherwise>${dto.title} <i class="fa-solid fa-lock"></i></c:otherwise>
-	                            		</c:choose>
-	                            	</a>
-	                            	
-	                            </td>
-	                            <td>${dto.writer}</td>
-		                            <c:choose>
-		                            	<c:when test="${dto.upd_date != null}">
-		                            		<td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" /></td>
-				                            <td>${dto.view_count}</td>
-				                            <td>${dto.isAnswered }</td>
-		                            	</c:when>
-		                            	<c:otherwise>
-		                            		<td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
-				                            <td>${dto.view_count}</td>
-				                            <td>${dto.isAnswered }</td>
-		                            	</c:otherwise>
-		                            </c:choose>
-	                        </tr>
-                        </c:forEach>
+                    <!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
+                    	 <c:choose>
+		                        <c:when test="${empty list}">
+		                            <tr>
+		                                <td colspan="6" style="text-align:center;">검색 결과 없음</td>
+		                            </tr>
+		                        </c:when>
+		                        <c:otherwise>
+		                            <c:forEach var="dto" items="${list}">
+		                                <tr>
+		                                    <td>${dto.seq}</td>
+		                                    <td>    
+		                                        <a href="#" class="post-link" data-seq="${dto.seq}" data-password="${dto.password}">
+		                                            <c:choose>
+		                                                <c:when test="${dto.password == null}">${dto.title} <i class="fa-solid fa-lock-open"></i></c:when>
+		                                                <c:otherwise>${dto.title} <i class="fa-solid fa-lock"></i></c:otherwise>
+		                                            </c:choose>
+		                                        </a>
+		                                    </td>
+		                                    <td>${dto.writer}</td>
+		                                    <c:choose>
+		                                        <c:when test="${dto.upd_date != null}">
+		                                            <td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" /></td>
+		                                            <td>${dto.view_count}</td>
+		                                            <td>${dto.isAnswered}</td>
+		                                        </c:when>
+		                                        <c:otherwise>
+		                                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
+		                                            <td>${dto.view_count}</td>
+		                                            <td>${dto.isAnswered}</td>
+		                                        </c:otherwise>
+		                                    </c:choose>
+		                                </tr>
+		                            </c:forEach>
+		                        </c:otherwise>
+		                    </c:choose>
+                    
                     </tbody>
                 </table>
 
-                    <!-- 검색시 검색어 상단에 뜨게, 검색된 항목 없으면 없다고 뜨기. 검색 후 전체목록으로 돌아가게 하기 .  -->
+                    <!-- 리셋버튼 만들었음. 흠... 일단 만들음 -->
                <form action="/search.qboard?">
-                <select name="option" id="searchOption">
-                    <option value="title">제목</option>
-                    <option value="writer">작성자</option>
-                    <option value="title_writer">제목+작성자</option>
-                </select>
-                <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
-                <button type="submit" id="searchBtn">검색</button>
-           </form>
+	                <select name="option" id="searchOption">
+	                    <option value="title">제목</option>
+	                    <option value="writer">작성자</option>
+	                    <option value="title_writer">제목+작성자</option>
+	                </select>
+	                <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
+	                <button type="submit" id="searchBtn">검색</button>
+	                <button class="qna-list-button" onclick="location.href='/list.qboard'"><i class="fa-solid fa-rotate-left"></i></button>
+	           </form>
 
                 <div class="pagination">
                 </div>

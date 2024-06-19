@@ -251,7 +251,8 @@ body, html {
                     <form action="/write.qboard" method="post" id="writeform" enctype="multipart/form-data">
                     	<div class="form-field"> 
                         <label>파일 업로드</label>
-						<input type="file" id="post-file" name="post-file">
+						<input type="file" name="file1"><br>
+					    <input type="file" name="file2"><br>
                             <input type="hidden" id="hidden_title" name="hidden_title">
                             <input type="hidden" id="hidden_content" name="hidden_content">
                             <input type="hidden" id="hidden_password" name="hidden_password">
@@ -265,7 +266,7 @@ body, html {
 
                   
                     <div class="form-buttons">
-                        <button type="button" onclick="location.href='/list.qboard'">목록</button>
+                        <button type="button" class="btn-home">목록</button>
                         <button type="button" id="btnup">등록</button>
                     </div>
                 </div>
@@ -273,6 +274,14 @@ body, html {
         </section>
     </main>
     <script>
+    $(".btn-home").on("click",function(){
+    	if(!confirm("작성을 취소하시겠습니까?")){
+            event.preventDefault();
+            return false;
+        }else{
+        	location.href='/list.qboard';
+        }
+    })
     $(document).ready(function() {
         $('#summernote').summernote({
             placeholder: '내용을 입력해 주세요.',
