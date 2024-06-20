@@ -318,6 +318,13 @@ header {
   height: 60px;
   background-image: url('${pageContext.request.contextPath}/image/9.png');
 }
+
+.btn-full-width {
+  width: 110px; /* 인증 코드 버튼과 동일한 너비로 조정합니다 */
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 50px;
+}
 </style>
 </head>
 <body>
@@ -384,14 +391,14 @@ header {
                         <label for="email"></label>
                         <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required />
                     </div>
-                    <button type="button" class="btn-sign btn-in" id="auth_btn">인증 코드 받기</button>
                     <div class="form-field">
                         <input type="text" class="mail-check-input" id="authCode" placeholder="인증 코드를 입력하세요" disabled>
                     </div>
+                    <button type="button" class="btn-sign btn-inline" id="auth_btn">인증 코드 받기</button>
                     <div id="mail-check-input-info" class="form-field"></div>
                     <button type="button" class="btn-sign btn-in" id="find_pw_btn" disabled>임시 비밀번호로 재설정</button>
                 </form>
-                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-check">로그인 페이지로 돌아가기</button>
+                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-sign btn-full-width">돌아가기</button>
             </div>
         </article>
         <article class="signup-right">

@@ -49,10 +49,11 @@ public class MembersController extends HttpServlet {
         MembersDAO dao = MembersDAO.getInstance();
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        HttpSession session = request.getSession();
+
         try {
+            HttpSession session = request.getSession();
+            // 회원가입 처리
             if (cmd.equals("/signup.members")) {
-                String tempCode = null; // 가입 시에는 임시 코드 없음
                 String userId = request.getParameter("userId");
                 String userPwd = EncryptionUtils.getSHA512(request.getParameter("userPwd"));
                 String userName = request.getParameter("userName");
@@ -60,13 +61,12 @@ public class MembersController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String email = request.getParameter("email");
                 String gender = request.getParameter("gender");
-                String signout = request.getParameter("signout");
                 String birth_date = request.getParameter("birth_date");
                 int adminKey = Integer.parseInt(request.getParameter("adminKey"));
-                tempCode = request.getParameter("tempCode");
-                
-                response.setStatus(HttpServletResponse.SC_OK);
-                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey, tempCode);
+                String tempCode = null; // 가입 시에는 임시 코드 없음
+
+                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, "n", birth_date, null, null, adminKey, tempCode);
+
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {
@@ -82,91 +82,69 @@ public class MembersController extends HttpServlet {
                     request.setAttribute("error", e.getMessage());
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
                 }
+
+            // 아이디 중복 확인 처리
             } else if (cmd.equals("/idcheck.members")) {
                 String userId = request.getParameter("userId");
                 boolean isAvailable = dao.isUserIdAvailable(userId);
                 response.getWriter().write(isAvailable ? "true" : "false");
 
+            // 닉네임 중복 확인 처리
             } else if (cmd.equals("/nicknameCheck.members")) {
                 String nickname = request.getParameter("nickname");
                 boolean isAvailable = dao.isNicknameAvailable(nickname);
                 response.getWriter().write(isAvailable ? "true" : "false");
 
+            // 로그인 처리
             } else if (cmd.equals("/login.members")) {
                 String id = request.getParameter("id");
                 String pw = request.getParameter("pw");
                 String spw = EncryptionUtils.getSHA512(pw);
-
-                boolean result = dao.isUserInfoEnabled(id, spw);
-                if (result) {
-                    session.setAttribute("loginID", id);
                 MembersDTO member = dao.login(id, spw);
                 if (member != null) {
                     session.setAttribute("loginID", member.getUserId());
+                    session.setAttribute("userName", member.getUserName()); // 사용자 이름 세션에 저장
                     session.setAttribute("adminKey", member.getAdminKey());
                     response.sendRedirect("/index.jsp");
                 } else {
-                    response.sendRedirect("/login.jsp"); // 로그인 실패 시 처리
+                    session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
+                    response.sendRedirect("/index.jsp"); // 로그인 실패 시 처리
                 }
 
+            // 로그아웃 처리
             } else if (cmd.equals("/logout.members")) {
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
-            }
-            }
-            // 내 정보 출력
-                else if(cmd.equals("/mypage.members")) {
-                String loginId = (String)session.getAttribute("loginID");
-                System.out.println(loginId);
-                MembersDTO dto = dao.myInfor(loginId);
+
+            // 마이페이지 정보 조회 처리
+            } else if(cmd.equals("/mypage.members")) {
+                String result = (String)session.getAttribute("loginID");
+                MembersDTO dto = dao.myInfor(result);
                 request.setAttribute("dto", dto);
                 request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
 
-            } 
-             // 수정
-            else if(cmd.equals("/edit.members")) {
-                String loginId = (String)session.getAttribute("loginID");
-               String userName = request.getParameter("userName");
-
+            // 회원 정보 수정 처리
+            } else if(cmd.equals("/edit.members")) {
+                String result = (String)session.getAttribute("loginID");
+                String userName = request.getParameter("userName");
                 String phone = request.getParameter("phone");
                 String email = request.getParameter("email");
-                int editResult = dao.edit(loginId, userName, phone, email);
+                int editResult = dao.edit(result, userName, phone, email);
                 if (editResult > 0) {
-                    request.setAttribute("dto", dao.myInfor(loginId));
+                    request.setAttribute("dto", dao.myInfor(result));
                     request.getRequestDispatcher("/mypage.members").forward(request, response);
                 } else {
                     response.sendRedirect("/mypage.members");
                 }
 
-            }
-            // 비밀번호 변경
-            else if (cmd.equals("/pwdChange.members")) {
-                String loginID = (String) session.getAttribute("loginID");
-                String currentPwd = request.getParameter("currentPwd");
-                String newPwd = request.getParameter("newPwd");
-
-                // 현재 비밀번호 확인
-                boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
-
-                if (isPwdCorrect) {
-                    // 비밀번호 변경
-                    boolean updateSuccess = dao.updatePwd(loginID, newPwd);
-                    if (updateSuccess) {
-                        response.getWriter().write("{\"success\": true}");
-                    } else {
-                        response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
-                    }
-                } else {
-                    // 현재 비밀번호가 일치하지 않았을 시
-                    response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
-                }
-            }
-            // 회원탈퇴
- else if(cmd.equals("/memberout.members")) {
+            // 회원 탈퇴 처리
+            } else if(cmd.equals("/memberout.members")) {
                 String result = (String)session.getAttribute("loginID");
                 dao.deleteById(result);
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
+
+            // 인증 코드 전송 처리
             } else if (cmd.equals("/sendAuthCode.members")) {
                 String email = request.getParameter("email");
                 Random random = new Random();
@@ -179,6 +157,30 @@ public class MembersController extends HttpServlet {
                 sendEmail(email, "회원가입 인증 이메일입니다.", "인증 번호는 " + checkNumStr + "입니다. 해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
                 response.getWriter().write("이메일로 인증번호가 전송되었습니다.");
 
+            // 비밀번호 변경 처리
+            } else if (cmd.equals("/pwdChange.members")) {
+                String loginID = (String) session.getAttribute("loginID");
+                String currentPwd = request.getParameter("currentPwd");
+                String newPwd = request.getParameter("newPwd");
+
+                // 현재 비밀번호 확인
+                boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
+                System.out.println("isPwdCorrect: " + isPwdCorrect);
+                if (isPwdCorrect) {
+                    // 비밀번호 변경
+                    boolean updateSuccess = dao.updatePwd(loginID, newPwd);
+                    System.out.println("updatedSuccess: " + updateSuccess);
+                    if (updateSuccess) {
+                        response.getWriter().write("{\"success\": true}");
+                    } else {
+                        response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
+                    }
+                } else {
+                    // 현재 비밀번호가 일치하지 않았을 시
+                    response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
+                }
+
+            // 인증 코드 확인 처리
             } else if (cmd.equals("/verifyAuthCode.members")) {
                 String email = request.getParameter("email");
                 String authCode = request.getParameter("authCode");
@@ -188,6 +190,8 @@ public class MembersController extends HttpServlet {
                 } else {
                     response.getWriter().write("인증 코드가 유효하지 않습니다.");
                 }
+
+            // 비밀번호 재설정 처리
             } else if (cmd.equals("/resetPassword.members")) {
                 String email = request.getParameter("email");
                 String newPassword = generateTempPassword(); // 임시 비밀번호 생성
@@ -200,6 +204,8 @@ public class MembersController extends HttpServlet {
                 } else {
                     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "비밀번호 변경에 실패했습니다.");
                 }
+
+            // 잘못된 요청 처리
             } else if (cmd.equals("/getPasswordByEmail.members")) {
                 // 이 기능은 resetPassword.members와 중복되므로 필요하지 않습니다.
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "잘못된 요청입니다.");

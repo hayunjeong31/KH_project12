@@ -41,7 +41,7 @@
 }
 
 .btn-full-width {
-  width: calc(100% - 20px); /* 로그인 페이지로 돌아가기 버튼의 너비를 인증 코드 받기 버튼과 동일하게 조정합니다 */
+  width: 110px; /* 인증 코드 버튼과 동일한 너비로 조정합니다 */
   margin-top: 20px;
   margin-left: 10px; /* 양쪽 마진을 동일하게 주기 위해 추가 */
   border-radius: 50px;
@@ -247,11 +247,11 @@ input:placeholder-shown + label {
 
 .btn-inline {
   width: 110px;
-  margin-top: 0;
+  margin-top: 2;
 }
 
 .btn-full-width {
-  width: calc(100% - 20px);
+  width: 110px; /* 인증 코드 버튼과 동일한 너비로 조정합니다 */
   margin-top: 20px;
   margin-left: 10px;
   border-radius: 50px;
@@ -422,7 +422,7 @@ header {
                     </div>
                     <div id="mail-check-input-info" class="form-field"></div>
                 </form>
-                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-sign btn-full-width">로그인 페이지로 돌아가기</button>
+                <button onclick="location.href='${pageContext.request.contextPath}/index.jsp'" class="btn-sign btn-full-width">돌아가기</button>
             </div>
         </article>
         <article class="signup-right">
