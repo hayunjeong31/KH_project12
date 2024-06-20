@@ -15,8 +15,26 @@ public class QBoardDTO {
 	private String password;
 	private String isAnswered;
 	private int adminKey;
+
 	
-	
+	public QBoardDTO() {
+		super();
+	}
+	public QBoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
+			Timestamp upd_date, int view_count, String password, String isAnswered, int adminKey) {
+		super();
+		this.seq = seq;
+		this.categorySeq = categorySeq;
+		this.writer = writer;
+		this.title = title;
+		this.contents = contents;
+		this.write_date = write_date;
+		this.upd_date = upd_date;
+		this.view_count = view_count;
+		this.password = password;
+		this.isAnswered = isAnswered;
+		this.adminKey = adminKey;
+	}
 	public int getSeq() {
 		return seq;
 	}
@@ -83,27 +101,6 @@ public class QBoardDTO {
 	public void setAdminKey(int adminKey) {
 		this.adminKey = adminKey;
 	}
-	
-	public QBoardDTO() {}
-	
-	public QBoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
-			Timestamp upd_date, int view_count, String password, String isAnswered, int adminKey) {
-		super();
-		this.seq = seq;
-		this.categorySeq = categorySeq;
-		this.writer = writer;
-		this.title = title;
-		this.contents = contents;
-		this.write_date = write_date;
-		this.upd_date = upd_date;
-		this.view_count = view_count;
-		this.password = password;
-		this.isAnswered = isAnswered;
-		this.adminKey = adminKey;
-	}
-	
-	
-	
 	
 	
 }

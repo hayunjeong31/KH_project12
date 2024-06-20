@@ -1,18 +1,36 @@
 package dto;
 
 public class FilesDTO {
-	
-	private int fileSeq;
+	private int seq;
 	private String oriname;
 	private String sysname;
-	private int boardSeq;
+	private int parent_seq;
+	private int categorySeq;
 	
+	public FilesDTO() {}
 	
-	public int getFileSeq() {
-		return fileSeq;
+	public FilesDTO(int seq, String oriname, String sysname, int parent_seq, int categorySeq) {
+		super();
+		this.seq = seq;
+		this.oriname = oriname;
+		this.sysname = sysname;
+		this.parent_seq = parent_seq;
+		this.categorySeq = categorySeq;
 	}
-	public void setFileSeq(int fileSeq) {
-		this.fileSeq = fileSeq;
+
+	public int getCategorySeq() {
+		return categorySeq;
+	}
+
+	public void setCategorySeq(int categorySeq) {
+		this.categorySeq = categorySeq;
+	}
+
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public String getOriname() {
 		return oriname;
@@ -26,22 +44,10 @@ public class FilesDTO {
 	public void setSysname(String sysname) {
 		this.sysname = sysname;
 	}
-	public int getBoardSeq() {
-		return boardSeq;
+	public int getParent_seq() {
+		return parent_seq;
 	}
-	public void setBoardSeq(int boardSeq) {
-		this.boardSeq = boardSeq;
+	public void setParent_seq(int parent_seq) {
+		this.parent_seq = parent_seq;
 	}
-	
-	public FilesDTO() {}
-	
-	public FilesDTO(int fileSeq, String oriname, String sysname, int boardSeq) {
-		super();
-		this.fileSeq = fileSeq;
-		this.oriname = oriname;
-		this.sysname = sysname;
-		this.boardSeq = boardSeq;
-	}
-	
-	
 }

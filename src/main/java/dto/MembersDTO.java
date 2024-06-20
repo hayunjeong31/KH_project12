@@ -18,11 +18,14 @@ public class MembersDTO {
     private int adminKey;
     private String tempCode;
 
-    public MembersDTO() {}
+    public MembersDTO() {
+    	super();
+    }
 
     public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone,
     		String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date,
     		int adminKey, String tempCode) {
+
         this.userSeq = userSeq;
         this.userId = userId;
         this.userPwd = userPwd;
@@ -33,7 +36,7 @@ public class MembersDTO {
         this.gender = gender;
         this.signout = signout;
         this.birth_date = birth_date;
-        this.join_date = join_date; // 생성 시 현재 시간을 설정하지 않음
+        this.join_date = join_date; 
         this.upd_date = upd_date;
         this.adminKey = adminKey;
         this.tempCode = tempCode;
@@ -111,16 +114,16 @@ public class MembersDTO {
 		this.signout = signout;
 	}
 
-	public Timestamp getJoin_date() {
-		return join_date;
-	}
-	
 	public String getBirth_date() {
 		return birth_date;
 	}
 
 	public void setBirth_date(String birth_date) {
 		this.birth_date = birth_date;
+	}
+
+	public Timestamp getJoin_date() {
+		return join_date;
 	}
 
 	public void setJoin_date(Timestamp join_date) {
@@ -142,14 +145,14 @@ public class MembersDTO {
 	public void setAdminKey(int adminKey) {
 		this.adminKey = adminKey;
 	}
-	
+
 	public String getTempCode() {
 		return tempCode;
 	}
-	
+
 	public void setTempCode(String tempCode) {
 		this.tempCode = tempCode;
 	}
-
+    
     
 }
