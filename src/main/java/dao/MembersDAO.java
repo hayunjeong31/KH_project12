@@ -74,7 +74,7 @@ public class MembersDAO {
         }
     }
     
-    // 내 정보 출력
+ // 내 정보 출력
     public MembersDTO myInfor(String userId) throws Exception {
         String sql = "SELECT * FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -87,13 +87,13 @@ public class MembersDAO {
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
                     Timestamp join_date = rs.getTimestamp("join_date");
-                    return new MembersDTO(0, userId, null, userName, nickName, phone, email, null, null, null, join_date, null, 0);
+                    return new MembersDTO(0, userId, null, userName, nickName, phone, email, null, null, null, join_date, null, 0,null);
                 }
             }
         }
         return null;
     }
-
+    
     // 내 정보 수정
     public int edit(String userId, String userName, String phone, String email) throws Exception {
         String sql = "UPDATE members SET userName = ?, phone = ?, email = ? WHERE userId = ?";
@@ -108,7 +108,7 @@ public class MembersDAO {
     }
     
     
-    // 현재 비밀번호 확인
+ // 현재 비밀번호 확인
     public boolean checkPwd(String userId, String currentPwd) {
         String sql = "SELECT userPwd FROM members WHERE userId = ?";
         
@@ -128,7 +128,7 @@ public class MembersDAO {
             e.printStackTrace();
         }
         
-        return false;
+        return true;
     }
     
     // 비밀번호 업데이트
@@ -145,7 +145,7 @@ public class MembersDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		return false;
+		return true;
     }
 
 

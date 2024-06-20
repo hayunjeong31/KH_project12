@@ -16,10 +16,13 @@ public class MembersDTO {
     private Timestamp join_date;
     private Timestamp upd_date;
     private int adminKey;
+    private String tempCode;
 
     public MembersDTO() {}
 
-    public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone, String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date, int adminKey) {
+    public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone,
+    		String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date,
+    		int adminKey, String tempCode) {
         this.userSeq = userSeq;
         this.userId = userId;
         this.userPwd = userPwd;
@@ -33,6 +36,7 @@ public class MembersDTO {
         this.join_date = join_date; // 생성 시 현재 시간을 설정하지 않음
         this.upd_date = upd_date;
         this.adminKey = adminKey;
+        this.tempCode = tempCode;
     }
 
 	public int getUserSeq() {
@@ -137,6 +141,14 @@ public class MembersDTO {
 
 	public void setAdminKey(int adminKey) {
 		this.adminKey = adminKey;
+	}
+	
+	public String getTempCode() {
+		return tempCode;
+	}
+	
+	public void setTempCode(String tempCode) {
+		this.tempCode = tempCode;
 	}
 
     

@@ -2,24 +2,24 @@ package dto;
 
 import java.sql.Timestamp;
 
-public class FreeBoardDTO {
+public class BoardDTO {
 
-	private int freeSeq;
+	private int seq;
 	private int categorySeq;
-	private String userId;
+	private String writer;
 	private String title;
-	private String content;
-	private Timestamp reg_date;
+	private String contents;
+	private Timestamp write_date;
 	private Timestamp upd_date;
 	private int view_count;
 	private int adminKey;
 	
 	
-	public int getFreeSeq() {
-		return freeSeq;
+	public int getSeq() {
+		return seq;
 	}
-	public void setFreeSeq(int freeSeq) {
-		this.freeSeq = freeSeq;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public int getCategorySeq() {
 		return categorySeq;
@@ -27,11 +27,11 @@ public class FreeBoardDTO {
 	public void setCategorySeq(int categorySeq) {
 		this.categorySeq = categorySeq;
 	}
-	public String getUserId() {
-		return userId;
+	public String getWriter() {
+		return writer;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getTitle() {
 		return title;
@@ -39,17 +39,17 @@ public class FreeBoardDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public Timestamp getReg_date() {
-		return reg_date;
+	public Timestamp getWrite_date() {
+		return write_date;
 	}
-	public void setReg_date(Timestamp reg_date) {
-		this.reg_date = reg_date;
+	public void setWrite_date(Timestamp write_date) {
+		this.write_date = write_date;
 	}
 	public Timestamp getUpd_date() {
 		return upd_date;
@@ -70,17 +70,17 @@ public class FreeBoardDTO {
 		this.adminKey = adminKey;
 	}
 	
-	public FreeBoardDTO() {}
+	public BoardDTO() {}
 	
-	public FreeBoardDTO(int freeSeq, int categorySeq, String userId, String title, String content, Timestamp reg_date,
+	public BoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
 			Timestamp upd_date, int view_count, int adminKey) {
 		super();
-		this.freeSeq = freeSeq;
+		this.seq = seq;
 		this.categorySeq = categorySeq;
-		this.userId = userId;
+		this.writer = writer;
 		this.title = title;
-		this.content = content;
-		this.reg_date = reg_date;
+		this.contents = contents;
+		this.write_date = write_date;
 		this.upd_date = upd_date;
 		this.view_count = view_count;
 		this.adminKey = adminKey;
