@@ -59,6 +59,42 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 				
 			}
+			// 북마크 클릭하기 . 
+			else if(cmd.equals("/bookmark.board")) {
+	                String userId = (String) request.getSession().getAttribute("loginID");
+	                int postSeq = Integer.parseInt(request.getParameter("postSeq"));
+	                boolean isBookmarked = Boolean.parseBoolean(request.getParameter("isBookmarked"));
+	                System.out.println("boolean1 "+isBookmarked);
+	                boolean result;
+	                if (isBookmarked) {
+	                    result = dao.addBookmark(userId, postSeq);
+	                } else {
+	                    result = dao.removeBookmark(userId, postSeq);
+	                }
+
+	                String success = g.toJson(result);
+					PrintWriter pw = response.getWriter();
+					pw.append(success);
+	                
+	                pw.close();
+	            }
+			// 북마크 상태 가져오기 
+			else if(cmd.equals("/getBookmarkStatus.board")) {
+				String userId = (String) request.getSession().getAttribute("loginID");
+                int postSeq = Integer.parseInt(request.getParameter("postSeq"));
+                
+                boolean result = dao.checkBookmark(userId,postSeq);
+                
+                
+                String success = g.toJson(result);
+				PrintWriter pw = response.getWriter();
+				pw.append(success);
+                
+                pw.close();
+			}
+			
+			
+			// 게시글 검색
 			else if(cmd.equals("/search.board")) {
 			    request.getSession().getAttribute("loginID");
 			    int adminKey = (Integer)request.getSession().getAttribute("adminKey");
@@ -138,6 +174,7 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/board/detail.jsp").forward(request, response);
 				
 			}	
+			// 게시글 북마크 체크하기 . 
 		
 			
 			// 게시글 수정하기 페이지로 넘어가기.

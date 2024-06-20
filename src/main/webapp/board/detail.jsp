@@ -29,6 +29,7 @@
         }
 
         body {
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -45,95 +46,33 @@
             left: 0;
             z-index: 1000;
             background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
             background-image: url('image/9.png');
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        header .header-container {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            margin-left: auto;
-        }
-
-        header nav ul li {
-            margin-left: 20px;
-            position: relative;
-        }
-
-        header nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        header nav ul li .dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: black;
-            padding: 10px 0;
-        }
-
-        header nav ul li:hover .dropdown {
-            display: block;
-        }
-
-        header .header-buttons {
-            display: flex;
-            align-items: center;
-        }
-
-        header .login-button {
-            margin-left: 20px;
-            padding: 10px 20px;
-            background-color: rgba(4, 134, 39, 0.47);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        header .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        header .hamburger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
         }
 
         .main {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80%;
+            height: 100%;
+            background-color: #f4f4f462;
             width: 80%;
+            height: 80%;
             margin: 80px auto;
+            /* 헤더 고정으로 인한 상단 마진 추가 */
             border-radius: 10px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            background-color: rgba(244, 244, 244, 0.39);
         }
 
         .board-section {
             display: flex;
             width: 100%;
             height: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.412);
         }
 
         .board-left {
@@ -151,22 +90,88 @@
             font-size: 36px;
         }
 
-       .board-area {
-		    flex: 2;
-		    padding: 20px;
-		    padding-top: 70px;
-		    display: flex;
-		    flex-direction: column;
-		    justify-content: flex-start;
-		    align-items: center;
-		    overflow-y: auto;    max-height: 80vh;
-		}
+        .board-area {
+            flex: 2;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.24);
+        }
 
         .board-area h2 {
             margin-bottom: 20px;
             font-size: 24px;
             color: black;
             text-align: center;
+        }
+
+        .board-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .board-table th,
+        .board-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: black;
+        }
+
+        .board-table th {
+            background-color: #f4f4f4;
+        }
+
+        .board-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .board-table a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .board-table a:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            color: black;
+        }
+
+        .pagination button:hover {
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+        }
+
+        .pagination button:active {
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+        }
+
+        .write-button {
+            padding: 10px 20px;
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .write-button:hover {
+            background-color: rgba(4, 134, 39, 0.47);
         }
 
         .post-details {
@@ -187,7 +192,7 @@
 
         .post-actions {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             width: 100%;
             max-width: 800px;
             margin-bottom: 20px;
@@ -268,24 +273,54 @@
         .post-comments button:hover {
             background-color: rgba(13, 230, 71, 0.47);
         }
-        
-        #comment-box{
-        	width: 100%;
-        	margin-top:5%;
+
+        .comment-box {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .comment-box .comment {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px;
-            border-radius: 5px;
-            font-size: 1em;
-            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
         }
-        
-        .box_comment{
-        	width: 100%;
-        	padding:10px;
-        	margin-top:3%;
-        	border: 1px solid white;
-        	background-color: white;
-        	border-radius: 3%;
+
+        .comment-box .comment .col1 {
+            flex: 1;
+            color: black;
         }
+
+        .comment-box .comment .col3 {
+            flex: 4;
+            color: black;
+        }
+
+        .comment-box .comment .col3 .comment-text {
+            display: inline-block;
+        }
+
+        .comment-box .comment .reply-textarea {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .comment-box .comment .reply-comment-box {
+            display: none;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid #ddd;
+        }
+
+        .comment-box .comment a {
+            margin-left: 10px;
+            cursor: pointer;
+            color: blue;
+        }
+    
+    
     </style>
 </head>
 
@@ -344,7 +379,7 @@
     <main class="main">
         <section class="board-section">
             <article class="board-left">
-                <h1>게시물 상세 보기</h1>
+                <h1>자유게시물 상세 보기</h1>
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
@@ -352,18 +387,19 @@
                 <div class="post-details">
                     <p><strong>제목</strong><br>${dto.title}</p>
                     <p><strong>글쓴이</strong><br>${dto.writer}</p>
-                    <p><strong>내용</strong><br>${dto.contents}</p>
-                    <p><strong>조회수</strong><br>${dto.view_count}</p>
-                    <p><strong>작성일</strong><br>
+                    <p>조회수 ${dto.view_count}</p>
+                    <p>
                         <c:choose>
 	                       	<c:when test="${dto.upd_date != null}">
-	                       		<fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
+	                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd HH:mm" />
 	                       	</c:when>
 	                       	<c:otherwise>
-	                       		<fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
+	                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
+                    <p><strong>내용</strong><br>
+                    ${dto.contents}</p>
                 </div>
                 <div class="post-actions">
                     <c:choose>
@@ -371,10 +407,12 @@
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
 			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
 					    </c:when>
 			            <c:otherwise>
 			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
-			            </c:otherwise>
+ 							<button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>				            
+ 						</c:otherwise>
 			        </c:choose>
                 </div>
                 
@@ -413,8 +451,57 @@
     </main>
 
     <script>
-        $(document).ready(function(){
-    	
+    $(document).ready(function() {
+    	// 북마크 상태 유지하기....
+	    // 페이지 로드 시 초기 북마크 상태를 가져오는 AJAX 요청
+	   let postSeq = $("#bookmark-btn").data('postseq'); 
+	    $.ajax({
+	        url: "/getBookmarkStatus.board",
+	        method: "GET",
+	        data: {
+	            postSeq: postSeq
+	        },
+	        dataType: "json",
+	        success: function(response) {
+	            if (response) {
+	                $('#bookmark-btn i').addClass('fas').removeClass('far');
+	            } else {
+	                $('#bookmark-btn i').addClass('far').removeClass('fas');
+	            }
+	        },
+	        error: function(error) {
+	            console.error('북마크 상태 조회 중 오류가 발생했습니다:', error);
+	        }
+	    });
+
+        // 북마크 버튼 클릭 시의 처리를 담고 있습니다.
+        $("#bookmark-btn").on("click", function() {
+        	 let postSeq = $(this).data('postseq'); 
+             let bookmarkBtn = $(this);
+             let bookmarkIcon = $(this).find('i');
+             let isBookmarked = bookmarkIcon.hasClass('fas');
+
+            $.ajax({
+                url: "/bookmark.board",
+                method: "post",
+                data: {
+                	postSeq: postSeq,
+                    isBookmarked: !isBookmarked
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response) {
+                        bookmarkIcon.toggleClass('fas far');
+                    } else {
+                        console.error('북마크 상태 저장에 실패했습니다.');
+                    }
+                }
+            });
+        });
+        
+    
+
+    
     	// 댓글 등록하기
 	    $("#submit-comment").on("click", function(){
 	        let newComment = $("#new-comment").val().trim();
@@ -481,11 +568,13 @@
 	    			let co_edit = $("<button>",{"class":"co_edit"}).text("수정");
 	    			let co_edit_complete = $("<button>",{"class":"co_edit_complete","style":"display:none;"}).text("수정완료");
 	    			let co_delete = $("<button>",{"class":"co_delete"}).text("삭제");
+	    			let co_cancel = $("<button>",{"class":"co_cancel","style":"display:none;"}).text("취소");
 	    	
 	    		btncomment.append(co_edit);
 	    		btncomment.append(co_edit_complete);
 	    		btncomment.append(co_delete);
-
+	    		btncomment.append(co_cancel);
+	    		
 	    		box_comment.append(btncomment);
 	    		}
 	    
@@ -496,7 +585,7 @@
 	    });	// ajax로 댓글 불러오기. getcomment
 	    
 	    
-	    // 
+	    // 댓글 수정버튼 클릭시 
 	    $("#comment-box").on("click", ".co_edit", function() {
             var editableBox = $(this).parent().siblings(".comment").find(".col3");
          // <br> 태그를 줄바꿈 문자로 변환
@@ -510,6 +599,7 @@
             $(this).siblings(".co_cancel").show(); // 수정취소 버튼 보이기
         });
 
+	    // 댓글 수정완료버튼 클릭시 
 	   $("#comment-box").on("click", ".co_edit_complete", function(){
 		   var editableBox = $(this).parent().siblings(".comment").find(".col3");
 		   editableBox.attr("contenteditable", "false");
@@ -525,6 +615,8 @@
 		   $(this).prev(".co_edit").css("display","inline");
 		   $("#editForm").submit();
 	   })
+	   
+	   // 댓글 삭제버튼 클릭시 
 		$("#comment-box").on("click", ".co_delete", function() {
 			if (confirm('정말 삭제하시겠습니까?')) {
 	            
@@ -534,7 +626,10 @@
 	    	$("#deleteForm").submit();
 	        }
 	    })
-	    
+	 // 댓글 수정취소 버튼 클릭 시
+        $("#comment-box").on("click", ".co_cancel", function() {
+           location.reload();
+        });
 	    
 	    	
     })	// document.ready 끝 부분

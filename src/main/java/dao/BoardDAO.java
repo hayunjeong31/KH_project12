@@ -30,10 +30,55 @@ public class BoardDAO {
 	}
 	private BoardDAO() {}
 	
+	// 게시글 북마크 등록하기
+	public boolean addBookmark(String userId, int postSeq)throws Exception{
+		String sql = "insert into bookmarks values (bookmarks_seq.nextval,?,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, userId);
+			pstat.setInt(2, postSeq);
+			pstat.executeUpdate();
+			return true;
+		}
+	}
+	// 게시글 북마크 제거하기
+	public boolean removeBookmark(String userId, int postSeq) throws Exception{
+		String sql="delete from bookmarks where userId=? and postSeq=?";
+		try (Connection con = getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, postSeq);
+            pstmt.executeUpdate();
+            return true;
+        }
+	}
+	// 북마크 상태 가져오기 
+	public boolean checkBookmark(String userId, int postSeq) throws Exception{
+		boolean isBookmarked = false;
+	
+		 String sql = "SELECT COUNT(*) FROM bookmarks WHERE userid = ? AND postseq = ?";
+
+	        try (Connection con = this.getConnection();
+	        		PreparedStatement pstat = con.prepareStatement(sql);) {
+	            pstat.setString(1, userId);
+	            pstat.setInt(2, postSeq);
+	            
+	            try (ResultSet rs = pstat.executeQuery()) {
+	                if (rs.next()) {
+	                    int count = rs.getInt(1);
+	                    if (count > 0) {
+	                        isBookmarked = true;
+	                    }
+	                }
+	            }
+	       } return isBookmarked;
+	}
+	
+	// 게시글 등록하기
 	public int insert(BoardDTO dto) throws Exception{
 		String sql = "insert into board values (board_seq.nextval,1,?,?,?,sysdate,null,0,1)";
 		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){
+				PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){ //첨부파일 등록할때 방해 안받을려고
 			pstat.setString(1, dto.getWriter());
 			pstat.setString(2, dto.getTitle());
 			pstat.setString(3, dto.getContents());
