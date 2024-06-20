@@ -460,8 +460,15 @@ header {
             console.log("내정보 버튼 클릭");
             location.href = "/mypage.members";
         });
+
+        // 세션에 저장된 로그인 에러 메시지를 확인하여 알림창 표시
+        <c:if test="${not empty sessionScope.loginError}">
+            alert('${sessionScope.loginError}');
+            <c:remove var="loginError" scope="session"/>
+        </c:if>
     });
 </script>
 
 </body>
 </html>
+

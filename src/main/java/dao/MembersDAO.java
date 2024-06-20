@@ -31,7 +31,7 @@ public class MembersDAO {
         return ds.getConnection();
     }
 
-    // userId 중복 확인 메서드
+ // userId 중복 확인 메서드
     public boolean isUserIdAvailable(String userId) throws Exception {
         String sql = "SELECT COUNT(*) FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -87,7 +87,7 @@ public class MembersDAO {
             throw new Exception("이미 사용 중인 닉네임입니다.");
         }
 
-        String sql = "INSERT INTO members(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode) VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, NULL, ?, ?)";
+        String sql = "INSERT INTO members(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode) VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, 'n', ?, SYSDATE, NULL, ?, ?)";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, dto.getUserId());
@@ -97,10 +97,9 @@ public class MembersDAO {
             pstat.setString(5, dto.getPhone());
             pstat.setString(6, dto.getEmail());
             pstat.setString(7, dto.getGender());
-            pstat.setString(8, dto.getSignout());
-            pstat.setString(9, dto.getBirth_date());
-            pstat.setInt(10, dto.getAdminKey());
-            pstat.setString(11, dto.getTempCode());
+            pstat.setString(8, dto.getBirth_date());
+            pstat.setInt(9, dto.getAdminKey());
+            pstat.setString(10, dto.getTempCode());
 
             int result = pstat.executeUpdate();
             System.out.println("Insert 결과: " + result);
@@ -108,9 +107,8 @@ public class MembersDAO {
         }
     }
 
-    // 나머지 메서드는 기존 코드와 동일
     public MembersDTO login(String id, String pw) throws Exception {
-        String sql = "SELECT * FROM members WHERE userId = ? AND userPwd = ?";
+        String sql = "SELECT * FROM members WHERE userId = ? AND userPwd = ? AND signout = 'n'";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, id);
@@ -138,6 +136,7 @@ public class MembersDAO {
         }
         return null;
     }
+    
  // 내 정보 출력
 
     public MembersDTO myInfor(String userId) throws Exception {
@@ -192,7 +191,7 @@ public class MembersDAO {
             e.printStackTrace();
         }
         
-        return true;
+        return false;
     }
     public int deleteById(String userId) throws Exception {
         String sql = "DELETE FROM members WHERE userId = ?";
@@ -297,7 +296,7 @@ public class MembersDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return false;
+		return true;
 	}
 
 }

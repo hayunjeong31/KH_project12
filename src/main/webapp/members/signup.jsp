@@ -333,13 +333,7 @@ header {
                                 <option value="F">여성</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="signout" class="form-label">회원 상태</label> 
-                            <select class="form-select" name="signout" id="signout">
-                                <option value="n">활성</option>
-                                <option value="y">비활성</option>
-                            </select>
-                        </div>
+               
                         <div class="mb-3 form-check">
                             <input class="form-check-input" type="checkbox" id="gridCheck" data-bs-toggle="modal" data-bs-target="#termsModal">
                             <label class="form-check-label" for="gridCheck"> 약관에 동의합니다. </label>
