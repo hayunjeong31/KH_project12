@@ -8,13 +8,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시물 수정</title>
+    <title>QnA게시물 수정</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
 
     <style>
         * {
@@ -26,11 +27,10 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -78,7 +78,7 @@
 
         .board-left {
             flex: 1;
-            background-color: rgba(195, 208, 23, 0.578);
+            background-color: rgba(82, 125, 160, 0.454);
             color: white;
             display: flex;
             flex-direction: column;
@@ -143,9 +143,10 @@
         }
 
         .form-buttons button {
+        	font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
-            background-color: rgba(195, 208, 23, 0.578);
+            background-color: rgba(82, 125, 160, 0.454);
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -154,7 +155,7 @@
         }
 
         .form-buttons button:hover {
-            background-color: rgba(221, 235, 16, 0.78);
+            background-color: rgba(52, 162, 252, 0.454);
         }
 
         .wc_message {
@@ -174,6 +175,11 @@
 	   }
 	   .uploadedFile .file-list{
 	   	margin-bottom:2%;
+	   }
+	   .deleteFile{
+	   	font-family: "GalmuriMono9", monospace;
+	   	margin:1%;
+	   
 	   }
 	</style>
 </head>
