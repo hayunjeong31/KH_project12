@@ -220,6 +220,115 @@
 		    font-weight:bold;
 		    color: violet;
 		}
+		
+		.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+		
+		.title_max a{
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+		}
+		
+		 
+       	/* 검색 폼 스타일링 */
+        form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #searchOption {
+            width: 150px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #searchOption:hover {
+            border-color: #888;
+        }
+        
+        #searchOption:focus {
+            border-color: #555;
+        }
+
+        #searchInput {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #searchInput:hover {
+            border-color: #888;
+        }
+
+        #searchInput:focus {
+            border-color: #555;
+        }
+
+        #searchBtn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #7829d3;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #searchBtn:hover {
+            background-color: #0056b3;
+        }
+
+        .list-button {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+       .list-button i {
+		    color: #d765f3;
+		    font-size: 20px;
+		    transition: color 0.3s;
+		}
+		
+		.list-button i:hover {
+		    color: #ac16c0;
+		    transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+		}
+
+        /* 검색어 표시 영역 스타일링 */
+        .search-info {
+            padding: 5px;
+            border-radius: 4px;
+            margin: 10px 30px;
+            font-size: 15px;
+            color: #fff;
+            background-color: #36333a56;
+        }
+        
+    
     </style>
     <title>게시판</title>
 </head>
@@ -288,7 +397,10 @@
                     <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
                 </div>
                 <h2></h2>
+                  
+				    
                 <table class="board-table">
+               
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -299,18 +411,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    		<!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
+                    	<!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
                     	 <c:choose>
 		                        <c:when test="${empty list}">
 		                            <tr>
-		                                <td colspan="6" style="text-align:center;">검색 결과 없음</td>
+		                                <td colspan="6" style="text-align:center;">'${keyword}'에 대한 검색 결과 없음</td>
 		                            </tr>
 		                        </c:when>
 		                        <c:otherwise>
 		                            <c:forEach var="dto" items="${list}">
 		                                <tr>
 		                                    <td>${dto.seq}</td>
-		                                    <td>    
+		                                    <td class="title_max">    
 		                                       <a href="/detail.board?seq=${dto.seq}">${dto.title}</a>
 		                                    </td>
 		                                    <td>${dto.writer}</td>
@@ -330,16 +442,32 @@
 		                    </c:choose>
                     </tbody>
                 </table>
-                <form action="/search.board?">
-                    <select name="option" id="searchOption">
-                        <option value="title">제목</option>
-                        <option value="writer">작성자</option>
-                        <option value="title_writer">제목+작성자</option>
-                    </select>
-                    <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
-                    <button type="submit" id="searchBtn">검색</button>
-                    <button class="list-button" onclick="location.href='/list.board'"><i class="fa-solid fa-rotate-left"></i></button>
-               </form>
+                
+               <!-- 검색 폼 -->
+			    <div class="search-container">
+			        <form action="/search.board?">
+			            <select name="option" id="searchOption">
+			                <option value="title">제목</option>
+			                <option value="writer">작성자</option>
+			                <option value="title_writer">제목+작성자</option>
+			            </select>
+			            <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
+			            <button type="submit" id="searchBtn">검색</button>
+			            <button type="button" class="list-button" onclick="location.href='/list.board'"><i class="fa-solid fa-rotate-left"></i></button>
+			        </form>
+			    </div>
+                <!-- 검색어 표시 영역 -->
+			    <c:if test="${not empty keyword}">
+			        <div class="search-info">
+			            "<c:choose>
+			                <c:when test="${option == 'title'}">제목</c:when>
+			                <c:when test="${option == 'writer'}">작성자</c:when>
+			                <c:otherwise>제목+작성자</c:otherwise>
+			            </c:choose>
+			            : ${keyword} " 검색 결과
+			        </div>
+			    </c:if>
+    
                 <div class="pagination">
                     
                 </div>

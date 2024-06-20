@@ -88,7 +88,6 @@ body, html {
 }
 
 .form-field {
-    
     display: flex;
     flex-direction: column;
 }
@@ -103,7 +102,7 @@ body, html {
 .form-field input[type="text"],
 .form-field input[type="file"] {
     width: 100%;
-    padding: 5px;
+    padding: 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
@@ -111,6 +110,14 @@ body, html {
 
 .form-field input[type="file"] {
     border: none;
+    margin:0 10px;
+}
+input[type="password"] {
+	 width: 25%;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 1em;
 }
 
 .form-buttons {
@@ -164,10 +171,10 @@ body, html {
         background-image: url('../image/9.png');
     }
  /* Summernote 배경색 설정 */
-        .note-editable {
-            background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-          
-        }
+     .note-editable {
+         background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+       
+     }
    
    .note-resizebar{
    	 	display: none;
@@ -175,6 +182,18 @@ body, html {
    
    .form-password{
    		margin-bottom : 2%;
+   		font-size: 1em;	
+   		font-weight:bold;
+   }
+   .form-password label{
+      margin-bottom: 2%;
+	    margin-top:2%;
+	    font-weight: bold;
+	    font-size: 1em;
+   }
+   #post-title{
+   		height:30px;
+   	
    }
    
     </style>
@@ -239,13 +258,12 @@ body, html {
                 <h2></h2>
                 <div class="post-form">
                     <div class="form-field">
-                        <label for="post-title">글 제목</label>
+                        <label>글 제목</label>
                         <input type="text" id="post-title" name="post-title" required>
                     </div>
                     <div class="form-field">
-                        <label for="post-content">내용</label>
+                        <label>내용</label>
                         <div id="summernote"></div>
-                        <!-- <textarea id="post-content" name="post-content" rows="10" required></textarea>  -->
                     </div>
 
                     <form action="/write.qboard" method="post" id="writeform" enctype="multipart/form-data">
@@ -260,8 +278,8 @@ body, html {
 					</form>
 
                     <div class="form-password">
-						<label for="post-file">비밀번호</label>			
-						<input type="password" id="password" name="password" maxlength="4" pattern="\d{4}" required title="4자리 숫자로 입력해주세요">
+						<label>비밀번호</label>			
+						<input type="password" id="password" name="password" maxlength="4" pattern="\d{4}" required title="4자리 숫자로 입력해주세요" placeholder="  4자리 숫자 입력">
 					</div>
 
                   

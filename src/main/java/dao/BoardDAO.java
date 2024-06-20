@@ -1,8 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,14 +16,14 @@ import commons.BoardConfig;
 import dto.BoardDTO;
 
 public class BoardDAO {
-	public static BoardDAO instance;
-
+	private static BoardDAO instance;
 	public synchronized static BoardDAO getInstance() {
 		if (instance == null) {
 			instance = new BoardDAO();
 		}
 		return instance;
 	}
+<<<<<<< HEAD
 
 	private Connection getConnection() throws Exception {
 		Context ctx = new InitialContext();
@@ -72,8 +70,44 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return list;
+=======
+	private Connection getConnection() throws Exception{
+		Context ctx= new InitialContext();
+		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+		return ds.getConnection();
 	}
+	private BoardDAO() {}
+	
+	// 게시글 북마크 등록하기
+	public boolean addBookmark(String userId, int postSeq)throws Exception{
+		String sql = "insert into bookmarks values (bookmarks_seq.nextval,?,?)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql)){
+			pstat.setString(1, userId);
+			pstat.setInt(2, postSeq);
+			pstat.executeUpdate();
+			return true;
+		}
+	}
+	// 게시글 북마크 제거하기
+	public boolean removeBookmark(String userId, int postSeq) throws Exception{
+		String sql="delete from bookmarks where userId=? and postSeq=?";
+		try (Connection con = getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, userId);
+            pstmt.setInt(2, postSeq);
+            pstmt.executeUpdate();
+            return true;
+        }
+>>>>>>> 21185c7d697e08ea4785c955bdba7120fd0d9964
+	}
+	// 북마크 상태 가져오기 
+	public boolean checkBookmark(String userId, int postSeq) throws Exception{
+		boolean isBookmarked = false;
+	
+		 String sql = "SELECT COUNT(*) FROM bookmarks WHERE userid = ? AND postseq = ?";
 
+<<<<<<< HEAD
 	// 페이지 네비게이션 생성
 	// public String getPageNavi(int currentPage, int recordTotalCount)throws
 	// Exception {
@@ -120,6 +154,29 @@ public class BoardDAO {
 		String sql = "insert into board values (board_seq.nextval,1,?,?,?,sysdate,null,0,1)";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql, new String[] { "seq" })) {
+=======
+	        try (Connection con = this.getConnection();
+	        		PreparedStatement pstat = con.prepareStatement(sql);) {
+	            pstat.setString(1, userId);
+	            pstat.setInt(2, postSeq);
+	            
+	            try (ResultSet rs = pstat.executeQuery()) {
+	                if (rs.next()) {
+	                    int count = rs.getInt(1);
+	                    if (count > 0) {
+	                        isBookmarked = true;
+	                    }
+	                }
+	            }
+	       } return isBookmarked;
+	}
+	
+	// 게시글 등록하기
+	public int insert(BoardDTO dto) throws Exception{
+		String sql = "insert into board values (board_seq.nextval,1,?,?,?,sysdate,null,0,1)";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql, new String[] {"seq"})){ //첨부파일 등록할때 방해 안받을려고
+>>>>>>> 21185c7d697e08ea4785c955bdba7120fd0d9964
 			pstat.setString(1, dto.getWriter());
 			pstat.setString(2, dto.getTitle());
 			pstat.setString(3, dto.getContents());
@@ -243,6 +300,7 @@ public class BoardDAO {
 		List<BoardDTO> list = new ArrayList<>();
 		String sql = "";
 
+<<<<<<< HEAD
 		switch (option) {
 		case "title":
 			sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where title like ?) subquery where rown between ? and ?";
@@ -313,4 +371,72 @@ public class BoardDAO {
 		//
 
 	}
+=======
+ 		    try (Connection conn = getConnection(); 
+ 		         PreparedStatement pstat = conn.prepareStatement(sql)) {
+ 		        pstat.setString(1, "%" + keyword + "%");
+ 		        if (option.equals("title_writer")) {
+ 		            pstat.setString(2, "%" + keyword + "%");
+ 		            pstat.setInt(3, start);
+ 		            pstat.setInt(4, end);
+ 		        } else {
+ 		            pstat.setInt(2, start);
+ 		            pstat.setInt(3, end);
+ 		        }
+ 		        try (ResultSet rs = pstat.executeQuery()) {
+ 		            while (rs.next()) {
+ 		                BoardDTO dto = new BoardDTO();
+ 		                dto.setSeq(rs.getInt("seq"));
+ 		                dto.setCategorySeq(rs.getInt("categorySeq"));
+ 		                dto.setTitle(rs.getString("title"));
+ 		                dto.setContents(rs.getString("contents"));
+ 		                dto.setWriter(rs.getString("writer"));     
+ 		                dto.setWrite_date(rs.getTimestamp("write_date"));
+ 		                dto.setUpd_date(rs.getTimestamp("upd_date"));
+ 		                dto.setView_count(rs.getInt("view_count"));
+ 		                dto.setAdminKey(rs.getInt("adminKey"));
+ 		                list.add(dto);
+ 		            }
+ 		        }
+ 		    }
+ 		    return list;
+ 		}
+ 	// if keyword null값이면 전체 수 얻기 
+ 		// if keyword option값 있으면 아래. 
+ 		// 검색 게시글 수 얻기 
+ 		public int getSearchRecordCount(String keyword, String option) throws Exception{
+ 			String sql = "";
+ 			switch (option) {
+ 				case "title":
+ 					sql = "select count(*) from board where title like ?";
+ 					break;
+ 				case "writer":
+ 					sql = "select count(*) from board where writer like ?";
+ 					break;
+ 				case "title_writer":
+ 					sql = "select count(*) from board where title like ? or writer like ?";
+ 					break;
+ 			}
+ 			 try (Connection conn = getConnection(); 
+ 			         PreparedStatement pstat = conn.prepareStatement(sql)) {
+ 			        pstat.setString(1, "%" + keyword + "%");
+ 			        if (option.equals("title_writer")) {
+ 			            pstat.setString(2, "%" + keyword + "%");
+ 			        }
+ 			        try (ResultSet rs = pstat.executeQuery()) {
+ 			        	rs.next();
+ 			        	return rs.getInt(1);
+ 			        }
+ 			 }
+ 			//
+ 			
+ 		}
+	 	  
+	    
+
+	 
+	
+	
+	
+>>>>>>> 21185c7d697e08ea4785c955bdba7120fd0d9964
 }
