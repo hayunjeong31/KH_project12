@@ -135,6 +135,7 @@ public class MembersDAO {
         }
         return null;
     }
+ // 내 정보 출력
 
     public MembersDTO myInfor(String userId) throws Exception {
         String sql = "SELECT * FROM members WHERE userId = ?";
@@ -154,7 +155,8 @@ public class MembersDAO {
         }
         return null;
     }
-
+    
+    // 내 정보 수정
     public int edit(String userId, String userName, String phone, String email) throws Exception {
         String sql = "UPDATE members SET userName = ?, phone = ?, email = ? WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -166,7 +168,12 @@ public class MembersDAO {
             return pstat.executeUpdate();
         }
     }
-
+    
+    
+ // 현재 비밀번호 확인
+    public boolean checkPwd(String userId, String currentPwd) {
+        String sql = "SELECT userPwd FROM members WHERE userId = ?";
+        
     public int deleteById(String userId) throws Exception {
         String sql = "DELETE FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -174,6 +181,9 @@ public class MembersDAO {
             pstat.setString(1, userId);
             return pstat.executeUpdate();
         }
+        
+        return true;
+
     }
 
     public boolean updateTempCodeByEmail(String email, String tempCode) throws Exception {
@@ -184,6 +194,7 @@ public class MembersDAO {
             pstat.setString(2, email);
             return pstat.executeUpdate() > 0;
         }
+		return true;
     }
 
     public String findUserIdByEmailAndTempCode(String email, String tempCode) throws Exception {

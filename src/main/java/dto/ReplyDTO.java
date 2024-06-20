@@ -3,12 +3,13 @@ package dto;
 import java.sql.Timestamp;
 
 public class ReplyDTO {
+	
 	private int seq;
 	private int boardSeq;
-	private int parent_cmt; 
+	private int parent_cmt;
 	private String contents;
-	private String userId;
 	private Timestamp write_date;
+	private String userId;
 	
 	public ReplyDTO() {}
 	public ReplyDTO(int seq, int boardSeq, int parent_cmt, String contents, Timestamp write_date,String userId ) {
@@ -44,18 +45,17 @@ public class ReplyDTO {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public Timestamp getWrite_date() {
 		return write_date;
 	}
 	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
 	}
-	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 }

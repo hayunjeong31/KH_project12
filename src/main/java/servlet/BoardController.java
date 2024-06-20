@@ -1,5 +1,6 @@
 package servlet;
 
+import java.io.IOException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,18 +12,68 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.BoardConfig;
-import dao.BoardDAO;
 import dao.FilesDAO;
 import dao.ReplyDAO;
-import dto.BoardDTO;
 import dto.FilesDTO;
 import dto.ReplyDTO;
+import dao.BoardDAO;
+import dto.BoardDTO;
+import dto.QBoardDTO;
+
+
+@WebServlet("*.board")
+public class BoardController extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String cmd = request.getRequestURI();
+		System.out.println("사용자 요청: " + cmd);
+		BoardDAO dao = BoardDAO.getInstance();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		String writer = (String)session.getAttribute("loginID");
+
+		
+		// 내가 작성한 게시물 출력
+		try {
+			
+			if(cmd.equals("/myfreepostlist.board")) {
+				
+				String pcpage = request.getParameter("cpage");
+				if(pcpage == null) {
+					pcpage = "1";
+				}
+				int cpage = Integer.parseInt(pcpage);
+
+				
+				List<BoardDTO> list = dao.selectByWriter(
+						writer, cpage * BoardConfig.RECORD_COUNT_PER_PAGE - (BoardConfig.RECORD_COUNT_PER_PAGE - 1),
+						cpage * BoardConfig.RECORD_COUNT_PER_PAGE);
+								
+				request.setAttribute("list", list);
+				request.setAttribute("cpage", cpage);
+				request.setAttribute("record_count_per_page", BoardConfig.RECORD_COUNT_PER_PAGE);
+				request.setAttribute("navi_count_per_page", BoardConfig.NAVI_COUNT_PER_PAGE);
+				request.setAttribute("record_total_count", dao.getRecordCountByWriter(writer));
+
+				
+				request.getRequestDispatcher("/board/myfreepost.jsp").forward(request, response);
+			}
+			
+			
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}	
+
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
