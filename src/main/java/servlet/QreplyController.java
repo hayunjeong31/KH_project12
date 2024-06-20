@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.QboardDAO;
+import dao.QBoardDAO;
 import dao.QreplyDAO;
-import dto.QreplyDTO;
+import dto.QReplyDTO;
 
 
 @WebServlet("*.qreply")
@@ -27,7 +27,7 @@ public class QreplyController extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		String cmd = request.getRequestURI();
 		QreplyDAO dao = QreplyDAO.getInstance();
-		QboardDAO b_dao = QboardDAO.getInstance();
+		QBoardDAO b_dao = QBoardDAO.getInstance();
 		Gson g = new Gson();
 		System.out.println(cmd);
 		
@@ -38,7 +38,7 @@ public class QreplyController extends HttpServlet {
                 String comments = request.getParameter("comments");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				b_dao.updateAnswered(seq);
-				int success = dao.insertReply(new QreplyDTO(0,loginID, comments, null, seq));
+				int success = dao.insertReply(new QReplyDTO(0,loginID, comments, null, seq));
 				String result = g.toJson(success);
 				PrintWriter pw = response.getWriter();
 				pw.append(result);
@@ -49,7 +49,7 @@ public class QreplyController extends HttpServlet {
 		            int seq = Integer.parseInt(request.getParameter("seq"));
 		            System.out.println("seq확인"+seq);
 		            
-		            List<QreplyDTO> c_list = dao.getReply(seq);
+		            List<QReplyDTO> c_list = dao.getReply(seq);
 		            
 		            Map<String, Object> resultMap = new HashMap<>();
 		            resultMap.put("loginID", loginID);
@@ -74,7 +74,7 @@ public class QreplyController extends HttpServlet {
                 int editSeq = Integer.parseInt(request.getParameter("c_seq"));
 				String editContents = request.getParameter("edit_contents");
 				int p_seq = Integer.parseInt(request.getParameter("c_parent_seq"));
-				int result = dao.replyedit(new QreplyDTO(editSeq,loginID,editContents,null,p_seq));
+				int result = dao.replyedit(new QReplyDTO(editSeq,loginID,editContents,null,p_seq));
                 response.sendRedirect("/detail.qboard?seq=" +p_seq);
 			}
 			

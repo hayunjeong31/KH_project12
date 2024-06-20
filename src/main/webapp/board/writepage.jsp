@@ -242,11 +242,11 @@ body, html {
                 <h2></h2>
                 <div class="post-form">
                     <div class="form-field">
-                        <label for="post-title">글 제목</label>
+                        <label>글 제목</label>
                         <input type="text" id="post-title" name="post-title" required>
                     </div>
                     <div class="form-field">
-                        <label for="post-content">내용</label>
+                        <label >내용</label>
                         <div id="summernote"></div>
                     </div>
 

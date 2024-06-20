@@ -22,7 +22,6 @@ import dao.FilesDAO;
 import dao.ReplyDAO;
 import dto.BoardDTO;
 import dto.FilesDTO;
-import dto.ReplyDTO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -174,7 +173,6 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/board/detail.jsp").forward(request, response);
 				
 			}	
-			// 게시글 북마크 체크하기 . 
 		
 			
 			// 게시글 수정하기 페이지로 넘어가기.

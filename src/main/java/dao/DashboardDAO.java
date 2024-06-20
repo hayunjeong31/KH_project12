@@ -10,7 +10,6 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 import dto.BoardDTO;
 import dto.BoardDTO;
 import dto.MembersDTO;
@@ -88,19 +87,19 @@ public class DashboardDAO {
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
-				String tempCode = rs.getString("tempcode");
+				String tempCode = rs.getString("temp_code");
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
 						signout, birth_date, join_date, updated_date, adminKey, tempCode);
 				selectedAllmemberList.add(selectedOneMember);
-				// 수정예정
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return selectedAllmemberList;
 	}
+
 
 	// 사용자 연령대 받아오는 DAO
 	public List<Integer> getAllAgeFromUsers() {
@@ -119,6 +118,7 @@ public class DashboardDAO {
 
 		return ageList;
 	}
+
 	// 사용자 성별 받아오는 DAO
 
 	public List<String> getAllGenderFromUser() {
@@ -134,6 +134,7 @@ public class DashboardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return genderList;
 	}
 }

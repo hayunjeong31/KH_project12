@@ -295,26 +295,6 @@
             $("#contents").val(markupStr);
         });
 
-        // 파일 삭제 버튼 클릭 시 -> 수정필요 : 파일삭제버튼 누르면 ui로만 hide하게, 그리고 수정완료 버튼 누르면 hide한거 db에 삭제하게 
-   /*     $(".deleteFile").on("click", function() {
-            var sysname = $(this).data("sysname");
-            var $fileDiv = $(this).closest('div');
-            $.ajax({
-                url: "/delete.file",
-                method: "POST",
-                data: { sysname: sysname },
-                success: function(response) {
-                    if (response == 'success') {
-                        $fileDiv.remove();
-                    } else {
-                        alert("파일 삭제에 실패했습니다.");
-                    }
-                },
-                error: function() {
-                    alert("파일 삭제 중 오류가 발생했습니다.");
-                }
-            });
-        }); */
     </script>
 </body>
 

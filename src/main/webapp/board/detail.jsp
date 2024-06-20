@@ -56,22 +56,22 @@
             justify-content: center;
             align-items: center;
             height: 100%;
-            background-color: #f4f4f462;
-            width: 80%;
             height: 80%;
+            width: 80%;
             margin: 80px auto;
             /* 헤더 고정으로 인한 상단 마진 추가 */
             border-radius: 10px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            background-color: #f4f4f462;
         }
 
         .board-section {
             display: flex;
             width: 100%;
             height: 100%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: rgba(255, 255, 255, 0.412);
         }
 
@@ -93,11 +93,14 @@
         .board-area {
             flex: 2;
             padding: 20px;
+            padding-top: 70px;
+            padding-bottom: 100px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             background-color: rgba(255, 255, 255, 0.24);
+            overflow-y: auto;    max-height: 80vh;
         }
 
         .board-area h2 {

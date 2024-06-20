@@ -11,7 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import dto.QreplyDTO;
+import dto.QReplyDTO;
 
 public class QreplyDAO {
 	private static QreplyDAO instance;
@@ -28,7 +28,7 @@ public class QreplyDAO {
 	}
 	private QreplyDAO() {}
 	
-	public int insertReply(QreplyDTO dto) throws Exception{
+	public int insertReply(QReplyDTO dto) throws Exception{
 		String sql = "insert into qreply values (qreply_seq.nextval,?,?,sysdate,?)";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
@@ -41,19 +41,19 @@ public class QreplyDAO {
 		}
 	}
 	
-	public List<QreplyDTO> getReply (int seq) throws Exception{
+	public List<QReplyDTO> getReply (int seq) throws Exception{
 		String sql = "select * from qreply where queSeq=? order by seq desc";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql)){
 			pstat.setInt(1, seq);
 			try(ResultSet rs = pstat.executeQuery()){
-				List<QreplyDTO> list = new ArrayList<>();
+				List<QReplyDTO> list = new ArrayList<>();
 				while(rs.next()) {
 					int qseq = rs.getInt("seq");
 					String writer = rs.getString("userid");
 					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
-					list.add(new QreplyDTO(qseq,writer,contents,write_date,seq));
+					list.add(new QReplyDTO(qseq,writer,contents,write_date,seq));
 							
 				}
 				return list;
@@ -70,7 +70,7 @@ public class QreplyDAO {
 		        }
 	}
 	
-	public int replyedit(QreplyDTO dto) throws Exception{
+	public int replyedit(QReplyDTO dto) throws Exception{
 		String sql = "update qreply set contents=?,write_date=sysdate where seq=?";
 		try (Connection con = this.getConnection();
 	             PreparedStatement pstat = con.prepareStatement(sql)) {
