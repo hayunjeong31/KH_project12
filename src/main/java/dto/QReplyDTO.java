@@ -2,49 +2,16 @@ package dto;
 
 import java.sql.Timestamp;
 
-public class Qreply {
-
+public class QReplyDTO {
 	private int seq;
-	private int userId;
+	private String userId;
 	private String contents;
 	private Timestamp write_date;
-	private String queSeq;
+	private int queSeq;
 	
-	
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	public Timestamp getWrite_date() {
-		return write_date;
-	}
-	public void setWrite_date(Timestamp write_date) {
-		this.write_date = write_date;
-	}
-	public String getQueSeq() {
-		return queSeq;
-	}
-	public void setQueSeq(String queSeq) {
-		this.queSeq = queSeq;
-	}
-	
-	public Qreply() {}
-	
-	public Qreply(int seq, int userId, String contents, Timestamp write_date, String queSeq) {
+	public QReplyDTO() {}
+
+	public QReplyDTO(int seq, String userId, String contents, Timestamp write_date, int queSeq) {
 		super();
 		this.seq = seq;
 		this.userId = userId;
@@ -52,7 +19,51 @@ public class Qreply {
 		this.write_date = write_date;
 		this.queSeq = queSeq;
 	}
+
+
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+
 	
-		
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public Timestamp getWrite_date() {
+		return write_date;
+	}
+
+	public void setWrite_date(Timestamp write_date) {
+		this.write_date = write_date;
+	}
+
+	public int getQueSeq() {
+		return queSeq;
+	}
+
+	public void setQueSeq(int queSeq) {
+		this.queSeq = queSeq;
+	}
+	
+	
+	
 	
 }

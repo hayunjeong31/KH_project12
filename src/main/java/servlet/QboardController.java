@@ -19,7 +19,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import commons.BoardConfig;
 import commons.EncryptionUtils;
 import dao.FilesDAO;
-import dao.QboardDAO;
+import dao.QBoardDAO;
 import dao.QreplyDAO;
 import dto.FilesDTO;
 import dto.QBoardDTO;
@@ -30,7 +30,7 @@ public class QboardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		String cmd = request.getRequestURI();
-		QboardDAO dao = QboardDAO.getInstance();
+		QBoardDAO dao = QBoardDAO.getInstance();
 		QreplyDAO r_dao = QreplyDAO.getInstance();
 		FilesDAO f_dao = FilesDAO.getInstance();
 		Gson g = new Gson();

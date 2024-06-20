@@ -20,9 +20,6 @@ import dto.BoardDTO;
 public class BoardDAO {
 	public static BoardDAO instance;
 
-	public synchronized static BoardDAO getInstance() {  
-		if(instance == null) {
-	private static BoardDAO instance;
 	public synchronized static BoardDAO getInstance() {
 		if(instance ==null) {
 			instance = new BoardDAO();
@@ -35,7 +32,6 @@ public class BoardDAO {
 		return ds.getConnection();
 	}
 
-	private BoardDAO() {}
 
 
 	// 전체 글 개수 
@@ -120,13 +116,7 @@ public class BoardDAO {
 	//		}
 	//		return sb.toString();
 	//	}
-	private Connection getConnection() throws Exception{
-		Context ctx= new InitialContext();
-		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
-		return ds.getConnection();
-	}
-	private BoardDAO() {}
-	
+
 	public int insert(BoardDTO dto) throws Exception{
 		String sql = "insert into board values (board_seq.nextval,1,?,?,?,sysdate,null,0,1)";
 		try(Connection con = this.getConnection();

@@ -18,7 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import dto.FreeBoardDTO;
+import dto.BoardDTO;
 import dto.MembersDTO;
 
 @WebServlet("*.dashBoard")
@@ -31,7 +31,7 @@ public class DashboardController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		System.out.println(cmd);
 		if (cmd.equals("/showAll.dashBoard")) {
-			List<FreeBoardDTO> boardList = dao.getAllBoardListAsAdmin();
+			List<BoardDTO> boardList = dao.getAllBoardListAsAdmin();
 			List<MembersDTO> memberList = dao.selectAllMembersAsAdmin();
 			List<Integer> ageList = dao.getAllAgeFromUsers();
 			List<Integer> subStringAgeList = new ArrayList<>();

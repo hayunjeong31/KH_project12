@@ -50,10 +50,9 @@ public class MembersController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         HttpSession session = request.getSession();
-
-        HttpSession session = request.getSession();
         try {
             if (cmd.equals("/signup.members")) {
+                String tempCode = null; // 가입 시에는 임시 코드 없음
                 String userId = request.getParameter("userId");
                 String userPwd = EncryptionUtils.getSHA512(request.getParameter("userPwd"));
                 String userName = request.getParameter("userName");
@@ -64,17 +63,10 @@ public class MembersController extends HttpServlet {
                 String signout = request.getParameter("signout");
                 String birth_date = request.getParameter("birth_date");
                 int adminKey = Integer.parseInt(request.getParameter("adminKey"));
-
-                String tempCode = request.getParameter("tempCode");
-
-                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey,null);
-                dao.addMember(dto);
+                tempCode = request.getParameter("tempCode");
+                
                 response.setStatus(HttpServletResponse.SC_OK);
-
-                String tempCode = null; // 가입 시에는 임시 코드 없음
-
                 MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey, tempCode);
-
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {
@@ -121,47 +113,17 @@ public class MembersController extends HttpServlet {
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
             }
-             else if(cmd.equals("/mypage.members")) {
-            	String userId = (String) session.getAttribute("loginID");
-                MembersDTO dto = dao.myInfor(userId);
-                request.setAttribute("dto", dto);
-                request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
-
-            } 
-            else if(cmd.equals("/edit.members")) {
-                String loginId = (String)session.getAttribute("loginID");
-                String userName = request.getParameter("userName");
-
-
             }
             // 내 정보 출력
-            else if(cmd.equals("/mypage.members")) {
-
-            } else if(cmd.equals("/mypage.members")) {
-                HttpSession session = request.getSession();
-
-                String result = (String)session.getAttribute("loginID");
-                System.out.println(result);
-                MembersDTO dto = dao.myInfor(result);
-                request.setAttribute("dto", dto);
-                request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
-
-            }
-            // 수정
-            else if(cmd.equals("/edit.members")) {
-
-            } else if(cmd.equals("/edit.members")) {
-                HttpSession session = request.getSession();
-                String result = (String)session.getAttribute("loginID");
-
-            }
-             else if(cmd.equals("/mypage.members")) {
-            	String userId = (String) session.getAttribute("loginID");
-                MembersDTO dto = dao.myInfor(userId);
+                else if(cmd.equals("/mypage.members")) {
+                String loginId = (String)session.getAttribute("loginID");
+                System.out.println(loginId);
+                MembersDTO dto = dao.myInfor(loginId);
                 request.setAttribute("dto", dto);
                 request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
 
             } 
+             // 수정
             else if(cmd.equals("/edit.members")) {
                 String loginId = (String)session.getAttribute("loginID");
                String userName = request.getParameter("userName");
