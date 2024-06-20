@@ -38,7 +38,8 @@ body, html {
     align-items: center;
     height: 100%;
     background-color: #f4f4f4;
-    background-image: url('../image/5033917.jpg');
+    background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+    
 }
 
 .create-post-section {
@@ -160,7 +161,8 @@ body, html {
         background-color: black;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         height: 60px;
-        background-image: url('../image/9.png');
+        background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+        
     }
  /* Summernote 배경색 설정 */
         .note-editable {

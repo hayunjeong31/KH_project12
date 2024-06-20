@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <style>
         /* Inline styles for specific to this HTML file */
 
@@ -25,7 +25,8 @@
         html {
             height: 100%;
             font-family: Arial, sans-serif;
-            background-image: url('image/5033917.jpg');
+            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+            
         }
 
         body {
@@ -192,7 +193,8 @@
             background-color: black;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
-            background-image: url('image/9.png');
+            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+
         }
         
           .pagination{

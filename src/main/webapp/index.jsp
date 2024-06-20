@@ -362,10 +362,10 @@ header {
                     </div>
                 </li>
                 <li>
-                    <a href="board.html">게시판</a>
+                    <a href="/list.board">게시판</a>
                     <div class="dropdown">
-                        <a href="board.html">게시판</a>
-                        <a href="#">Q&A</a>
+                        <a href="/list.board">게시판</a>
+                        <a href="/list.qboard">Q&A</a>
                         <a href="#">공지사항</a>
                     </div>
                 </li>

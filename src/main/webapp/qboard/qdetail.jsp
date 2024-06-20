@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
-
-
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/header_styles.css">
+    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+
     <title>게시물 상세보기</title>
     <style>
         * {
@@ -25,10 +24,10 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
         }
 
         body {
+			font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -45,103 +44,40 @@
             left: 0;
             z-index: 1000;
             background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
             background-image: url('image/9.png');
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
         }
 
-        header .header-container {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            margin-left: auto;
-        }
-
-        header nav ul li {
-            margin-left: 20px;
-            position: relative;
-        }
-
-        header nav ul li a {
-            color: white;
-            text-decoration: none;
-        }
-
-        header nav ul li .dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: black;
-            padding: 10px 0;
-        }
-
-        header nav ul li:hover .dropdown {
-            display: block;
-        }
-
-        header .header-buttons {
-            display: flex;
-            align-items: center;
-        }
-
-        header .login-button {
-            margin-left: 20px;
-            padding: 10px 20px;
-            background-color: rgba(4, 134, 39, 0.47);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        header .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        header .hamburger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px 0;
-        }
+       
 
         .main {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80%;
+            height: 100%;
+            background-color: #f4f4f462;
             width: 80%;
+            height: 80%;
             margin: 80px auto;
+            /* 헤더 고정으로 인한 상단 마진 추가 */
             border-radius: 10px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            //background-color: rgba(244, 244, 244, 0.39);
-            background-color: #f4f4f462;
         }
 
         .board-section {
             display: flex;
             width: 100%;
             height: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: rgba(255, 255, 255, 0.412);
         }
 
         .board-left {
             flex: 1;
-            background-color: rgba(4, 134, 39, 0.454);
+            background-color: rgba(82, 125, 160, 0.454);
             color: white;
             display: flex;
             flex-direction: column;
@@ -154,22 +90,88 @@
             font-size: 36px;
         }
 
-       .board-area {
-		    flex: 2;
-		    padding: 20px;
-		    padding-top: 70px;
-		    display: flex;
-		    flex-direction: column;
-		    justify-content: flex-start;
-		    align-items: center;
-		    overflow-y: auto;    max-height: 80vh;
-		}
+        .board-area {
+            flex: 2;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         .board-area h2 {
             margin-bottom: 20px;
             font-size: 24px;
             color: black;
             text-align: center;
+        }
+
+        .board-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .board-table th,
+        .board-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: black;
+        }
+
+        .board-table th {
+            background-color: #f4f4f4;
+        }
+
+        .board-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .board-table a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .board-table a:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            color: black;
+        }
+
+        .pagination button:hover {
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+        }
+
+        .pagination button:active {
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+        }
+
+        .write-button {
+        	font-family: "GalmuriMono9", monospace;
+            padding: 10px 20px;
+            background-color: rgba(4, 134, 39, 0.47);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .write-button:hover {
+            background-color: rgba(4, 134, 39, 0.47);
         }
 
         .post-details {
@@ -190,13 +192,14 @@
 
         .post-actions {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             width: 100%;
             max-width: 800px;
             margin-bottom: 20px;
         }
 
         .post-actions button {
+        font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
             background-color: rgba(4, 134, 39, 0.47);
@@ -271,57 +274,25 @@
         .post-comments button:hover {
             background-color: rgba(13, 230, 71, 0.47);
         }
-        
-        #comment-box{
-        	width: 100%;
-        	margin-top:5%;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 1em;
-            margin-bottom: 10px;
-        }
-        
-        .box_comment{
-        	width: 100%;
-        	padding:10px;
-        	margin-top:3%;
-        	border: 1px solid white;
-        	background-color: white;
-        	border-radius: 3%;
-        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="header-container">
-            <img src="image/kakao.png" class="logo">
+            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo">
             <nav>
                 <ul>
                     <li>
                         <a href="index.html">홈</a>
-                        <div class="dropdown">
-                        </div>
                     </li>
                     <li>
-                        <a href="#">게임</a>
-                        <div class="dropdown">
-                            <a href="win.html">명예의 전당</a> <!-- 명예의 전당 페이지로 이동 -->
-                            <a href="#">Subitem 2</a>
-                            <a href="#">랭킹</a>
-                        </div>
+                        <a href="notice.html">공지사항</a>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a> <!-- 게시판 페이지로 이동 -->
+                        <a href="#">내 정보</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a> <!-- 게시판 페이지로 이동 -->
-                            <a href="#">Q&A</a>
-                            <a href="#">공지사항</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">마이페이지</a>
-                        <div class="dropdown">
+                            <a href="#">내 정보 보기</a>
                             <a href="#">내 정보 수정</a>
                         </div>
                     </li>
@@ -347,7 +318,7 @@
     <main class="main">
         <section class="board-section">
             <article class="board-left">
-                <h1>게시물 상세 보기</h1>
+                <h1>Qna 게시물 상세 보기</h1>
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
@@ -388,8 +359,8 @@
                     <h3>첨부 파일</h3>
                     <ul>
                         <c:forEach var="i" items="${list }">
-							<div><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
-						</c:forEach>
+                            <li><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <c:choose>
@@ -400,8 +371,13 @@
 		                    <button type="button" id="submit-comment">등록</button>
 		                </div>
                 	</c:when>
+                	<c:otherwise>
+                		<div class ="post-msg">
+                		<h3>댓글</h3>
+                		답변 대기 중
+                		</div>
+                	</c:otherwise>
                 </c:choose>
-
                 <!-- ajax로 댓글 불러오기  -->
                 <div id="comment-box">
                 </div>
@@ -420,7 +396,6 @@
             </article>
         </section>
     </main>
-
     <script>
         // 게시글 수정하기, 삭제하기
         $("#btnedit").on("click", function() {
@@ -569,4 +544,3 @@
 </body>
 
 </html>
-	

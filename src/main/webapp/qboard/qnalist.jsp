@@ -157,18 +157,6 @@
             background-color: rgba(25, 25, 173, 0.598);
             color: white;
         }
-        .pagination{
-        	margin-top:3%;
-        }
-        .pagination a{
-        	text-decoration: none;
-        	color:white;
-        }
-        .pagination a.active{
-        	font-size: 1.2em;
-        	font-weight: bold;
-        	color: violet;
-        }
 
         .board-buttons {
             display: flex;
@@ -205,7 +193,18 @@
             background-image: url('image/9.png');
         }
         
-        
+        .pagination{
+        	margin-top:3%;
+        }
+        .pagination a{
+        	text-decoration: none;
+        	color:white;
+        }
+        .pagination a.active{
+        	font-size: 1.2em;
+        	font-weight: bold;
+        	color: violet;
+        }
        .qna-list-button {
 		    background: none;
 		    border: none;
