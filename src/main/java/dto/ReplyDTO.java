@@ -11,7 +11,16 @@ public class ReplyDTO {
 	private Timestamp write_date;
 	private String userId;
 	
-	
+	public ReplyDTO() {}
+	public ReplyDTO(int seq, int boardSeq, int parent_cmt, String contents, Timestamp write_date,String userId ) {
+		super();
+		this.seq = seq;
+		this.boardSeq = boardSeq;
+		this.parent_cmt = parent_cmt;
+		this.contents = contents;
+		this.userId = userId;
+		this.write_date = write_date;
+	}
 	public int getSeq() {
 		return seq;
 	}
@@ -48,18 +57,5 @@ public class ReplyDTO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	public ReplyDTO() {}
-	
-	public ReplyDTO(int seq, int boardSeq, int parent_cmt, String contents, Timestamp write_date, String userId) {
-		super();
-		this.seq = seq;
-		this.boardSeq = boardSeq;
-		this.parent_cmt = parent_cmt;
-		this.contents = contents;
-		this.write_date = write_date;
-		this.userId = userId;
-	}
-		
 	
 }
