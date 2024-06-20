@@ -10,7 +10,6 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 import dto.BoardDTO;
 import dto.BoardDTO;
 import dto.MembersDTO;
@@ -36,10 +35,10 @@ public class DashboardDAO {
 	}
 	// 게시판 전부 받아오는 DAO
 
-	public List<BoardDTO> getAllBoardListAsAdmin() {
+	public List<FreeBoardDTO> getAllBoardListAsAdmin() {
 		String getAllBoardListAsAdminSQL = "select * from Free_Board";
-		BoardDTO selectedOneBoard = new BoardDTO();
-		List<BoardDTO> allBoardList = new ArrayList<>();
+		FreeBoardDTO selectedOneBoard = new FreeBoardDTO();
+		List<FreeBoardDTO> allBoardList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllBoardListAsAdminSQL);
 				ResultSet rs = pstmt.executeQuery();) {
@@ -53,8 +52,10 @@ public class DashboardDAO {
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int view_count = rs.getInt("view_count");
 				int adminKey = rs.getInt("adminkey");
-
 				selectedOneBoard = new BoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
+
+				selectedOneBoard = new FreeBoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
+
 						updated_date, view_count, adminKey);
 
 				allBoardList.add(selectedOneBoard);
@@ -88,22 +89,25 @@ public class DashboardDAO {
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
-				String tempCode = rs.getString("tempcode");
-				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
-						signout, birth_date, join_date, updated_date, adminKey, tempCode);
+				String tempCode = rs.getString("temp_code");
+				selectedOneMember = new MembersDTO(userSeq,userId,userPwd,userName,nickName,phone,email,gender,signout,birth_date,join_date,updated_date,adminKey,tempCode);
 				selectedAllmemberList.add(selectedOneMember);
-				// 수정예정
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return selectedAllmemberList;
 	}
 
 	// 사용자 연령대 받아오는 DAO
 	public List<Integer> getAllAgeFromUsers() {
+		
+		return selectedAllmemberList;
+	}
+	// 사용자 연령대 받아오는 DAO
+	public List<Integer> getAllAgeFromUsers(){
 		String getAllAgeFromUsersSQL = "select birth_date from members";
 		List<Integer> ageList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
@@ -122,6 +126,19 @@ public class DashboardDAO {
 	// 사용자 성별 받아오는 DAO
 
 	public List<String> getAllGenderFromUser() {
+			while(rs.next()) {
+				int birthdate = rs.getInt("birth_date");
+				ageList.add((Integer)birthdate);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ageList;
+	}
+	// 사용자 성별 받아오는 DAO
+	
+	public List<String> getAllGenderFromUser(){
 		String getAllGenderFromUser = "select gender from members";
 		List<String> genderList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
@@ -132,6 +149,11 @@ public class DashboardDAO {
 				genderList.add(gender);
 			}
 		} catch (Exception e) {
+			while(rs.next()) {
+				String gender = rs.getString("gender");
+				genderList.add(gender);
+			}
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return genderList;

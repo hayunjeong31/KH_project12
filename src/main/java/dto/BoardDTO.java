@@ -3,15 +3,6 @@ package dto;
 import java.sql.Timestamp;
 
 public class BoardDTO {
- private int seq;
- private int categorySeq;
- private String writer;
- private String title;
- private String contents;
- private Timestamp write_date;
- private Timestamp upd_date;
- private int view_count;
- private int adminKey;
  
 public BoardDTO() {}
 public BoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
@@ -81,5 +72,4 @@ public int getAdminKey() {
 public void setAdminKey(int adminKey) {
 	this.adminKey = adminKey;
 }
- 
 }

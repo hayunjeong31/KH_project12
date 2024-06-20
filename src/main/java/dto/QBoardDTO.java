@@ -3,6 +3,13 @@ package dto;
 import java.sql.Timestamp;
 
 public class QBoardDTO {
+	
+	private int seq;
+	private int categorySeq;
+	private String writer;
+	private String title;
+	private String contents;
+	private Timestamp write_date;
 	private int seq;
 	private int categorySeq;
 	private String writer;
@@ -14,10 +21,15 @@ public class QBoardDTO {
 	private String password;
 	private String isAnswered;
 	private int adminKey;
-	
+
 	
 	public QBoardDTO() {}
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 
 	public QBoardDTO(int seq, int categorySeq, String writer, String title, String contents, Timestamp write_date,
 			Timestamp upd_date, int view_count, String password, String isAnswered, int adminKey) {
@@ -57,6 +69,9 @@ public class QBoardDTO {
 		this.categorySeq = categorySeq;
 	}
 
+	public String getWriter() {
+		return writer;
+
 	public int getSeq() {
 		return seq;
 	}
@@ -71,6 +86,7 @@ public class QBoardDTO {
 	}
 	public void setIsAnswered(String isAnswered) {
 		this.isAnswered = isAnswered;
+
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
@@ -92,6 +108,14 @@ public class QBoardDTO {
 	}
 	public void setWrite_date(Timestamp write_date) {
 		this.write_date = write_date;
+
+	}
+	public Timestamp getUpd_date() {
+		return upd_date;
+	}
+	public void setUpd_date(Timestamp upd_date) {
+		this.upd_date = upd_date;
+
 	}
 	public int getView_count() {
 		return view_count;
@@ -101,6 +125,25 @@ public class QBoardDTO {
 	}
 	public String getPassword() {
 		return password;
+
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getIsAnswered() {
+		return isAnswered;
+	}
+	public void setIsAnswered(String isAnswered) {
+		this.isAnswered = isAnswered;
+	}
+	public int getAdminKey() {
+		return adminKey;
+	}
+	public void setAdminKey(int adminKey) {
+		this.adminKey = adminKey;
+	}
+	
+
 	}
 	public void setPassword(String password) {
 		this.password = password;
