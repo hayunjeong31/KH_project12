@@ -202,7 +202,7 @@
         font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
-            background-color: rgba(4, 134, 39, 0.47);
+            background-color: rgba(82, 125, 160, 0.454);
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -211,7 +211,7 @@
         }
 
         .post-actions button:hover {
-            background-color: rgba(13, 230, 71, 0.47);
+            background-color: rgba(52, 162, 252, 0.454);
         }
 
         .post-attachments {
@@ -242,7 +242,7 @@
             text-decoration: underline;
         }
 
-        .post-comments {
+        .post-comments  {
             width: 100%;
             max-width: 800px;
         }
@@ -264,7 +264,7 @@
         .post-comments button {
             padding: 10px 20px;
             border: none;
-            background-color: rgba(4, 134, 39, 0.47);
+            background-color: rgba(82, 125, 160, 0.454);
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -272,7 +272,11 @@
         }
 
         .post-comments button:hover {
-            background-color: rgba(13, 230, 71, 0.47);
+            background-color: rgba(52, 162, 252, 0.454);
+        }
+        .post-msg{
+        	text-align:center;
+        
         }
     </style>
 </head>
@@ -372,15 +376,14 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
-                		<div class ="post-msg">
                 		<h3>댓글</h3>
+                		<div class ="post-msg">
                 		답변 대기 중
                 		</div>
                 	</c:otherwise>
                 </c:choose>
                 <!-- ajax로 댓글 불러오기  -->
-                <div id="comment-box">
-                </div>
+                <div id="comment-box"></div>
                     
                  <!-- 댓글 수정하기, 삭제하기 -->
                  <form action="/delete.qreply" id="deleteForm" method="post">
