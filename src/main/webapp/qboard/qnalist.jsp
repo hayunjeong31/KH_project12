@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+ 
  <style>
         /* Inline styles for specific to this HTML file */
 
@@ -22,12 +24,11 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
             background-image: url('image/5033917.jpg');
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -90,6 +91,7 @@
             border-radius: 4px;
             cursor: pointer;
             margin-left: 850px;
+            font-family: "GalmuriMono9", monospace;
             /* This might need adjustment based on your layout */
         }
 
@@ -135,7 +137,45 @@
             text-decoration: underline;
         }
 
-        .pagination {
+        .board-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 800px;
+            font-family: "GalmuriMono9", monospace;
+        }
+
+        .board-buttons .write-button,
+        .board-buttons .home-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: rgb(64, 64, 116);
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 48%;
+            font-family: "GalmuriMono9", monospace;
+        }
+
+        .board-buttons .write-button:hover,
+        .board-buttons .home-button:hover {
+            background-color: rgb(64, 64, 116);
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 60px;
+            background-image: url('image/9.png');
+        }
+        
+        /* pagination 스타일 - button 효과를 a 태그에 줘보기. */
+         .pagination {
             margin-bottom: 20px;
         }
 
@@ -157,42 +197,6 @@
             background-color: rgba(25, 25, 173, 0.598);
             color: white;
         }
-
-        .board-buttons {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .board-buttons .write-button,
-        .board-buttons .home-button {
-            padding: 10px 20px;
-            border: none;
-            background-color: rgb(64, 64, 116);
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            width: 48%;
-        }
-
-        .board-buttons .write-button:hover,
-        .board-buttons .home-button:hover {
-            background-color: rgb(64, 64, 116);
-        }
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background-color: black;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            height: 60px;
-            background-image: url('image/9.png');
-        }
-        
         .pagination{
         	margin-top:3%;
         }
@@ -205,6 +209,8 @@
         	font-weight: bold;
         	color: violet;
         }
+        
+        /* 리셋 버튼 */
        .qna-list-button {
 		    background: none;
 		    border: none;
@@ -217,7 +223,27 @@
 		    font-weight:bold;
 		    color: violet;
 		}
+		/* 리셋 버튼 인데 ... 뭐지?? */
+		.qna-list-button {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+       .qna-list-button i {
+		    color: #d765f3;
+		    font-size: 20px;
+		    transition: color 0.3s;
+		}
 		
+		.qna-list-button i:hover {
+		    color: #ac16c0;
+		    transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+		}
+		
+		/* 제목 부분 */
 		.board-table .title_max {
 			white-space: nowrap !important;
 	        overflow: hidden !important;
@@ -246,12 +272,12 @@
             width: 150px;
             padding: 6px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             background-color: #fff;
             font-size: 14px;
             color: #333;
             outline: none;
             transition: border-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
         }
         
         #searchOption:hover {
@@ -265,11 +291,11 @@
         #searchInput {
             padding: 6px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             font-size: 14px;
             width: 200px;
             outline: none;
             transition: border-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
         }
 
         #searchInput:hover {
@@ -289,30 +315,14 @@
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
         }
 
         #searchBtn:hover {
             background-color: #0056b3;
         }
 
-        .qna-list-button {
-            padding: 0;
-            border: none;
-            background: none;
-            cursor: pointer;
-        }
-
-       .qna-list-button i {
-		    color: #d765f3;
-		    font-size: 20px;
-		    transition: color 0.3s;
-		}
-		
-		.qna-list-button i:hover {
-		    color: #ac16c0;
-		    transform: scale(1.1);
-            box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
-		}
+        
 		 /* 검색어 표시 영역 스타일링 */
         .search-info {
             padding: 5px;
@@ -443,6 +453,7 @@
                     </tbody>
                 </table>
 
+					<!-- 게시글 검색 -->
                     <!-- 리셋버튼 만들었음. 흠... 일단 만들음 -->
                <form action="/search.qboard?">
 	                <select name="option" id="searchOption">
