@@ -1,6 +1,5 @@
 package servlet;
 
-import java.io.IOException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,20 +11,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.BoardConfig;
+import dao.BoardDAO;
 import dao.FilesDAO;
 import dao.ReplyDAO;
-import dto.FilesDTO;
-import dto.ReplyDTO;
-import dao.BoardDAO;
 import dto.BoardDTO;
-import dto.QBoardDTO;
+import dto.FilesDTO;
 
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
@@ -62,6 +58,42 @@ public class BoardController extends HttpServlet {
 				request.getRequestDispatcher("/board/list.jsp").forward(request, response);
 				
 			}
+			// 북마크 클릭하기 . 
+			else if(cmd.equals("/bookmark.board")) {
+	                String userId = (String) request.getSession().getAttribute("loginID");
+	                int postSeq = Integer.parseInt(request.getParameter("postSeq"));
+	                boolean isBookmarked = Boolean.parseBoolean(request.getParameter("isBookmarked"));
+	                System.out.println("boolean1 "+isBookmarked);
+	                boolean result;
+	                if (isBookmarked) {
+	                    result = dao.addBookmark(userId, postSeq);
+	                } else {
+	                    result = dao.removeBookmark(userId, postSeq);
+	                }
+
+	                String success = g.toJson(result);
+					PrintWriter pw = response.getWriter();
+					pw.append(success);
+	                
+	                pw.close();
+	            }
+			// 북마크 상태 가져오기 
+			else if(cmd.equals("/getBookmarkStatus.board")) {
+				String userId = (String) request.getSession().getAttribute("loginID");
+                int postSeq = Integer.parseInt(request.getParameter("postSeq"));
+                
+                boolean result = dao.checkBookmark(userId,postSeq);
+                
+                
+                String success = g.toJson(result);
+				PrintWriter pw = response.getWriter();
+				pw.append(success);
+                
+                pw.close();
+			}
+			
+			
+			// 게시글 검색
 			else if(cmd.equals("/search.board")) {
 			    request.getSession().getAttribute("loginID");
 			    int adminKey = (Integer)request.getSession().getAttribute("adminKey");

@@ -2,12 +2,13 @@ package servlet;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.PasswordAuthentication;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import dao.MembersDAO;
 
 @WebServlet("/sendAuthCode")
@@ -88,7 +90,7 @@ public class EmailSenderServlet extends HttpServlet {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, appPassword);
             }

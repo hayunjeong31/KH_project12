@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/header_styles.css">
     <title>게시물 상세보기</title>
     <style>
@@ -124,7 +125,8 @@
             margin: 80px auto;
             border-radius: 10px;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-            background-color: rgba(244, 244, 244, 0.39);
+            //background-color: rgba(244, 244, 244, 0.39);
+            background-color: #f4f4f462;
         }
 
         .board-section {
@@ -133,6 +135,8 @@
             height: 100%;
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.412);
         }
 
         .board-left {
@@ -384,7 +388,7 @@
                     <h3>첨부 파일</h3>
                     <ul>
                         <c:forEach var="i" items="${list }">
-							<div>${i.seq}.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
+							<div><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
 						</c:forEach>
                     </ul>
                 </div>
@@ -398,8 +402,8 @@
                 	</c:when>
                 </c:choose>
 
+                <!-- ajax로 댓글 불러오기  -->
                 <div id="comment-box">
-                    <!-- ajax로 댓글 불러오기  -->
                 </div>
                     
                  <!-- 댓글 수정하기, 삭제하기 -->

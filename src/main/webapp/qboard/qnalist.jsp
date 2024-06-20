@@ -217,6 +217,111 @@
 		    font-weight:bold;
 		    color: violet;
 		}
+		
+		.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+		.title_max a{
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+		
+		/* 검색 폼 스타일링 */
+        form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #searchOption {
+            width: 150px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #searchOption:hover {
+            border-color: #888;
+        }
+        
+        #searchOption:focus {
+            border-color: #555;
+        }
+
+        #searchInput {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #searchInput:hover {
+            border-color: #888;
+        }
+
+        #searchInput:focus {
+            border-color: #555;
+        }
+
+        #searchBtn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #7829d3;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #searchBtn:hover {
+            background-color: #0056b3;
+        }
+
+        .qna-list-button {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+       .qna-list-button i {
+		    color: #d765f3;
+		    font-size: 20px;
+		    transition: color 0.3s;
+		}
+		
+		.qna-list-button i:hover {
+		    color: #ac16c0;
+		    transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+		}
+		 /* 검색어 표시 영역 스타일링 */
+        .search-info {
+            padding: 5px;
+            border-radius: 4px;
+            margin: 10px 30px;
+            font-size: 15px;
+            color: #e3d8f0;
+            background-color: #36333a56;
+        }
     </style>
     <title>게시판</title>
 </head>
@@ -285,17 +390,7 @@
                     <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
                 </div>
                 <h2></h2>
-                 <!-- 검색어 표시 영역 -->
-				<c:if test="${not empty keyword}">
-				    <div class="search-info">
-				       검색 <c:choose>
-				            <c:when test="${option == 'title'}">제목</c:when>
-				            <c:when test="${option == 'writer'}">작성자</c:when>
-				            <c:otherwise>제목+작성자</c:otherwise>
-				        </c:choose>
-				        : ${keyword}
-				    </div>
-				</c:if>
+                
                 <table class="board-table">
                     <thead>
                         <tr>
@@ -319,18 +414,18 @@
 		                            <c:forEach var="dto" items="${list}">
 		                                <tr>
 		                                    <td>${dto.seq}</td>
-		                                    <td>    
+		                                    <td class="title_max">    
 		                                        <a href="#" class="post-link" data-seq="${dto.seq}" data-password="${dto.password}">
 		                                            <c:choose>
-		                                                <c:when test="${dto.password == null}">${dto.title} <i class="fa-solid fa-lock-open"></i></c:when>
-		                                                <c:otherwise>${dto.title} <i class="fa-solid fa-lock"></i></c:otherwise>
+		                                                <c:when test="${dto.password == null}"><i class="fa-solid fa-lock-open"></i> ${dto.title} </c:when>
+		                                                <c:otherwise><i class="fa-solid fa-lock"></i> ${dto.title} </c:otherwise>
 		                                            </c:choose>
 		                                        </a>
 		                                    </td>
 		                                    <td>${dto.writer}</td>
 		                                    <c:choose>
 		                                        <c:when test="${dto.upd_date != null}">
-		                                            <td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" /></td>
+		                                            <td><fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd HH:mm" /></td>
 		                                            <td>${dto.view_count}</td>
 		                                            <td>${dto.isAnswered}</td>
 		                                        </c:when>
@@ -359,6 +454,18 @@
 	                <button type="submit" id="searchBtn">검색</button>
 	                <button class="qna-list-button" onclick="location.href='/list.qboard'"><i class="fa-solid fa-rotate-left"></i></button>
 	           </form>
+	           
+	            <!-- 검색어 표시 영역 -->
+			    <c:if test="${not empty keyword}">
+			        <div class="search-info">
+			            "<c:choose>
+			                <c:when test="${option == 'title'}">제목</c:when>
+			                <c:when test="${option == 'writer'}">작성자</c:when>
+			                <c:otherwise>제목+작성자</c:otherwise>
+			            </c:choose>
+			            : ${keyword} " 검색 결과
+			        </div>
+			    </c:if>
 
                 <div class="pagination">
                 </div>
