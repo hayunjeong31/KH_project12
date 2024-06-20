@@ -192,7 +192,7 @@ div {
 							style="width: 100%; font-size: 30px;"></i>
 					</div>
 				</div>
-				<!-- ÇÁ·ÎÇÊ µé¾î°¥ ÀÚ¸® -->
+				<!-- í”„ë¡œí•„ ë“¤ì–´ê°ˆ ìë¦¬ -->
 				<div id="profile-div" style="border: none;">
 					<div class="card d-flex" id="profile">
 						<div id="profile-photo-div">
@@ -209,27 +209,27 @@ div {
 						</div>
 					</div>
 				</div>
-				<!-- chart.js Åë°è µé¾î°¥ ÀÚ¸® -->
+				<!-- chart.js í†µê³„ ë“¤ì–´ê°ˆ ìë¦¬ -->
 				<div id="static-div"
 					class="row card justify-content-center align-items-center d-flex">
 					<div class="w-100 h-100 d-flex"
 						class="card justify-content-center d-flex"
 						style="flex-direction: row !important">
-						<!--¼ºº°º° Åë°è-->
+						<!--ì„±ë³„ë³„ í†µê³„-->
 						<div
 							class="w-50 h-80 justify-content-center align-items-center d-flex card m-3">
 							<div>
-								<h5>¼ºº°º° Åë°è</h5>
+								<h5>ì„±ë³„ë³„ í†µê³„</h5>
 								<div style="border: none;">
 									<canvas id="myChart" class="w-80 h-80"></canvas>
 								</div>
 							</div>
 						</div>
-						<!--¿¬·Éº° Åë°è-->
+						<!--ì—°ë ¹ë³„ í†µê³„-->
 						<div
 							class="w-50 h-80 justify-content-center align-items-center d-flex card m-3">
 							<div>
-								<h5>¿¬·Éº° Åë°è</h5>
+								<h5>ì—°ë ¹ë³„ í†µê³„</h5>
 								<div style="border: none;">
 									<canvas id="myChart2" class="w-80 h-80"></canvas>
 								</div>
@@ -239,21 +239,21 @@ div {
 				</div>
 			</div>
 			<div id="main-bottom" class="d-flex card flex-row m-3">
-				<!-- °Ô½Ã±Û °ü¸® µé¾î°¥ ÀÚ¸® -->
+				<!-- ê²Œì‹œê¸€ ê´€ë¦¬ ë“¤ì–´ê°ˆ ìë¦¬ -->
 				<div id="board-div" class=" card col">
 					<h5 class="align-self-center p-3">
-						<a onclick="location.href = '/showAllBoardList.dashBoard'">°Ô½Ã±Û
-							°ü¸®</a>
+						<a onclick="location.href = '/showAllBoardList.dashBoard'">ê²Œì‹œê¸€
+							ê´€ë¦¬</a>
 					</h5>
 					<div style="border: none; overflow: auto;" class="p-3">
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">Å¸ÀÌÆ²</th>
-									<th scope="col">³»¿ë</th>
-									<th scope="col">ÀÛ¼ºÀÏ</th>
-									<th scope="col">¼öÁ¤</th>
+									<th scope="col">íƒ€ì´í‹€</th>
+									<th scope="col">ë‚´ìš©</th>
+									<th scope="col">ì‘ì„±ì¼</th>
+									<th scope="col">ìˆ˜ì •</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -263,7 +263,7 @@ div {
 										<td scope="col">${boardList.title }</td>
 										<td scope="col">${boardList.content}</td>
 										<td scope="col">${boardList.reg_date}</td>
-										<td scope="col">¼öÁ¤</td>
+										<td scope="col">ìˆ˜ì •</td>
 									</tr>
 
 								</c:forEach>
@@ -271,21 +271,21 @@ div {
 						</table>
 					</div>
 				</div>
-				<!-- »ç¿ëÀÚ °ü¸® µé¾î°¥ ÀÚ¸® -->
+				<!-- ì‚¬ìš©ì ê´€ë¦¬ ë“¤ì–´ê°ˆ ìë¦¬ -->
 				<div id="user-div" class=" card col">
 					<h5 class="align-self-center p-3">
-						<a onclick="location.href = '/showAllMemberList.dashBoard'">»ç¿ëÀÚ
-							°ü¸® </a>
+						<a onclick="location.href = '/showAllMemberList.dashBoard'">ì‚¬ìš©ì
+							ê´€ë¦¬ </a>
 					</h5>
 					<div style="border: none; overflow: auto;" class="m-3">
 						<table class="table table-hover p-3">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">ÀÌ¸§</th>
-									<th scope="col">´Ğ³×ÀÓ</th>
-									<th scope="col">»óÅÂ</th>
-									<th scope="col">¼öÁ¤</th>
+									<th scope="col">ì´ë¦„</th>
+									<th scope="col">ë‹‰ë„¤ì„</th>
+									<th scope="col">ìƒíƒœ</th>
+									<th scope="col">ìˆ˜ì •</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -294,8 +294,8 @@ div {
 										<th scope="row">${memberList.userSeq }</th>
 										<td>${memberList.userName}</td>
 										<td>${memberList.nickName}</td>
-										<td>Á¤»ó</td>
-										<td class="h-80 w-80 "><button class="btn btn-primary">ÆíÁı</button></td>
+										<td>ì •ìƒ</td>
+										<td class="h-80 w-80 "><button class="btn btn-primary">í¸ì§‘</button></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -314,7 +314,7 @@ div {
 		<input type='hidden' value='${genderList}' name='genderList'>
 	</c:forEach>
 	<script>
-	//input name = ageList¿¡¼­ °ª »Ì¾Æ³¿
+	//input name = ageListì—ì„œ ê°’ ë½‘ì•„ëƒ„
 	let ageList = $("input[name='ageList']");
 	let teenagerAndUnder = 0;
 	let twenties = 0;
@@ -325,9 +325,9 @@ div {
 	let seventiesAndUpper = 0;
 	ageList.each(function(){
 		console.log($(this).val());
-		//³ªÀÌ´ë °è»êÇÏ´Â ¼ö½Ä
+		//ë‚˜ì´ëŒ€ ê³„ì‚°í•˜ëŠ” ìˆ˜ì‹
 		let ageRange = Math.trunc((2024-($(this).val())+1)/10);
-		//10´ë°Å³ª ±× ¾Æ·¡¶ó¸é
+		//10ëŒ€ê±°ë‚˜ ê·¸ ì•„ë˜ë¼ë©´
 		if(ageRange === 1 || 0){
 			teenagerAndUnder++;
 		}else if(ageRange ===2){
@@ -346,7 +346,7 @@ div {
 	})
 	
 	console.log(teenagerAndUnder+":"+twenties+":"+thirties+":"+forties+":"+fifites+":"+sixties+":"+seventiesAndUpper)
-	//genderList¿¡¼­ °ª»Ì¾Æ³¿
+	//genderListì—ì„œ ê°’ë½‘ì•„ëƒ„
 	let genderList =  $("input[name='genderList']");
 	let manCount = 0;
 	let femaleCount =0;
@@ -377,9 +377,10 @@ div {
 
 		new Chart(ctx,
 				{
-					type : 'bar',
+					type : 'pie',
+
 					data : {
-						labels : [ '³²¼º','¿©¼º'],
+						labels : [ 'ë‚¨ì„±','ì—¬ì„±'],
 						datasets : [ {
 							label : '# of Votes',
 							data : [manCount, femaleCount],
@@ -400,8 +401,8 @@ div {
 				{
 					type : 'doughnut',
 					data : {
-						//³ªÀÌ Åë°è
-						labels : [ '10´ë ¶Ç´Â ±× ÀÌÇÏ', '20´ë', '30´ë', '40´ë', '50´ë', '60´ë', '70´ë ¶Ç´Â ±× ÀÌ»ó'],
+						//ë‚˜ì´ í†µê³„
+						labels : [ '10ëŒ€ ë˜ëŠ” ê·¸ ì´í•˜', '20ëŒ€', '30ëŒ€', '40ëŒ€', '50ëŒ€', '60ëŒ€', '70ëŒ€ ë˜ëŠ” ê·¸ ì´ìƒ'],
 						datasets : [ {
 							label : '# of Votes',
 							data : [teenagerAndUnder,twenties,thirties,forties,fifites,sixties,seventiesAndUpper],

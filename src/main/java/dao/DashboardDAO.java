@@ -10,8 +10,8 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import dto.FreeBoardDTO;
+import dto.BoardDTO;
+import dto.BoardDTO;
 import dto.MembersDTO;
 
 public class DashboardDAO {
@@ -52,8 +52,10 @@ public class DashboardDAO {
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int view_count = rs.getInt("view_count");
 				int adminKey = rs.getInt("adminkey");
+				selectedOneBoard = new BoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
 
 				selectedOneBoard = new FreeBoardDTO(freeBoard_seq, category_seq, userId, title, content, reg_date,
+
 						updated_date, view_count, adminKey);
 
 				allBoardList.add(selectedOneBoard);
@@ -90,12 +92,17 @@ public class DashboardDAO {
 				String tempCode = rs.getString("temp_code");
 				selectedOneMember = new MembersDTO(userSeq,userId,userPwd,userName,nickName,phone,email,gender,signout,birth_date,join_date,updated_date,adminKey,tempCode);
 				selectedAllmemberList.add(selectedOneMember);
-				//수정예정
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return selectedAllmemberList;
+	}
+
+	// 사용자 연령대 받아오는 DAO
+	public List<Integer> getAllAgeFromUsers() {
 		
 		return selectedAllmemberList;
 	}
@@ -106,6 +113,19 @@ public class DashboardDAO {
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllAgeFromUsersSQL);
 				ResultSet rs = pstmt.executeQuery();) {
+			while (rs.next()) {
+				int birthdate = rs.getInt("birth_date");
+				ageList.add((Integer) birthdate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return ageList;
+	}
+	// 사용자 성별 받아오는 DAO
+
+	public List<String> getAllGenderFromUser() {
 			while(rs.next()) {
 				int birthdate = rs.getInt("birth_date");
 				ageList.add((Integer)birthdate);
@@ -124,6 +144,11 @@ public class DashboardDAO {
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllGenderFromUser);
 				ResultSet rs = pstmt.executeQuery();) {
+			while (rs.next()) {
+				String gender = rs.getString("gender");
+				genderList.add(gender);
+			}
+		} catch (Exception e) {
 			while(rs.next()) {
 				String gender = rs.getString("gender");
 				genderList.add(gender);

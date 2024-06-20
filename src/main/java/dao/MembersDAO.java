@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import dto.MembersDTO;
 
 public class MembersDAO {
+
     private static MembersDAO instance;
 
     public static synchronized MembersDAO getInstance() {

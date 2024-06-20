@@ -159,7 +159,7 @@ public class QboardController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				request.setAttribute("iswriter", dto.getWriter().equals(loginID));
 
-				List<FilesDTO> list = f_dao.selectAll(seq);
+				List<FilesDTO> list = f_dao.selectAll(seq,2);
 				request.setAttribute("list", list);
 
 				dao.increaseViewCount(seq); 
@@ -178,7 +178,7 @@ public class QboardController extends HttpServlet {
 			else if (cmd.equals("/edit.qboard")) {
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				QBoardDTO dto = dao.getinfo(seq);
-				List<FilesDTO> list = f_dao.selectAll(seq);
+				List<FilesDTO> list = f_dao.selectAll(seq,2);
 				request.setAttribute("list", list);
 				
 				request.setAttribute("dto", dto);
@@ -203,7 +203,7 @@ public class QboardController extends HttpServlet {
 				
 				int parent_seq = Integer.parseInt(multi.getParameter("post-seq"));
 				dao.update(new QBoardDTO(parent_seq,0, null, title, contents, null, null,0,null,null,0));
-				List<FilesDTO> list = f_dao.selectAll(parent_seq);
+				List<FilesDTO> list = f_dao.selectAll(parent_seq,2);
 				request.setAttribute("list", list);
 
 				Enumeration<String> names = multi.getFileNames();

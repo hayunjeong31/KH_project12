@@ -120,6 +120,18 @@ public class MembersController extends HttpServlet {
             } else if (cmd.equals("/logout.members")) {
                 session.invalidate();
                 response.sendRedirect("/index.jsp");
+            }
+             else if(cmd.equals("/mypage.members")) {
+            	String userId = (String) session.getAttribute("loginID");
+                MembersDTO dto = dao.myInfor(userId);
+                request.setAttribute("dto", dto);
+                request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
+
+            } 
+            else if(cmd.equals("/edit.members")) {
+                String loginId = (String)session.getAttribute("loginID");
+                String userName = request.getParameter("userName");
+
 
             }
             // 내 정보 출력
@@ -153,6 +165,7 @@ public class MembersController extends HttpServlet {
             else if(cmd.equals("/edit.members")) {
                 String loginId = (String)session.getAttribute("loginID");
                String userName = request.getParameter("userName");
+
                 String phone = request.getParameter("phone");
                 String email = request.getParameter("email");
                 int editResult = dao.edit(loginId, userName, phone, email);
@@ -187,10 +200,7 @@ public class MembersController extends HttpServlet {
                 }
             }
             // 회원탈퇴
-            else if(cmd.equals("/memberout.members")) {
-
-            } else if(cmd.equals("/memberout.members")) {
-
+ else if(cmd.equals("/memberout.members")) {
                 String result = (String)session.getAttribute("loginID");
                 dao.deleteById(result);
                 session.invalidate();
