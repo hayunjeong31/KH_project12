@@ -695,6 +695,19 @@ $("#submit-comment").on("click", function() {
         //
     });
 	     
+    
+    $("#btnlist").on("click",function(){
+		location.href="/list.board";
+	})
+	
+	$("#btnedit").on("click", function() {
+    	location.href = "/edit.board?seq=${dto.seq}";
+    })
+    $("#btndelete").on("click", function() {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            location.href = "/delete.board?seq=${dto.seq}";
+        }
+    })
 	    
 	    
 
