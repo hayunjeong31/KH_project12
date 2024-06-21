@@ -30,6 +30,7 @@ public class MembersDAO {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
         return ds.getConnection();
     }
+    private MembersDAO() {}
 
  // 내 정보 출력
     public MembersDTO myInfor(String userId) throws Exception {
