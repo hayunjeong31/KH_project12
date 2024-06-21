@@ -548,7 +548,7 @@ $.ajax({
 // 댓글&답글 출력하기
 function appendComment(comment, parentElement) {
     let box_comment = $("<div>", {"class": "box_comment", "style": "margin-left: " + (comment.parent_cmt ? "20px" : "0")});
-    let commentDiv = $("<div>", {"class": "comment", "style": "border:3px solid pink;"});
+    let commentDiv = $("<div>", {"class": "comment"});
     let co_writer = $("<div>", {"class": "col1", "style": "text-align:left;"}).html(comment.userId);
     let co_contents = $("<div>", {"class": "col3"}).html(comment.contents.replace(/\n/g, '<br>'));
     let co_write_date = $("<div>").html(comment.write_date);

@@ -121,6 +121,7 @@
         }
 
         .board-table tbody tr {
+        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
         }
 
@@ -329,7 +330,7 @@
             border-radius: 4px;
             margin: 10px 30px;
             font-size: 15px;
-            color: #e3d8f0;
+            color: rgb(255, 255, 255);
             background-color: #36333a56;
         }
     </style>
