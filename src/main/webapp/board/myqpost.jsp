@@ -7,12 +7,153 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/header_styles.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+
     <style>
-        /* Inline styles for specific to this HTML file */
+        
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.logo {
+    height: 40px;
+}
+
+nav {
+    flex: 1;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
+}
+
+nav ul li:hover>.dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dropdown {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(39, 48, 88, 0.801);
+    box-shadow: 0 8px 16px rgba(224, 224, 224, 0.267);
+    z-index: 1500;
+    min-width: 100px;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: rgb(207, 211, 211);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown a:hover {
+    background-color:rgba(8, 15, 84, 0.217);
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    padding: 5px 10px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    color: rgb(249, 63, 76);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .header-buttons input {
+        display: none;
+    }
+
+    .header-buttons {
+        justify-content: flex-end;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: black;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+/* Inline styles for specific to this HTML file */
 
         * {
             box-sizing: border-box;
@@ -23,18 +164,18 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
-            background-image: url('image/5033917.jpg');
+            
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             height: 100vh;
+            background-image: url('../image/5033917.jpg');
         }
 
         .main {
@@ -92,6 +233,8 @@
             cursor: pointer;
             margin-left: 850px;
             /* This might need adjustment based on your layout */
+            font-family: "GalmuriMono9", monospace;
+            
         }
 
         .board-area h2 {
@@ -99,6 +242,7 @@
             font-size: 24px;
             color: black;
             text-align: center;
+            
         }
 
         .board-table {
@@ -113,6 +257,10 @@
             border: 1px solid #ddd;
             text-align: center;
             color: black;
+        }
+        
+        .board-table td {
+        font-family: 'Open Sans', sans-serif;
         }
 
         .board-table th {
@@ -147,6 +295,7 @@
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .pagination button:hover {
@@ -157,6 +306,7 @@
         .pagination button:active {
             background-color: rgba(25, 25, 173, 0.598);
             color: white;
+            
         }
 
         .board-buttons {
@@ -164,6 +314,7 @@
             justify-content: space-between;
             width: 100%;
             max-width: 800px;
+            
         }
 
         .board-buttons .write-button,
@@ -176,11 +327,13 @@
             cursor: pointer;
             font-size: 1em;
             width: 48%;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .board-buttons .write-button:hover,
         .board-buttons .home-button:hover {
             background-color: rgb(64, 64, 116);
+            
         }
         header {
             position: fixed;
@@ -193,13 +346,6 @@
             height: 60px;
             background-image: url('image/9.png');
         }
-        
-        .title{
-         white-space: nowrap;
-           overflow: hidden;
-           text-overflow: ellipsis;
-           max-width: 300px; /* 적절한 너비로 설정 */
-      }
     </style>
     <title>게시판</title>
 </head>
