@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
@@ -34,6 +35,10 @@ public class QboardController extends HttpServlet {
 		QreplyDAO r_dao = QreplyDAO.getInstance();
 		FilesDAO f_dao = FilesDAO.getInstance();
 		Gson g = new Gson();
+		System.out.println("사용자 요청: " + cmd);;
+		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		String writer = (String)session.getAttribute("loginID");
 
 		try {
 			if(cmd.equals("/list.qboard")) {
@@ -94,7 +99,7 @@ public class QboardController extends HttpServlet {
 		
 			
 			else if(cmd.equals("/write.qboard")) {
-				String writer = (String)request.getSession().getAttribute("loginID");
+				writer = (String)request.getSession().getAttribute("loginID");
 
 				int maxSize = 1024 * 1024 *10; 
 				String realPath = request.getServletContext().getRealPath("files");
@@ -219,6 +224,30 @@ public class QboardController extends HttpServlet {
 				response.sendRedirect("/detail.qboard?seq=" +parent_seq);
 				
 			}
+			// 원희 Controller
+						// 내가 작성한 게시물 출력
+						if(cmd.equals("/myqpostlist.qboard")) {
+							
+							String pcpage = request.getParameter("cpage");
+							if(pcpage == null) {
+								pcpage = "1";
+							}
+							int cpage = Integer.parseInt(pcpage);
+
+							
+							List<QBoardDTO> list = dao.selectByWriter(
+									writer, cpage * BoardConfig.RECORD_COUNT_PER_PAGE - (BoardConfig.RECORD_COUNT_PER_PAGE - 1),
+									cpage * BoardConfig.RECORD_COUNT_PER_PAGE);
+											
+							request.setAttribute("list", list);
+							request.setAttribute("cpage", cpage);
+							request.setAttribute("record_count_per_page", BoardConfig.RECORD_COUNT_PER_PAGE);
+							request.setAttribute("navi_count_per_page", BoardConfig.NAVI_COUNT_PER_PAGE);
+							request.setAttribute("record_total_count", dao.getRecordCountByWriter(writer));
+
+							
+							request.getRequestDispatcher("/board/myqpost.jsp").forward(request, response);
+						}
 
 		}catch(Exception e) {
 			e.printStackTrace();
