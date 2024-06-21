@@ -37,6 +37,7 @@ public class QreplyController extends HttpServlet {
 				String loginID = (String)request.getSession().getAttribute("loginID");
                 String comments = request.getParameter("comments");
 				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(loginID);
 				b_dao.updateAnswered(seq);
 				int success = dao.insertReply(new QReplyDTO(0,loginID, comments, null, seq));
 				String result = g.toJson(success);

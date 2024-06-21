@@ -330,18 +330,18 @@
                 <div class="post-details">
                     <p><strong>제목</strong><br>${dto.title}</p>
                     <p><strong>글쓴이</strong><br>${dto.writer}</p>
-                    <p><strong>내용</strong><br>${dto.contents}</p>
-                    <p><strong>조회수</strong><br>${dto.view_count}</p>
-                    <p><strong>작성일</strong><br>
+                    <p>조회수 ${dto.view_count}</p>
+                    <p>
                         <c:choose>
 	                       	<c:when test="${dto.upd_date != null}">
-	                       		<fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
+	                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
 	                       	</c:when>
 	                       	<c:otherwise>
-	                       		<fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
+	                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
+                    <p><strong>내용</strong><br>${dto.contents}</p>
                 </div>
                 <div class="post-actions">
                     <c:choose>
