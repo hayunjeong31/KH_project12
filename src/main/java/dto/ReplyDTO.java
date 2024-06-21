@@ -9,7 +9,6 @@ public class ReplyDTO {
 	private String contents;
 	private Timestamp write_date;
 	private String userId;
-	// 댓글 삭제 여부 컬럼 추가 했음. 6/21(금) 12:25pm
 	private String isDeleted;
 	
 	public String getIsDeleted() {
@@ -29,8 +28,6 @@ public class ReplyDTO {
 		this.userId = userId;
 		this.isDeleted = isDeleted;
 	}
-	
-	//////////////////////////////////
 	
 	public ReplyDTO() {}
 	public ReplyDTO(int seq, int boardSeq, int parent_cmt, String contents, Timestamp write_date,String userId ) {
