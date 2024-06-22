@@ -7,18 +7,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
-    <title>게시물 작성</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시물 작성</title>
 
-    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
-    
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+ 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 </head>
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -28,8 +31,7 @@
 
 body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
-    
+    font-family: "GalmuriMono9", monospace;
 }
 
 .main {
@@ -38,7 +40,8 @@ body, html {
     align-items: center;
     height: 100%;
     background-color: #f4f4f4;
-    background-image: url('../image/5033917.jpg');
+    background-image: url('../image/5033917.jpg'); 
+     
 }
 
 .create-post-section {
@@ -53,7 +56,7 @@ body, html {
 
 .create-post-left {
     flex: 1;
-    background-color:  rgba(45, 19, 112, 0.684);
+    background-color: rgba(45, 19, 112, 0.684);
     color: white;
     display: flex;
     flex-direction: column;
@@ -88,37 +91,38 @@ body, html {
 }
 
 .form-field {
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
 
 .form-field label {
-    margin-bottom: 2%;
-    margin-top:2%;
+    margin-bottom: 5px;
     font-weight: bold;
     font-size: 1em;
 }
 
 .form-field input[type="text"],
+.form-field textarea,
 .form-field input[type="file"] {
     width: 100%;
-    padding: 0;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    font-family: "GalmuriMono9", monospace;
+
 }
 
 .form-field input[type="file"] {
     border: none;
-    margin:0 10px;
+    font-family: "GalmuriMono9", monospace;
+        
 }
-input[type="password"] {
-	 width: 25%;
-    padding: 0;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    font-size: 1em;
+input{
+	font-family: "GalmuriMono9", monospace;
 }
+ 
 
 .form-buttons {
     display: flex;
@@ -129,15 +133,16 @@ input[type="password"] {
 .form-buttons button {
     padding: 10px 20px;
     border: none;
-    background-color:  rgba(45, 19, 112, 0.684);
+    background-color: rgba(205, 151, 14, 0.595);
     color: white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
     width: 48%;
+    font-family: "GalmuriMono9", monospace;
 }
 .form-buttons button:hover {
-    background-color:  rgb(64, 64, 116);
+    background-color: rgba(237, 175, 18, 0.973);
         }
 
 .form-buttons .btn-cancel {
@@ -169,38 +174,41 @@ input[type="password"] {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         height: 60px;
         background-image: url('../image/9.png');
+        
     }
+
+   .file-input{
+   		font-family: "GalmuriMono9", monospace;
+   }
+
  /* Summernote 배경색 설정 */
      .note-editable {
          background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-       
+       font-family: "GalmuriMono9", monospace;
      }
+     .note-placeholder {
+    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
+    font-size: 16px; /* 원하는 크기로 변경 */
+    color: #888; /* 원하는 색상으로 변경 */
+}
    
    .note-resizebar{
    	 	display: none;
    }
-   
-   .form-password{
-   		margin-bottom : 2%;
-   		font-size: 1em;	
-   		font-weight:bold;
+   /* password */
+   #password{
+   		margin-bottom: 20px;
+   		text-align:center;
    }
-   .form-password label{
-      margin-bottom: 2%;
-	    margin-top:2%;
-	    font-weight: bold;
-	    font-size: 1em;
-   }
-   #post-title{
-   		height:30px;
-   	
+   .file-input-container{
+   		padding-bottom:5px;
    }
    
     </style>
 <body>
     <header>
         <div class="header-container">
-            <img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
@@ -267,10 +275,14 @@ input[type="password"] {
                     </div>
 
                     <form action="/write.qboard" method="post" id="writeform" enctype="multipart/form-data">
-                    	<div class="form-field"> 
+                    	<div class="file-field"> 
                         <label>파일 업로드</label>
-						<input type="file" name="file1"><br>
-					    <input type="file" name="file2"><br>
+                        <div class="file-input-container">
+				            <input type="file" name="file1" class="file-input" id="file-input1">
+				        </div>
+				        <div class="file-input-container">
+					    	<input type="file" name="file2">
+					    </div><br>
                             <input type="hidden" id="hidden_title" name="hidden_title">
                             <input type="hidden" id="hidden_content" name="hidden_content">
                             <input type="hidden" id="hidden_password" name="hidden_password">
