@@ -29,7 +29,7 @@
             height: 100%;
         }
 
-        body {
+       body {
 			font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
@@ -96,11 +96,7 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
-		strong{
-			font-family: "GalmuriMono9", monospace;
-		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
             flex: 2;
             padding: 20px;
             display: flex;
@@ -109,6 +105,7 @@
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
+            font-family: Arial, sans-serif;
         }
 
         .board-area h2 {
@@ -206,6 +203,9 @@
         .post-details strong {
             font-weight: bold;
         }
+        strong{
+        font-family: "GalmuriMono9", monospace;
+        }
 
 
         .post-actions {
@@ -242,6 +242,7 @@
         .post-attachments h3 {
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -274,11 +275,11 @@
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-comments textarea {
-        font-family: 'Open Sans', sans-serif;
+        	font-family: 'Open Sans', sans-serif;
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -403,6 +404,8 @@
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
+
+
     </style>
 </head>
 
@@ -506,14 +509,14 @@
 	                	<c:when test="${iswriter && count==0}">
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 					    </c:when>
 			            <c:when test="${iswriter}"> <!-- 코멘트가 달리면 수정하기 버튼 없애고 삭제하기 & 목록으로 두 버튼만.  -->
 			                <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 			            </c:when>
 			            <c:otherwise>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 			            </c:otherwise>
 			        </c:choose>
                 </div>
@@ -564,11 +567,11 @@
     <script>
         // 게시글 수정하기, 삭제하기
         $("#btnedit").on("click", function() {
-            location.href = "/edit.qboard?seq=${dto.seq}";
+            location.href = "/myedit.qboard?seq=${dto.seq}";
         })
         $("#btndelete").on("click", function() {
             if (confirm('정말 삭제하시겠습니까?')) {
-                location.href = "/delete.qboard?seq=${dto.seq}";
+                location.href = "/mydelete.qboard?seq=${dto.seq}";
             }
         })
         $(document).ready(function(){

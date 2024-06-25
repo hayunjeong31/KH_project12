@@ -97,12 +97,7 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
-		strong{
-			font-family: "GalmuriMono9", monospace;
-			
-		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
             flex: 2;
             padding: 20px;
             display: flex;
@@ -111,6 +106,7 @@
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .board-area h2 {
@@ -187,6 +183,8 @@
         .post-details strong {
             font-weight: bold;
         }
+        
+        strong{font-family: "GalmuriMono9", monospace;}
 
 
         .post-actions {
@@ -224,10 +222,9 @@
         }
 
         .post-attachments h3 {
-        	font-family: "GalmuriMono9", monospace;
-        	
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -256,13 +253,11 @@
 
 		/* 댓글 - 타이틀  */
         .post-comments h3 {
-        font-family: "GalmuriMono9", monospace;
-        
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            
+            font-family: "GalmuriMono9", monospace;
         }
         
         .post-comments textarea {
@@ -392,7 +387,7 @@
 		
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
-			font-family: 'Open Sans', sans-serif;
+			font-family: "GalmuriMono9", monospace;
             width: 20%;
             padding: 10px;
             padding-right: 0;
@@ -538,7 +533,7 @@
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-                    <p><strong>글쓴이</strong><br><p>${dto.writer}</p></p>
+                    <p><strong>글쓴이</strong><br>${dto.writer}</p>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
                 </div>
@@ -547,11 +542,11 @@
 	                	<c:when test="${iswriter}">
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
 			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
 					    </c:when>
 			            <c:otherwise>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
  							<button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>				            
  						</c:otherwise>
 			        </c:choose>
@@ -593,14 +588,14 @@
 
     <script>
 	    $("#btnlist").on("click",function(){
-			location.href="/list.board";
+			location.href="/myfreepostlist.board";
 		})
 		$("#btnedit").on("click", function() {
-	    	location.href = "/edit.board?seq=${dto.seq}";
+	    	location.href = "/myedit.board?seq=${dto.seq}";
 	    })
 	    $("#btndelete").on("click", function() {
 	        if (confirm('정말 삭제하시겠습니까?')) {
-	            location.href = "/delete.board?seq=${dto.seq}";
+	            location.href = "/mydelete.board?seq=${dto.seq}";
 	        }
 	    })
 	    

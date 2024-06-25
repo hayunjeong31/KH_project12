@@ -10,10 +10,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+ 
     <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
     <style>
-        /* Inline styles for specific to this HTML file */
 
         * {
             box-sizing: border-box;
@@ -24,12 +25,11 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
             background-image: url('image/5033917.jpg');
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -92,7 +92,11 @@
             border-radius: 4px;
             cursor: pointer;
             margin-left: 850px;
+            font-family: "GalmuriMono9", monospace;
             /* This might need adjustment based on your layout */
+        }
+        .new-button:hover{
+        	background-color:  rgba(103, 103, 250, 0.733);
         }
 
         .board-area h2 {
@@ -121,6 +125,7 @@
         }
 
         .board-table tbody tr {
+        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
         }
 
@@ -137,51 +142,32 @@
             text-decoration: underline;
         }
 
-        .pagination {
-            margin-bottom: 20px;
-        }
-
-        .pagination button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 0.855);
-            cursor: pointer;
-            color: black;
-        }
-
-        .pagination button:hover {
-            background-color: rgba(231, 231, 232, 0.004);
-            color: white;
-        }
-
-        .pagination button:active {
-            background-color: rgba(25, 25, 173, 0.598);
-            color: white;
-        }
-
         .board-buttons {
             display: flex;
-            justify-content: space-between;
+            
+            justify-content: space-around;
             width: 100%;
             max-width: 800px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .board-buttons .write-button,
         .board-buttons .home-button {
             padding: 10px 20px;
             border: none;
-            background-color: rgb(64, 64, 116);
+            background-color: rgba(45, 19, 112, 0.684);
             color: white;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
             width: 48%;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .board-buttons .write-button:hover,
         .board-buttons .home-button:hover {
-            background-color: rgb(64, 64, 116);
+           /* background-color:  rgba(103, 103, 250, 0.733); */
+             background-color: rgba(237, 175, 18, 0.973);
         }
         header {
             position: fixed;
@@ -195,31 +181,177 @@
             background-image: url('image/9.png');
         }
         
-          .pagination{
+       
+        
+         .pagination {
         	margin-top:3%;
+            margin-bottom: 20px;
         }
         .pagination a{
         	text-decoration: none;
-        	color:white;
+        	margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.855);
+            cursor: pointer;
+            color: black;
+            text-align:center;
         }
         .pagination a.active{
-        	font-size: 1.2em;
         	font-weight: bold;
-        	color: violet;
+        	color: rgb(237, 98, 237);
+        }
+        .pagination a:hover{
+        	 background-color: rgba(231, 231, 232, 0.004);
+            color: white;
+            font-weight: bold;
+           
         }
         
-          .list-button {
+        /* 리셋 버튼 */
+       .list-button {
 		    background: none;
 		    border: none;
 		    cursor: pointer;
 		    padding: 0;
 		}
 		
-		.list-button i {
-		    font-size: 1.5em;
+       .list-button i {
+		    color: rgba(255, 255, 255, 0.854); /*흰색 리셋 아이콘*/
+		     font-size: 1.5em;
 		    font-weight:bold;
-		    color: violet;
+		    transition: color 0.3s;
+		   
 		}
+		
+		.list-button i:hover {
+		    color: rgba(237, 175, 18, 0.973);
+		    transform: scale(1.1);
+		    border: none;
+		}
+		
+		/* 제목 부분 */
+		.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	       	max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	margin-left: 20px;
+	       	text-align: left;
+	       	float: left;
+	       	
+		}
+		.title_replycount{
+			float:left;
+			
+		}
+		
+		
+		/* 검색 폼 스타일링 */
+        form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #searchOption {
+            width: 150px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
+        }
+        
+        #searchOption:hover {
+            border-color: #888;
+        }
+        
+        #searchOption:focus {
+            border-color: #555;
+        }
+
+        #searchInput {
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
+        }
+
+        #searchInput:hover {
+            border-color: #888;
+        }
+
+        #searchInput:focus {
+            border-color: #555;
+        }
+
+        #searchBtn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+             background-color: rgba(237, 175, 18, 0.973); /*주황색*/
+          /*   background-color: rgb(48, 48, 199);
+           background-color: #7829d3;
+            background-color: rgb(64, 64, 116);*/
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        #searchBtn:hover {
+        	box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.8);
+             background-color: rgba(237, 175, 18, 0.973);
+        }
+
+        
+		 /* 검색어 표시 영역 스타일링 */
+        .search-info {
+            padding: 5px;
+            border-radius: 4px;
+            margin: 10px 30px;
+            font-size: 15px;
+            color: rgb(255, 255, 255);
+            background-color: #36333a56;
+        }
+        .welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+    
     </style>
     <title>게시판</title>
 </head>
@@ -227,33 +359,37 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -266,7 +402,19 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -288,7 +436,10 @@
                     <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
                 </div>
                 <h2></h2>
+                  
+				    
                 <table class="board-table">
+               
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -299,11 +450,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    		<!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
+                    	<!--  "${list}" 없으면 '검색결과없음' 뜨게 하기 -->
                     	 <c:choose>
 		                        <c:when test="${empty list}">
 		                            <tr>
-		                                <td colspan="6" style="text-align:center;">검색 결과 없음</td>
+		                                <td colspan="6" style="text-align:center;">'${keyword}'에 대한 검색 결과 없음</td>
 		                            </tr>
 		                        </c:when>
 		                        <c:otherwise>
@@ -311,8 +462,12 @@
 		                                <tr>
 		                                    <td>${dto.seq}</td>
 		                                    <td>    
-		                                       <a href="/detail.board?seq=${dto.seq}">${dto.title}</a>
+		                                    	<div class="title_max">
+		                                       		<a href="/detail.board?seq=${dto.seq}">${dto.title}</a>
+		                                    	</div>
+		                                       	<span class="title_replycount">(${dto.replyCount})</span>
 		                                    </td>
+		                                    
 		                                    <td>${dto.writer}</td>
 		                                    <c:choose>
 		                                        <c:when test="${dto.upd_date != null}">
@@ -330,16 +485,32 @@
 		                    </c:choose>
                     </tbody>
                 </table>
-                <form action="/search.board?">
-                    <select name="option" id="searchOption">
-                        <option value="title">제목</option>
-                        <option value="writer">작성자</option>
-                        <option value="title_writer">제목+작성자</option>
-                    </select>
-                    <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
-                    <button type="submit" id="searchBtn">검색</button>
-                    <button class="list-button" onclick="location.href='/list.board'"><i class="fa-solid fa-rotate-left"></i></button>
-               </form>
+                
+               <!-- 검색 폼 -->
+			    <div class="search-container">
+			        <form action="/search.board?">
+			            <select name="option" id="searchOption">
+			                <option value="title">제목</option>
+			                <option value="writer">작성자</option>
+			                <option value="title_writer">제목+작성자</option>
+			            </select>
+			            <input type="text" name="keyword" id="searchInput" placeholder="검색어를 입력하세요" required>
+			            <button type="submit" id="searchBtn">검색</button>
+			            <button type="button" class="list-button" onclick="location.href='/list.board'"><i class="fa-solid fa-rotate-left"></i></button>
+			        </form>
+			    </div>
+                <!-- 검색어 표시 영역 -->
+			    <c:if test="${not empty keyword}">
+			        <div class="search-info">
+			            "<c:choose>
+			                <c:when test="${option == 'title'}">제목</c:when>
+			                <c:when test="${option == 'writer'}">작성자</c:when>
+			                <c:otherwise>제목+작성자</c:otherwise>
+			            </c:choose>
+			            : ${keyword} " 검색 결과
+			        </div>
+			    </c:if>
+    
                 <div class="pagination">
                     
                 </div>
