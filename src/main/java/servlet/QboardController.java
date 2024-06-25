@@ -78,7 +78,12 @@ public class QboardController extends HttpServlet {
 
          } else if (cmd.equals("/search.qboard")) {
             request.getSession().getAttribute("loginID");
-            int adminKey = (Integer) request.getSession().getAttribute("adminKey");
+            Integer adminKey = (Integer)request.getSession().getAttribute("adminKey");
+			
+			// 로그인 하지 않아도 list.qboard들어갈 수 있게 하기. 
+			if (adminKey == null) {
+		        adminKey = 0; // 0은 관리자가 아님을 의미하도록 가정
+		    }
             String pcpage = request.getParameter("cpage");
             if (pcpage == null) {
                pcpage = "1";
