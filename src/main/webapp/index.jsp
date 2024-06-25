@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <style>
-
+/* 스타일은 기존 그대로 유지 */
 body {
     margin: 0;
     padding: 0;
@@ -68,7 +68,7 @@ header {
 
 .best-sellers h2,
 .new-releases h2 {
-    border-bottom: 2px solid rgb(249, 63, 76);
+    border-bottom: 2px solid rgba(255, 0, 17, 0.39);
     padding-bottom: 0.5rem;
 }
 
@@ -107,25 +107,26 @@ header {
 
 .characters1 h1,
 .characters2 h2 {
-    font-family: "Roboto", sans-serif;
+    font-family: "GalmuriMono9", monospace;
     font-weight: 300;
     font-size: 35px;
-    color: white;
+    color: rgb(18, 207, 59);
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
 }
 
 .characters1 p {
-    font-family: "Roboto", sans-serif;
+    font-family: "GalmuriMono9", monospace;
     font-weight: 400;
     font-size: 25px;
     color: #2196e4;
 }
 
 .characters2 h2 {
-    border-bottom: 2px solid rgb(249, 63, 76);
+    border-bottom: 2px solid rgb(14, 158, 151);
     padding-bottom: 0.5rem;
-    color: rgba(222, 69, 69, 0.774);
+    color: rgb(14, 158, 151);
 }
 
 .zigzag-grid .item p {
@@ -408,92 +409,31 @@ footer {
         width: 100%;
     }
 }
-
 .welcome-text-button {
-    color: #fff !important; /* 텍스트 색상을 하얀색으로 설정 */
-    font-weight: bold !important;
+    color: #fff;
+    font-weight: bold;
     cursor: pointer;
     margin-right: 10px;
-    padding: 5px 10px; /* 패딩 수정 */
-    background: rgba(0, 0, 0, 0.5) !important;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     transition: background 0.3s;
     position: relative; /* position 속성 추가 */
-    display: flex; /* 플렉스박스로 아이콘과 텍스트를 한 줄에 표시 */
-    align-items: center; /* 아이템을 중앙 정렬 */
-    font-family: "GalmuriMono9", monospace !important; /* 폰트 설정 */
 }
 
 .welcome-text-button i {
-    margin-right: 5px; /* 아이콘과 텍스트 간격 조정 */
-    color: #fff !important; /* 아이콘 색상을 하얀색으로 설정 */
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7) !important;
+    background: rgba(0, 0, 0, 0.7);
 }
-
 
 </style>
 <body>
-<<<<<<< HEAD
-<header>
-    <div class="header-container">
-        <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
-        <nav>
-            <ul>
-                <li>
-                    <a href="index.html">홈</a>
-                    <div class="dropdown"></div>
-                </li>
-                <li>
-                    <a href="#">게임</a>
-                    <div class="dropdown">
-                        <a href="win.html">명예의 전당</a>
-                        <a href="#">Subitem 2</a>
-                        <a href="#">랭킹</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="/list.board">게시판</a>
-                    <div class="dropdown">
-                        <a href="/list.board">게시판</a>
-                        <a href="/list.qboard">Q&A</a>
-                        <a href="#">공지사항</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">마이페이지</a>
-                    <div class="dropdown">
-                        <a href="#">내 정보 수정</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">관리자 페이지</a>
-                    <div class="dropdown">
-                        <a href="#">대시보드</a>
-                        <a href="#">통계</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-        <div class="header-buttons">
-            <c:choose>
-                <c:when test="${not empty sessionScope.loginID}">
-                    <span class="welcome-text">${sessionScope.userName}님 환영합니다</span>
-                    <div class="btn-container">
-                        <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <button class="login-button" onclick="location.href='/index.jsp'">Login</button>
-                </c:otherwise>
-            </c:choose>
-            <div class="hamburger-menu" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-=======
     <div class="splash-screen">
         <h2 class="intro-text">welcome to the</h2>
         <h1 class="highlight">Gambit</h1>
@@ -503,46 +443,33 @@ footer {
         <div class="header-container">
             <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
             <nav>
-                <ul>
-                    <li>
-                        <a href="/index.jsp">홈</a>
-                        <div class="dropdown"></div>
-                    </li>
-                    <li>
-                        <a href="#">게임</a>
-                        <div class="dropdown">
-                            <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="/list.board">게시판</a>
-                        <div class="dropdown">
-                            <a href="/list.board">게시판</a>
-                            <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">마이페이지</a>
-                        <div class="dropdown">
-                            <a href="/mypage.members">내 정보 보기</a>
+				<ul>
+					<li><a href="/index.jsp">홈</a>
+						<div class="dropdown"></div></li>
+					<li><a href="#">게임</a>
+						<div class="dropdown">
+							<a href="win.html">명예의 전당</a> <a href="#">Subitem 2</a> <a
+								href="#">랭킹</a>
+						</div></li>
+					<li><a href="/list.board">게시판</a>
+						<div class="dropdown">
+							<a href="/list.board">게시판</a> 
+							<a href="/list.qboard">Q&A</a> 
+							<a href="#">공지사항</a>
+						</div></li>
+					<li><a href="#">마이페이지</a>
+						<div class="dropdown">
+							<a href="/mypage.members">내 정보 보기</a>
                             <a href="/myfreepostlist.board">내가 작성한 게시글</a>
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <div class="header-buttons">
+						</div></li>
+					<li><a href="#">관리자 페이지</a>
+						<div class="dropdown">
+							<a href="#">대시보드</a> <a href="#">통계</a>
+						</div></li>
+				</ul>
+			</nav>
+			<div class="header-buttons">
                <c:choose>
                     <c:when test="${not empty sessionScope.loginID}">
                         <span class="welcome-text-button" onclick="location.href='mypage.members'">
@@ -613,9 +540,9 @@ footer {
             </div>
             <div class="item game-description">
                 <p>
-                    제목: 마리오<br>
-                    장르: 회피<br>
-                    게임설명: 방향키를 움직여 플레이어 이동하는 게임<br>
+                    제목:<br>
+                    장르:<br>
+                    게임설명:<br>
                 </p>
             </div>
             <div class="item game-description">
@@ -626,12 +553,12 @@ footer {
                 </p>
             </div>
             <div class="item game-image">
-                <a href="gamepage2.html">
+                <a href="games/gamePage02.jsp">
                     <img src="image/skull2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
-                <a href="gamepage3.html">
+                <a href="games/gamePage03.jsp">
                     <img src="image/dung.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
@@ -650,12 +577,12 @@ footer {
                 </p>
             </div>
             <div class="item game-image">
-                <a href="gamepage4.html">
+                <a href="games/gamePage04.jsp">
                     <img src="image/teraria.jpg" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
-                <a href="gamepage5.html">
+                <a href="games/gamePage05.jsp">
                     <img src="image/poke2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
@@ -665,7 +592,6 @@ footer {
                     장르:<br>
                     게임설명:<br>
                 </p>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             </div>
         </div>
     </section>
