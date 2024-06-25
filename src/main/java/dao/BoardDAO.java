@@ -17,17 +17,21 @@ import dto.BoardWithReplyCount;
 public class BoardDAO {
 	private static BoardDAO instance;
 	public synchronized static BoardDAO getInstance() {
-		if(instance ==null) {
+		if (instance == null) {
 			instance = new BoardDAO();
 		}
 		return instance;
 	}
-	private Connection getConnection() throws Exception{
-		Context ctx= new InitialContext();
-		DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+
+
+	private Connection getConnection() throws Exception {
+		Context ctx = new InitialContext();
+		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
 		return ds.getConnection();
 	}
-	private BoardDAO() {}
+
+	
+
 	
 	// 게시글 북마크 등록하기
 		public boolean addBookmark(String userId, int postSeq)throws Exception{
@@ -40,6 +44,7 @@ public class BoardDAO {
 				return true;
 			}
 		}
+		
 		// 게시글 북마크 제거하기
 		public boolean removeBookmark(String userId, int postSeq) throws Exception{
 			String sql="delete from bookmarks where userId=? and postSeq=?";
@@ -91,93 +96,94 @@ public class BoardDAO {
 				}
 			}
 		}
-		
-		public List<BoardDTO> selectAll() throws Exception{
-			String sql="select * from board order by 1 desc";
-			try(Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);
-					ResultSet rs = pstat.executeQuery()){
-				List<BoardDTO> list = new ArrayList<>();
-				while(rs.next()) {
-					int seq = rs.getInt("seq");
-					String writer = rs.getString("writer");
+			
+	
+
+	public List<BoardDTO> selectAll() throws Exception {
+		String sql = "select * from board order by 1 desc";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			List<BoardDTO> list = new ArrayList<>();
+			while (rs.next()) {
+				int seq = rs.getInt("seq");
+				String writer = rs.getString("writer");
+				String title = rs.getString("title");
+				String contents = rs.getString("contents");
+				Timestamp write_date = rs.getTimestamp("write_date");
+				Timestamp upd_date = rs.getTimestamp("upd_date");
+				int view_count = rs.getInt("view_count");
+				int adminKey = rs.getInt("adminKey");
+				list.add(new BoardDTO(seq, 0, writer, title, contents, write_date, upd_date, view_count, adminKey));
+			}
+			return list;
+		}
+	}
+
+	public BoardDTO getinfo(int seq) throws Exception {
+		String sql = "select * from board where seq=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, seq);
+			try (ResultSet rs = pstat.executeQuery()) {
+				while (rs.next()) {
 					String title = rs.getString("title");
-					String contents = rs.getString("contents"); 
+					String writer = rs.getString("writer");
+					String contents = rs.getString("contents");
 					Timestamp write_date = rs.getTimestamp("write_date");
 					Timestamp upd_date = rs.getTimestamp("upd_date");
 					int view_count = rs.getInt("view_count");
 					int adminKey = rs.getInt("adminKey");
-					list.add(new BoardDTO(seq,0,writer,title,contents,write_date,upd_date,view_count,adminKey));	
+
+					return new BoardDTO(seq, 0, writer, title, contents, write_date, upd_date, view_count, adminKey);
 				}
-				return list;
 			}
 		}
-		
-		public BoardDTO getinfo(int seq) throws Exception{
-			String sql = "select * from board where seq=?";
-			try(Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);){
-				pstat.setInt(1, seq);
-				try(ResultSet rs = pstat.executeQuery()){
-					while(rs.next()) {
-						String title = rs.getString("title");
-						String writer = rs.getString("writer");
-						String contents = rs.getString("contents");
-						Timestamp write_date = rs.getTimestamp("write_date");
-						Timestamp upd_date = rs.getTimestamp("upd_date");
-						int view_count= rs.getInt("view_count");
-						int adminKey = rs.getInt("adminKey");
-						
-						return new BoardDTO(seq,0,writer,title,contents,write_date,upd_date,view_count,adminKey);
-					}
-				}
-			}
-			return null;
-		}	
-		
-		   public int update(BoardDTO dto) throws Exception {
-		        String sql = "update board set title=?, contents=?,upd_date=sysdate where seq=?";
-		        try (Connection con = this.getConnection();
-		             PreparedStatement pstat = con.prepareStatement(sql)) {
-		            pstat.setString(1, dto.getTitle());
-		            pstat.setString(2, dto.getContents());
-		            pstat.setInt(3, dto.getSeq());
-		            return pstat.executeUpdate();
-		        }
-		    }
-		    
-		    public int delete(int seq) throws Exception {
-		        String sql = "delete from board where seq=?";
-		        try (Connection con = this.getConnection();
-		             PreparedStatement pstat = con.prepareStatement(sql)) {
-		            pstat.setInt(1, seq);
-		            return pstat.executeUpdate();
-		        }
-		    }
-		    
-		    public void increaseViewCount(int seq) throws Exception {
-		        String sql = "update board set view_count = view_count + 1 where seq=?";
-		        try (Connection con = this.getConnection();
-		             PreparedStatement pstat = con.prepareStatement(sql)) {
-		            pstat.setInt(1, seq);
-		            pstat.executeUpdate();
-		        }
-		    }
-		    
-		    
-		    
-		    // 바깥에서 안쓰고 내부에서만 쓰니깐 private으로  // client에 페이지네비 할거니깐 public으로 고쳐주기.
-		    public int getRecordCount() throws Exception {
-		    	String sql = "select count(*) from board";
-		    	try(Connection con = this.getConnection();
-						PreparedStatement pstat = con.prepareStatement(sql);
-		    			ResultSet rs = pstat.executeQuery()){
-		    		rs.next();
-		    		return rs.getInt(1);
-		    		
-		    		}
-		    	}
-		    	
+		return null;
+	}
+
+	public int update(BoardDTO dto) throws Exception {
+		String sql = "update board set title=?, contents=?,upd_date=sysdate where seq=?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContents());
+			pstat.setInt(3, dto.getSeq());
+			return pstat.executeUpdate();
+		}
+	}
+
+	public int delete(int seq) throws Exception {
+		String sql = "delete from board where seq=?";
+		try (Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setInt(1, seq);
+			return pstat.executeUpdate();
+		}
+	}
+
+	public void increaseViewCount(int seq) throws Exception {
+		String sql = "update board set view_count = view_count + 1 where seq=?";
+		try (Connection con = this.getConnection(); 
+				PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setInt(1, seq);
+			pstat.executeUpdate();
+		}
+	}
+
+	// 바깥에서 안쓰고 내부에서만 쓰니깐 private으로 // client에 페이지네비 할거니깐 public으로 고쳐주기.
+	public int getRecordCount() throws Exception {
+		String sql = "select count(*) from board";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+			return rs.getInt(1);
+
+		}
+	}
+
+	
+
+	
 //		    public List<BoardDTO> selectNtoM(int a, int b) throws Exception{
 		    public List<BoardWithReplyCount> selectNtoM(int a, int b) throws Exception{
 		    	//String sql = "select * from ( select board.*, row_number() over(order by seq desc) rown from board) subquery where rown between ? and ?";
@@ -207,15 +213,7 @@ public class BoardDAO {
 		                    board.setReplyCount(rs.getInt("reply_count"));
 		                    list.add(board);
 		                    
-//							int seq = rs.getInt("seq");
-//							String writer = rs.getString("writer");
-//							String title = rs.getString("title");
-//							String contents = rs.getString("contents"); 
-//							Timestamp write_date = rs.getTimestamp("write_date");
-//							Timestamp upd_date = rs.getTimestamp("upd_date");
-//							int view_count = rs.getInt("view_count");
-//							int adminKey = rs.getInt("adminKey");
-//							list.add(new BoardDTO(seq,0,writer,title,contents,write_date,upd_date,view_count,adminKey));	
+//					
 						}
 						return list;
 		    		}
@@ -292,17 +290,7 @@ public class BoardDAO {
 		                    board.setReplyCount(rs.getInt("reply_count"));
 		                    list.add(board);
 		                    
-//	 		                BoardDTO dto = new BoardDTO();
-//	 		                dto.setSeq(rs.getInt("seq"));
-//	 		                dto.setCategorySeq(rs.getInt("categorySeq"));
-//	 		                dto.setTitle(rs.getString("title"));
-//	 		                dto.setContents(rs.getString("contents"));
-//	 		                dto.setWriter(rs.getString("writer"));     
-//	 		                dto.setWrite_date(rs.getTimestamp("write_date"));
-//	 		                dto.setUpd_date(rs.getTimestamp("upd_date"));
-//	 		                dto.setView_count(rs.getInt("view_count"));
-//	 		                dto.setAdminKey(rs.getInt("adminKey"));
-//	 		                list.add(dto);
+//	 		               
 	 		            }
 	 		        }
 	 		    }
@@ -337,7 +325,11 @@ public class BoardDAO {
 	 			 }
 	 			//
 	 			
-	 		}
+	 	}
+
+	
+
+	
  			
  	// 원희 DAO
  	 	// 사용자 전체 글 개수 
@@ -381,13 +373,11 @@ public class BoardDAO {
  	 				e.printStackTrace();
  	 			}
  	 			return list;
- 	 		}
- 		 	  	
+ 	 		}	  	
 	 	  
 	    
 
 	 
-	
 	
 	
 }

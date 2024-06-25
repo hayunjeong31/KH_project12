@@ -28,7 +28,8 @@ import dto.FilesDTO;
 @WebServlet("*.board")
 public class BoardController extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		String cmd = request.getRequestURI();
 		System.out.println(cmd);
@@ -40,13 +41,21 @@ public class BoardController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String writer = (String)session.getAttribute("loginID");
 		Gson g = new Gson();
-
+		System.out.println("사용자 요청: " + cmd);
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println(writer);
+		
+		
 		try {
-			if(cmd.equals("/list.board")) {
-				
+
+			if (cmd.equals("/list.board")) {
+
 				String pcpage = request.getParameter("cpage");
-				if(pcpage == null) {pcpage ="1";}
-				
+				if (pcpage == null) {
+					pcpage = "1";
+				}
+
 				int cpage = Integer.parseInt(pcpage);
 				
 				List<BoardWithReplyCount> list = dao.selectNtoM(
@@ -55,7 +64,7 @@ public class BoardController extends HttpServlet {
 				
 				request.setAttribute("list", list); // 현재내가 해당하는 게시글 목록만 가져오는거임.
 				request.setAttribute("cpage", cpage);
-				request.setAttribute("record_count_per_page",BoardConfig.RECORD_COUNT_PER_PAGE );
+				request.setAttribute("record_count_per_page", BoardConfig.RECORD_COUNT_PER_PAGE);
 				request.setAttribute("navi_count_per_page", BoardConfig.NAVI_COUNT_PER_PAGE);
 				request.setAttribute("record_total_count", dao.getRecordCount());
 				request.setAttribute("isSearch", 0);
@@ -129,123 +138,126 @@ public class BoardController extends HttpServlet {
 			    	response.sendRedirect("/search.board");
 			    }
 			    
-			}	
-			
-			else if(cmd.equals("/write.board")) {
-				
-				int maxSize = 1024 * 1024 *10; 
+			} else if (cmd.equals("/write.board")) {
+
+				int maxSize = 1024 * 1024 * 10;
 				String realPath = request.getServletContext().getRealPath("files");
-				File uploadPath = new File(realPath);  
-				if(!uploadPath.exists()) { 
-					uploadPath.mkdir(); 
+				File uploadPath = new File(realPath);
+				if (!uploadPath.exists()) {
+					uploadPath.mkdir();
 				}
-				
-				MultipartRequest multi = new MultipartRequest(request,realPath,maxSize, "UTF8",new DefaultFileRenamePolicy());
-				
+
+				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+						new DefaultFileRenamePolicy());
+
 				String title = multi.getParameter("hidden_title");
 				String contents = multi.getParameter("hidden_content");
-				int parent_seq = dao.insert(new BoardDTO(0,0,writer,title,contents,null,null,0,0));
+				int parent_seq = dao.insert(new BoardDTO(0, 0, writer, title, contents, null, null, 0, 0));
 
-				
 				Enumeration<String> names = multi.getFileNames();
-				while(names.hasMoreElements()) {
-					int categorySeq =1;
+				while (names.hasMoreElements()) {
+					int categorySeq = 1;
 					String name = names.nextElement();
 					String oriname = multi.getOriginalFileName(name);
 					String sysname = multi.getFilesystemName(name);
-					if(oriname!=null) {
-						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq,categorySeq));
+					if (oriname != null) {
+						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq, categorySeq));
 					}
 				}
-			
+
 				response.sendRedirect("/list.board");
-				
-			} 
-			
-				// 게시글 보기 
-			else if(cmd.equals("/detail.board")) {
-                String loginID = (String)request.getSession().getAttribute("loginID");
+
+			}
+
+			// 게시글 보기
+			else if (cmd.equals("/detail.board")) {
+				String loginID = (String) request.getSession().getAttribute("loginID");
 				int seq = Integer.parseInt(request.getParameter("seq"));
 				BoardDTO dto = dao.getinfo(seq);
 				int categorySeq = 1;
 				request.setAttribute("dto", dto);
 				request.setAttribute("iswriter", dto.getWriter().equals(loginID));
-				
+
 				List<FilesDTO> list = f_dao.selectAll(seq, categorySeq);
 				request.setAttribute("list", list);
-				
-				dao.increaseViewCount(seq); 
+
+				dao.increaseViewCount(seq);
 				request.getRequestDispatcher("/board/detail.jsp").forward(request, response);
-				
-			}	
-		
-			
+
+			}
+
 			// 게시글 수정하기 페이지로 넘어가기.
 			else if (cmd.equals("/edit.board")) {
-                int seq = Integer.parseInt(request.getParameter("seq"));
-                BoardDTO dto = dao.getinfo(seq);
-                List<FilesDTO> list = f_dao.selectAll(seq,1);
-                request.setAttribute("list", list);
-                request.setAttribute("dto", dto);
-                request.getRequestDispatcher("/board/edit.jsp").forward(request, response);
-                
-                //
-                
+				int seq = Integer.parseInt(request.getParameter("seq"));
+				BoardDTO dto = dao.getinfo(seq);
+				List<FilesDTO> list = f_dao.selectAll(seq, 1);
+				request.setAttribute("list", list);
+				request.setAttribute("dto", dto);
+				request.getRequestDispatcher("/board/edit.jsp").forward(request, response);
 
-            }	// 게시글 수정하기 
+			
+
+			} // 게시글 수정하기
 			else if (cmd.equals("/update.board")) {
-               
-                //////////////////////////
-                int maxSize = 1024 * 1024 *10; 
+
+	
+				int maxSize = 1024 * 1024 * 10;
 				String realPath = request.getServletContext().getRealPath("files");
-				File uploadPath = new File(realPath);  
-				if(!uploadPath.exists()) { 
-					uploadPath.mkdir(); 
+				File uploadPath = new File(realPath);
+				if (!uploadPath.exists()) {
+					uploadPath.mkdir();
 				}
-				MultipartRequest multi = new MultipartRequest(request,realPath,maxSize, "UTF8",new DefaultFileRenamePolicy());
+				MultipartRequest multi = new MultipartRequest(request, realPath, maxSize, "UTF8",
+						new DefaultFileRenamePolicy());
 				String title = multi.getParameter("post-title");
 				String contents = multi.getParameter("contents");
-				
-				
+
 				int parent_seq = Integer.parseInt(multi.getParameter("post-seq"));
-				dao.update(new BoardDTO(parent_seq,0, null, title, contents, null,null,0, 0));
-				
-				
+				dao.update(new BoardDTO(parent_seq, 0, null, title, contents, null, null, 0, 0));
+
 				// 숨긴 파일 정보 받아서 삭제하기 .
-				String deletedFiles = multi.getParameter("deletedFilesInput"); // multi로 parameter받아와야함.! no 실수 !! 
+				String deletedFiles = multi.getParameter("deletedFilesInput"); // multi로 parameter받아와야함.! no 실수 !!
 				System.out.println("Deleted Files Input: " + deletedFiles);
-				if(deletedFiles !=null && !deletedFiles.isEmpty()) {
+				if (deletedFiles != null && !deletedFiles.isEmpty()) {
 					String[] filesToDelete = deletedFiles.split(",");
 					for (String filename : filesToDelete) {
-                        f_dao.deleteBySysname(filename, 1); // categorySeq가 1인 파일 삭제
-                        new File(realPath+"/"+filename).delete();
-                        // 파일은 서버의 영향을 안받는 경우가 있어 제대로 삭제가 안되는 경우가 있다 .그럴 경우 다시 삭제를 할 수 있도록 logic 구현을 해주면 좋다! <강사님 曰>
-                    }
+						f_dao.deleteBySysname(filename, 1); // categorySeq가 1인 파일 삭제
+						new File(realPath + "/" + filename).delete();
+						// 파일은 서버의 영향을 안받는 경우가 있어 제대로 삭제가 안되는 경우가 있다 .그럴 경우 다시 삭제를 할 수 있도록 logic 구현을 해주면
+						// 좋다! <강사님 曰>
+					}
 				}
-				
-				// 업로드 된 파일 insert 하기 . 
+
+				// 업로드 된 파일 insert 하기 .
 				Enumeration<String> names = multi.getFileNames();
-				while(names.hasMoreElements()) {
+				while (names.hasMoreElements()) {
 					String name = names.nextElement();
 					String oriname = multi.getOriginalFileName(name);
 					String sysname = multi.getFilesystemName(name);
 					System.out.println(sysname);
 					int categorySeq = 1;
-					if(oriname!=null) {
-						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq,categorySeq));
+					if (oriname != null) {
+						f_dao.insert(new FilesDTO(0, oriname, sysname, parent_seq, categorySeq));
 					}
 				}
-				List<FilesDTO> updatedFileList  = f_dao.selectAll(parent_seq,1);
+				List<FilesDTO> updatedFileList = f_dao.selectAll(parent_seq, 1);
 				request.setAttribute("list", updatedFileList);
 
-				response.sendRedirect("/detail.board?seq=" +parent_seq);
-				
-            }	//게시글 삭제하기 
+				response.sendRedirect("/detail.board?seq=" + parent_seq);
+
+			} // 게시글 삭제하기
 			else if (cmd.equals("/delete.board")) {
+
                 int seq = Integer.parseInt(request.getParameter("seq"));
                 dao.delete(seq);
                 response.sendRedirect("/list.board");
             }
+				
+				
+				
+				
+				
+				
 			
 			// 원희 Controller
 						// 내가 작성한 게시물 출력
@@ -354,13 +366,14 @@ public class BoardController extends HttpServlet {
 			                dao.delete(seq);
 			                response.sendRedirect("/myfreepostlist.board");
 			            }
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

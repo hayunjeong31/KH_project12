@@ -143,7 +143,7 @@
             font-family: "GalmuriMono9", monospace;
         }
 		input{
-			font-family: "GalmuriMono9", monospace;
+			font-family: Arial, sans-serif;
 		}
         .form-buttons {
             display: flex;
@@ -173,7 +173,7 @@
         /* Summernote 배경색 설정 */
 	    .note-editable {
 		       background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-		       font-family: "GalmuriMono9", monospace;
+		       font-family: Arial, sans-serif;
 		     }
 		.note-placeholder {
 		    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */

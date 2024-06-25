@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <style>
-/* 스타일은 기존 그대로 유지 */
+
 body {
     margin: 0;
     padding: 0;
@@ -408,33 +408,32 @@ footer {
         width: 100%;
     }
 }
-.welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
+
 .welcome-text-button {
-    color: #fff;
-    font-weight: bold;
+    color: #fff !important; /* 텍스트 색상을 하얀색으로 설정 */
+    font-weight: bold !important;
     cursor: pointer;
     margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px; /* 패딩 수정 */
+    background: rgba(0, 0, 0, 0.5) !important;
     border-radius: 5px;
     transition: background 0.3s;
     position: relative; /* position 속성 추가 */
+    display: flex; /* 플렉스박스로 아이콘과 텍스트를 한 줄에 표시 */
+    align-items: center; /* 아이템을 중앙 정렬 */
+    font-family: "GalmuriMono9", monospace !important; /* 폰트 설정 */
 }
 
 .welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
+    margin-right: 5px; /* 아이콘과 텍스트 간격 조정 */
+    color: #fff !important; /* 아이콘 색상을 하얀색으로 설정 */
 }
 
 .welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.7) !important;
 }
+
+
 </style>
 <body>
     <div class="splash-screen">
@@ -444,9 +443,7 @@ footer {
 
     <header>
         <div class="header-container">
-        	<a href="/index.jsp">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
-            
+            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
@@ -558,9 +555,9 @@ footer {
             </div>
             <div class="item game-description">
                 <p>
-                    제목:<br>
-                    장르:<br>
-                    게임설명:<br>
+                    제목: 마리오<br>
+                    장르: 회피<br>
+                    게임설명: 방향키를 움직여 플레이어 이동하는 게임<br>
                 </p>
             </div>
             <div class="item game-description">

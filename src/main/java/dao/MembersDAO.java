@@ -33,6 +33,7 @@ public class MembersDAO {
     
     private MembersDAO(){}
 
+
  // 내 정보 출력
     public MembersDTO myInfor(String userId) throws Exception {
         String sql = "SELECT * FROM members WHERE userId = ?";
@@ -122,6 +123,9 @@ public class MembersDAO {
     
     // 인교 코드
     // userId 중복 확인 메서드
+
+ // userId 중복 확인 메서드
+
     public boolean isUserIdAvailable(String userId) throws Exception {
         String sql = "SELECT COUNT(*) FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -305,6 +309,20 @@ public class MembersDAO {
         }
         return null;
     }
+
+
+
+//동일 메소드 존재로 이름 변경 login -> isUserInfoEnabled
+	public boolean isUserInfoEnabled(String id, String pw) throws Exception {
+		String sql = "select * from members where userId =? and userPwd = ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			try (ResultSet rs = pstat.executeQuery()) {
+				return rs.next();
+			}
+		}
+	}
 
 
 }

@@ -106,8 +106,10 @@ public class MembersController extends HttpServlet {
 				response.sendRedirect("/index.jsp");
 			} 
 			
+			
+			
 			// 인교 코드
-			 // 회원가입 처리
+            // 회원가입 처리
 			else if (cmd.equals("/signup.members")) {
                 String userId = request.getParameter("userId");
                 String userPwd = EncryptionUtils.getSHA512(request.getParameter("userPwd"));
@@ -164,6 +166,8 @@ public class MembersController extends HttpServlet {
                 } else {
                     session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
                     response.sendRedirect("/members/login.jsp"); // 로그인 실패 시 처리
+               
+
                 }
             
 
@@ -214,7 +218,8 @@ public class MembersController extends HttpServlet {
                 dao.updateTempCodeByEmail(email, checkNumStr);
                 // 이메일 전송 로직
                 sendEmail(email, "회원가입 인증 이메일입니다.", "인증 번호는 " + checkNumStr + "입니다. 해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
-                response.getWriter().write("이메일로 인증번호가 전송되었습니다.");        
+                response.getWriter().write("이메일로 인증번호가 전송되었습니다.");       
+
 
             // 인증 코드 확인 처리
             } else if (cmd.equals("/verifyAuthCode.members")) {
