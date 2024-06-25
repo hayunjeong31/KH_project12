@@ -13,6 +13,7 @@
     <title>게시물 작성</title>
 
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -28,7 +29,7 @@
 
 body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: "GalmuriMono9", monospace;
     
 }
 
@@ -39,6 +40,7 @@ body, html {
     height: 100%;
     background-color: #f4f4f4;
     background-image: url('../image/5033917.jpg');
+     
 }
 
 .create-post-section {
@@ -88,13 +90,13 @@ body, html {
 }
 
 .form-field {
+	margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 }
 
 .form-field label {
-    margin-bottom: 2%;
-    margin-top:2%;
+   	margin-bottom: 5px;
     font-weight: bold;
     font-size: 1em;
 }
@@ -102,13 +104,15 @@ body, html {
 .form-field input[type="text"],
 .form-field input[type="file"] {
     width: 100%;
-    padding-bottom: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .form-field input[type="file"] {
+    font-family: "GalmuriMono9", monospace;
     border: none;
 }
 
@@ -119,6 +123,7 @@ body, html {
 }
 
 .form-buttons button {
+	font-family: "GalmuriMono9", monospace;
     padding: 10px 20px;
     border: none;
     background-color:  rgba(45, 19, 112, 0.684);
@@ -129,7 +134,7 @@ body, html {
     width: 48%;
 }
 .form-buttons button:hover {
-    background-color:  rgb(64, 64, 116);
+    background-color:  rgba(237, 175, 18, 0.973);
         }
 
 .form-buttons .btn-cancel {
@@ -165,9 +170,13 @@ body, html {
  /* Summernote 배경색 설정 */
         .note-editable {
             background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-          
+          font-family: 'Open Sans', sans-serif;
         }
-   
+    .note-placeholder {
+    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
+    font-size: 16px; /* 원하는 크기로 변경 */
+    color: #888; /* 원하는 색상으로 변경 */
+}
    .note-resizebar{
    	 	display: none;
    }
@@ -179,38 +188,71 @@ body, html {
 	   	margin-bottom:0;
 	   	padding-bottom:0;
 	   }
-   
+   .file-input-container{
+   		padding-bottom:5px;
+   }
+   .welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
     </style>
 <body>
     <header>
         <div class="header-container">
-            <img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -223,7 +265,19 @@ body, html {
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -253,10 +307,13 @@ body, html {
                     <form action="/write.board" method="post" id="writeform" enctype="multipart/form-data">
                     	<div class="form-field" id="fileloading"> 
                         <label>파일 업로드</label>
-						<input type="file" name="file1"><br>
-					    <input type="file" name="file2"><br>
-					    
-                            <input type="hidden" id="hidden_title" name="hidden_title">
+						<div class="file-input-container">
+				            <input type="file" name="file1" class="file-input" id="file-input1">
+				        </div>
+				        <div class="file-input-container">
+					    	<input type="file" name="file2">
+					    </div><br>
+					    	<input type="hidden" id="hidden_title" name="hidden_title">
                             <input type="hidden" id="hidden_content" name="hidden_content">
 				      	</div>
 					</form>

@@ -7,12 +7,154 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/header_styles.css">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* Inline styles for specific to this HTML file */
+        
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.logo {
+    height: 40px;
+}
+
+nav {
+    flex: 1;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
+}
+
+nav ul li:hover>.dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.dropdown {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(39, 48, 88, 0.801);
+    box-shadow: 0 8px 16px rgba(224, 224, 224, 0.267);
+    z-index: 1500;
+    min-width: 100px;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: rgb(207, 211, 211);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown a:hover {
+    background-color:rgba(8, 15, 84, 0.217);
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.login-button {
+    padding: 5px 10px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    color: rgb(249, 63, 76);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .header-buttons input {
+        display: none;
+    }
+
+    .header-buttons {
+        justify-content: flex-end;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: black;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+/* Inline styles for specific to this HTML file */
 
         * {
             box-sizing: border-box;
@@ -23,18 +165,18 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
-            background-image: url('image/5033917.jpg');
+            
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             height: 100vh;
+            background-image: url('../image/5033917.jpg');
         }
 
         .main {
@@ -92,6 +234,8 @@
             cursor: pointer;
             margin-left: 850px;
             /* This might need adjustment based on your layout */
+            font-family: "GalmuriMono9", monospace;
+            
         }
 
         .board-area h2 {
@@ -99,6 +243,7 @@
             font-size: 24px;
             color: black;
             text-align: center;
+            
         }
 
         .board-table {
@@ -113,6 +258,10 @@
             border: 1px solid #ddd;
             text-align: center;
             color: black;
+        }
+        
+        .board-table td {
+        font-family: 'Open Sans', sans-serif;
         }
 
         .board-table th {
@@ -137,26 +286,28 @@
         }
 
         .pagination {
+        	margin-top:3%;
             margin-bottom: 20px;
         }
-
-        .pagination button {
-            margin: 0 5px;
+        .pagination a{
+        	text-decoration: none;
+        	margin: 0 5px;
             padding: 5px 10px;
             border: 1px solid #ddd;
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
+            text-align:center;
         }
-
-        .pagination button:hover {
-            background-color: rgba(231, 231, 232, 0.004);
-            color: white;
+        .pagination a.active{
+        	font-weight: bold;
+        	color: rgb(237, 98, 237);
         }
-
-        .pagination button:active {
-            background-color: rgba(25, 25, 173, 0.598);
+        .pagination a:hover{
+        	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
+            font-weight: bold;
+           
         }
 
         .board-buttons {
@@ -164,9 +315,10 @@
             justify-content: space-between;
             width: 100%;
             max-width: 800px;
+            
         }
 
-        .board-buttons .write-button,
+        
         .board-buttons .home-button {
             padding: 10px 20px;
             border: none;
@@ -176,11 +328,13 @@
             cursor: pointer;
             font-size: 1em;
             width: 48%;
+            font-family: "GalmuriMono9", monospace;
         }
 
-        .board-buttons .write-button:hover,
+        
         .board-buttons .home-button:hover {
             background-color: rgb(64, 64, 116);
+            
         }
         header {
             position: fixed;
@@ -193,13 +347,49 @@
             height: 60px;
             background-image: url('image/9.png');
         }
-        
-        .title{
-         white-space: nowrap;
-           overflow: hidden;
-           text-overflow: ellipsis;
-           max-width: 300px; /* 적절한 너비로 설정 */
-      }
+        .welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+        .welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+		.title_max a{
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
     </style>
     <title>게시판</title>
 </head>
@@ -207,11 +397,12 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
@@ -223,17 +414,19 @@
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -246,7 +439,19 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -282,9 +487,9 @@
                         <c:forEach var="dto" items="${list}">
                         <tr>
                             <td>${dto.seq}</td>
-                            <td class="title"><a href="/detail.board?seq=${dto.seq}">${dto.title}</a></td>
+                            <td class="title_max"><a href="/myqdetail.qboard?seq=${dto.seq}">${dto.title}</a></td>
                             <td>${dto.writer}</td>
-                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></td>
+                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
                             <td>${dto.view_count}</td>
                         </tr>
                     </c:forEach>

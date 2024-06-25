@@ -1,6 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -10,170 +9,315 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>마이페이지</title>
-<link rel="stylesheet" href="Css/header_style.css">
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<link href="${pageContext.request.contextPath}
-       /css/header_styles.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>     
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+
+
+body,
+    html {
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        font-family: "GalmuriMono9", monospace;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('../image/5033917.jpg');
+    }
+
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-color: #f4f4f463;
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .mypage-section {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    .mypage-left {
+        flex: 1;
+        background-color: rgba(212, 15, 196, 0.349);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .mypage-left h1 {
+        font-size: 36px;
+    }
+
+    .mypage-info-area {
+        flex: 2;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mypage-info-area h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: black;
+        text-align: center;
+    }
+
+    .info-form {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .info-field {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info-field label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 1em;
+    }
+
+    .info-field input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #cccccc77;
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: #f4f4f4;
+        color: black;
+    }
+
+    .info-field input[type="text"]:disabled {
+        background-color: #e9e9e9;
+    }
+
+    .form-buttons {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .form-buttons button {
+        padding: 10px 20px;
+        border: none;
+        background-color: rgba(212, 15, 196, 0.349);
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        width: 30%;
+        font-family: "GalmuriMono9", monospace;
+    }
+
+    .form-buttons button:hover {
+        background-color: rgba(212, 15, 196, 0.63);
+    }
+    header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 60px;
+            background-image: url('image/9.png');
+        }
+
+
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
 }
 
-body, html {
-	height: 100%;
-	font-family: Arial, sans-serif;
+.logo {
+    height: 40px;
 }
 
-body {
-	font-family: 'Open Sans', sans-serif;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background-image: url('image/5033917.jpg');
-	background-size: cover;
-	background-position: center;
+nav {
+    flex: 1;
 }
 
-.main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 80%;
-	width: 80%;
-	background-color: rgba(255, 255, 255, 0.298);
-	margin: auto;
-	border-radius: 10px;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
-.mypage-section {
-	display: flex;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	overflow: hidden;
+nav ul li {
+    position: relative;
+    margin: 0 15px;
 }
 
-.mypage-left {
-	flex: 1;
-	background-color: rgba(212, 15, 196, 0.383);
-	color: white;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
 }
 
-.mypage-left h1 {
-	font-size: 36px;
+nav ul li:hover>.dropdown {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.mypage-info-area {
-	flex: 2;
-	padding: 40px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.dropdown {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(39, 48, 88, 0.801);
+    box-shadow: 0 8px 16px rgba(224, 224, 224, 0.267);
+    z-index: 1500;
+    min-width: 100px;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s;
 }
 
-.mypage-info-area h2 {
-	font-size: 2em;
-	margin-bottom: 20px;
-	color: black;
-	text-align: center;
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: rgb(207, 211, 211);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-.info-form {
-	width: 100%;
-	max-width: 800px;
+.dropdown a:hover {
+    background-color:rgba(8, 15, 84, 0.217);
 }
 
-.info-field {
-	margin-bottom: 20px;
-	display: flex;
-	flex-direction: column;
+.header-buttons {
+    display: flex;
+    align-items: center;
 }
 
-.info-field label {
-	margin-bottom: 5px;
-	font-weight: bold;
-	font-size: 1em;
-}
-
-.info-field [contenteditable="true"] {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #cccccc77;
-	border-radius: 5px;
-	font-size: 1em;
-	background-color: #f4f4f4;
-	color: black;
-}
-
-.info-field [contenteditable="false"] {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #cccccc77;
-	border-radius: 5px;
-	font-size: 1em;
-	background-color: #e9e9e9;
-	color: black;
-}
-
-.form-buttons {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	margin-bottom: 50px;
-}
-
-.form-buttons button {
-	padding: 10px 20px;
-	border: none;
-	background-color: rgba(212, 15, 196, 0.383);
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 1em;
-	width: 30%;
-}
-
-.form-buttons button:hover {
-	background-color: rgba(212, 15, 196, 0.546);
-}
-
-header {
-	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1000;
-	background-color: black;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	height: 60px;
+.login-button {
+    padding: 5px 10px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    color: rgb(249, 63, 76);
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .hamburger-menu {
-	display: none;
-	flex-direction: column;
-	cursor: pointer;
-	margin-left: 20px;
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
 }
 
 .hamburger-menu div {
-	width: 25px;
-	height: 3px;
-	background-color: white;
-	margin: 4px 0;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
 }
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .header-buttons input {
+        display: none;
+    }
+
+    .header-buttons {
+        justify-content: flex-end;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: black;
+        position: absolute;
+        top: 60px;
+        left: 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+
+.info-field [contenteditable="true"] {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #cccccc77;
+   border-radius: 5px;
+   font-size: 1em;
+   background-color: #f4f4f4;
+   color: black;
+}
+
+.info-field [contenteditable="false"] {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #cccccc77;
+   border-radius: 5px;
+   font-size: 1em;
+   background-color: #e9e9e9;
+   color: black;
+}
+
+.form-value{
+font-family: 'Open Sans', sans-serif;
+}
+    
+
 .modal {
 		display: none;
 		position: fixed;
@@ -194,6 +338,26 @@ header {
 		border: 1px solid #fefefe;
 		width: 20%;
 	}
+	.modal-content p,h2 {
+	
+			margin-top: 30px;	
+            margin-bottom: 20px; 
+        }
+
+        #confirmMemberOut,
+        #cancelMemberOut {
+            margin: 2px; 
+        }
+        
+     .form-row{
+        	margin-bottom: 10px;
+        }
+        
+        #savePwd,
+        #cancelPwd {
+            margin: 2px; 
+        }
+        
 	.modal-close {
 		color: gray;
 		float: right;
@@ -205,90 +369,65 @@ header {
 		text-decoration: none;
 		cursor: pointer;
 	}
-
-
-@media ( max-width : 768px) {
-	nav ul {
-		display: none;
-		flex-direction: column;
-		position: absolute;
-		top: 60px;
-		left: 0;
-		width: 100%;
-		background-color: black;
-	}
-	nav ul li {
-		margin: 0;
-	}
-	nav ul li a {
-		padding: 15px;
-	}
-	.hamburger-menu {
-		display: flex;
-	}
-	.header-buttons {
-		margin-left: auto;
-	}
-	.header-buttons button {
-		display: none;
-	}
-	.header-buttons .hamburger-menu {
-		display: flex;
-	}
-	
+	.welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
 }
-    .form-container {
-        border: 1px solid;
-        width: 30%;
-        margin: 0 auto;
-    }
-    .form-row {
-        display: flex;
-        border-bottom: 1px solid;
-    }
-    .form-label {
-        width: 20%;
-        font-weight: bold;
-        padding: 8px;
-        box-sizing: border-box;
-        background-color: #F93F4CFF;
-        color: white;
-    }
-    .form-value {
-        width: 80%;
-        padding: 8px;
-        box-sizing: border-box;
-    }
-    .form-value[contenteditable="true"] {
-        background-color: #f0f0f0;
-    }
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
+	
+	.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+	
+
+
 </style>
 </head>
 
 <body>
 	<header>
 		<div class="header-container">
-			<img src="image/GamebitLogo.png" alt="Logo" class="logo">
+		<a href="/index.jsp">
+			<img src="image/GamebitLogo.png" alt="Logo" class="logo"></a>
 			<nav>
 				<ul>
-					<li><a href="index.html">홈</a>
+					<li><a href="/index.jsp">홈</a>
 						<div class="dropdown"></div></li>
 					<li><a href="#">게임</a>
 						<div class="dropdown">
 							<a href="win.html">명예의 전당</a> <a href="#">Subitem 2</a> <a
 								href="#">랭킹</a>
 						</div></li>
-					<li><a href="board.html">게시판</a>
+					<li><a href="/list.board">게시판</a>
 						<div class="dropdown">
-							<a href="board.html">게시판</a> <a href="#">Q&A</a> <a href="#">공지사항</a>
+							<a href="/list.board">게시판</a> 
+							<a href="/list.qboard">Q&A</a> 
+							<a href="#">공지사항</a>
 						</div></li>
 					<li><a href="#">마이페이지</a>
 						<div class="dropdown">
-							<a href="#">내 정보 수정</a>
+							<a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
 						</div></li>
 					<li><a href="#">관리자 페이지</a>
 						<div class="dropdown">
@@ -297,13 +436,25 @@ header {
 				</ul>
 			</nav>
 			<div class="header-buttons">
-				<button class="login-button" onclick="location.href='join.html'">Login</button>
-				<div class="hamburger-menu" onclick="toggleMenu()">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-			</div>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
 		</div>
 	</header>
 
@@ -356,13 +507,11 @@ header {
 							</div>
 							<div class="form-buttons">
 								<button type="button" id="edit">수정하기</button>
-								<button type="button" id="pwdChange">비밀번호 변경</button>
+								<button type="button" id="pwdChange">비밀번호<br>변경</button>
 								<button type="button" id="back">홈으로</button>
 								<button type="submit" id="ok" style="display: none;">수정완료</button>
 								<button type="button" id="cancel" style="display: none;">취소하기</button>
 								<button type="button" id="memberout">회원탈퇴</button>
-								<button type="button" id="toMyFreePost">내가 작성한 자유</button>
-								<button type="button" id="toMyQPost">내가 작성한 QnA</button>
 							</div>
 						</form>
 					</c:otherwise>
@@ -406,89 +555,6 @@ header {
 					<div class="button-container">
 						<button type="button" id="savePwd">저장</button>
 						<button type="button" id="cancelPwd">취소</button>
-
-   <c:choose>
-    <c:when test="${dto == null }">
-        에러
-    </c:when>
-    <c:otherwise>
-        <form action="/edit.members" id="edit_form" method="post">
-            <div class="form-container">
-                <div class="form-row">
-                    <div class="form-label">ID</div>
-                    <div class="form-value" id="userId" contenteditable="false">${dto.userId}</div>
-                    <input type="hidden" name="userId" id="hiddenUserId" value="${dto.userId}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Name</div>
-                    <div class="form-value" id="userName" contenteditable="false">${dto.userName}</div>
-                    <input type="hidden" name="userName" id="hiddenUserName" value="${dto.userName}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Nickname</div>
-                    <div class="form-value" id="nickName" contenteditable="false">${dto.nickName}</div>
-                    <input type="hidden" name="nickName" id="hiddenNickName" value="${dto.nickName}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Phone</div>
-                    <div class="form-value" id="phone" contenteditable="false">${dto.phone}</div>
-                    <input type="hidden" name="phone" id="hiddenPhone" value="${dto.phone}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Email</div>
-                    <div class="form-value" id="email" contenteditable="false">${dto.email}</div>
-                    <input type="hidden" name="email" id="hiddenEmail" value="${dto.email}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Join Date</div>
-                    <div class="form-value"><fmt:formatDate value="${dto.join_date}" pattern="yyyy.MM.dd" /></div>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="button" id="edit">수정하기</button>
-                <button type="button" id="back">홈으로</button>
-                <button type="submit" id="ok" style="display: none;">수정 완료</button>
-                <button type="button" id="cancel" style="display: none;">취소 하기</button>
-                <button type="button" id="memberout">회원탈퇴</button>
-            </div>
-        </form>
-    </c:otherwise>
-</c:choose>
-
-   <script>
-      $("#memberout").on("click",function(){
-          location.href="/memberout.members?userId=${dto.userId}";
-      });
-   
-      $("#edit").on("click", function() {
-          $("#userName[contenteditable='false']").attr("contenteditable", "true");         
-          $("#phone[contenteditable='false']").attr("contenteditable", "true");
-          $("#email[contenteditable='false']").attr("contenteditable", "true");
-
-
-	<!-- 비밀번호 변경 모달창 -->
-	<div id="pwdModal" class="modal">
-		<div class="modal-content" id="pwdContent">
-			<span class="modal-close">&times;</span>
-			<h2>비밀번호 수정</h2>
-			<form id="pwdForm" method="post">
-				<div class="form-row">
-					<div class="form-label">현재 비밀번호</div>
-					<div class="form-value">
-						<input type="password" id="currentPwd" name="currentPwd">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-label">새 비밀번호</div>
-					<div class="form-value">
-						<input type="password" id="newPwd" name="newPwd">
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="form-label">새 비밀번호 확인</div>
-					<div class="form-value">
-						<input type="password" id="confirmPwd" name="confirmPwd">
-
 					</div>
 				</form>
 			</div>
@@ -501,18 +567,7 @@ header {
 			navUl.style.display = navUl.style.display === 'flex' ? 'none'
 					: 'flex';
 		}
-		
-		// 내가 작성한 눌렀을 시
-		$("#toMyFreePost").on("click", function(){
-			location.href = "/myfreepostlist.board";
-		})
-		
-		$("#toMyQPost").on("click", function(){
-			location.href = "/myqpostlist.qboard";
-		})
-		
-		
-		
+	
 
 		// 회원 탈퇴 눌렀을 시
 		$("#memberout").on("click", function() {
@@ -599,8 +654,6 @@ header {
 							"contenteditable", "true");
 					$("#phone[contenteditable='false']").attr(
 							"contenteditable", "true");
-					$("#email[contenteditable='false']").attr(
-							"contenteditable", "true");
 
 					$("#edit").hide();
 					$("#back").hide();
@@ -615,7 +668,6 @@ header {
 
 							let userName = $("#userName").text().trim();
 							let phone = $("#phone").text().trim();
-							let email = $("#email").text().trim();
 
 							// 이름 유효성 검사
 							let namePattern = /^[가-힣]{2,5}$/;
@@ -630,13 +682,7 @@ header {
 								isValid = false;
 								alert("전화번호를 다시 입력해주세요.");
 							}
-
-							// 이메일 유효성 검사
-							let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-							if (!emailPattern.test(email)) {
-								isValid = false;
-								alert("이메일 주소를 다시 입력해주세요.");
-							}
+							
 
 							// 유효하지 않으면 폼 제출 막음
 							if (!isValid) {
@@ -647,7 +693,8 @@ header {
 							// 유효하면 hidden input에 값 설정
 							$("#hiddenUserName").val(userName);
 							$("#hiddenPhone").val(phone);
-							$("#hiddenEmail").val(email);
+							
+							alert("정보가 수정되었습니다.");
 						});
 
 		$("#cancel").on("click", function() {
@@ -658,114 +705,5 @@ header {
 			location.href = "/index.jsp";
 		});
 	</script>
-    .form-container {
-        border: 1px solid;
-        width: 30%;
-        margin: 0 auto;
-    }
-    .form-row {
-        display: flex;
-        border-bottom: 1px solid;
-    }
-    .form-label {
-        width: 20%;
-        font-weight: bold;
-        padding: 8px;
-        box-sizing: border-box;
-        background-color: #F93F4CFF;
-        color: white;
-    }
-    .form-value {
-        width: 80%;
-        padding: 8px;
-        box-sizing: border-box;
-    }
-    .form-value[contenteditable="true"] {
-        background-color: #f0f0f0;
-    }
-    .button-container {
-        text-align: center;
-        margin-top: 20px;
-    }
-</style>
-<body>
-   <c:choose>
-    <c:when test="${dto == null }">
-        에러
-    </c:when>
-    <c:otherwise>
-        <form action="/edit.members" id="edit_form" method="post">
-            <div class="form-container">
-                <div class="form-row">
-                    <div class="form-label">ID</div>
-                    <div class="form-value" id="userId" contenteditable="false">${dto.userId}</div>
-                    <input type="hidden" name="userId" id="hiddenUserId" value="${dto.userId}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Name</div>
-                    <div class="form-value" id="userName" contenteditable="false">${dto.userName}</div>
-                    <input type="hidden" name="userName" id="hiddenUserName" value="${dto.userName}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Nickname</div>
-                    <div class="form-value" id="nickName" contenteditable="false">${dto.nickName}</div>
-                    <input type="hidden" name="nickName" id="hiddenNickName" value="${dto.nickName}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Phone</div>
-                    <div class="form-value" id="phone" contenteditable="false">${dto.phone}</div>
-                    <input type="hidden" name="phone" id="hiddenPhone" value="${dto.phone}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Email</div>
-                    <div class="form-value" id="email" contenteditable="false">${dto.email}</div>
-                    <input type="hidden" name="email" id="hiddenEmail" value="${dto.email}">
-                </div>
-                <div class="form-row">
-                    <div class="form-label">Join Date</div>
-                    <div class="form-value"><fmt:formatDate value="${dto.join_date}" pattern="yyyy.MM.dd" /></div>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="button" id="edit">수정하기</button>
-                <button type="button" id="back">홈으로</button>
-                <button type="submit" id="ok" style="display: none;">수정 완료</button>
-                <button type="button" id="cancel" style="display: none;">취소 하기</button>
-                <button type="button" id="memberout">회원탈퇴</button>
-            </div>
-        </form>
-    </c:otherwise>
-</c:choose>
-
-   <script>
-      $("#memberout").on("click",function(){
-          location.href="/memberout.members?userId=${dto.userId}";
-      });
-   
-      $("#edit").on("click", function() {
-          $("#userName[contenteditable='false']").attr("contenteditable", "true");         
-          $("#phone[contenteditable='false']").attr("contenteditable", "true");
-          $("#email[contenteditable='false']").attr("contenteditable", "true");
-
-          $("#edit").hide();
-          $("#back").hide();
-          $("#ok").show();
-          $("#cancel").show();
-      });
-      
-      $("#edit_form").on("submit",function(){
-          $("#hiddenUserName").val($("#userName").text().trim());
-          $("#hiddenPhone").val($("#phone").text().trim());
-          $("#hiddenEmail").val($("#email").text().trim());
-      });
-      
-      $("#cancel").on("click",function(){
-          location.href = "/mypage.members";
-      });
-      
-      $("#back").on("click", function() {
-          location.href = "/main.jsp";
-      });
-   </script>
 </body>
 

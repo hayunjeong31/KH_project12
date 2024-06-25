@@ -19,7 +19,7 @@
 
     <style>
 
-         * {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -29,11 +29,10 @@
         html {
             height: 100%;
             font-family: "GalmuriMono9", monospace;
-            
         }
 
         body {
-			font-family: "GalmuriMono9", monospace;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -116,25 +115,26 @@
         }
 
         .form-field {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
         }
 
         .form-field label {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-weight: bold;
             font-size: 1em;
         }
 
         .form-field input[type="text"],
+        .form-field textarea,
         .form-field input[type="file"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
-            font-family: 'Open Sans', sans-serif;
+            font-family: Arial, sans-serif;
             
         }
 
@@ -142,7 +142,9 @@
             border: none;
             font-family: "GalmuriMono9", monospace;
         }
-
+		input{
+			font-family: "GalmuriMono9", monospace;
+		}
         .form-buttons {
             display: flex;
             justify-content: space-between;
@@ -152,14 +154,13 @@
         .form-buttons button {
             padding: 10px 20px;
             border: none;
-			background-color: rgba(45, 19, 112, 0.684);
+            background-color: rgba(45, 19, 112, 0.684);
             color: white;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
             width: 48%;
             font-family: "GalmuriMono9", monospace;
-            
         }
 
         .form-buttons button:hover {
@@ -169,29 +170,43 @@
         .wc_message {
             display: none;
         }
-        
         /* Summernote 배경색 설정 */
-        .note-editable {
-            background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-        }
-   
-	   .note-resizebar{
-	   	 	display: none;
-	   }
-	    #fileloading{
+	    .note-editable {
+		       background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+		       font-family: "GalmuriMono9", monospace;
+		     }
+		.note-placeholder {
+		    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
+		    font-size: 16px; /* 원하는 크기로 변경 */
+		    color: #888; /* 원하는 색상으로 변경 */
+		}
+		   
+	    .note-resizebar{
+		 	display: none;
+		   }
+	   #fileloading{
 	   	margin-bottom:0;
 	   	padding-bottom:0;
 	   }
 	   .uploadedFile .file-list{
-	  	padding-left:10px;
 	   	margin-bottom:2%;
 	   }
-	   .welcome-text {
+	   .deleteFile{
+	   	font-family: "GalmuriMono9", monospace;
+	   	margin:1%;
+	   
+	   }
+	   
+	   /*또 추가 수정 css*/
+	   input{
+			font-family: "GalmuriMono9", monospace;
+		}
+		.welcome-text {
   font-weight: bold;
   color: #fff;
   margin-right: 20px;
 }
-.welcome-text-button {
+		.welcome-text-button {
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -230,9 +245,8 @@
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
+                            <a href="win.html">명예의 전당</a>
+                            <a href="#">Subitem 2</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
@@ -261,7 +275,7 @@
                     </li>
                 </ul>
             </nav>
-           <div class="header-buttons">
+            <div class="header-buttons">
                <c:choose>
                     <c:when test="${not empty sessionScope.loginID}">
                         <span class="welcome-text-button" onclick="location.href='mypage.members'">
@@ -291,7 +305,7 @@
             </article>
             <article class="edit-post-area">
                 <h2></h2>
-                <form class="post-form" id="editform" action="/update.qboard" method="post" enctype="multipart/form-data">
+                <form class="post-form" action="/myupdate.qboard" method="post" enctype="multipart/form-data">
                     <div class="post-form">
                         <div class="form-field">
                             <label>글 제목</label>
@@ -303,47 +317,12 @@
                             <div id="summernote">${dto.contents}</div>
                             <input type="hidden" id="contents" name="contents">
                         </div>
-                        
-                        <!-- 업로드 파일 갯수에 따른 input file 태그 갯수 생성 -->
                         <div class="form-field" id="fileloading">
-                            <label>파일 업로드</label>
-		                        <c:choose>
-		                        	<c:when test="${list.size() == 0}">
-			                        	<input type="file" name="file1"><br>
-								  		<input type="file" name="file2"><br>
-		                        	</c:when>
-		                        	<c:when test="${list.size() == 1}">
-		                        		<input type="file" name="file1"><br>
-		                        	</c:when>
-		                        	<c:otherwise>
-		                        	</c:otherwise>
-		                       	</c:choose>
-	                       	
-	                       <div class="fileinputtag"></div>
-	                       
-	                    </div>
-	   					 <!-- 수정 해야하는 부분 시작 .deleteFile 버튼 누르면 hide되게.  -->
-		                    <div class="uploadedFile">
-		                        <c:forEach var="file" items="${list}">
-	                            	<div class="file-list">
-		                                <i class="fa-regular fa-file"></i>
-		                                ${file.oriname}
-		                                <button type="button" class="deleteFile" data-sysname="${file.sysname}">삭제<i class="fa-solid fa-trash"></i></button>
-		                        	</div>
-		                        </c:forEach>
-		                    </div>
-	                    <!-- 수정된 부분 끝 -->
-	                    
-	                    <!--  숨긴 파일 정보 hidden에 저장하기  -->
-	                    <input type="hidden" id="deletedFilesInput" name="deletedFilesInput">
-                                   
-                           
-                            <!-- 
                             <label>파일 업로드</label>
                             <input type="file" id="post-file" name="post-file"><br>
                         </div>
                         <div class="uploadedFile">
-                            
+                            <!-- 업로드 했던 파일 리스트 -->
                             <c:forEach var="i" items="${list}">
                                 <div class="file-list">
                                     <i class="fa-regular fa-file"></i>
@@ -352,11 +331,9 @@
                                 </div>
                             </c:forEach>
                         </div>
-                          -->
-                          
                         <div class="form-buttons">
-                            <button type="button" id="btncomplete">수정완료</button>
                             <button type="button" class="btn-cancel">취소</button>
+                            <button type="submit" class="btn-submit">수정</button>
                         </div>
                     </div>
                 </form>
@@ -364,8 +341,6 @@
         </section>
     </main>
     <script>
-    var deletedFiles = [];
-	$(document).ready(function(){
         $('#summernote').summernote({
             placeholder: '내용을 입력해 주세요.',
             tabsize: 2,
@@ -386,31 +361,12 @@
                 event.preventDefault();
                 return false;
             }else{
-           	 location.href='/detail.qboard?seq=${dto.seq}';
+           	 location.href='/myqdetail.qboard?seq=${dto.seq}';
             }
         })
-         // 파일 옆 삭제 버튼 클릭 시
-	    $(".deleteFile").on("click", function(){
-	        $(this).parent().hide(); // 해당 파일 항목 숨기기
-	        
-	        var sysname = $(this).data("sysname");
-	        $(this).parent().hide(); // 파일 숨기기
-	        console.log("삭제할 파일 sysname: " + sysname);
-	        
-	        // 삭제할 파일의 sysname을 deletedFiles 배열에 추가
-	     	 deletedFiles.push(sysname);
-	        
-	        // 새 파일 업로드 input 추가
-	        var fileCount = $(".fileinputtag input[type=file]").length + 1;
-	        var fileinput = $("<input>", {
-	            "type": "file",
-	            "name": "file" + fileCount+3
-	        });
-	        $(".fileinputtag").append(fileinput);
-	    });
 
      // 게시글 수정완료 버튼 클릭 시 
-        $("#btncomplete").on("click", function() {
+        $(".btn-submit").on("click", function() {
             if ($("#post-title").val() == "") {
                 alert("제목을 입력하세요.");
                 return false;
@@ -420,17 +376,11 @@
                 alert("내용을 입력해 주세요.");
                 return false;
             }
-            
-         // 게시글 정보 및 삭제할 파일 목록(hidden input) 설정
-	        $("#deletedFilesInput").val(deletedFiles.join(","));
-         
             $("#post-seq").val();
             $("#post-title").val();
             $("#contents").val(markupStr);
-            
-            $("#editform").submit();
         });
-	});
+
   
     </script>
 </body>
