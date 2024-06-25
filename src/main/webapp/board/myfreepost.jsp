@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="css/header_styles.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
     <style>
         
@@ -257,6 +261,9 @@ nav ul li:hover>.dropdown {
             text-align: center;
             color: black;
         }
+        .board-table td {
+        font-family: 'Open Sans', sans-serif;
+        }
 
         .board-table th {
             background-color: #f9f9f9b9;
@@ -280,28 +287,36 @@ nav ul li:hover>.dropdown {
         }
 
         .pagination {
+        	margin-top:3%;
             margin-bottom: 20px;
         }
-
-        .pagination button {
-            margin: 0 5px;
+        .pagination a{
+        	text-decoration: none;
+        	margin: 0 5px;
             padding: 5px 10px;
             border: 1px solid #ddd;
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
+<<<<<<< HEAD
             font-family: "GalmuriMono9", monospace;
+=======
+            text-align:center;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
-
-        .pagination button:hover {
-            background-color: rgba(231, 231, 232, 0.004);
-            color: white;
+        .pagination a.active{
+        	font-weight: bold;
+        	color: rgb(237, 98, 237);
         }
-
-        .pagination button:active {
-            background-color: rgba(25, 25, 173, 0.598);
+        .pagination a:hover{
+        	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
+<<<<<<< HEAD
             
+=======
+            font-weight: bold;
+           
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .board-buttons {
@@ -312,7 +327,7 @@ nav ul li:hover>.dropdown {
             
         }
 
-        .board-buttons .write-button,
+        
         .board-buttons .home-button {
             padding: 10px 20px;
             border: none;
@@ -325,10 +340,14 @@ nav ul li:hover>.dropdown {
             font-family: "GalmuriMono9", monospace;
         }
 
-        .board-buttons .write-button:hover,
+        
         .board-buttons .home-button:hover {
+<<<<<<< HEAD
             background-color: rgb(64, 64, 116);
             
+=======
+            background-color: rgb(64, 64, 116); 
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         header {
             position: fixed;
@@ -341,6 +360,54 @@ nav ul li:hover>.dropdown {
             height: 60px;
             background-image: url('image/9.png');
         }
+<<<<<<< HEAD
+=======
+        
+        .welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+        
+        .welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+		.title_max a{
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	        max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	text-align: left;
+		}
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     </style>
     <title>게시판</title>
 </head>
@@ -348,11 +415,12 @@ nav ul li:hover>.dropdown {
 <body>
     <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <<a href="/index.jsp">
+            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
@@ -364,17 +432,19 @@ nav ul li:hover>.dropdown {
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -387,7 +457,19 @@ nav ul li:hover>.dropdown {
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -423,9 +505,9 @@ nav ul li:hover>.dropdown {
                         <c:forEach var="dto" items="${list}">
                         <tr>
                             <td>${dto.seq}</td>
-                            <td class="title"><a href="/detail.board?seq=${dto.seq}">${dto.title}</a></td>
+                            <td class="title_max"><a href="/mydetail.board?seq=${dto.seq}">${dto.title}</a></td>
                             <td>${dto.writer}</td>
-                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" /></td>
+                            <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
                             <td>${dto.view_count}</td>
                         </tr>
                     </c:forEach>

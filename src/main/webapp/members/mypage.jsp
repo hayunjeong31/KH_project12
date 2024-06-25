@@ -20,6 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>     
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"> 
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 <style>
 
 
@@ -368,6 +372,37 @@ font-family: 'Open Sans', sans-serif;
 		text-decoration: none;
 		cursor: pointer;
 	}
+<<<<<<< HEAD
+=======
+	.welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+	
+	.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 	
 
 
@@ -377,23 +412,28 @@ font-family: 'Open Sans', sans-serif;
 <body>
 	<header>
 		<div class="header-container">
-			<img src="image/GamebitLogo.png" alt="Logo" class="logo">
+		<a href="/index.jsp">
+			<img src="image/GamebitLogo.png" alt="Logo" class="logo"></a>
 			<nav>
 				<ul>
-					<li><a href="index.html">홈</a>
+					<li><a href="/index.jsp">홈</a>
 						<div class="dropdown"></div></li>
 					<li><a href="#">게임</a>
 						<div class="dropdown">
 							<a href="win.html">명예의 전당</a> <a href="#">Subitem 2</a> <a
 								href="#">랭킹</a>
 						</div></li>
-					<li><a href="board.html">게시판</a>
+					<li><a href="/list.board">게시판</a>
 						<div class="dropdown">
-							<a href="board.html">게시판</a> <a href="#">Q&A</a> <a href="#">공지사항</a>
+							<a href="/list.board">게시판</a> 
+							<a href="/list.qboard">Q&A</a> 
+							<a href="#">공지사항</a>
 						</div></li>
 					<li><a href="#">마이페이지</a>
 						<div class="dropdown">
-							<a href="#">내 정보 수정</a>
+							<a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
 						</div></li>
 					<li><a href="#">관리자 페이지</a>
 						<div class="dropdown">
@@ -402,13 +442,25 @@ font-family: 'Open Sans', sans-serif;
 				</ul>
 			</nav>
 			<div class="header-buttons">
-				<button class="login-button" onclick="location.href='join.html'">Login</button>
-				<div class="hamburger-menu" onclick="toggleMenu()">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-			</div>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
 		</div>
 	</header>
 
@@ -466,8 +518,11 @@ font-family: 'Open Sans', sans-serif;
 								<button type="submit" id="ok" style="display: none;">수정완료</button>
 								<button type="button" id="cancel" style="display: none;">취소하기</button>
 								<button type="button" id="memberout">회원탈퇴</button>
+<<<<<<< HEAD
 								<button type="button" id="toMyFreePost">내가 작성한<br>자유게시글</button>
 								<button type="button" id="toMyQPost">내가 작성한 QnA게시글</button>
+=======
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 							</div>
 						</form>
 					</c:otherwise>
@@ -523,18 +578,7 @@ font-family: 'Open Sans', sans-serif;
 			navUl.style.display = navUl.style.display === 'flex' ? 'none'
 					: 'flex';
 		}
-		
-		// 내가 작성한 눌렀을 시
-		$("#toMyFreePost").on("click", function(){
-			location.href = "/myfreepostlist.board";
-		})
-		
-		$("#toMyQPost").on("click", function(){
-			location.href = "/myqpostlist.qboard";
-		})
-		
-		
-		
+	
 
 		// 회원 탈퇴 눌렀을 시
 		$("#memberout").on("click", function() {
@@ -660,6 +704,11 @@ font-family: 'Open Sans', sans-serif;
 							// 유효하면 hidden input에 값 설정
 							$("#hiddenUserName").val(userName);
 							$("#hiddenPhone").val(phone);
+<<<<<<< HEAD
+=======
+							
+							alert("정보가 수정되었습니다.");
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 						});
 
 		$("#cancel").on("click", function() {

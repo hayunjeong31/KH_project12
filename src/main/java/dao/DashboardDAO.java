@@ -36,19 +36,19 @@ public class DashboardDAO {
 	// 게시판 전부 받아오는 DAO
 
 	public List<BoardDTO> getAllBoardListAsAdmin() {
-		String getAllBoardListAsAdminSQL = "select * from Free_Board";
+		String getAllBoardListAsAdminSQL = "select * from board";
 		BoardDTO selectedOneBoard = new BoardDTO();
 		List<BoardDTO> allBoardList = new ArrayList<>();
 		try (Connection conn = this.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(getAllBoardListAsAdminSQL);
 				ResultSet rs = pstmt.executeQuery();) {
 			while (rs.next()) {
-				int freeBoard_seq = rs.getInt("freeseq");
+				int freeBoard_seq = rs.getInt("seq");
 				int category_seq = rs.getInt("categoryseq");
-				String userId = rs.getString("userId");
+				String userId = rs.getString("writer");
 				String title = rs.getString("title");
-				String content = rs.getString("content");
-				Timestamp reg_date = rs.getTimestamp("reg_date");
+				String content = rs.getString("contents");
+				Timestamp reg_date = rs.getTimestamp("write_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int view_count = rs.getInt("view_count");
 				int adminKey = rs.getInt("adminkey");
@@ -87,7 +87,7 @@ public class DashboardDAO {
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
-				String tempCode = rs.getString("temp_code");
+				String tempCode = rs.getString("tempcode");
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
 						signout, birth_date, join_date, updated_date, adminKey, tempCode);
 				selectedAllmemberList.add(selectedOneMember);

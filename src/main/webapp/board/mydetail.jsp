@@ -97,12 +97,7 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
-		strong{
-			font-family: "GalmuriMono9", monospace;
-			
-		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
             flex: 2;
             padding: 20px;
             display: flex;
@@ -111,6 +106,7 @@
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .board-area h2 {
@@ -187,6 +183,8 @@
         .post-details strong {
             font-weight: bold;
         }
+        
+        strong{font-family: "GalmuriMono9", monospace;}
 
 
         .post-actions {
@@ -224,10 +222,9 @@
         }
 
         .post-attachments h3 {
-        	font-family: "GalmuriMono9", monospace;
-        	
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -256,13 +253,11 @@
 
 		/* 댓글 - 타이틀  */
         .post-comments h3 {
-        font-family: "GalmuriMono9", monospace;
-        
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            
+            font-family: "GalmuriMono9", monospace;
         }
         
         .post-comments textarea {
@@ -392,7 +387,7 @@
 		
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
-			font-family: 'Open Sans', sans-serif;
+			font-family: "GalmuriMono9", monospace;
             width: 20%;
             padding: 10px;
             padding-right: 0;
@@ -538,7 +533,7 @@
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-                    <p><strong>글쓴이</strong><br><p>${dto.writer}</p></p>
+                    <p><strong>글쓴이</strong><br>${dto.writer}</p>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
                 </div>
@@ -547,11 +542,11 @@
 	                	<c:when test="${iswriter}">
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
 			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
 					    </c:when>
 			            <c:otherwise>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
  							<button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>				            
  						</c:otherwise>
 			        </c:choose>
@@ -591,276 +586,16 @@
         </section>
     </main>
 
-<<<<<<< HEAD
-      <script>
-    $(document).ready(function() {
-    	// 북마크 상태 유지하기....
-	    // 페이지 로드 시 초기 북마크 상태를 가져오는 AJAX 요청
-	   let postSeq = $("#bookmark-btn").data('postseq'); 
-	   let loginID = "${loginID}";
-	    $.ajax({
-	        url: "/getBookmarkStatus.board",
-	        method: "GET",
-	        data: {
-	            postSeq: postSeq
-	        },
-	        dataType: "json",
-	        success: function(response) {
-	            if (response) {
-	                $('#bookmark-btn i').addClass('fas').removeClass('far');
-	            } else {
-	                $('#bookmark-btn i').addClass('far').removeClass('fas');
-	            }
-	        },
-	        error: function(error) {
-	            console.error('북마크 상태 조회 중 오류가 발생했습니다:', error);
-	        }
-	    });
-
-        // 북마크 버튼 클릭 시의 처리를 담고 있습니다.
-        $("#bookmark-btn").on("click", function() {
-        	 let postSeq = $(this).data('postseq'); 
-             let bookmarkBtn = $(this);
-             let bookmarkIcon = $(this).find('i');
-             let isBookmarked = bookmarkIcon.hasClass('fas');
-
-            $.ajax({
-                url: "/bookmark.board",
-                method: "post",
-                data: {
-                	postSeq: postSeq,
-                    isBookmarked: !isBookmarked
-                },
-                dataType: "json",
-                success: function(response) {
-                    if (response) {
-                        bookmarkIcon.toggleClass('fas far');
-                    } else {
-                        console.error('북마크 상태 저장에 실패했습니다.');
-                    }
-                }
-            });
-        });
-        
-        
-        ///////////////////////////////////////////////////////////////////////////
-        // 대댓글 시도 - board6폴더
-        // 로그인한 사용자 ID 
-
-		// 댓글 불러오기 및 출력하기
-$.ajax({
-    url: "/getcomment.reply",
-    data: { seq: ${dto.seq} },
-    dataType: "json"
-}).done(function(resp) {
-    let c_list = resp.c_list;
-    let commentMap = {};
-    let loginID = "${loginID}";
-    console.log(loginID);
-
-    // 모든 댓글을 commentMap에 추가
-    c_list.forEach(function(comment) {
-        commentMap[comment.seq] = comment;
-    });
-
-    // 대댓글을 부모 댓글에 추가
-    c_list.forEach(function(comment) {
-        if (comment.parent_cmt) {
-            let parent = commentMap[comment.parent_cmt];
-            if (parent) {
-                if (!parent.replies) {
-                    parent.replies = [];
-                }
-                parent.replies.push(comment);
-            }
-        }
-    });
-
-    // 최상위 댓글(원댓글)들에 대해 appendComment 호출
-    c_list.forEach(function(comment) {
-        if (!comment.parent_cmt) {
-            appendComment(comment);
-        }
-    });
-});
-
-// 댓글&답글 출력하기
-function appendComment(comment, parentElement) {
-    let box_comment = $("<div>", {"class": "box_comment", "style": "margin-left: " + (comment.parent_cmt ? "20px" : "0")});
-    let commentDiv = $("<div>", {"class": "comment"});
-    let co_writer = $("<div>", {"class": "col1", "style": "text-align:left;"}).html(comment.userId);
-    let co_contents = $("<div>", {"class": "col3"}).html(comment.contents.replace(/\n/g, '<br>'));
-    let co_write_date = $("<div>").html(comment.write_date);
-    let c_seq_input = $("<input>", {"type": "hidden", "class": "c_seq", "value": comment.seq});
-
-    if (comment.isDeleted === 'y') {
-        // 삭제된 댓글 처리
-        if (comment.replies && comment.replies.length > 0) {
-            commentDiv.append("<div>삭제된 댓글입니다</div>");
-        } else {
-            // 답글이 없는 경우 해당 댓글 출력하지 않음
-            return;
-        }
-    } else {
-        // 삭제되지 않은 경우 기존 코드대로 댓글 출력
-        commentDiv.append(co_writer, co_contents, co_write_date, c_seq_input);
-
-        if (!comment.parent_cmt) {
-            // 원댓글일 경우에만 답글 버튼 추가
-            let replyButton = $("<button>").text("답글").click(function() {
-                let replyTextarea = $("<textarea>").attr("placeholder", "답글 입력").css("width", "100%");
-                // 답글 등록 버튼 클릭 시 저장되게 하기
-                let submitReplyButton = $("<button>").text("등록").click(function() {
-                    let replyContent = replyTextarea.val().trim();
-                    if (replyContent) {
-                        $.ajax({
-                            // 답글달기 insertComment
-                            url: "/replycomment.reply",
-                            type: "post",
-                            data: {
-                                comments: replyContent.replace(/(\r\n|\n|\r)/g, '<br>'),
-                                seq: ${dto.seq},
-                                parent_cmt: comment.seq
-                            },
-                            dataType: "json",
-                            success: function(resp) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-                $(this).parent().append(replyTextarea, submitReplyButton); // 답글 textarea, 답글 등록 버튼 나오게
-                $(this).hide(); // replyButton 답글 버튼 사라지게
-            });
-
-            commentDiv.append(replyButton); // replyButton 답글 버튼 다시 나타나기.
-        }
-
-        // 로그인한 사용자와 댓글 작성자가 같을 경우 수정 및 삭제 버튼 추가
-        if (comment.userId === loginID) {
-            let editButton = $("<button>").text("수정").click(function() {
-                // 수정 기능 추가
-                let editTextarea = $(this).siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
-                let submitEditButton = $("<button>").text("저장").click(function() {
-                    console.log(true);
-                    let editedContent = editTextarea.html().trim(); // div contenteditable true로 해줬으니깐 val이 아니라 html로 ~~
-                    editTextarea.attr("contenteditable", "false");
-                    if (editedContent) {
-                        $.ajax({
-                            url: "/edit.reply",
-                            type: "post",
-                            data: {
-                                comments: editedContent.replace(/(\r\n|\n|\r)/g, '<br>'),
-                                seq: comment.seq
-                            },
-                            dataType: "json",
-                            success: function(resp) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-                $(this).parent().append(submitEditButton); // 수정 textarea, 저장 버튼 나오게
-                $(this).hide(); // editButton 수정 버튼 사라지게
-            });
-
-            let deleteButton = $("<button>").text("삭제").click(function() {
-                // 삭제 기능 추가
-                if (confirm("정말 삭제하시겠습니까?")) {
-                    $.ajax({
-                        url: "/delete.reply",
-                        type: "post",
-                        data: { seq: comment.seq },
-                        dataType: "json",
-                        success: function(resp) {
-                            // 삭제 성공 후 reload 대신 클라이언트 측에서 즉시 반영
-                            if (comment.replies && comment.replies.length > 0) {
-                                commentDiv.html("<div>삭제된 댓글입니다</div>");
-                            } else {
-                                box_comment.remove();
-                            }
-                            location.reload();
-                        }
-                    });
-                }
-            });
-
-            commentDiv.append(editButton, deleteButton);
-        }
-    }
-
-    box_comment.append(commentDiv);
-
-    // 부모 엘리먼트에 붙이기
-    if (parentElement) {
-        parentElement.append(box_comment);
-    } else {
-        $("#comment-box").append(box_comment);
-    }
-
-    // 대댓글 표시 (대댓글이 존재한다면 replies.length > 0)
-    if (comment.replies && comment.replies.length > 0) {
-        comment.replies.forEach(function(reply) {
-            appendComment(reply, box_comment);
-        });
-    }
-}
-
-
-// 댓글 등록하기
-$("#submit-comment").on("click", function() {
-    let newComment = $("#new-comment").val().trim();
-    if (newComment === "") {
-        alert("댓글을 입력하세요.");
-        return;
-    }
-    $.ajax({
-        url: "/comment.reply",
-        type: "post",
-        data: {
-            comments: newComment.replace(/(\r\n|\n|\r)/g, '<br>'),
-            seq: ${dto.seq},
-    		parent_cmt: 0
-        },
-        dataType: "json",
-        success: function(resp) {
-            location.reload();
-        }
-    });
-});
-        
-        //
-        
-        //
-    });
-	     
-    
-    $("#btnlist").on("click",function(){
-		location.href="/list.board";
-	})
-	
-	$("#btnedit").on("click", function() {
-    	location.href = "/edit.board?seq=${dto.seq}";
-    })
-    $("#btndelete").on("click", function() {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            location.href = "/delete.board?seq=${dto.seq}";
-        }
-    })
-	    
-	    
-
-=======
     <script>
 	    $("#btnlist").on("click",function(){
-			location.href="/list.board";
+			location.href="/myfreepostlist.board";
 		})
 		$("#btnedit").on("click", function() {
-	    	location.href = "/edit.board?seq=${dto.seq}";
+	    	location.href = "/myedit.board?seq=${dto.seq}";
 	    })
 	    $("#btndelete").on("click", function() {
 	        if (confirm('정말 삭제하시겠습니까?')) {
-	            location.href = "/delete.board?seq=${dto.seq}";
+	            location.href = "/mydelete.board?seq=${dto.seq}";
 	        }
 	    })
 	    
@@ -1251,7 +986,6 @@ $("#submit-comment").on("click", function() {
 	    });	// document.ready  끝 부분 -
 	 
     
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 	    
 	    
 	 

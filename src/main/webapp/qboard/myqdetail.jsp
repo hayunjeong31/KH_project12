@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
+
+
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -26,7 +29,7 @@
             height: 100%;
         }
 
-        body {
+       body {
 			font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
@@ -77,11 +80,7 @@
 
         .board-left {
             flex: 1;
-<<<<<<< HEAD
-            background-color: rgba(82, 125, 160, 0.454);
-=======
             background-color: rgba(45, 19, 112, 0.684);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             display: flex;
             flex-direction: column;
@@ -94,31 +93,19 @@
             font-size: 36px;
         }
 
-<<<<<<< HEAD
-        .board-area {
-=======
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
-		strong{
-			font-family: "GalmuriMono9", monospace;
-		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             flex: 2;
             padding: 20px;
             display: flex;
             flex-direction: column;
-<<<<<<< HEAD
-            justify-content: center;
-            align-items: center;
-=======
             justify-content: flex-start;
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+            font-family: Arial, sans-serif;
         }
 
         .board-area h2 {
@@ -196,10 +183,7 @@
             background-color: rgba(4, 134, 39, 0.47);
         }
 
-<<<<<<< HEAD
-=======
 		/* qna 게시글 안에 간격 주기 */
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         .post-details {
             width: 100%;
             max-width: 800px;
@@ -219,15 +203,14 @@
         .post-details strong {
             font-weight: bold;
         }
+        strong{
+        font-family: "GalmuriMono9", monospace;
+        }
 
 
         .post-actions {
             display: flex;
-<<<<<<< HEAD
-            justify-content: space-between;
-=======
             justify-content: space-evenly;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             width: 100%;
             max-width: 800px;
             margin-bottom: 20px;
@@ -237,11 +220,7 @@
         font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
-<<<<<<< HEAD
-            background-color: rgba(82, 125, 160, 0.454);
-=======
             background-color: rgba(45, 19, 112, 0.684);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -251,11 +230,7 @@
         }
 
         .post-actions button:hover {
-<<<<<<< HEAD
-            background-color: rgba(52, 162, 252, 0.454);
-=======
             background-color: rgba(237, 175, 18, 0.973);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .post-attachments {
@@ -267,6 +242,7 @@
         .post-attachments h3 {
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -299,11 +275,11 @@
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-comments textarea {
-        font-family: 'Open Sans', sans-serif;
+        	font-family: 'Open Sans', sans-serif;
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -316,11 +292,7 @@
         .post-comments button {
             padding: 10px 20px;
             border: none;
-<<<<<<< HEAD
-            background-color: rgba(82, 125, 160, 0.454);
-=======
             background-color: rgba(82, 125, 160, 0.454);  /* 댓글 등록 버튼 : 하늘색임. 다른 색으로 변경할지는 고민중. */
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -329,20 +301,12 @@
 
         .post-comments button:hover {
             background-color: rgba(52, 162, 252, 0.454);
-<<<<<<< HEAD
-=======
         }
         .post-msg{
         	text-align:center;
         
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
-        .post-msg{
-        	text-align:center;
         
-<<<<<<< HEAD
-        }
-=======
         /*조회수 작성일 간격 주기*/
         .view-count{
         	margin-right:20px;
@@ -440,29 +404,14 @@
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+
+
     </style>
 </head>
 
 <body>
      <header>
         <div class="header-container">
-<<<<<<< HEAD
-            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="index.html">홈</a>
-                    </li>
-                    <li>
-                        <a href="notice.html">공지사항</a>
-                    </li>
-                    <li>
-                        <a href="#">내 정보</a>
-                        <div class="dropdown">
-                            <a href="#">내 정보 보기</a>
-                            <a href="#">내 정보 수정</a>
-=======
         <a href="/index.jsp">
             <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
@@ -494,7 +443,6 @@
                             <a href="/mypage.members">내 정보 보기</a>
                             <a href="/myfreepostlist.board">내가 작성한 게시글</a>
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                         </div>
                     </li>
                     <li>
@@ -531,58 +479,44 @@
     <main class="main">
         <section class="board-section">
             <article class="board-left">
-<<<<<<< HEAD
-                <h1>Qna 게시물 상세 보기</h1>
-=======
                 <h1>Q 게시글</h1>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
                 <h2></h2>
                 <div class="post-details">
                     <p><strong>제목</strong><br>${dto.title}</p>
-<<<<<<< HEAD
-                    <p><strong>글쓴이</strong><br>${dto.writer}</p>
-                    <p>조회수 ${dto.view_count}</p>
-                    <p>
-=======
                    
                     <p class="view-count-date">
                     	<span class="view-count">조회수 ${dto.view_count}</span>
                     작성일
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                         <c:choose>
 	                       	<c:when test="${dto.upd_date != null}">
-	                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
+	                       		<fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
 	                       	</c:when>
 	                       	<c:otherwise>
-	                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
+	                       		<fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-<<<<<<< HEAD
-                    <p><strong>내용</strong><br>${dto.contents}</p>
-=======
                      <p><strong>글쓴이</strong><br>${dto.writer}</p>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
                     
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                 </div>
                 <div class="post-actions">
                     <c:choose>
 	                	<c:when test="${iswriter && count==0}">
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 					    </c:when>
 			            <c:when test="${iswriter}"> <!-- 코멘트가 달리면 수정하기 버튼 없애고 삭제하기 & 목록으로 두 버튼만.  -->
 			                <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 			            </c:when>
 			            <c:otherwise>
-			                <button type="button" id="btnlist" onclick="location.href='/list.qboard'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myqpostlist.qboard'">목록</button>
 			            </c:otherwise>
 			        </c:choose>
                 </div>
@@ -591,8 +525,8 @@
                     <h3>첨부 파일</h3>
                     <ul>
                         <c:forEach var="i" items="${list }">
-                            <li><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></li>
-                        </c:forEach>
+							<div><i class="fa-regular fa-file"></i>.<a href="/download.file?sysname=${i.sysname}&oriname=${i.oriname}">${i.oriname}</a></div>
+						</c:forEach>
                     </ul>
                 </div>
                 
@@ -605,25 +539,15 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
-<<<<<<< HEAD
-                		<h3>댓글</h3>
-                		<div class ="post-msg">
-                		답변 대기 중
-                		</div>
-=======
                 		<div class="post-comments">
 		                    <h3>댓글</h3>
 		                </div>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                 	</c:otherwise>
                 </c:choose>
+
                 <!-- ajax로 댓글 불러오기  -->
-<<<<<<< HEAD
-                <div id="comment-box"></div>
-=======
                 <div class="comment-box" id="comment-box">
                 </div>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                     
                  <!-- 댓글 수정하기, 삭제하기 -->
                  <form action="/delete.qreply" id="deleteForm" method="post">
@@ -639,14 +563,15 @@
             </article>
         </section>
     </main>
+
     <script>
         // 게시글 수정하기, 삭제하기
         $("#btnedit").on("click", function() {
-            location.href = "/edit.qboard?seq=${dto.seq}";
+            location.href = "/myedit.qboard?seq=${dto.seq}";
         })
         $("#btndelete").on("click", function() {
             if (confirm('정말 삭제하시겠습니까?')) {
-                location.href = "/delete.qboard?seq=${dto.seq}";
+                location.href = "/mydelete.qboard?seq=${dto.seq}";
             }
         })
         $(document).ready(function(){
@@ -790,3 +715,4 @@
 </body>
 
 </html>
+	

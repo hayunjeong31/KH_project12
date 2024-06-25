@@ -204,16 +204,44 @@ header {
   height: 60px;
   background-image: url('${pageContext.request.contextPath}/image/9.png');
 }
+.welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
 </style>
 </head>
 <body>
 <header>
     <div class="header-container">
-        <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Logo" class="logo">
+    <a href="/index.jsp">
+        <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Logo" class="logo"></a>
         <nav>
             <ul>
                 <li>
-                    <a href="index.html">홈</a>
+                    <a href="/index.jsp">홈</a>
                     <div class="dropdown"></div>
                 </li>
                 <li>
@@ -225,17 +253,19 @@ header {
                     </div>
                 </li>
                 <li>
-                    <a href="board.html">게시판</a>
+                    <a href="/list.board">게시판</a>
                     <div class="dropdown">
-                        <a href="board.html">게시판</a>
-                        <a href="#">Q&A</a>
+                        <a href="/list.board">게시판</a>
+                        <a href="/list.qboard">Q&A</a>
                         <a href="#">공지사항</a>
                     </div>
                 </li>
                 <li>
                     <a href="#">마이페이지</a>
                     <div class="dropdown">
-                        <a href="#">내 정보 수정</a>
+                        <a href="/mypage.members">내 정보 보기</a>
+                        <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                        <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                     </div>
                 </li>
                 <li>
@@ -248,13 +278,25 @@ header {
             </ul>
         </nav>
         <div class="header-buttons">
-            <button class="login-button" onclick="location.href='/members/signup.jsp'">Login</button>
-            <div class="hamburger-menu" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-        </div>
     </div>
 </header>
 <div class="container">

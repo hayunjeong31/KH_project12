@@ -21,94 +21,96 @@ import dto.MembersDTO;
 
 @WebServlet("*.members")
 public class MembersController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private Properties emailProperties;
+   private static final long serialVersionUID = 1L;
+   private Properties emailProperties;
 
-	public MembersController() {
-		super();
-		loadEmailProperties();
-	}
+   public MembersController() {
+      super();
+      loadEmailProperties();
+   }
 
-	private void loadEmailProperties() {
-		emailProperties = new Properties();
-		try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
-			if (input == null) {
-				System.out.println("Sorry, unable to find config.properties");
-				return;
-			}
-			// Load a properties file from class path
-			emailProperties.load(input);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+   private void loadEmailProperties() {
+      emailProperties = new Properties();
+      try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+         if (input == null) {
+            System.out.println("Sorry, unable to find config.properties");
+            return;
+         }
+         // Load a properties file from class path
+         emailProperties.load(input);
+      } catch (IOException ex) {
+         ex.printStackTrace();
+      }
+   }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cmd = request.getRequestURI();
-		System.out.println("사용자 요청: " + cmd);
-		MembersDAO dao = MembersDAO.getInstance();
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		HttpSession session = request.getSession();
-		try {
-			// 내 정보 출력
-			if(cmd.equals("/mypage.members")) {
-				String loginId = (String)session.getAttribute("loginID");
-				System.out.println(loginId);
-				MembersDTO dto = dao.myInfor(loginId);
-				request.setAttribute("dto", dto);
-				request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      String cmd = request.getRequestURI();
+      System.out.println("사용자 요청: " + cmd);
+      MembersDAO dao = MembersDAO.getInstance();
+      request.setCharacterEncoding("UTF-8");
+      response.setContentType("text/html; charset=UTF-8");
+      HttpSession session = request.getSession();
+      try {
+         // 내 정보 출력
+         if(cmd.equals("/mypage.members")) {
+            String loginId = (String)session.getAttribute("loginID");
+            System.out.println(loginId);
+            MembersDTO dto = dao.myInfor(loginId);
+            request.setAttribute("dto", dto);
+            request.getRequestDispatcher("/members/mypage.jsp").forward(request, response);
 
-			} 
-			// 수정
-			else if(cmd.equals("/edit.members")) {
-				String loginId = (String)session.getAttribute("loginID");
-				String userName = request.getParameter("userName");
+         } 
+         // 수정
+         else if(cmd.equals("/edit.members")) {
+            String loginId = (String)session.getAttribute("loginID");
+            String userName = request.getParameter("userName");
 
-				String phone = request.getParameter("phone");
-				String email = request.getParameter("email");
-				int editResult = dao.edit(loginId, userName, phone, email);
-				if (editResult > 0) {
-					request.setAttribute("dto", dao.myInfor(loginId));
-					request.getRequestDispatcher("/mypage.members").forward(request, response);
-				} else {
-					response.sendRedirect("/mypage.members");
-				}
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            int editResult = dao.edit(loginId, userName, phone, email);
+            if (editResult > 0) {
+               request.setAttribute("dto", dao.myInfor(loginId));
+               request.getRequestDispatcher("/mypage.members").forward(request, response);
+            } else {
+               response.sendRedirect("/mypage.members");
+            }
 
-			}
-			// 비밀번호 변경
-			else if (cmd.equals("/pwdChange.members")) {
-				String loginID = (String) session.getAttribute("loginID");
-				String currentPwd = request.getParameter("currentPwd");
-				String newPwd = request.getParameter("newPwd");
+         }
+         // 비밀번호 변경
+         else if (cmd.equals("/pwdChange.members")) {
+            String loginID = (String) session.getAttribute("loginID");
+            String currentPwd = request.getParameter("currentPwd");
+            String newPwd = request.getParameter("newPwd");
 
-				// 현재 비밀번호 확인
-				boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
+            // 현재 비밀번호 확인
+            boolean isPwdCorrect = dao.checkPwd(loginID, currentPwd);
 
-				if (isPwdCorrect) {
-					// 비밀번호 변경
-					boolean updateSuccess = dao.updatePwd(loginID, newPwd);
-					if (updateSuccess) {
-						response.getWriter().write("{\"success\": true}");
-					} else {
-						response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
-					}
-				} else {
-					// 현재 비밀번호가 일치하지 않았을 시
-					response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
-				}
-			}
-			// 회원탈퇴
-			else if(cmd.equals("/memberout.members")) {
-				String result = (String)session.getAttribute("loginID");
-				dao.deleteById(result);
-				session.invalidate();
-				response.sendRedirect("/index.jsp");
-			} 
-			
-			// 인교 코드
-			 // 회원가입 처리
-			else if (cmd.equals("/signup.members")) {
+            if (isPwdCorrect) {
+               // 비밀번호 변경
+               boolean updateSuccess = dao.updatePwd(loginID, newPwd);
+               if (updateSuccess) {
+                  response.getWriter().write("{\"success\": true}");
+               } else {
+                  response.getWriter().write("{\"success\": false, \"error\": \"pwdUpdateFailed\"}");
+               }
+            } else {
+               // 현재 비밀번호가 일치하지 않았을 시
+               response.getWriter().write("{\"success\": false, \"error\": \"currentPwdIncorrect\"}");
+            }
+         }
+         // 회원탈퇴
+         else if(cmd.equals("/memberout.members")) {
+            String result = (String)session.getAttribute("loginID");
+            dao.deleteById(result);
+            session.invalidate();
+            response.sendRedirect("/index.jsp");
+         } 
+         
+         
+         
+         // 인교 코드
+            // 회원가입 처리
+         else if (cmd.equals("/signup.members")) {
                 String userId = request.getParameter("userId");
                 String userPwd = EncryptionUtils.getSHA512(request.getParameter("userPwd"));
                 String userName = request.getParameter("userName");
@@ -163,7 +165,9 @@ public class MembersController extends HttpServlet {
                     response.sendRedirect("/index.jsp");
                 } else {
                     session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
-                    response.sendRedirect("/index.jsp"); // 로그인 실패 시 처리
+                    response.sendRedirect("/members/login.jsp"); // 로그인 실패 시 처리
+               
+
                 }
             
 
@@ -214,7 +218,8 @@ public class MembersController extends HttpServlet {
                 dao.updateTempCodeByEmail(email, checkNumStr);
                 // 이메일 전송 로직
                 sendEmail(email, "회원가입 인증 이메일입니다.", "인증 번호는 " + checkNumStr + "입니다. 해당 인증번호를 인증번호 확인란에 기입하여 주세요.");
-                response.getWriter().write("이메일로 인증번호가 전송되었습니다.");        
+                response.getWriter().write("이메일로 인증번호가 전송되었습니다.");       
+
 
             // 인증 코드 확인 처리
             } else if (cmd.equals("/verifyAuthCode.members")) {
