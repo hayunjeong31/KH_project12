@@ -20,7 +20,10 @@
 <link rel="stylesheet" href="css/header_styles.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<<<<<<< HEAD
+=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
     <style>
         
@@ -295,7 +298,11 @@ nav ul li:hover>.dropdown {
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
+<<<<<<< HEAD
+            font-family: "GalmuriMono9", monospace;
+=======
             text-align:center;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         .pagination a.active{
         	font-weight: bold;
@@ -304,8 +311,12 @@ nav ul li:hover>.dropdown {
         .pagination a:hover{
         	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
+<<<<<<< HEAD
+            
+=======
             font-weight: bold;
            
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .board-buttons {
@@ -331,7 +342,12 @@ nav ul li:hover>.dropdown {
 
         
         .board-buttons .home-button:hover {
+<<<<<<< HEAD
+            background-color: rgb(64, 64, 116);
+            
+=======
             background-color: rgb(64, 64, 116); 
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         header {
             position: fixed;
@@ -344,6 +360,8 @@ nav ul li:hover>.dropdown {
             height: 60px;
             background-image: url('image/9.png');
         }
+<<<<<<< HEAD
+=======
         
         .welcome-text {
   font-weight: bold;
@@ -389,6 +407,7 @@ nav ul li:hover>.dropdown {
 	       	padding: 0 30px !important;
 	       	text-align: left;
 		}
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     </style>
     <title>게시판</title>
 </head>

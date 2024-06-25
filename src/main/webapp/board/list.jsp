@@ -10,10 +10,15 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<<<<<<< HEAD
+
+    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+=======
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
  
     <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     <style>
 
         * {
@@ -25,7 +30,13 @@
         body,
         html {
             height: 100%;
+<<<<<<< HEAD
+            font-family: Arial, sans-serif;
+            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+            
+=======
             background-image: url('image/5033917.jpg');
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         body {
@@ -178,7 +189,8 @@
             background-color: black;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
-            background-image: url('image/9.png');
+            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+
         }
         
        

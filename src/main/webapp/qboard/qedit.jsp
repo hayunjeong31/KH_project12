@@ -28,12 +28,19 @@
         body,
         html {
             height: 100%;
+<<<<<<< HEAD
+        }
+
+        body {
+            font-family: "GalmuriMono9", monospace;
+=======
             font-family: "GalmuriMono9", monospace;
             
         }
 
         body {
 			font-family: "GalmuriMono9", monospace;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             margin: 0;
             padding: 0;
             display: flex;
@@ -81,7 +88,11 @@
 
         .board-left {
             flex: 1;
+<<<<<<< HEAD
+            background-color: rgba(82, 125, 160, 0.454);
+=======
             background-color: rgba(45, 19, 112, 0.684);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             display: flex;
             flex-direction: column;
@@ -150,9 +161,14 @@
         }
 
         .form-buttons button {
+        	font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
+<<<<<<< HEAD
+            background-color: rgba(82, 125, 160, 0.454);
+=======
 			background-color: rgba(45, 19, 112, 0.684);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -163,7 +179,11 @@
         }
 
         .form-buttons button:hover {
+<<<<<<< HEAD
+            background-color: rgba(52, 162, 252, 0.454);
+=======
             background-color: rgba(237, 175, 18, 0.973);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .wc_message {
@@ -186,6 +206,13 @@
 	  	padding-left:10px;
 	   	margin-bottom:2%;
 	   }
+<<<<<<< HEAD
+	   .deleteFile{
+	   	font-family: "GalmuriMono9", monospace;
+	   	margin:1%;
+	   
+	   }
+=======
 	   .welcome-text {
   font-weight: bold;
   color: #fff;
@@ -213,6 +240,7 @@
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 	</style>
 </head>
 

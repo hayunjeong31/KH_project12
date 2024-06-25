@@ -104,7 +104,7 @@ public class MembersDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		return true;
+      return true;
     }
 
 
@@ -313,16 +313,16 @@ public class MembersDAO {
 
 
 //동일 메소드 존재로 이름 변경 login -> isUserInfoEnabled
-	public boolean isUserInfoEnabled(String id, String pw) throws Exception {
-		String sql = "select * from members where userId =? and userPwd = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-			pstat.setString(1, id);
-			pstat.setString(2, pw);
-			try (ResultSet rs = pstat.executeQuery()) {
-				return rs.next();
-			}
-		}
-	}
+   public boolean isUserInfoEnabled(String id, String pw) throws Exception {
+      String sql = "select * from members where userId =? and userPwd = ?";
+      try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+         pstat.setString(1, id);
+         pstat.setString(2, pw);
+         try (ResultSet rs = pstat.executeQuery()) {
+            return rs.next();
+         }
+      }
+   }
 
 
 }

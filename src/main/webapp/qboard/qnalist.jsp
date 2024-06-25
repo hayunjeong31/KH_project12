@@ -144,8 +144,12 @@
 
         .board-buttons {
             display: flex;
+<<<<<<< HEAD
+            justify-content: space-between;
+=======
             
             justify-content: space-around;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             width: 100%;
             max-width: 800px;
             font-family: "GalmuriMono9", monospace;
@@ -155,7 +159,11 @@
         .board-buttons .home-button {
             padding: 10px 20px;
             border: none;
+<<<<<<< HEAD
+            background-color: rgb(64, 64, 116);
+=======
             background-color: rgba(45, 19, 112, 0.684);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -166,8 +174,12 @@
 
         .board-buttons .write-button:hover,
         .board-buttons .home-button:hover {
+<<<<<<< HEAD
+            background-color: rgb(64, 64, 116);
+=======
            /* background-color:  rgba(103, 103, 250, 0.733); */
              background-color: rgba(237, 175, 18, 0.973);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         header {
             position: fixed;
@@ -181,9 +193,36 @@
             background-image: url('image/9.png');
         }
         
+<<<<<<< HEAD
+        /* pagination 스타일 - button 효과를 a 태그에 줘보기. */
+         .pagination {
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.855);
+            cursor: pointer;
+            color: black;
+        }
+
+        .pagination button:hover {
+            background-color: rgba(231, 231, 232, 0.004);
+            color: white;
+        }
+
+        .pagination button:active {
+            background-color: rgba(25, 25, 173, 0.598);
+            color: white;
+        }
+        .pagination{
+=======
     
         
          .pagination {
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         	margin-top:3%;
             margin-bottom: 20px;
         }
@@ -201,12 +240,15 @@
         	font-weight: bold;
         	color: rgb(237, 98, 237);
         }
+<<<<<<< HEAD
+=======
         .pagination a:hover{
         	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
             font-weight: bold;
            
         }
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         
         /* 리셋 버튼 */
        .qna-list-button {
@@ -223,11 +265,30 @@
 		    transition: color 0.3s;
 		   
 		}
+		/* 리셋 버튼 인데 ... 뭐지?? */
+		.qna-list-button {
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+       .qna-list-button i {
+		    color: #d765f3;
+		    font-size: 20px;
+		    transition: color 0.3s;
+		}
 		
 		.qna-list-button i:hover {
+<<<<<<< HEAD
+		    color: #ac16c0;
+		    transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.6);
+=======
 		    color: rgba(237, 175, 18, 0.973);
 		    transform: scale(1.1);
 		    border: none;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 		}
 		
 		/* 제목 부분 */
@@ -302,7 +363,10 @@
             cursor: pointer;
             transition: background-color 0.3s;
             font-family: "GalmuriMono9", monospace;
+<<<<<<< HEAD
+=======
             transition: box-shadow 0.3s ease-in-out;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         #searchBtn:hover {
@@ -499,6 +563,7 @@
                     </tbody>
                 </table>
 
+					<!-- 게시글 검색 -->
                     <!-- 리셋버튼 만들었음. 흠... 일단 만들음 -->
                <form action="/search.qboard?">
 	                <select name="option" id="searchOption">

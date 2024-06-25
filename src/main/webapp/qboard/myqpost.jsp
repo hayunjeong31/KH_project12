@@ -20,7 +20,10 @@
 <link rel="stylesheet" href="css/header_styles.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
+=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
 
     <style>
         
@@ -297,7 +300,11 @@ nav ul li:hover>.dropdown {
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
+<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
+            font-family: "GalmuriMono9", monospace;
+=======
             text-align:center;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
         }
         .pagination a.active{
         	font-weight: bold;
@@ -306,8 +313,12 @@ nav ul li:hover>.dropdown {
         .pagination a:hover{
         	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
+<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
+            
+=======
             font-weight: bold;
            
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
         }
 
         .board-buttons {
@@ -347,6 +358,8 @@ nav ul li:hover>.dropdown {
             height: 60px;
             background-image: url('image/9.png');
         }
+<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
+=======
         .welcome-text {
   font-weight: bold;
   color: #fff;
@@ -390,6 +403,7 @@ nav ul li:hover>.dropdown {
 	       	padding: 0 30px !important;
 	       	text-align: left;
 		}
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
     </style>
     <title>게시판</title>
 </head>

@@ -20,7 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>     
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"> 
+<<<<<<< HEAD
+=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 <style>
 
 
@@ -369,6 +372,8 @@ font-family: 'Open Sans', sans-serif;
 		text-decoration: none;
 		cursor: pointer;
 	}
+<<<<<<< HEAD
+=======
 	.welcome-text {
   font-weight: bold;
   color: #fff;
@@ -397,6 +402,7 @@ font-family: 'Open Sans', sans-serif;
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 	
 
 
@@ -512,6 +518,11 @@ font-family: 'Open Sans', sans-serif;
 								<button type="submit" id="ok" style="display: none;">수정완료</button>
 								<button type="button" id="cancel" style="display: none;">취소하기</button>
 								<button type="button" id="memberout">회원탈퇴</button>
+<<<<<<< HEAD
+								<button type="button" id="toMyFreePost">내가 작성한<br>자유게시글</button>
+								<button type="button" id="toMyQPost">내가 작성한 QnA게시글</button>
+=======
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 							</div>
 						</form>
 					</c:otherwise>
@@ -693,8 +704,11 @@ font-family: 'Open Sans', sans-serif;
 							// 유효하면 hidden input에 값 설정
 							$("#hiddenUserName").val(userName);
 							$("#hiddenPhone").val(phone);
+<<<<<<< HEAD
+=======
 							
 							alert("정보가 수정되었습니다.");
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 						});
 
 		$("#cancel").on("click", function() {

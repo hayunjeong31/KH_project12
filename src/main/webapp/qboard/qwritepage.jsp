@@ -9,7 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+<title>게시물 작성</title>
+=======
 <title>q게시글 작성</title>
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -110,13 +114,22 @@ body, html {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
+<<<<<<< HEAD
+    font-family: "GalmuriMono9", monospace;
+=======
     font-family: 'Open Sans', sans-serif;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
 }
 
 .form-field input[type="file"] {
     border: none;
+<<<<<<< HEAD
+    font-family: "GalmuriMono9", monospace;
+        
+=======
     font-family: "GalmuriMono9", monospace;     
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 }
 input{
 	font-family: "GalmuriMono9", monospace;
@@ -133,12 +146,17 @@ input{
     font-family: "GalmuriMono9", monospace;
     padding: 10px 20px;
     border: none;
+<<<<<<< HEAD
+    background-color: rgba(205, 151, 14, 0.595);
+=======
     background-color: rgba(45, 19, 112, 0.684);
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     color: white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
     width: 48%;
+    font-family: "GalmuriMono9", monospace;
 }
 .form-buttons button:hover {
     background-color: rgba(237, 175, 18, 0.973);
@@ -183,7 +201,11 @@ input{
  /* Summernote 배경색 설정 */
      .note-editable {
          background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+<<<<<<< HEAD
+       font-family: "GalmuriMono9", monospace;
+=======
        font-family: 'Open Sans', sans-serif;
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
      }
      .note-placeholder {
     font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
@@ -234,8 +256,12 @@ input{
 <body>
     <header>
         <div class="header-container">
+<<<<<<< HEAD
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+=======
         <a href="/index.jsp">
             <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             <nav>
                 <ul>
                     <li>
@@ -317,9 +343,13 @@ input{
                     </div>
 
                     <form action="/write.qboard" method="post" id="writeform" enctype="multipart/form-data">
+<<<<<<< HEAD
+                    	<div class="file-field"> 
+=======
                     	
                     	<div class="file-field"> 
                     	
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                         <label>파일 업로드</label>
                         <div class="file-input-container">
 				            <input type="file" name="file1" class="file-input" id="file-input1">
@@ -327,7 +357,10 @@ input{
 				        <div class="file-input-container">
 					    	<input type="file" name="file2">
 					    </div><br>
+<<<<<<< HEAD
+=======
 					    
+>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                             <input type="hidden" id="hidden_title" name="hidden_title">
                             <input type="hidden" id="hidden_content" name="hidden_content">
                             <input type="hidden" id="hidden_password" name="hidden_password">
