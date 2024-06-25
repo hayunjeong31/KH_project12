@@ -387,7 +387,7 @@
 		
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
-			font-family: "GalmuriMono9", monospace;
+			font-family: 'Open Sans', sans-serif;
             width: 20%;
             padding: 10px;
             padding-right: 0;

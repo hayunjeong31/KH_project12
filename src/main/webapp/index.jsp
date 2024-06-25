@@ -430,115 +430,77 @@ footer {
 }
 </style>
 <body>
+    <div class="splash-screen">
+        <h2 class="intro-text">welcome to the</h2>
+        <h1 class="highlight">Gambit</h1>
+    </div>
 
-	<header>
-		<div class="header-container">
-			<img src="${pageContext.request.contextPath}/image/GamebitLogo.png"
-				alt="Nintendo Logo" class="logo">
-			<nav>
-				<ul>
-					<li><a href="index.html">홈</a>
-						<div class="dropdown"></div></li>
-					<li><a href="#">게임</a>
-						<div class="dropdown">
-							<a href="win.html">명예의 전당</a> <a href="#">Subitem 2</a> <a
-								href="#">랭킹</a>
-						</div></li>
-					<li><a href="/list.board">게시판</a>
-						<div class="dropdown">
-							<a href="/list.board">게시판</a> <a href="/list.qboard">Q&A</a> <a
-								href="#">공지사항</a>
-						</div></li>
-					<li><a href="#">마이페이지</a>
-						<div class="dropdown">
-							<a href="#">내 정보 수정</a>
-						</div></li>
-					<li><a href="#">관리자 페이지</a>
-						<div class="dropdown">
-							<a href="#">대시보드</a> <a href="#">통계</a>
-						</div></li>
-				</ul>
-			</nav>
-			<div class="header-buttons">
-				<c:choose>
-					<c:when test="${not empty sessionScope.loginID}">
-						<span class="welcome-text">${sessionScope.userName}님 환영합니다</span>
-						<div class="btn-container">
-							<button class="logout-button"
-								onclick="location.href='/logout.members'">Logout</button>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<button class="login-button" onclick="location.href='/index.jsp'">Login</button>
-					</c:otherwise>
-				</c:choose>
-				<div class="hamburger-menu" onclick="toggleMenu()">
-					<div></div>
-					<div></div>
-					<div></div>
-
-				</div>
-			</div>
-		</div>
-	</header>
-	<header>
-		<div class="header-container">
-			<img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
-			<nav>
-				<ul>
-					<li><a href="/index.jsp">홈</a>
-						<div class="dropdown"></div></li>
-					<li><a href="#">게임</a>
-						<div class="dropdown">
-							<a href="win.html">명예의 전당</a> <a href="#">Subitem 2</a> <a
-								href="#">랭킹</a>
-						</div></li>
-					<li><a href="/list.board">게시판</a>
-						<div class="dropdown">
-							<a href="/list.board">게시판</a> <a href="/list.qboard">Q&A</a> <a
-								href="#">공지사항</a>
-						</div></li>
-					<li><a href="#">마이페이지</a>
-						<div class="dropdown">
-							<a href="/mypage.members">내 정보 보기</a> <a
-								href="/myfreepostlist.board">내가 작성한 게시글</a> <a
-								href="/myqpostlist.qboard">내가 작성한 Q&A</a>
-						</div></li>
-					<li><a href="#">관리자 페이지</a>
-						<div class="dropdown">
-							<a href="#">대시보드</a> <a href="#">통계</a>
-						</div></li>
-				</ul>
-			</nav>
-			<div class="header-buttons">
-				<c:choose>
-					<c:when test="${not empty sessionScope.loginID}">
-						<span class="welcome-text-button"
-							onclick="location.href='mypage.members'"> <i
-							class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
-						</span>
-						<div class="btn-container">
-							<button class="logout-button"
-								onclick="location.href='/logout.members'">Logout</button>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<button class="login-button"
-							onclick="location.href='members/login.jsp'">Login</button>
-					</c:otherwise>
-				</c:choose>
-				<div class="hamburger-menu" onclick="toggleMenu()">
-					<div></div>
-					<div></div>
-					<div></div>
-					<div class="splash-screen">
-						<h2 class="intro-text">welcome to the</h2>
-						<h1 class="highlight">Gambit</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+    <header>
+        <div class="header-container">
+            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/index.jsp">홈</a>
+                        <div class="dropdown"></div>
+                    </li>
+                    <li>
+                        <a href="#">게임</a>
+                        <div class="dropdown">
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
+                            <a href="#">랭킹</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/list.board">게시판</a>
+                        <div class="dropdown">
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
+                            <a href="#">공지사항</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">마이페이지</a>
+                        <div class="dropdown">
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">관리자 페이지</a>
+                        <div class="dropdown">
+                            <a href="#">대시보드</a>
+                            <a href="#">통계</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </header>
+>>>>>>> 328587ea52bbe7548c5ea9826c5df168d73f28ab
 
 	<main>
 		<div class="banner">
