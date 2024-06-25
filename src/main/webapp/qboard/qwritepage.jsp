@@ -9,11 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-<title>게시물 작성</title>
-=======
 <title>q게시글 작성</title>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -109,27 +105,18 @@ body, html {
 .form-field input[type="text"],
 .form-field textarea,
 .form-field input[type="file"] {
+    font-family: Arial, sans-serif;
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
-<<<<<<< HEAD
-    font-family: "GalmuriMono9", monospace;
-=======
-    font-family: 'Open Sans', sans-serif;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 
 }
 
 .form-field input[type="file"] {
     border: none;
-<<<<<<< HEAD
-    font-family: "GalmuriMono9", monospace;
-        
-=======
     font-family: "GalmuriMono9", monospace;     
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 }
 input{
 	font-family: "GalmuriMono9", monospace;
@@ -146,17 +133,12 @@ input{
     font-family: "GalmuriMono9", monospace;
     padding: 10px 20px;
     border: none;
-<<<<<<< HEAD
-    background-color: rgba(205, 151, 14, 0.595);
-=======
     background-color: rgba(45, 19, 112, 0.684);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     color: white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1em;
     width: 48%;
-    font-family: "GalmuriMono9", monospace;
 }
 .form-buttons button:hover {
     background-color: rgba(237, 175, 18, 0.973);
@@ -201,11 +183,7 @@ input{
  /* Summernote 배경색 설정 */
      .note-editable {
          background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-<<<<<<< HEAD
-       font-family: "GalmuriMono9", monospace;
-=======
-       font-family: 'Open Sans', sans-serif;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+       font-family: Arial, sans-serif;
      }
      .note-placeholder {
     font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
@@ -224,73 +202,38 @@ input{
    .file-input-container{
    		padding-bottom:5px;
    }
-   .welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
-.welcome-text-button {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative; /* position 속성 추가 */
-}
-
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
    
     </style>
 <body>
     <header>
         <div class="header-container">
-<<<<<<< HEAD
             <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
-=======
-        <a href="/index.jsp">
-            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             <nav>
                 <ul>
                     <li>
-                        <a href="/index.jsp">홈</a>
+                        <a href="index.html">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
+                            <a href="win.html">명예의 전당</a>
+                            <a href="#">Subitem 2</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="/list.board">게시판</a>
+                        <a href="board.html">게시판</a>
                         <div class="dropdown">
-                            <a href="/list.board">게시판</a>
-                            <a href="/list.qboard">Q&A</a>
+                            <a href="board.html">게시판</a>
+                            <a href="#">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="/mypage.members">내 정보 보기</a>
-                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
-                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
+                            <a href="#">내 정보 수정</a>
                         </div>
                     </li>
                     <li>
@@ -302,20 +245,8 @@ input{
                     </li>
                 </ul>
             </nav>
-           <div class="header-buttons">
-               <c:choose>
-                    <c:when test="${not empty sessionScope.loginID}">
-                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
-                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
-                        </span>
-                        <div class="btn-container">
-                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
-                    </c:otherwise>
-                </c:choose>
+            <div class="header-buttons">
+                <button class="login-button" onclick="location.href='join.html'">Login</button>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -343,13 +274,9 @@ input{
                     </div>
 
                     <form action="/write.qboard" method="post" id="writeform" enctype="multipart/form-data">
-<<<<<<< HEAD
-                    	<div class="file-field"> 
-=======
                     	
                     	<div class="file-field"> 
                     	
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                         <label>파일 업로드</label>
                         <div class="file-input-container">
 				            <input type="file" name="file1" class="file-input" id="file-input1">
@@ -357,10 +284,7 @@ input{
 				        <div class="file-input-container">
 					    	<input type="file" name="file2">
 					    </div><br>
-<<<<<<< HEAD
-=======
 					    
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
                             <input type="hidden" id="hidden_title" name="hidden_title">
                             <input type="hidden" id="hidden_content" name="hidden_content">
                             <input type="hidden" id="hidden_password" name="hidden_password">

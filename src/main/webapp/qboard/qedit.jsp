@@ -28,19 +28,12 @@
         body,
         html {
             height: 100%;
-<<<<<<< HEAD
-        }
-
-        body {
-            font-family: "GalmuriMono9", monospace;
-=======
             font-family: "GalmuriMono9", monospace;
             
         }
 
         body {
 			font-family: "GalmuriMono9", monospace;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             margin: 0;
             padding: 0;
             display: flex;
@@ -88,11 +81,7 @@
 
         .board-left {
             flex: 1;
-<<<<<<< HEAD
-            background-color: rgba(82, 125, 160, 0.454);
-=======
             background-color: rgba(45, 19, 112, 0.684);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             display: flex;
             flex-direction: column;
@@ -140,12 +129,12 @@
 
         .form-field input[type="text"],
         .form-field input[type="file"] {
+            font-family: Arial, sans-serif;
             width: 100%;
             padding: 10px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
-            font-family: 'Open Sans', sans-serif;
             
         }
 
@@ -161,14 +150,9 @@
         }
 
         .form-buttons button {
-        	font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
-<<<<<<< HEAD
-            background-color: rgba(82, 125, 160, 0.454);
-=======
 			background-color: rgba(45, 19, 112, 0.684);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -179,11 +163,7 @@
         }
 
         .form-buttons button:hover {
-<<<<<<< HEAD
-            background-color: rgba(52, 162, 252, 0.454);
-=======
             background-color: rgba(237, 175, 18, 0.973);
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .wc_message {
@@ -206,78 +186,39 @@
 	  	padding-left:10px;
 	   	margin-bottom:2%;
 	   }
-<<<<<<< HEAD
-	   .deleteFile{
-	   	font-family: "GalmuriMono9", monospace;
-	   	margin:1%;
-	   
-	   }
-=======
-	   .welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
-.welcome-text-button {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative; /* position 속성 추가 */
-}
-
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
 	</style>
 </head>
 
 <body>
     <header>
         <div class="header-container">
-        <a href="/index.jsp">
-            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
-                        <a href="/index.jsp">홈</a>
+                        <a href="index.html">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
+                            <a href="win.html">명예의 전당</a>
+                            <a href="#">Subitem 2</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="/list.board">게시판</a>
+                        <a href="board.html">게시판</a>
                         <div class="dropdown">
-                            <a href="/list.board">게시판</a>
-                            <a href="/list.qboard">Q&A</a>
+                            <a href="board.html">게시판</a>
+                            <a href="#">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="/mypage.members">내 정보 보기</a>
-                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
-                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
+                            <a href="#">내 정보 수정</a>
                         </div>
                     </li>
                     <li>
@@ -289,20 +230,8 @@
                     </li>
                 </ul>
             </nav>
-           <div class="header-buttons">
-               <c:choose>
-                    <c:when test="${not empty sessionScope.loginID}">
-                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
-                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
-                        </span>
-                        <div class="btn-container">
-                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
-                    </c:otherwise>
-                </c:choose>
+            <div class="header-buttons">
+                <button class="login-button" onclick="location.href='join.html'">Login</button>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>

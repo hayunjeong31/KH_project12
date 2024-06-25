@@ -436,7 +436,7 @@ footer {
 
 </style>
 <body>
-<<<<<<< HEAD
+
 <header>
     <div class="header-container">
         <img src="${pageContext.request.contextPath}/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
@@ -493,7 +493,6 @@ footer {
                 <div></div>
                 <div></div>
                 <div></div>
-=======
     <div class="splash-screen">
         <h2 class="intro-text">welcome to the</h2>
         <h1 class="highlight">Gambit</h1>
@@ -665,7 +664,6 @@ footer {
                     장르:<br>
                     게임설명:<br>
                 </p>
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
             </div>
         </div>
     </section>
