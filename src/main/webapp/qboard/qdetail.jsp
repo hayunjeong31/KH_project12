@@ -380,35 +380,39 @@
 </head>
 
 <body>
-     <header>
+      <header>
         <div class="header-container">
-            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -421,7 +425,19 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>

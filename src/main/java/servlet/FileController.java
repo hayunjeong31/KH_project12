@@ -68,7 +68,7 @@ public class FileController extends HttpServlet {
 	            try(FileInputStream fis = new FileInputStream(target);         
 	               DataInputStream dis = new DataInputStream(fis);   
 	               ServletOutputStream sos = response.getOutputStream();){
-	               dis.readFully(null);
+	               dis.readFully(fileContents);
 	               sos.write(fileContents);
 	               sos.flush();   
 			}

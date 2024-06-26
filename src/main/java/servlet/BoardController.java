@@ -111,7 +111,10 @@ public class BoardController extends HttpServlet {
          // 게시글 검색
          else if(cmd.equals("/search.board")) {
              request.getSession().getAttribute("loginID");
-             int adminKey = (Integer)request.getSession().getAttribute("adminKey");
+             Integer adminKey = (Integer)request.getSession().getAttribute("adminKey");
+             if(adminKey == null ) {
+            	 adminKey = 0;
+             }
              String pcpage = request.getParameter("cpage");
              if(pcpage == null) {pcpage ="1";}
              int cpage = Integer.parseInt(pcpage);
