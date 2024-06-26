@@ -515,6 +515,7 @@
             </div>
         </div>
     </header>
+   
     <main class="main">
         <section class="board-section">
             <article class="board-left">
@@ -616,6 +617,10 @@
 				        alert("댓글을 입력하세요.");
 				        return;
 				    }
+				    if(!loginID){
+				    	alert("로그인 하세요.");
+				    	return;
+				    }
 				    $.ajax({
 				        url: "/comment.reply",
 				        type: "post",
@@ -658,7 +663,10 @@
 	             let bookmarkBtn = $(this);
 	             let bookmarkIcon = $(this).find('i');
 	             let isBookmarked = bookmarkIcon.hasClass('fas');
-	
+					if(!loginID){
+						alert("로그인을 하세요.");
+						return false;
+					}
 	            $.ajax({
 	                url: "/bookmark.board",
 	                method: "post",

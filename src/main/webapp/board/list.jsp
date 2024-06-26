@@ -10,15 +10,12 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<<<<<<< HEAD
 
-    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
-=======
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
  
     <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+
     <style>
 
         * {
@@ -30,13 +27,8 @@
         body,
         html {
             height: 100%;
-<<<<<<< HEAD
-            font-family: Arial, sans-serif;
-            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
-            
-=======
+
             background-image: url('image/5033917.jpg');
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         body {
@@ -445,7 +437,7 @@
             </article>
             <article class="board-area">
                 <div class="top-right-button">
-                    <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
+                    <button type="button" class="new-button"> 북마크 </button>
                 </div>
                 <h2></h2>
                   
@@ -536,6 +528,16 @@
     <script>
     
     $(document).ready(function(){
+    	let loginID = "${loginID}";
+    	
+    	$(".new-button").on("click",function(){
+    		if(!loginID){
+    			alert("로그인을 하세요");
+    			return;
+    		}
+    		location.href="/bookmark.bookmark";
+    	})
+    	
     	$("#btnhome").on("click",function(){
     		location.href="/index.jsp";
     	})
