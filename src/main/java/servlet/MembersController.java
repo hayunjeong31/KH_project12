@@ -162,6 +162,7 @@ public class MembersController extends HttpServlet {
                     session.setAttribute("loginID", member.getUserId());
                     session.setAttribute("userName", member.getUserName()); // 사용자 이름 세션에 저장
                     session.setAttribute("adminKey", member.getAdminKey());
+                    session.setAttribute("userSeq", member.getUserSeq()); // 사용자 유저 시퀀스 저장 -- 기존에 이것만 추가
                     response.sendRedirect("/index.jsp");
                 } else {
                     session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
