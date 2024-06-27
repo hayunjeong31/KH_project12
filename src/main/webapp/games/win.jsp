@@ -193,7 +193,7 @@
         <h1>명예의 전당</h1>
         <div class="tabs">
             <button class="tab-button" onclick="showGame(1)">Mario</button>
-            <button class="tab-button" onclick="showGame(2)">game2</button>
+            <button class="tab-button" onclick="showGame(2)">Mission</button>
             <button class="tab-button" onclick="showGame(3)">game3</button>
             <button class="tab-button" onclick="showGame(4)">game4</button>
             <button class="tab-button" onclick="showGame(5)">game5</button>
@@ -215,13 +215,16 @@
                 
         <div id="game2" class="tab-content">
             <h2> 🏆 Mission</h2>
-            <ol>
-                <li>Player1</li>
-                <li>Player2</li>
-                <li>Player3</li>
-                <li>Player4</li>
-                <li>Player5</li>
-            </ol>
+            <div id="rankingList1">
+                <c:forEach var="ranking" items="${topRankings}">
+                    <p class="ranking-text">⭐${ranking.userId}: ${ranking.score}, 
+                        <fmt:formatDate value="${ranking.rank_date}" pattern="yyyy-MM-dd HH:mm:ss" />⭐
+                    </p>
+                </c:forEach>
+                <c:if test="${empty topRankings}">
+                    <p class="ranking-text">데이터가 없습니다.</p>
+                </c:if>
+            </div>
         </div>
         <div id="game3" class="tab-content">
             <h2> ⭐ game3</h2>

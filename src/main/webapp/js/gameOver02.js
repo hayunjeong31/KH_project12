@@ -3,6 +3,11 @@ class gameOver02 extends Phaser.Scene {
     constructor(){
         super({key:"gameOver02"});
     }
+    
+    init(data) {
+        this.score = data.score;
+        this.highScore = data.highScore;
+    }
 
     preload(){
         this.load.image('gameoverbackground', '/image/gameoverbackground.png');
