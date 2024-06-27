@@ -581,13 +581,13 @@ footer {
             </div>
             <div class="item game-description">
                 <p>
-                    제목:<br>
+                    제목: Mission<br>
                     장르:<br>
                     게임설명:<br>
                 </p>
             </div>
             <div class="item game-image">
-                <a href="gamepage2.html">
+                <a href="games/gamePage02.jsp">
                     <img src="image/skull2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
