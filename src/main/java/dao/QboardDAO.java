@@ -14,11 +14,11 @@ import javax.sql.DataSource;
 import commons.EncryptionUtils;
 import dto.QBoardDTO;
 
-public class QBoardDAO {
-   private static QBoardDAO instance;
-   public synchronized static QBoardDAO getInstance() {
+public class QboardDAO {
+   private static QboardDAO instance;
+   public synchronized static QboardDAO getInstance() {
       if(instance ==null) {
-         instance = new QBoardDAO();
+         instance = new QboardDAO();
       }
       return instance;
    }
@@ -27,7 +27,7 @@ public class QBoardDAO {
       DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
       return ds.getConnection();
    }
-   private QBoardDAO() {}
+   private QboardDAO() {}
 
    public int insert(QBoardDTO dto) throws Exception{
       String sql = "insert into qboard values (qboard_seq.nextval,2,?,?,?,sysdate,null,0,?,'N',1)";
@@ -204,7 +204,7 @@ public class QBoardDAO {
               }
               try (ResultSet rs = pstat.executeQuery()) {
                   while (rs.next()) {
-                	  QBoardDTO dto = new QBoardDTO();
+                     QBoardDTO dto = new QBoardDTO();
                       dto.setSeq(rs.getInt("seq"));
                       dto.setCategorySeq(rs.getInt("categorySeq"));
                       dto.setTitle(rs.getString("title"));
@@ -247,7 +247,12 @@ public class QBoardDAO {
       return 0;
    }
    
+<<<<<<< HEAD
 // 전체 글 개수 
+=======
+   //원희 DAO
+// 사용자 전체 글 개수 
+>>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
    public int getRecordCountByWriter(String writer) throws Exception{
       String sql = "SELECT COUNT(*) FROM qboard WHERE writer = ?";
       try(Connection con = this.getConnection();
@@ -259,6 +264,41 @@ public class QBoardDAO {
          }
       }
    }
+<<<<<<< HEAD
+=======
+
+   public List<QBoardDTO>selectByWriter(String writer, int start, int end) throws Exception{
+      String sql = "select * from (select qboard.*, row_number() over (order by seq desc) rown from qboard where writer=?) subquery where rown between ? and ?";
+
+      List<QBoardDTO> list = new ArrayList<>();
+      try(Connection con = this.getConnection();
+            PreparedStatement pstat = con.prepareStatement(sql)){
+         pstat.setString(1, writer);
+         pstat.setInt(2, start);
+         pstat.setInt(3, end);
+         ResultSet rs = pstat.executeQuery();
+
+         while(rs.next()){
+            QBoardDTO dto = new QBoardDTO();
+            dto.setSeq(rs.getInt("seq"));
+            dto.setCategorySeq(rs.getInt("categorySeq"));
+            dto.setWriter(rs.getString("writer"));
+            dto.setTitle(rs.getString("title"));
+            dto.setContents(rs.getString("contents"));
+            dto.setWrite_date(rs.getTimestamp("write_date"));
+            dto.setUpd_date(rs.getTimestamp("upd_date"));
+            dto.setView_count(rs.getInt("view_count"));
+            dto.setPassword(rs.getString("password"));
+            dto.setIsAnswered(rs.getString("isAnswered"));
+            dto.setAdminKey(rs.getInt("adminKey"));
+            list.add(dto);
+         }
+      }catch(Exception e) {
+         e.printStackTrace();
+      }
+      return list;
+   }
+>>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
 
    public List<QBoardDTO>selectByWriter(String writer, int start, int end) throws Exception{
       String sql = "select * from (select qboard.*, row_number() over (order by seq desc) rown from qboard where writer=?) subquery where rown between ? and ?";

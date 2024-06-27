@@ -6,18 +6,20 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
+      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시물 수정</title>
+    <title>QnA게시물 수정</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
 
     <style>
-        * {
+
+         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -26,11 +28,12 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
+            font-family: "GalmuriMono9", monospace;
+            
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+			font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -78,7 +81,7 @@
 
         .board-left {
             flex: 1;
-            background-color: rgba(195, 208, 23, 0.578);
+            background-color: rgba(45, 19, 112, 0.684);
             color: white;
             display: flex;
             flex-direction: column;
@@ -126,14 +129,18 @@
 
         .form-field input[type="text"],
         .form-field input[type="file"] {
+            font-family: Arial, sans-serif;
             width: 100%;
+            padding: 10px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
+            
         }
 
         .form-field input[type="file"] {
             border: none;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .form-buttons {
@@ -145,22 +152,25 @@
         .form-buttons button {
             padding: 10px 20px;
             border: none;
-            background-color: rgba(195, 208, 23, 0.578);
+			background-color: rgba(45, 19, 112, 0.684);
             color: white;
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
             width: 48%;
+            font-family: "GalmuriMono9", monospace;
+            
         }
 
         .form-buttons button:hover {
-            background-color: rgba(221, 235, 16, 0.78);
+            background-color: rgba(237, 175, 18, 0.973);
         }
 
         .wc_message {
             display: none;
         }
-         /* Summernote 배경색 설정 */
+        
+        /* Summernote 배경색 설정 */
         .note-editable {
             background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
         }
@@ -168,33 +178,51 @@
 	   .note-resizebar{
 	   	 	display: none;
 	   }
-	   #fileloading{
+	    #fileloading{
 	   	margin-bottom:0;
 	   	padding-bottom:0;
 	   }
 	   .uploadedFile .file-list{
+	  	padding-left:10px;
 	   	margin-bottom:2%;
 	   }
 	</style>
 </head>
 
 <body>
-    <header>
+     <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="/index.jsp">홈</a>
+                        <div class="dropdown"></div>
                     </li>
                     <li>
-                        <a href="notice.html">공지사항</a>
-                    </li>
-                    <li>
-                        <a href="#">내 정보</a>
+                        <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 보기</a>
-                            <a href="#">내 정보 수정</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
+                            <a href="#">랭킹</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/list.board">게시판</a>
+                        <div class="dropdown">
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
+                            <a href="#">공지사항</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">마이페이지</a>
+                        <div class="dropdown">
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -207,36 +235,88 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         </div>
     </header>
-    <main class="main">
+        <main class="main">
         <section class="edit-post-section">
             <article class="board-left">
-                <h1>qna 수정</h1>
+                <h1>Q 게시글 수정</h1>
                 <div class="wc_message"></div>
             </article>
             <article class="edit-post-area">
                 <h2></h2>
-                <form class="post-form" action="/update.qboard" method="post" enctype="multipart/form-data">
+                <form class="post-form" id="editform" action="/update.qboard" method="post" enctype="multipart/form-data">
                     <div class="post-form">
                         <div class="form-field">
-                            <label for="post-title">글 제목</label>
+                            <label>글 제목</label>
                             <input type="text" id="post-title" name="post-title" value="${dto.title}" placeholder="제목을 입력하세요" required>
                             <input type="hidden" id="post-seq" name="post-seq" value="${dto.seq}">
                         </div>
                         <div class="form-field">
-                            <label for="post-content">내용</label>
+                            <label>내용</label>
                             <div id="summernote">${dto.contents}</div>
                             <input type="hidden" id="contents" name="contents">
                         </div>
+                        
+                        <!-- 업로드 파일 갯수에 따른 input file 태그 갯수 생성 -->
                         <div class="form-field" id="fileloading">
-                            <label for="post-file">파일 업로드</label>
+                            <label>파일 업로드</label>
+		                        <c:choose>
+		                        	<c:when test="${list.size() == 0}">
+			                        	<input type="file" name="file1"><br>
+								  		<input type="file" name="file2"><br>
+		                        	</c:when>
+		                        	<c:when test="${list.size() == 1}">
+		                        		<input type="file" name="file1"><br>
+		                        	</c:when>
+		                        	<c:otherwise>
+		                        	</c:otherwise>
+		                       	</c:choose>
+	                       	
+	                       <div class="fileinputtag"></div>
+	                       
+	                    </div>
+	   					 <!-- 수정 해야하는 부분 시작 .deleteFile 버튼 누르면 hide되게.  -->
+		                    <div class="uploadedFile">
+		                        <c:forEach var="file" items="${list}">
+	                            	<div class="file-list">
+		                                <i class="fa-regular fa-file"></i>
+		                                ${file.oriname}
+		                                <button type="button" class="deleteFile" data-sysname="${file.sysname}">삭제<i class="fa-solid fa-trash"></i></button>
+		                        	</div>
+		                        </c:forEach>
+		                    </div>
+	                    <!-- 수정된 부분 끝 -->
+	                    
+	                    <!--  숨긴 파일 정보 hidden에 저장하기  -->
+	                    <input type="hidden" id="deletedFilesInput" name="deletedFilesInput">
+                                   
+                           
+                            <!-- 
+                            <label>파일 업로드</label>
                             <input type="file" id="post-file" name="post-file"><br>
                         </div>
                         <div class="uploadedFile">
-                            <!-- 업로드 했던 파일 리스트 -->
+                            
                             <c:forEach var="i" items="${list}">
                                 <div class="file-list">
                                     <i class="fa-regular fa-file"></i>
@@ -245,9 +325,11 @@
                                 </div>
                             </c:forEach>
                         </div>
+                          -->
+                          
                         <div class="form-buttons">
+                            <button type="button" id="btncomplete">수정완료</button>
                             <button type="button" class="btn-cancel">취소</button>
-                            <button type="submit" class="btn-submit">수정</button>
                         </div>
                     </div>
                 </form>
@@ -255,6 +337,8 @@
         </section>
     </main>
     <script>
+    var deletedFiles = [];
+	$(document).ready(function(){
         $('#summernote').summernote({
             placeholder: '내용을 입력해 주세요.',
             tabsize: 2,
@@ -278,9 +362,28 @@
            	 location.href='/detail.qboard?seq=${dto.seq}';
             }
         })
+         // 파일 옆 삭제 버튼 클릭 시
+	    $(".deleteFile").on("click", function(){
+	        $(this).parent().hide(); // 해당 파일 항목 숨기기
+	        
+	        var sysname = $(this).data("sysname");
+	        $(this).parent().hide(); // 파일 숨기기
+	        console.log("삭제할 파일 sysname: " + sysname);
+	        
+	        // 삭제할 파일의 sysname을 deletedFiles 배열에 추가
+	     	 deletedFiles.push(sysname);
+	        
+	        // 새 파일 업로드 input 추가
+	        var fileCount = $(".fileinputtag input[type=file]").length + 1;
+	        var fileinput = $("<input>", {
+	            "type": "file",
+	            "name": "file" + fileCount+3
+	        });
+	        $(".fileinputtag").append(fileinput);
+	    });
 
      // 게시글 수정완료 버튼 클릭 시 
-        $(".btn-submit").on("click", function() {
+        $("#btncomplete").on("click", function() {
             if ($("#post-title").val() == "") {
                 alert("제목을 입력하세요.");
                 return false;
@@ -290,31 +393,18 @@
                 alert("내용을 입력해 주세요.");
                 return false;
             }
+            
+         // 게시글 정보 및 삭제할 파일 목록(hidden input) 설정
+	        $("#deletedFilesInput").val(deletedFiles.join(","));
+         
             $("#post-seq").val();
             $("#post-title").val();
             $("#contents").val(markupStr);
+            
+            $("#editform").submit();
         });
-
-        // 파일 삭제 버튼 클릭 시 -> 수정필요 : 파일삭제버튼 누르면 ui로만 hide하게, 그리고 수정완료 버튼 누르면 hide한거 db에 삭제하게 
-   /*     $(".deleteFile").on("click", function() {
-            var sysname = $(this).data("sysname");
-            var $fileDiv = $(this).closest('div');
-            $.ajax({
-                url: "/delete.file",
-                method: "POST",
-                data: { sysname: sysname },
-                success: function(response) {
-                    if (response == 'success') {
-                        $fileDiv.remove();
-                    } else {
-                        alert("파일 삭제에 실패했습니다.");
-                    }
-                },
-                error: function() {
-                    alert("파일 삭제 중 오류가 발생했습니다.");
-                }
-            });
-        }); */
+	});
+  
     </script>
 </body>
 

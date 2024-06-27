@@ -97,12 +97,7 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
-		strong{
-			font-family: "GalmuriMono9", monospace;
-			
-		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
             flex: 2;
             padding: 20px;
             display: flex;
@@ -111,6 +106,7 @@
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .board-area h2 {
@@ -187,6 +183,8 @@
         .post-details strong {
             font-weight: bold;
         }
+        
+        strong{font-family: "GalmuriMono9", monospace;}
 
 
         .post-actions {
@@ -224,10 +222,9 @@
         }
 
         .post-attachments h3 {
-        	font-family: "GalmuriMono9", monospace;
-        	
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -256,13 +253,11 @@
 
 		/* 댓글 - 타이틀  */
         .post-comments h3 {
-        font-family: "GalmuriMono9", monospace;
-        
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            
+            font-family: "GalmuriMono9", monospace;
         }
         
         .post-comments textarea {
@@ -515,7 +510,6 @@
             </div>
         </div>
     </header>
-   
     <main class="main">
         <section class="board-section">
             <article class="board-left">
@@ -539,7 +533,7 @@
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-                    <p><strong>글쓴이</strong><br><p>${dto.writer}</p></p>
+                    <p><strong>글쓴이</strong><br>${dto.writer}</p>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
                 </div>
@@ -548,11 +542,11 @@
 	                	<c:when test="${iswriter}">
 					        <button type="button" id="btnedit">수정</button>
 					        <button type="button" id="btndelete">삭제</button>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
 			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
 					    </c:when>
 			            <c:otherwise>
-			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                <button type="button" id="btnlist" onclick="location.href='/myfreepostlist.board'">목록</button>
  							<button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>				            
  						</c:otherwise>
 			        </c:choose>
@@ -592,17 +586,16 @@
         </section>
     </main>
 
-
     <script>
 	    $("#btnlist").on("click",function(){
-			location.href="/list.board";
+			location.href="/myfreepostlist.board";
 		})
 		$("#btnedit").on("click", function() {
-	    	location.href = "/edit.board?seq=${dto.seq}";
+	    	location.href = "/myedit.board?seq=${dto.seq}";
 	    })
 	    $("#btndelete").on("click", function() {
 	        if (confirm('정말 삭제하시겠습니까?')) {
-	            location.href = "/delete.board?seq=${dto.seq}";
+	            location.href = "/mydelete.board?seq=${dto.seq}";
 	        }
 	    })
 	    
@@ -616,10 +609,6 @@
 				    if (newComment === "") {
 				        alert("댓글을 입력하세요.");
 				        return;
-				    }
-				    if(!loginID){
-				    	alert("로그인 하세요.");
-				    	return;
 				    }
 				    $.ajax({
 				        url: "/comment.reply",
@@ -663,10 +652,7 @@
 	             let bookmarkBtn = $(this);
 	             let bookmarkIcon = $(this).find('i');
 	             let isBookmarked = bookmarkIcon.hasClass('fas');
-					if(!loginID){
-						alert("로그인을 하세요.");
-						return false;
-					}
+	
 	            $.ajax({
 	                url: "/bookmark.board",
 	                method: "post",
@@ -998,6 +984,10 @@
 		
 		    
 	    });	// document.ready  끝 부분 -
+	 
+    
+	    
+	    
 	 
 </script>
 </body>

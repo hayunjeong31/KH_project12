@@ -153,7 +153,10 @@ public class DashboardDAO {
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
 				String tempCode = rs.getString("tempcode");
+<<<<<<< HEAD
 				int blacklistSeq = rs.getInt("blacklistseq");
+=======
+>>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
 						birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);

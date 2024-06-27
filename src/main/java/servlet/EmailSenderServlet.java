@@ -65,7 +65,7 @@ public class EmailSenderServlet extends HttpServlet {
                     boolean updateSuccess = dao.updateTempCodeByEmail(email, checkNumStr);
                     if (updateSuccess) {
                         response.getWriter().write("이메일로 인증번호가 전송되었습니다.");
-                    } else {
+                    } else {	
                         response.getWriter().write("데이터베이스 업데이트 실패: 업데이트되지 않았습니다.");
                     }
                 } catch (Exception e) {

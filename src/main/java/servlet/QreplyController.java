@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.QBoardDAO;
+import dao.QboardDAO;
 import dao.QreplyDAO;
 import dto.QReplyDTO;
 
@@ -27,7 +27,7 @@ public class QreplyController extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		String cmd = request.getRequestURI();
 		QreplyDAO dao = QreplyDAO.getInstance();
-		QBoardDAO b_dao = QBoardDAO.getInstance();
+		QboardDAO b_dao = QboardDAO.getInstance();
 		Gson g = new Gson();
 		System.out.println(cmd);
 		
@@ -37,6 +37,7 @@ public class QreplyController extends HttpServlet {
 				String loginID = (String)request.getSession().getAttribute("loginID");
                 String comments = request.getParameter("comments");
 				int seq = Integer.parseInt(request.getParameter("seq"));
+				System.out.println(loginID);
 				b_dao.updateAnswered(seq);
 				int success = dao.insertReply(new QReplyDTO(0,loginID, comments, null, seq));
 				String result = g.toJson(success);

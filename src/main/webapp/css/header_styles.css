@@ -83,6 +83,19 @@ nav ul li:hover>.dropdown {
     font-weight: bold;
 }
 
+.logout-button {
+    padding: 5px 10px !important;
+    background-color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    color: rgb(249, 63, 76) !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+}
+
+
+
+
 .hamburger-menu {
     display: none;
     flex-direction: column;

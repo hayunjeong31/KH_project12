@@ -11,12 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시물 수정</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     
-    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 
     <style>
         * {
@@ -40,7 +40,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+            background-image: url('image/5033917.jpg');
         }
         header {
             position: fixed;
@@ -51,7 +51,7 @@
             background-color: black;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
-            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+            background-image: url('image/9.png');
         }
 
      
@@ -134,14 +134,13 @@
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
-            font-family: 'Open Sans', sans-serif;
+            font-family: Arial, sans-serif;
             
         }
 
         .form-field input[type="file"] {
             border: none;
             font-family: "GalmuriMono9", monospace;
-            
         }
 
         .form-buttons {
@@ -292,7 +291,7 @@
             </article>
             <article class="edit-post-area">
                 <h2></h2>
-                <form class="post-form" id="editform" action="/update.board" method="post" enctype="multipart/form-data">
+                <form class="post-form" id="editform" action="/myupdate.board" method="post" enctype="multipart/form-data">
                     <div class="form-field">
                         <label>글 제목</label>
                         <input type="text" id="post-title" name="post-title" value="${dto.title}" placeholder="제목을 입력하세요." required>
@@ -373,7 +372,7 @@
 	            event.preventDefault();
 	            return false;
 	        } else {
-	            location.href='/detail.board?seq=${dto.seq}';
+	            location.href='/mydetail.board?seq=${dto.seq}';
 	        }
 	    });
 	

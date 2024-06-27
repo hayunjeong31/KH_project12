@@ -30,8 +30,102 @@ public class MembersDAO {
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
         return ds.getConnection();
     }
+    
+    private MembersDAO(){}
 
+
+ // 내 정보 출력
+    public MembersDTO myInfor(String userId) throws Exception {
+        String sql = "SELECT * FROM members WHERE userId = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, userId);
+            try (ResultSet rs = pstat.executeQuery()) {
+                if (rs.next()) {
+                    String userName = rs.getString("userName");
+                    String nickName = rs.getString("nickName");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    Timestamp join_date = rs.getTimestamp("join_date");
+                    return new MembersDTO(0, userId, null, userName, nickName, phone, email, null, null, null, join_date, null, 0,null);
+                }
+            }
+        }
+        return null;
+    }
+
+    // 내 정보 수정
+    public int edit(String userId, String userName, String phone) throws Exception {
+        String sql = "UPDATE members SET userName = ?, phone = ? WHERE userId = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, userName);
+            pstat.setString(2, phone);
+            pstat.setString(3, userId);
+            return pstat.executeUpdate();
+        }
+    }
+    
+    
+    // 현재 비밀번호 확인
+    public boolean checkPwd(String userId, String currentPwd) {
+        String sql = "SELECT userPwd FROM members WHERE userId = ?";
+        
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+             
+            pstat.setString(1, userId);
+            ResultSet rs = pstat.executeQuery();
+            
+            if (rs.next()) {
+                String userPwd = rs.getString("userPwd");
+                // 암호화된 비밀번호 비교
+                String CurrentSpwd = EncryptionUtils.getSHA512(currentPwd);
+                return userPwd.equals(CurrentSpwd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return true;
+    }
+    
+    // 비밀번호 업데이트
+    public boolean updatePwd(String userId, String newPwd) {
+        String sql = "UPDATE members SET userPwd = ?, upd_date = sysdate WHERE userId = ?";
+        String Spwd = EncryptionUtils.getSHA512(newPwd);
+        
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+             
+            pstat.setString(1, Spwd);
+            pstat.setString(2, userId);
+            pstat.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      return true;
+    }
+
+
+    // 회원탈퇴
+    public int deleteById(String userId) throws Exception {
+        String sql = "DELETE FROM members WHERE userId = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+            pstat.setString(1, userId);
+            return pstat.executeUpdate();
+        }
+    }
+    
+    
+    
+    
+    // 인교 코드
     // userId 중복 확인 메서드
+
+ // userId 중복 확인 메서드
+
     public boolean isUserIdAvailable(String userId) throws Exception {
         String sql = "SELECT COUNT(*) FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -87,7 +181,11 @@ public class MembersDAO {
             throw new Exception("이미 사용 중인 닉네임입니다.");
         }
 
+<<<<<<< HEAD
         String sql = "INSERT INTO members VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, sysdate, null, ?, ?, ?, 0)";
+=======
+        String sql = "INSERT INTO members(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode) VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, 'n', ?, SYSDATE, NULL, ?, ?)";
+>>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, dto.getUserId());
@@ -107,9 +205,8 @@ public class MembersDAO {
         }
     }
 
-    // 나머지 메서드는 기존 코드와 동일
     public MembersDTO login(String id, String pw) throws Exception {
-        String sql = "SELECT * FROM members WHERE userId = ? AND userPwd = ?";
+        String sql = "SELECT * FROM members WHERE userId = ? AND userPwd = ? AND signout = 'n'";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, id);
@@ -137,8 +234,8 @@ public class MembersDAO {
         }
         return null;
     }
- // 내 정보 출력
 
+<<<<<<< HEAD
     public MembersDTO myInfor(String userId) throws Exception {
         String sql = "SELECT * FROM members WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -158,8 +255,10 @@ public class MembersDAO {
         }
         return null;
     }
+=======
+>>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
     
-    // 내 정보 수정
+
     public int edit(String userId, String userName, String phone, String email) throws Exception {
         String sql = "UPDATE members SET userName = ?, phone = ?, email = ? WHERE userId = ?";
         try (Connection con = this.getConnection();
@@ -171,38 +270,8 @@ public class MembersDAO {
             return pstat.executeUpdate();
         }
     }
-    
- // 현재 비밀번호 확인
-    public boolean checkPwd(String userId, String currentPwd) {
-        String sql = "SELECT userPwd FROM members WHERE userId = ?";
-        
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql)) {
-             
-            pstat.setString(1, userId);
-            ResultSet rs = pstat.executeQuery();
-            
-            if (rs.next()) {
-                String userPwd = rs.getString("userPwd");
-                // 암호화된 비밀번호 비교
-                String CurrentSpwd = EncryptionUtils.getSHA512(currentPwd);
-                return userPwd.equals(CurrentSpwd);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        return true;
-    }
-    public int deleteById(String userId) throws Exception {
-        String sql = "DELETE FROM members WHERE userId = ?";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql)) {
-            pstat.setString(1, userId);
-            return pstat.executeUpdate();
-        }
 
-    }
+   
 
     public boolean updateTempCodeByEmail(String email, String tempCode) throws Exception {
         String sql = "UPDATE members SET tempCode = ? WHERE email = ?";
@@ -269,36 +338,18 @@ public class MembersDAO {
     }
 
 
+
 //동일 메소드 존재로 이름 변경 login -> isUserInfoEnabled
-	public boolean isUserInfoEnabled(String id, String pw) throws Exception {
-		String sql = "select * from members where userId =? and userPwd = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-			pstat.setString(1, id);
-			pstat.setString(2, pw);
-			try (ResultSet rs = pstat.executeQuery()) {
-				return rs.next();
-			}
-		}
-	}
+   public boolean isUserInfoEnabled(String id, String pw) throws Exception {
+      String sql = "select * from members where userId =? and userPwd = ?";
+      try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
+         pstat.setString(1, id);
+         pstat.setString(2, pw);
+         try (ResultSet rs = pstat.executeQuery()) {
+            return rs.next();
+         }
+      }
+   }
 
-
-
-
-
-	// 비밀번호 업데이트
-	public boolean updatePwd(String userId, String newPwd) {
-		String sql = "UPDATE members SET userPwd = ?, upd_date = sysdate WHERE userId = ?";
-		String Spwd = EncryptionUtils.getSHA512(newPwd);
-
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql)) {
-
-			pstat.setString(1, Spwd);
-			pstat.setString(2, userId);
-			pstat.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 }

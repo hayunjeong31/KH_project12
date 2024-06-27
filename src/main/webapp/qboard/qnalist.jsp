@@ -7,9 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+ 
  <style>
         /* Inline styles for specific to this HTML file */
 
@@ -22,12 +25,11 @@
         body,
         html {
             height: 100%;
-            font-family: Arial, sans-serif;
             background-image: url('image/5033917.jpg');
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
             display: flex;
@@ -83,6 +85,7 @@
         }
 
         .new-button {
+            font-family: "GalmuriMono9", monospace;
             padding: 8px 16px;
             background-color: rgb(64, 64, 116);
             color: white;
@@ -91,6 +94,9 @@
             cursor: pointer;
             margin-left: 850px;
             /* This might need adjustment based on your layout */
+        }
+        .new-button:hover{
+        	background-color:  rgba(103, 103, 250, 0.733);
         }
 
         .board-area h2 {
@@ -119,6 +125,7 @@
         }
 
         .board-table tbody tr {
+        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
         }
 
@@ -135,41 +142,21 @@
             text-decoration: underline;
         }
 
-        .pagination {
-            margin-bottom: 20px;
-        }
-
-        .pagination button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 0.855);
-            cursor: pointer;
-            color: black;
-        }
-
-        .pagination button:hover {
-            background-color: rgba(231, 231, 232, 0.004);
-            color: white;
-        }
-
-        .pagination button:active {
-            background-color: rgba(25, 25, 173, 0.598);
-            color: white;
-        }
-
         .board-buttons {
+            font-family: "GalmuriMono9", monospace;
             display: flex;
-            justify-content: space-between;
+            
+            justify-content: space-around;
             width: 100%;
             max-width: 800px;
         }
 
         .board-buttons .write-button,
         .board-buttons .home-button {
+            font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
-            background-color: rgb(64, 64, 116);
+            background-color: rgba(45, 19, 112, 0.684);
             color: white;
             border-radius: 5px;
             cursor: pointer;
@@ -179,7 +166,8 @@
 
         .board-buttons .write-button:hover,
         .board-buttons .home-button:hover {
-            background-color: rgb(64, 64, 116);
+           /* background-color:  rgba(103, 103, 250, 0.733); */
+             background-color: rgba(237, 175, 18, 0.973);
         }
         header {
             position: fixed;
@@ -193,18 +181,34 @@
             background-image: url('image/9.png');
         }
         
-        .pagination{
+    
+        
+        .pagination {
         	margin-top:3%;
+            margin-bottom: 20px;
         }
         .pagination a{
         	text-decoration: none;
-        	color:white;
+        	margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 0.855);
+            cursor: pointer;
+            color: black;
+            text-align:center;
         }
         .pagination a.active{
-        	font-size: 1.2em;
         	font-weight: bold;
-        	color: violet;
+        	color: rgb(237, 98, 237);
         }
+        .pagination a:hover{
+        	 background-color: rgba(231, 231, 232, 0.004);
+            color: white;
+            font-weight: bold;
+           
+        }
+        
+        /* 리셋 버튼 */
        .qna-list-button {
 		    background: none;
 		    border: none;
@@ -212,45 +216,149 @@
 		    padding: 0;
 		}
 		
-		.qna-list-button i {
-		    font-size: 1.5em;
+       .qna-list-button i {
+		    color: rgba(255, 255, 255, 0.854); /*흰색 리셋 아이콘*/
+		     font-size: 1.5em;
 		    font-weight:bold;
-		    color: violet;
+		    transition: color 0.3s;
+		   
 		}
+		
+		.qna-list-button i:hover {
+		    color: rgba(237, 175, 18, 0.973);
+		    transform: scale(1.1);
+		    border: none;
+		}
+		
+		/* 제목 부분 */
+		.board-table .title_max {
+			white-space: nowrap !important;
+	        overflow: hidden !important;
+	        text-overflow: ellipsis !important;
+	       	max-width: 300px !important; /* 적절한 너비로 설정 */
+	       	padding: 0 30px !important;
+	       	margin-left: 20px;
+	       	text-align: left;
+	       	float: left;
+	       	
+		}
+		.title_replycount{
+			float:left;
+			
+		}
+		
+		/* 검색 폼 스타일링 */
+        form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #searchOption {
+            font-family: "GalmuriMono9", monospace;
+            width: 150px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #searchOption:hover {
+            border-color: #888;
+        }
+        
+        #searchOption:focus {
+            border-color: #555;
+        }
+
+        #searchInput {
+            padding: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: "GalmuriMono9", monospace;
+        }
+
+        #searchInput:hover {
+            border-color: #888;
+        }
+
+        #searchInput:focus {
+            border-color: #555;
+        }
+
+        #searchBtn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+             background-color: rgba(237, 175, 18, 0.973); /*주황색*/
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            transition: box-shadow 0.3s ease-in-out;
+            font-family: "GalmuriMono9", monospace;
+        }
+
+        #searchBtn:hover {
+        	box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.8);
+             background-color: rgba(237, 175, 18, 0.973);
+        }
+
+        
+		 /* 검색어 표시 영역 스타일링 */
+        .search-info {
+            padding: 5px;
+            border-radius: 4px;
+            margin: 10px 30px;
+            font-size: 15px;
+            color: rgb(255, 255, 255);
+            background-color: #36333a56;
+        }
     </style>
     <title>게시판</title>
 </head>
 
 <body>
  <header>
+         <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        <a href="/index.jsp">
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.html">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
                     <li>
-                        <a href="board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
-                            <a href="board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="#">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
@@ -263,7 +371,19 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button class="login-button" onclick="location.href='join.html'">Login</button>
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <div></div>
                     <div></div>
@@ -285,17 +405,7 @@
                     <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
                 </div>
                 <h2></h2>
-                 <!-- 검색어 표시 영역 -->
-				<c:if test="${not empty keyword}">
-				    <div class="search-info">
-				       검색 <c:choose>
-				            <c:when test="${option == 'title'}">제목</c:when>
-				            <c:when test="${option == 'writer'}">작성자</c:when>
-				            <c:otherwise>제목+작성자</c:otherwise>
-				        </c:choose>
-				        : ${keyword}
-				    </div>
-				</c:if>
+                
                 <table class="board-table">
                     <thead>
                         <tr>
@@ -320,12 +430,26 @@
 		                                <tr>
 		                                    <td>${dto.seq}</td>
 		                                    <td>    
-		                                        <a href="#" class="post-link" data-seq="${dto.seq}" data-password="${dto.password}">
-		                                            <c:choose>
-		                                                <c:when test="${dto.password == null}">${dto.title} <i class="fa-solid fa-lock-open"></i></c:when>
-		                                                <c:otherwise>${dto.title} <i class="fa-solid fa-lock"></i></c:otherwise>
-		                                            </c:choose>
-		                                        </a>
+	                                    		<c:choose>
+	                                                <c:when test="${dto.password == null}">
+	                                                <div class="title_max">
+	                                        			<a href="#" class="post-link" data-seq="${dto.seq}" data-password="${dto.password}">
+	                                                	${dto.title} 
+	                                                	</a>
+	                                    				</div>
+	                                                	<span class="title_replycount"><i class="fa-solid fa-lock-open"></i></span> 
+	                                                </c:when>
+	                                                <c:otherwise>
+	                                                <div class="title_max">
+	                                        			<a href="#" class="post-link" data-seq="${dto.seq}" data-password="${dto.password}">
+	                                                	${dto.title} 
+	                                                	</a>
+	                                    				</div>
+	                                    				<span class="title_replycount"><i class="fa-solid fa-lock"></i></span> 
+	                                                </c:otherwise>
+	                                        	
+	                                        	</c:choose>
+		                                        	
 		                                    </td>
 		                                    <td>${dto.writer}</td>
 		                                    <c:choose>
@@ -359,6 +483,18 @@
 	                <button type="submit" id="searchBtn">검색</button>
 	                <button class="qna-list-button" onclick="location.href='/list.qboard'"><i class="fa-solid fa-rotate-left"></i></button>
 	           </form>
+	           
+	            <!-- 검색어 표시 영역 -->
+			    <c:if test="${not empty keyword}">
+			        <div class="search-info">
+			            "<c:choose>
+			                <c:when test="${option == 'title'}">제목</c:when>
+			                <c:when test="${option == 'writer'}">작성자</c:when>
+			                <c:otherwise>제목+작성자</c:otherwise>
+			            </c:choose>
+			            : ${keyword} " 검색 결과
+			        </div>
+			    </c:if>
 
                 <div class="pagination">
                 </div>
@@ -498,11 +634,6 @@
         </c:choose>
             
           
-         
-        
-         
-            
-           
             
         })
         </script>
