@@ -240,9 +240,9 @@ body, html {
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
+                            <!-- <a href="#">게임 플레이 순위</a> -->
                             <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                            <!-- <a href="#">랭킹</a> -->
                         </div>
                     </li>
                     <li>
@@ -262,11 +262,7 @@ body, html {
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
