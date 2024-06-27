@@ -6,18 +6,25 @@ License - nucleoapp.com/license/
 -------------------------------- */
 @font-face {
   font-family: 'NucleoIcons';
-  src: url('../fonts/Pretendard-Thin.otf');
-  src: url('../fonts/Pretendard-Thin.otf') format('embedded-opentype'), url('../fonts/Pretendard-Thin.otf') format('woff2'), url('../fonts/Pretendard-Thin.otf') format('woff'), url('../fonts/Pretendard-Thin.otf') format('truetype'), url('../fonts/Pretendard-Thin.otf') format('svg');
+  src: url('../fonts/Pretendard-Regular.otf');
+  src: url('../fonts/Pretendard-Regular.otf') format('embedded-opentype'), url('../fonts/Pretendard-Regular.otf') format('woff2'), url('../fonts/Pretendard-Regular.otf') format('woff'), url('../fonts/Pretendard-Regular.otf') format('truetype'), url('../fonts/Pretendard-Regular.otf') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Nucleo';
+  src: url('../fonts/nucleo.ttf');
+  src: url('../fonts/nucleo.ttf') format('embedded-opentype'), url('../fonts/nucleo.ttf') format('woff2'), url('../fonts/nucleo.ttf') format('woff'), url('../fonts/nucleo.ttf') format('truetype'), url('../fonts/nucleo.ttf') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 /*------------------------
     base class definition
 -------------------------*/
 .ni {
   display: inline-block;
-  font: normal normal normal 14px/1 NucleoIcons;
+  font: normal normal normal 14px/1 Nucleo;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;

@@ -29,6 +29,14 @@ public class BoardDTO {
 		this.view_count = view_count;
 		this.adminKey = adminKey;
 	}
+	
+	public BoardDTO(int seq,String writer, String title, String contents, Timestamp write_date) {
+		this.seq = seq;
+		this.writer = writer;
+		this.title = title;
+		this.contents = contents;
+		this.write_date = write_date;
+	}
 
 	public int getSeq() {
 		return seq;

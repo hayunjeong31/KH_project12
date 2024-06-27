@@ -11,20 +11,20 @@ public class MembersDTO {
     private String phone;
     private String email;
     private String gender;
-    private String signout;
     private String birth_date;
     private Timestamp join_date;
     private Timestamp upd_date;
     private int adminKey;
     private String tempCode;
+    private int blacklistSeq;
 
-    public MembersDTO() {
+	public MembersDTO() {
     	super();
     }
 
     public MembersDTO(int userSeq, String userId, String userPwd, String userName, String nickName, String phone,
-    		String email, String gender, String signout, String birth_date, Timestamp join_date, Timestamp upd_date,
-    		int adminKey, String tempCode) {
+    		String email, String gender, String birth_date, Timestamp join_date, Timestamp upd_date,
+    		int adminKey, String tempCode, int blacklistSeq) {
 
         this.userSeq = userSeq;
         this.userId = userId;
@@ -34,12 +34,12 @@ public class MembersDTO {
         this.phone = phone;
         this.email = email;
         this.gender = gender;
-        this.signout = signout;
         this.birth_date = birth_date;
         this.join_date = join_date; 
         this.upd_date = upd_date;
         this.adminKey = adminKey;
         this.tempCode = tempCode;
+        this.blacklistSeq = blacklistSeq;
     }
 
 	public int getUserSeq() {
@@ -106,14 +106,6 @@ public class MembersDTO {
 		this.gender = gender;
 	}
 
-	public String getSignout() {
-		return signout;
-	}
-
-	public void setSignout(String signout) {
-		this.signout = signout;
-	}
-
 	public String getBirth_date() {
 		return birth_date;
 	}
@@ -152,6 +144,14 @@ public class MembersDTO {
 
 	public void setTempCode(String tempCode) {
 		this.tempCode = tempCode;
+	}
+	
+    public int getBlacklistSeq() {
+		return blacklistSeq;
+	}
+
+	public void setBlacklistSeq(int blacklistSeq) {
+		this.blacklistSeq = blacklistSeq;
 	}
     
     

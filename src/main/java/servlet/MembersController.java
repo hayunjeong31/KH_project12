@@ -60,13 +60,13 @@ public class MembersController extends HttpServlet {
                 String phone = request.getParameter("phone");
                 String email = request.getParameter("email");
                 String gender = request.getParameter("gender");
-                String signout = request.getParameter("signout");
                 String birth_date = request.getParameter("birth_date");
                 int adminKey = Integer.parseInt(request.getParameter("adminKey"));
                 tempCode = request.getParameter("tempCode");
                 
                 response.setStatus(HttpServletResponse.SC_OK);
-                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, null, null, adminKey, tempCode);
+                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email,
+                		gender, birth_date, null, null, adminKey, tempCode, 0);
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {

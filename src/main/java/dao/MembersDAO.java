@@ -87,7 +87,7 @@ public class MembersDAO {
             throw new Exception("이미 사용 중인 닉네임입니다.");
         }
 
-        String sql = "INSERT INTO members(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode) VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, NULL, ?, ?)";
+        String sql = "INSERT INTO members VALUES (members_seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, sysdate, null, ?, ?, ?, 0)";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql)) {
             pstat.setString(1, dto.getUserId());
@@ -97,10 +97,9 @@ public class MembersDAO {
             pstat.setString(5, dto.getPhone());
             pstat.setString(6, dto.getEmail());
             pstat.setString(7, dto.getGender());
-            pstat.setString(8, dto.getSignout());
-            pstat.setString(9, dto.getBirth_date());
-            pstat.setInt(10, dto.getAdminKey());
-            pstat.setString(11, dto.getTempCode());
+            pstat.setString(8, dto.getBirth_date());
+            pstat.setInt(9, dto.getAdminKey());
+            pstat.setString(10, dto.getTempCode());
 
             int result = pstat.executeUpdate();
             System.out.println("Insert 결과: " + result);
@@ -125,14 +124,14 @@ public class MembersDAO {
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
                     String gender = rs.getString("gender");
-                    String signout = rs.getString("signout");
                     String birth_date = rs.getString("birth_date");
                     Timestamp join_date = rs.getTimestamp("join_date");
                     Timestamp upd_date = rs.getTimestamp("upd_date");
                     int adminKey = rs.getInt("adminKey");
                     String tempCode = rs.getString("tempCode");
-
-                    return new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode);
+                    int blacklistSeq = rs.getInt("blacklistSeq");
+                    return new MembersDTO(userSeq, userId, userPwd, userName, nickName, 
+                    		phone, email, gender, birth_date, join_date, upd_date, adminKey, tempCode, blacklistSeq);
                 }
             }
         }
@@ -152,7 +151,8 @@ public class MembersDAO {
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
                     Timestamp join_date = rs.getTimestamp("join_date");
-                    return new MembersDTO(0, userId, null, userName, nickName, phone, email, null, null, null, join_date, null, 0, null);
+                    return new MembersDTO(0, userId, null, userName, nickName, phone, email, 
+                    		null, null, join_date, null, 0, null, 0);
                 }
             }
         }
@@ -259,8 +259,9 @@ public class MembersDAO {
                     Timestamp upd_date = rs.getTimestamp("upd_date");
                     int adminKey = rs.getInt("adminKey");
                     String tempCode = rs.getString("tempCode");
-
-                    return new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender, signout, birth_date, join_date, upd_date, adminKey, tempCode);
+                    int blacklistSeq = rs.getInt("blacklistSeq");
+                    return new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, 
+                    		email, gender, birth_date, join_date, upd_date, adminKey, tempCode, blacklistSeq);
                 }
             }
         }
