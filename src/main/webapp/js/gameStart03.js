@@ -1,6 +1,7 @@
 class gameStart03 extends Phaser.Scene {
     constructor() {
         super({ key: 'gameStart03' });
+        
     }
 
     preload() {
@@ -13,6 +14,7 @@ class gameStart03 extends Phaser.Scene {
         this.background.setOrigin(0.5, 0.5);
         this.background.displayWidth = this.cameras.main.width;
         this.background.displayHeight = this.cameras.main.height;
+        
        
         // 화면 중앙에 텍스트 추가
         this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 100, 'Shoot Enemies', {

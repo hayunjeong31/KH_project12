@@ -59,7 +59,7 @@ class gameOver03 extends Phaser.Scene{
         })
 
         restartButton.on("pointerdown",()=>{
-            this.scene.start("Game03");
+            this.scene.start("game03");
         })
 
     }
