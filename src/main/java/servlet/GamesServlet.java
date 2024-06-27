@@ -35,6 +35,7 @@ public class GamesServlet extends HttpServlet {
             String action = request.getParameter("action");
 
             if ("checkServerRestart".equals(action)) {
+                // 서버가 재시작되었는지 여부를 확인합니다.
                 Boolean serverRestarted = (Boolean) request.getServletContext().getAttribute("serverRestarted");
 
                 response.setContentType("application/json");
@@ -45,135 +46,147 @@ public class GamesServlet extends HttpServlet {
                 out.write(jsonServerRestarted);
                 out.close();
 
-                // 서버 초기화 플래그를 재설정합니다.
+                // 서버 재시작 플래그를 재설정합니다.
                 if (serverRestarted != null && serverRestarted) {
                     request.getServletContext().setAttribute("serverRestarted", false);
                 }
-            } else if ("getPlayCounts".equals(action)) {
-                try {
-                    GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
-                    Map<Integer, Integer> playCounts = gamesScoreDao.getPlayCounts();
-
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    PrintWriter out = response.getWriter();
-                    Gson gson = new Gson();
-                    String jsonPlayCounts = gson.toJson(playCounts);
-                    System.out.println("Play Counts: " + jsonPlayCounts); // 로그 추가
-                    out.write(jsonPlayCounts);
-                    out.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "플레이 횟수를 가져오는 중 오류가 발생했습니다");
-                }
-            } else if ("save".equals(action)) {
-                HttpSession session = request.getSession();
-                String userId = (String) session.getAttribute("loginID");
-                Integer userSeq = (Integer) session.getAttribute("userSeq");
-
-                if (userId == null || userId.isEmpty() || userSeq == null) {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not logged in");
-                    return;
-                }
-
-                try {
-                    int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
-                    int score = Integer.parseInt(request.getParameter("gameScore"));
-                    int gameRank = Integer.parseInt(request.getParameter("gameRank"));
-
-                    GameRankingDTO ranking = new GameRankingDTO();
-                    ranking.setUserId(userId);
-                    ranking.setGameSeq(gameSeq);
-                    ranking.setScore(score);
-                    ranking.setRank_date(new Timestamp(System.currentTimeMillis()));
-
-                    GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
-                    gamesRankingDao.insertGameRanking(ranking);
-
-                    GameScoreDTO gameScore = new GameScoreDTO();
-                    gameScore.setUserSeq(userSeq);
-                    gameScore.setGameSeq(gameSeq);
-                    gameScore.setGameScore(score);
-                    gameScore.setGameRank(gameRank);
-                    gameScore.setRecord_date(new Timestamp(System.currentTimeMillis()));
-
-                    GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
-                    gamesScoreDao.insertGameScore(gameScore);
-
-                    response.getWriter().write("Score saved successfully");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while saving score");
-                }
-            } else if ("retrieve".equals(action)) {
-                try {
-                    String gameSeqParam = request.getParameter("gameSeq");
-                    int gameSeq = gameSeqParam != null ? Integer.parseInt(gameSeqParam) : 1;
-
-                    GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
-                    List<GameRankingDTO> topRankings = gamesRankingDao.getTopRankingsByScore(gameSeq, 5);
-
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    PrintWriter out = response.getWriter();
-                    Gson gson = new Gson();
-                    String jsonRankings = gson.toJson(topRankings);
-                    out.write(jsonRankings);
-                    out.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving rankings");
-                }
-            } else if ("gamesList".equals(action)) {
-                try {
-                    GamesDAO gamesDao = GamesDAO.getInstance();
-                    List<GamesDTO> gamesList = gamesDao.getGamesList();
-
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    PrintWriter out = response.getWriter();
-                    Gson gson = new Gson();
-                    String jsonGamesList = gson.toJson(gamesList);
-                    out.write(jsonGamesList);
-                    out.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while retrieving games list");
-                }
-            } else if ("insertGame".equals(action)) {
-                try {
-                    String gameName = request.getParameter("gameName");
-
-                    GamesDTO game = new GamesDTO();
-                    game.setGameName(gameName);
-
-                    GamesDAO gamesDao = GamesDAO.getInstance();
-                    gamesDao.insertGame(game);
-
-                    response.getWriter().write("Game inserted successfully");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while inserting game");
-                }
-            } else if ("countRankings".equals(action)) {
-                try {
-                    int gameSeq = Integer.parseInt(request.getParameter("gameSeq"));
-                    GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
-                    int count = gamesRankingDao.countRankingsByGameSeq(gameSeq);
-
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    PrintWriter out = response.getWriter();
-                    Gson gson = new Gson();
-                    String jsonCount = gson.toJson(count);
-                    out.write(jsonCount);
-                    out.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while counting rankings");
-                }
             } else {
-                System.out.println("No valid action provided");
+                // 공통 트라이-캐치 블록으로 묶음
+                try {
+                    if ("getPlayCounts".equals(action)) {
+                        // 각 게임의 플레이 횟수를 가져옵니다.
+                        GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
+                        Map<Integer, Integer> playCounts = gamesScoreDao.getPlayCounts();
+
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        PrintWriter out = response.getWriter();
+                        Gson gson = new Gson();
+                        String jsonPlayCounts = gson.toJson(playCounts);
+                        System.out.println("Play Counts: " + jsonPlayCounts); // 로그 추가
+                        out.write(jsonPlayCounts);
+                        out.close();
+                        
+                    } else if ("save".equals(action)) {
+                        // 게임 점수를 저장합니다.
+                        HttpSession session = request.getSession();
+                        String userId = (String) session.getAttribute("loginID");
+                        Integer userSeq = (Integer) session.getAttribute("userSeq");
+
+                        // 로그인하지 않은 경우 오류를 반환합니다.
+                        if (userId == null || userId.isEmpty() || userSeq == null) {
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not logged in");
+                            return;
+                        }
+
+                        // 게임 시퀀스 파라미터가 없는 경우 index.jsp로 리디렉션합니다.
+                        String gameSeqParam = request.getParameter("gameSeq");
+                        if (gameSeqParam == null) {
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+
+                        // 게임 점수와 랭크를 저장합니다.
+                        int gameSeq = Integer.parseInt(gameSeqParam);
+                        int score = Integer.parseInt(request.getParameter("gameScore"));
+                        int gameRank = Integer.parseInt(request.getParameter("gameRank"));
+
+                        GameRankingDTO ranking = new GameRankingDTO();
+                        ranking.setUserId(userId);
+                        ranking.setGameSeq(gameSeq);
+                        ranking.setScore(score);
+                        ranking.setRank_date(new Timestamp(System.currentTimeMillis()));
+
+                        GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
+                        gamesRankingDao.insertGameRanking(ranking);
+
+                        GameScoreDTO gameScore = new GameScoreDTO();
+                        gameScore.setUserSeq(userSeq);
+                        gameScore.setGameSeq(gameSeq);
+                        gameScore.setGameScore(score);
+                        gameScore.setGameRank(gameRank);
+                        gameScore.setRecord_date(new Timestamp(System.currentTimeMillis()));
+
+                        GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
+                        gamesScoreDao.insertGameScore(gameScore);
+
+                        response.getWriter().write("Score saved successfully");
+                        
+                    } else if ("retrieve".equals(action)) {
+                        // 상위 5개의 게임 랭킹을 가져옵니다.
+                        String gameSeqParam = request.getParameter("gameSeq");
+                        if (gameSeqParam == null) {
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+
+                        int gameSeq = Integer.parseInt(gameSeqParam);
+
+                        GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
+                        List<GameRankingDTO> topRankings = gamesRankingDao.getTopRankingsByScore(gameSeq, 5);
+
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        PrintWriter out = response.getWriter();
+                        Gson gson = new Gson();
+                        String jsonRankings = gson.toJson(topRankings);
+                        out.write(jsonRankings);
+                        out.close();
+                        
+                    } else if ("gamesList".equals(action)) {
+                        // 모든 게임 목록을 가져옵니다.
+                        GamesDAO gamesDao = GamesDAO.getInstance();
+                        List<GamesDTO> gamesList = gamesDao.getGamesList();
+
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        PrintWriter out = response.getWriter();
+                        Gson gson = new Gson();
+                        String jsonGamesList = gson.toJson(gamesList);
+                        out.write(jsonGamesList);
+                        out.close();
+                        
+                    } else if ("insertGame".equals(action)) {
+                        // 새로운 게임을 추가합니다.
+                        String gameName = request.getParameter("gameName");
+
+                        GamesDTO game = new GamesDTO();
+                        game.setGameName(gameName);
+
+                        GamesDAO gamesDao = GamesDAO.getInstance();
+                        gamesDao.insertGame(game);
+
+                        response.getWriter().write("Game inserted successfully");
+                        
+                    } else if ("countRankings".equals(action)) {
+                        // 특정 게임의 랭킹 수를 가져옵니다.
+                        String gameSeqParam = request.getParameter("gameSeq");
+                        if (gameSeqParam == null) {
+                            response.sendRedirect("index.jsp");
+                            return;
+                        }
+
+                        int gameSeq = Integer.parseInt(gameSeqParam);
+
+                        GamesRankingDAO gamesRankingDao = GamesRankingDAO.getInstance();
+                        int count = gamesRankingDao.countRankingsByGameSeq(gameSeq);
+
+                        response.setContentType("application/json");
+                        response.setCharacterEncoding("UTF-8");
+                        PrintWriter out = response.getWriter();
+                        Gson gson = new Gson();
+                        String jsonCount = gson.toJson(count);
+                        out.write(jsonCount);
+                        out.close();
+                        
+                    } else {
+                        // 유효하지 않은 액션 처리
+                        System.out.println("No valid action provided");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -391,7 +391,7 @@ class game01 extends Phaser.Scene {
         var params = new URLSearchParams({
             action: 'save',
             userSeq: userSeq,
-            gameSeq: gameSeq,
+            gameSeq: 1,
             gameScore: this.timer,
             gameRank: this.gameRank, // 게임 랭크를 실제로 전송
             userId: this.userId // 세션에서 가져온 userId 사용
