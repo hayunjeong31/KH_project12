@@ -119,8 +119,9 @@ public class DashboardDAO {
 				int adminKey = rs.getInt("adminkey");
 				String tempCode = rs.getString("tempcode");
 				int blacklistSeq = rs.getInt("blacklistseq");
-				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
-						birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
+				String signout = rs.getString("signout");
+				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender
+						,signout,birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);
 
 			}
@@ -148,17 +149,16 @@ public class DashboardDAO {
 				String phone = rs.getString("phone");
 				String email = rs.getString("email");
 				String gender = rs.getString("gender");
+				String signout = rs.getString("signout");
 				String birth_date = rs.getString("birth_date");
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
 				int adminKey = rs.getInt("adminkey");
 				String tempCode = rs.getString("tempcode");
-<<<<<<< HEAD
 				int blacklistSeq = rs.getInt("blacklistseq");
-=======
->>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
+
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
-						birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
+						signout, birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);
 
 			}
@@ -186,6 +186,7 @@ public class DashboardDAO {
 				String phone = rs.getString("phone");
 				String email = rs.getString("email");
 				String gender = rs.getString("gender");
+				String signout = rs.getString("signout");
 				String birth_date = rs.getString("birth_date");
 				Timestamp join_date = rs.getTimestamp("join_date");
 				Timestamp updated_date = rs.getTimestamp("upd_date");
@@ -194,7 +195,7 @@ public class DashboardDAO {
 				int blacklistSeq = rs.getInt("blacklistseq");
 
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
-						birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
+						signout,birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);
 
 			}
@@ -318,6 +319,7 @@ public class DashboardDAO {
 					String phone = rs.getString("phone");
 					String email = rs.getString("email");
 					String gender = rs.getString("gender");
+					String signout = rs.getString("signout");
 					Timestamp join_date = rs.getTimestamp("join_date");
 					Timestamp upd_date = rs.getTimestamp("upd_date");
 					int adminKey = rs.getInt("adminKey");
@@ -326,7 +328,7 @@ public class DashboardDAO {
 					int blackListSeq = rs.getInt("blacklistSeq");
 
 					members = new MembersDTO(userSeq, userId, password, userName, nickName, phone, email, gender,
-							birth_date, join_date, upd_date, adminKey, tempCode, blackListSeq);
+							 signout,birth_date, join_date, upd_date, adminKey, tempCode, blackListSeq);
 				}
 			}
 		}

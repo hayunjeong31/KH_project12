@@ -120,18 +120,10 @@ public class MembersController extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String birth_date = request.getParameter("birth_date");
                 int adminKey = Integer.parseInt(request.getParameter("adminKey"));
-<<<<<<< HEAD
-                tempCode = request.getParameter("tempCode");
-                
-                response.setStatus(HttpServletResponse.SC_OK);
-                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email,
-                		gender, birth_date, null, null, adminKey, tempCode, 0);
-=======
                 String tempCode = null; // 가입 시에는 임시 코드 없음
 
-                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, "n", birth_date, null, null, adminKey, tempCode);
+                MembersDTO dto = new MembersDTO(0, userId, userPwd, userName, nickName, phone, email, gender, "n", birth_date, null, null, adminKey, tempCode, 0);
 
->>>>>>> 500f1f0cbd78c44c5c2d6effdf1810afcac1321a
                 try {
                     int result = dao.addMember(dto);
                     if (result > 0) {

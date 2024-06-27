@@ -90,7 +90,7 @@ public class DashboardController extends HttpServlet {
 				List<BoardDTO> board = dao.showAllBoardByUserId(member.getUserId());
 				session.setAttribute("memberInfo", member);
 				
-				int blackListSeq = member.getBlacklistSeq();
+				int blackListSeq = dao.getBlackListSeq(member.getUserSeq());
 				String blockedReason = dao.getBlockedReason(blackListSeq);
 				session.setAttribute("blockedReason", blockedReason);
 				session.setAttribute("userId", member.getUserId());
