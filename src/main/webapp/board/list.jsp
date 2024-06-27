@@ -14,8 +14,8 @@
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
  
-    <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
-
+<link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
 
         * {
@@ -128,8 +128,8 @@
         }
 
         .board-table tbody tr {
-        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
 
         .board-table tbody tr:nth-child(even) {
@@ -528,7 +528,7 @@
     	
     	$(".new-button").on("click",function(){
     		if(!loginID){
-    			alert("로그인을 하세요");
+    			alert("로그인이 필요합니다.");
     			return;
     		}
     		location.href="/bookmark.bookmark";
@@ -544,7 +544,7 @@
 	               </c:when>
 	               <c:otherwise>
 	                   alert("로그인이 필요합니다.");
-	                   location.href = "/index.jsp";
+	                   location.href = "/list.board";
 	               </c:otherwise>
 	           </c:choose>
         });

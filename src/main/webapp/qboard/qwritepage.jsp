@@ -18,6 +18,7 @@
  
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
 </head>
 <style>
@@ -105,7 +106,7 @@ body, html {
 .form-field input[type="text"],
 .form-field textarea,
 .form-field input[type="file"] {
-    font-family: Arial, sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -183,7 +184,7 @@ input{
  /* Summernote 배경색 설정 */
      .note-editable {
          background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-       font-family: Arial, sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
      }
      .note-placeholder {
     font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
