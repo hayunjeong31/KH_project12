@@ -214,7 +214,7 @@
         </div>
                 
         <div id="game2" class="tab-content">
-            <h2> 🏆 game2</h2>
+            <h2> 🏆 Mission</h2>
             <ol>
                 <li>Player1</li>
                 <li>Player2</li>
