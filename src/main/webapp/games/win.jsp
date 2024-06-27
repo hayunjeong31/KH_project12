@@ -139,22 +139,23 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
                             <a href="#">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/board.html">게시판</a>
+                        <a href="/board.html">게시판</a>
                         <div class="dropdown">
-                            <a href="../board.html">게시판</a>
-                            <a href="#">Q&A</a>
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
                             <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
                         <a href="#">마이페이지</a>
                         <div class="dropdown">
-                            <a href="${pageContext.request.contextPath}/members/mypage.jsp">내 정보 수정</a>
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
                     <li>
