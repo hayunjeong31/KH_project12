@@ -604,12 +604,13 @@ footer {
                 <p>
                     제목: 블럭 깨기<br>
                     장르: 액션<br>
-                    게임설명:하늘에서 내려오는 다양한 블럭들을 공으로 부수면서 점수를 얻어가는 게임! 스코어: 빨강 10, 초록 20 , 파랑 30 , 분홍 40 , 노랑50<br>
+                    게임설명:하늘에서 내려오는 다양한 블럭들을 공으로 부수면서 점수를 얻어가는 게임!<br> 
+                   스코어: 빨강 10, 초록 20 , 파랑 30 , 분홍 40 , 노랑50<br>                   
                 </p>
             </div>
             <div class="item game-image">
                 <a href="games/gamePage04.jsp">
-                    <img src="image/Block.png" alt="게임 이미지" class="img-fluid">
+                    <img src="image/play.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
