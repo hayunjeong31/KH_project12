@@ -349,7 +349,7 @@ input{
 	            	    'unicode-bidi': 'isolate',
 	            	    'font-variant-numeric': 'tabular-nums',
 	            	    'text-transform': 'none',
-	            	    'text-indent': '10px', // 모든 줄을 20px 들여쓰기
+	            	    'text-indent': '0px', // 모든 줄을 20px 들여쓰기
 	            	    'text-align': 'start',
 	            	    'text-align-last': 'start'
 	            	});

@@ -16,7 +16,7 @@
     
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,6 +154,39 @@
             box-shadow: 0 0 20px 5px rgba(255, 223, 0, 0.5); /* 빛나는 효과 추가 */
             text-align:center;
         }
+        
+         .favorite-box {
+        position: absolute;
+        top: 100px;
+        right: 100px;
+        background-color: rgba(228, 231, 231, 0.76);
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 1100;
+        cursor: pointer;
+    }
+
+    .favorite-button {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .favorite-button i {
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+    .favorite-button.active {
+        color: #FFD700; /* 황금색 */
+    }
 </style>
 <script>
         // JSP에서 사용자 정보를 자바스크립트로 전달
@@ -164,7 +197,7 @@
    <header>
         	<div class="header-container">
         		<a href="/index.jsp">
-            	<img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            	<img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -233,6 +266,13 @@
 
     <footer>
         <div class="footer-content">
+        
+              <div class="favorite-box">
+    <button class="favorite-button">
+        <i class="fas fa-star"></i> 즐겨 찾기
+    </button>
+</div>
+
             <div class="footer-icons">
                 <a href="https://www.facebook.com"><img src="../image/face.png" alt="Facebook"></a>
                 <a href="https://www.instagram.com"><img src="../image/insta.png" alt="Instagram"></a>
@@ -271,5 +311,50 @@
         };
     let game = new Phaser.Game(config);
 
+    
+    
+    $(document).ready(function() {
+        const favoriteButton = $('.favorite-button');
+
+        // 페이지 로드 시 즐겨찾기 상태 확인
+        $.ajax({
+            type: "GET",
+            url: `${pageContext.request.contextPath}/checkFavorite.Favorite`,
+            data: {
+                userId: '${sessionScope.loginID}',
+                pageUrl: window.location.href
+            },
+            success: function(response) {
+                if (response.isFavorite) {
+                    favoriteButton.addClass('active');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("오류가 발생했습니다.");
+            }
+        });
+
+        // 즐겨찾기 버튼 클릭 이벤트
+        favoriteButton.on('click', function() {
+            favoriteButton.toggleClass('active');
+            const isFavorite = favoriteButton.hasClass('active');
+
+            $.ajax({
+                type: "GET",
+                url: `${pageContext.request.contextPath}/updateFavorite.Favorite`,
+                data: {
+                    userId: '${sessionScope.loginID}',
+                    pageUrl: window.location.href,
+                    isFavorite: isFavorite
+                },
+                success: function(response) {
+                    alert(response.message);
+                },
+                error: function(xhr, status, error) {
+                    alert("오류가 발생했습니다.");
+                }
+            });
+        });
+    });
 </script>
 </html>
