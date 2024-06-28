@@ -8,11 +8,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
     <title>게시물 작성</title>
 
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     
@@ -40,14 +40,10 @@
 	    align-items: center;
 	    height: 100%;
 	    background-color: #f4f4f4;
-	<<<<<<< HEAD
-	    background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
-	    
-	=======
+	
 	    background-image: url('../image/5033917.jpg');
 	     
-	>>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
-	}
+
 	
 	.create-post-section {
 	    display: flex;
@@ -163,22 +159,22 @@
 	    display: none;
 	}
 	header {
-	      position: fixed;
-	      width: 100%;
-	      top: 0;
-	      left: 0;
-	      z-index: 1000;
-	      background-color: black;
-	      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	      height: 60px;
-	      background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
-	      
-	  }
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+            background-color: black;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 60px;
+            background-image: url('../image/5033917.jpg');
+
+        }
  	/* Summernote 배경색 설정 */
 	.note-editable {
 		background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
 		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-
+		
 	}
     .note-placeholder {
 	    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
@@ -352,7 +348,28 @@
               ['table', ['table']],
               ['insert', ['link', 'picture', 'video']],
               ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+            ],
+            callbacks: {
+	            onInit: function() {
+	                // 에디터 초기화 후 실행할 작업
+	            	$('.note-editable').css({
+	            	    'unicode-bidi': 'isolate',
+	            	    'font-variant-numeric': 'tabular-nums',
+	            	    'text-transform': 'none',
+	            	    'text-indent': '10px', // 모든 줄을 20px 들여쓰기
+	            	    'text-align': 'start',
+	            	    'text-align-last': 'start'
+	            	});
+
+	            },
+	            onChange: function(contents, $editable) {
+	                // 내용이 변경될 때 추가 작업 수행
+	                $('.note-editable ul, .note-editable ol').css({
+	                    'margin-left': '20px', // ul, ol의 왼쪽 여백 설정 (예시에서는 20px로 설정)
+	                    'padding-left': '0'     // ul, ol의 내부 padding 초기화
+	                });
+	            }
+	        }
           });
         
         $("#btnlist").on("click",function(){

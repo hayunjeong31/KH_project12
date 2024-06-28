@@ -867,7 +867,8 @@
 			        // 삭제된 댓글 처리
 			    if (comment.isDeleted === 'y') {
 			        if (comment.replies && comment.replies.length > 0) {
-			            commentDiv.append("<div>삭제된 댓글입니다</div>");
+			            commentDiv.append("<div class='deleted-reply' style='height:80px; font-weight:bold; padding:30px 10px;'>삭제된 댓글입니다</div>");
+			            
 			        } else {
 			            // 답글이 없는 경우 해당 댓글 출력하지 않음
 			            return;
@@ -912,9 +913,10 @@
 			        if (comment.userId === loginID) {
 			        	//1. 수정버튼 
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
-			    	
-					        $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
-					        $(".common-button:contains('답글')").show();
+			    			
+				    		$(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("삭제")').hide();
+					       // $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
+					       // $(".common-button:contains('답글')").hide();
 				    		
 			    		
 			                // contenteditable TRUE 	추가
@@ -943,8 +945,14 @@
 				                });
 		    		        
 			                let cancelButton = $("<button>", {"class": "common-button"}).text("취소").click(function() {
-			                    editTextarea.html(originalContent); // 원래 내용으로 복원
-			                    location.reload(); // 페이지 새로고침
+			                   // editTextarea.html(originalContent); // 원래 내용으로 복원
+			                   // location.reload(); // 페이지 새로고침
+				                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "false").css("background-color", "");
+				                editTextarea.html(originalContent);
+				                $(this).closest('.breakbox').find('.common-button:contains("수정"), .common-button:contains("삭제")').show();
+				                $(".common-button:contains('답글')").show();
+				                $(this).closest('.breakbox').find('.common-button:contains("저장"), .common-button:contains("취소")').hide();
+
 			                });
 			                
 			                $(this).parent().append(submitEditButton, cancelButton); // 수정 textarea, 저장 버튼 나오게

@@ -131,7 +131,7 @@
         .form-field input[type="text"],
         .form-field input[type="file"] {
             width: 100%;
-            padding: 10px;
+            padding: 4px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
@@ -174,9 +174,10 @@
         
         /* Summernote 배경색 설정 */
         .note-editable {
-            background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+           background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+           height:450px;
         }
-   
+   		
 	   .note-resizebar{
 	   	 	display: none;
 	   }
@@ -215,6 +216,7 @@
 		.welcome-text-button:hover {
 		    background: rgba(0, 0, 0, 0.7);
 		}
+		
     </style>
 </head>
 
@@ -352,7 +354,7 @@
 	    $('#summernote').summernote({
 	        placeholder: '내용을 입력해 주세요.',
 	        tabsize: 2,
-	        height: 250,
+	        height: 350,
 	        toolbar: [
 	          ['style', ['style']],
 	          ['font', ['bold', 'underline', 'clear']],
@@ -361,7 +363,28 @@
 	          ['table', ['table']],
 	          ['insert', ['link', 'picture', 'video']],
 	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
+	        ],
+	        callbacks: {
+	            onInit: function() {
+	                // 에디터 초기화 후 실행할 작업
+	            	$('.note-editable').css({
+	            	    'unicode-bidi': 'isolate',
+	            	    'font-variant-numeric': 'tabular-nums',
+	            	    'text-transform': 'none',
+	            	    'text-indent': '10px', // 모든 줄을 20px 들여쓰기
+	            	    'text-align': 'start',
+	            	    'text-align-last': 'start'
+	            	});
+
+	            },
+	            onChange: function(contents, $editable) {
+	                // 내용이 변경될 때 추가 작업 수행
+	                $('.note-editable ul, .note-editable ol').css({
+	                    'margin-left': '20px', // ul, ol의 왼쪽 여백 설정 (예시에서는 20px로 설정)
+	                    'padding-left': '0'     // ul, ol의 내부 padding 초기화
+	                });
+	            }
+	        }
 	    });
 	
 	    // 게시글 수정취소 버튼
