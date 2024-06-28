@@ -262,11 +262,12 @@ footer {
     overflow: hidden;
     justify-content: center;
     margin: 0 auto;
+    
 }
 
 .slides img {
     width: 100%;
-    height: 100%;
+    height: 76%;
     display: none;
     position: absolute;
     margin-top: 150px;
