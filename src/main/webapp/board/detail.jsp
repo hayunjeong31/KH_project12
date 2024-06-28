@@ -359,7 +359,7 @@
    	 	.col4{
    	 		float:left;
    	 		padding-left:10px;
-   	 		width:30%;
+   	 		width:40%;
    	 		padding-right:20px;
    	 	}
    	 		/*댓글 내용 부분*/
@@ -367,6 +367,13 @@
    	 		word-wrap: break-word;
    	 		padding-bottom: 9px;
    	 		padding-left:10px;
+   	 		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
    	 	}
    	 	
    	 	button{
@@ -448,17 +455,19 @@
     position: relative; /* position 속성 추가 */
 }
 
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
+		.welcome-text-button i {
+		    position: absolute;
+		    left: 10px; /* 아이콘 위치 조정 */
+		    top: 50%;
+		    transform: translateY(-50%);
+		}
 		
+		.welcome-text-button:hover {
+		    background: rgba(0, 0, 0, 0.7);
+		}
+		.no-resize{
+			resize:none;
+		}
     </style>
 </head>
 
@@ -478,7 +487,7 @@
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
                             
-                            <a href="#">즐겨찾기</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                             
                         </div>
                     </li>
@@ -487,7 +496,7 @@
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
+                            
                         </div>
                     </li>
                     <li>
@@ -584,7 +593,7 @@
                 </div>
                		<div class="post-comments">
 	                    <h3>댓글</h3>
-	                    <textarea id="new-comment" placeholder="댓글 입력"></textarea>
+	                    <textarea class="no-resize" rows="3" cols="50" id="new-comment" placeholder="댓글 입력"></textarea>
 	                    <button type="button" id="submit-comment">등록</button>
 	                </div>
 
