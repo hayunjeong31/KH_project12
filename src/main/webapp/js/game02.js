@@ -12,6 +12,8 @@ class game02 extends Phaser.Scene {
         this.highScore = 0;
         this.gameRank = 1; // 게임 랭크 초기화
         this.userId = null; // 유저 ID 초기화
+        this.userSeq = null;
+        this.gameSeq = 2;
     }
 
     init(){
@@ -91,8 +93,9 @@ class game02 extends Phaser.Scene {
         this.player.setSize(20 / scaleFactor, 45 / scaleFactor);
 
         this.physics.add.collider(this.player, this.boxes, (player, boxes) => {
-            this.scene.start("gameOver02");
+            /*this.scene.start("gameOver02");*/
             this.scene.get('gameOver02').data.set('timer', this.timer); // Timer 값을 GameOver 페이지에 보냄
+            this.gameOver02(this.userSeq,this.gameSeq);
         });
 
         this.timerText = this.add.text(this.cameras.main.width - 300, 10, '0', {
@@ -225,7 +228,7 @@ class game02 extends Phaser.Scene {
         }
     }
     
-    gameOver(userSeq, gameSeq) {
+    gameOver02(userSeq, gameSeq) {
         if (this.timer > this.highScore) {
             this.highScore = this.timer;
             localStorage.setItem('highScore', this.highScore); // 새로운 최고 기록 저장
@@ -235,8 +238,8 @@ class game02 extends Phaser.Scene {
         var xhr = new XMLHttpRequest();
         var params = new URLSearchParams({
             action: 'save',
-            userSeq: userSeq,
-            gameSeq: gameSeq,
+            userSeq: this.userSeq,
+            gameSeq: this.gameSeq,
             gameScore: this.timer,
             gameRank: this.gameRank, // 게임 랭크를 실제로 전송
             userId: this.userId // 세션에서 가져온 userId 사용
