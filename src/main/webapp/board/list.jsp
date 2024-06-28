@@ -14,8 +14,8 @@
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
  
-    <link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
-
+<link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
 
         * {
@@ -128,8 +128,8 @@
         }
 
         .board-table tbody tr {
-        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
 
         .board-table tbody tr:nth-child(even) {
@@ -181,7 +181,7 @@
             background-color: black;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             height: 60px;
-            background-image: url('${pageContext.request.contextPath}/image/5033917.jpg');
+            background-image: url('../image/5033917.jpg');
 
         }
         
@@ -329,32 +329,32 @@
             background-color: #36333a56;
         }
         .welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
-.welcome-text-button {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative; /* position 속성 추가 */
-}
-
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
+	  font-weight: bold;
+	  color: #fff;
+	  margin-right: 20px;
+	}
+	.welcome-text-button {
+	    color: #fff;
+	    font-weight: bold;
+	    cursor: pointer;
+	    margin-right: 10px;
+	    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+	    background: rgba(0, 0, 0, 0.5);
+	    border-radius: 5px;
+	    transition: background 0.3s;
+	    position: relative; /* position 속성 추가 */
+	}
+	
+	.welcome-text-button i {
+	    position: absolute;
+	    left: 10px; /* 아이콘 위치 조정 */
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+	
+	.welcome-text-button:hover {
+	    background: rgba(0, 0, 0, 0.7);
+	}
     
     </style>
     <title>게시판</title>
@@ -364,7 +364,7 @@
     <header>
         <div class="header-container">
         <a href="/index.jsp">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -375,9 +375,9 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
+                            
                             <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                            
                         </div>
                     </li>
                     <li>
@@ -397,11 +397,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -532,10 +528,10 @@
     	
     	$(".new-button").on("click",function(){
     		if(!loginID){
-    			alert("로그인을 하세요");
+    			alert("로그인이 필요합니다.");
     			return;
     		}
-    		location.href="/bookmark.bookmark";
+    		location.href="board/bookmark.jsp";
     	})
     	
     	$("#btnhome").on("click",function(){
@@ -548,7 +544,7 @@
 	               </c:when>
 	               <c:otherwise>
 	                   alert("로그인이 필요합니다.");
-	                   location.href = "/index.jsp";
+	                   location.href = "/list.board";
 	               </c:otherwise>
 	           </c:choose>
         });

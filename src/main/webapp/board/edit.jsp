@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
     <style>
         * {
@@ -130,11 +131,11 @@
         .form-field input[type="text"],
         .form-field input[type="file"] {
             width: 100%;
-            padding: 10px;
+            padding: 4px;
             border: 1px solid #cccccc77;
             border-radius: 5px;
             font-size: 1em;
-            font-family: 'Open Sans', sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             
         }
 
@@ -173,9 +174,10 @@
         
         /* Summernote 배경색 설정 */
         .note-editable {
-            background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+           background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+           height:450px;
         }
-   
+   		
 	   .note-resizebar{
 	   	 	display: none;
 	   }
@@ -183,37 +185,38 @@
 	   	margin-bottom:0;
 	   	padding-bottom:0;
 	   }
-	   .uploadedFile .file-list{
-	  	padding-left:10px;
-	   	margin-bottom:2%;
+	   	.uploadedFile .file-list{
+	  		padding-left:10px;
+	   		margin-bottom:2%;
 	   }
-	   .welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
-.welcome-text-button {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative; /* position 속성 추가 */
-}
+	   	.welcome-text {
+		  	font-weight: bold;
+		  	color: #fff;
+		  	margin-right: 20px;
+		}
+		.welcome-text-button {
+		    color: #fff;
+		    font-weight: bold;
+		    cursor: pointer;
+		    margin-right: 10px;
+		    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+		    background: rgba(0, 0, 0, 0.5);
+		    border-radius: 5px;
+		    transition: background 0.3s;
+		    position: relative; /* position 속성 추가 */
+		}
 
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
+		.welcome-text-button i {
+		    position: absolute;
+		    left: 10px; /* 아이콘 위치 조정 */
+		    top: 50%;
+		    transform: translateY(-50%);
+		}
 
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
+		.welcome-text-button:hover {
+		    background: rgba(0, 0, 0, 0.7);
+		}
+		
     </style>
 </head>
 
@@ -221,7 +224,7 @@
     <header>
         <div class="header-container">
         <a href="/index.jsp">
-            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo"></a>
+            <img src="/image/gamebitlogo2.png" alt="Gamebit Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -232,9 +235,9 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
+                            
                             <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                           
                         </div>
                     </li>
                     <li>
@@ -254,11 +257,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -355,7 +354,7 @@
 	    $('#summernote').summernote({
 	        placeholder: '내용을 입력해 주세요.',
 	        tabsize: 2,
-	        height: 250,
+	        height: 350,
 	        toolbar: [
 	          ['style', ['style']],
 	          ['font', ['bold', 'underline', 'clear']],
@@ -364,7 +363,28 @@
 	          ['table', ['table']],
 	          ['insert', ['link', 'picture', 'video']],
 	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
+	        ],
+	        callbacks: {
+	            onInit: function() {
+	                // 에디터 초기화 후 실행할 작업
+	            	$('.note-editable').css({
+	            	    'unicode-bidi': 'isolate',
+	            	    'font-variant-numeric': 'tabular-nums',
+	            	    'text-transform': 'none',
+	            	    'text-indent': '0px', // 모든 줄을 20px 들여쓰기
+	            	    'text-align': 'start',
+	            	    'text-align-last': 'start'
+	            	});
+
+	            },
+	            onChange: function(contents, $editable) {
+	                // 내용이 변경될 때 추가 작업 수행
+	                $('.note-editable ul, .note-editable ol').css({
+	                    'margin-left': '20px', // ul, ol의 왼쪽 여백 설정 (예시에서는 20px로 설정)
+	                    'padding-left': '0'     // ul, ol의 내부 padding 초기화
+	                });
+	            }
+	        }
 	    });
 	
 	    // 게시글 수정취소 버튼

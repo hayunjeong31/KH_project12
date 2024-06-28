@@ -20,12 +20,10 @@
 <link rel="stylesheet" href="css/header_styles.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
-<<<<<<< HEAD
-=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
-    <style>
+<style>
         
 
 .header-container {
@@ -227,19 +225,6 @@ nav ul li:hover>.dropdown {
             align-items: center;
         }
 
-        .new-button {
-            padding: 8px 16px;
-            background-color: rgb(64, 64, 116);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 850px;
-            /* This might need adjustment based on your layout */
-            font-family: "GalmuriMono9", monospace;
-            
-        }
-
         .board-area h2 {
             margin-bottom: 20px;
             font-size: 24px;
@@ -271,6 +256,7 @@ nav ul li:hover>.dropdown {
 
         .board-table tbody tr {
             background-color: #f9f9f9b9;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
 
         .board-table tbody tr:nth-child(even) {
@@ -298,11 +284,8 @@ nav ul li:hover>.dropdown {
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
-<<<<<<< HEAD
             font-family: "GalmuriMono9", monospace;
-=======
             text-align:center;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         .pagination a.active{
         	font-weight: bold;
@@ -311,17 +294,12 @@ nav ul li:hover>.dropdown {
         .pagination a:hover{
         	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
-<<<<<<< HEAD
-            
-=======
             font-weight: bold;
-           
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
 
         .board-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             width: 100%;
             max-width: 800px;
             
@@ -342,12 +320,7 @@ nav ul li:hover>.dropdown {
 
         
         .board-buttons .home-button:hover {
-<<<<<<< HEAD
             background-color: rgb(64, 64, 116);
-            
-=======
-            background-color: rgb(64, 64, 116); 
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
         }
         header {
             position: fixed;
@@ -360,26 +333,24 @@ nav ul li:hover>.dropdown {
             height: 60px;
             background-image: url('image/9.png');
         }
-<<<<<<< HEAD
-=======
         
         .welcome-text {
-  font-weight: bold;
-  color: #fff;
-  margin-right: 20px;
-}
+  			font-weight: bold;
+  			color: #fff;
+  			margin-right: 20px;
+		}
         
         .welcome-text-button {
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative; /* position 속성 추가 */
-}
+    		color: #fff;
+    		font-weight: bold;
+    		cursor: pointer;
+    		margin-right: 10px;
+    		padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    		background: rgba(0, 0, 0, 0.5);
+    		border-radius: 5px;
+    		transition: background 0.3s;
+    		position: relative; /* position 속성 추가 */
+		}
 
 .welcome-text-button i {
     position: absolute;
@@ -407,7 +378,6 @@ nav ul li:hover>.dropdown {
 	       	padding: 0 30px !important;
 	       	text-align: left;
 		}
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
     </style>
     <title>게시판</title>
 </head>
@@ -416,7 +386,7 @@ nav ul li:hover>.dropdown {
     <header>
         <div class="header-container">
         <<a href="/index.jsp">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -487,9 +457,6 @@ nav ul li:hover>.dropdown {
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
-                <div class="top-right-button">
-                    <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
-                </div>
                 <h2></h2>
                 <table class="board-table">
                     <thead>

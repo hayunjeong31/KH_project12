@@ -411,7 +411,7 @@ font-family: 'Open Sans', sans-serif;
 	<header>
 		<div class="header-container">
 		<a href="/index.jsp">
-			<img src="image/GamebitLogo.png" alt="Logo" class="logo"></a>
+			<img src="image/gamebitlogo2.png" alt="Logo" class="logo"></a>
 			<nav>
 				<ul>
 					<li><a href="/index.jsp">홈</a>
