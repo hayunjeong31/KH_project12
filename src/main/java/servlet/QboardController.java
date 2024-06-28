@@ -173,8 +173,11 @@ public class QboardController extends HttpServlet {
          // 게시글 보기
          else if (cmd.equals("/detail.qboard")) {
             String loginID = (String) request.getSession().getAttribute("loginID");
-            int adminKey = (Integer) request.getSession().getAttribute("adminKey");
-
+            Integer adminKey = (Integer) request.getSession().getAttribute("adminKey");
+         // 로그인 하지 않아도 list.qboard들어갈 수 있게 하기. 
+ 			if (adminKey == null) {
+ 		        adminKey = 0; // 0은 관리자가 아님을 의미하도록 가정
+ 		    }
             int seq = Integer.parseInt(request.getParameter("seq"));
 
             QBoardDTO dto = dao.getinfo(seq);

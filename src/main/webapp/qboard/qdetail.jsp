@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
     <title>게시물 상세보기</title>
     <style>
@@ -100,7 +101,8 @@
 			font-family: "GalmuriMono9", monospace;
 		}
         .board-area {
-         font-family: Arial, sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
             flex: 2;
             padding: 20px;
             display: flex;
@@ -242,6 +244,8 @@
         .post-attachments h3 {
             font-size: 1.2em;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
+            
         }
 
         .post-attachments ul {
@@ -274,11 +278,13 @@
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
+            font-family: "GalmuriMono9", monospace;
             
         }
 
         .post-comments textarea {
-        	font-family: Arial, sans-serif;
+        	            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -323,7 +329,8 @@
    	 	}
    	 	/*게시글 내용 영역*/
    	 	.contents{
-   	 		font-family: 'Open Sans', sans-serif;
+   	 		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+   	 	
    	 		min-height:150px;
    	 		margin-left:2%;
    	 		margin-right:2%;
@@ -416,11 +423,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -455,7 +458,8 @@
             <article class="board-area">
                 <h2></h2>
                 <div class="post-details">
-                    <p><strong>제목</strong><br>${dto.title}</p>
+                    <p style="margin-top: 20px; margin-bottom: 10px;"><strong>제목</strong></p>
+    				<p style="font-size: 18px; margin-top: 10px; margin-bottom: 20px;">${dto.title}</p>
                    
                     <p class="view-count-date">
                     	<span class="view-count">조회수 ${dto.view_count}</span>
@@ -469,7 +473,7 @@
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-                     <p><strong>글쓴이</strong><br>${dto.writer}</p>
+                    <p><strong>글쓴이</strong></p><div class="writer-section" style="margin-bottom: 20px;">${dto.writer}</div>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
                     
@@ -511,6 +515,7 @@
                 	<c:otherwise>
                 		<div class="post-comments">
 		                    <h3>댓글</h3>
+		                    <div class="message">답변이 작성되지 않았습니다.</div>
 		                </div>
                 	</c:otherwise>
                 </c:choose>
