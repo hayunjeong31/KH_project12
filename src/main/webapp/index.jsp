@@ -18,6 +18,7 @@
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
 <style>
     body {
@@ -106,7 +107,7 @@ header {
 
 .characters1 h1,
 .characters2 h2 {
-    font-family: "Roboto", sans-serif;
+    font-family:  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     font-weight: 300;
     font-size: 35px;
     color: white;
@@ -504,8 +505,8 @@ footer {
             <div class="slides">
                 <img src="image/background3.jpg" alt="Banner 1" class="active">
                 <img src="image/background.jpg" alt="Banner 2">
-                <img src="image/ded.png" alt="Banner 3">
-                <img src="image/skull.png" alt="Banner 4">
+                <img src="image/슛 에니미스.png" alt="Banner 3">
+                <img src="image/Block.png" alt="Banner 4">
                 <img src="image/poke.png" alt="Banner 4">
             </div>
         </div>
@@ -513,8 +514,8 @@ footer {
         <div class="thumbnails">
             <img src="image/background3.jpg" alt="Thumbnail 1" onclick="showSlide(0)">
             <img src="image/background.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
-            <img src="image/ded.png" alt="Thumbnail 3" onclick="showSlide(2)">
-            <img src="image/skull.png" alt="Thumbnail 2" onclick="showSlide(3)">
+            <img src="image/슛 에니미스.png" alt="Thumbnail 3" onclick="showSlide(2)">
+            <img src="image/Block.png" alt="Thumbnail 2" onclick="showSlide(3)">
             <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
         </div>
     </main>
@@ -531,20 +532,20 @@ footer {
 		        
 		        <div class="game">
 		            <img src="image/background.jpg" alt="Game 2">
-		            <h1>게임 2</h1>
+		            <h1>Mission</h1>
 		            <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
 		            <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
 		        </div>
 		        
 		        <div class="game">
-		            <img src="image/ded.png" alt="Game 3">
-		            <h1>게임 3</h1>
+		            <img src="image/슛 에니미스.png" alt="Game 3">
+		            <h1>슛 에니미스</h1>
 		            <p>플레이 횟수: <span class="play-count" data-game-id="3"></span></p>
 		            <p>게임 순위: <span class="rank" data-game-id="3"></span></p>
 		        </div>
 		        
 		        <div class="game">
-		            <img src="image/skull2.png" alt="Game 4">
+		            <img src="image/Block.png" alt="Game 4">
 		            <h1>게임 4</h1>
 		            <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
 		            <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
@@ -588,31 +589,31 @@ footer {
                 </a>
             </div>
             <div class="item game-image">
-                <a href="gamepage3.html">
-                    <img src="image/dung.png" alt="게임 이미지" class="img-fluid">
+                <a href="games/gamePage03.jsp">
+                    <img src="image/슛 에니미스.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-description">
                 <p>
-                    제목:<br>
-                    장르:<br>
-                    게임설명:<br>
+                    제목: 슛 에니미스<br>
+                    장르: 슈팅게임 <br>
+                    게임설명: 플레이어를 움직여 적들을 없애자!<br>
                 </p>
             </div>
             <div class="item game-description">
                 <p>
-                    제목:<br>
-                    장르:<br>
-                    게임설명:<br>
+                    제목: 블럭 깨기<br>
+                    장르: 액션<br>
+                    게임설명:하늘에서 내려오는 다양한 블럭들을 공으로 부수면서 점수를 얻어가는 게임! 스코어: 빨강 10, 초록 20 , 파랑 30 , 분홍 40 , 노랑50<br>
                 </p>
             </div>
             <div class="item game-image">
-                <a href="gamepage4.html">
-                    <img src="image/teraria.jpg" alt="게임 이미지" class="img-fluid">
+                <a href="games/gamePage04.jsp">
+                    <img src="image/Block.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
-                <a href="gamepage5.html">
+                <a href="games/gamePage05.jsp">
                     <img src="image/poke2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
@@ -791,12 +792,80 @@ footer {
                 } else {
                     console.error("Invalid response format or empty response for gameSeq: 2");
                 }
+
+                // 게임 시퀀스 3번에 대한 처리
+                if (response && typeof response === 'object' && response.hasOwnProperty("3")) {
+                    let playCount3 = response["3"];
+                    console.log("Setting play count for gameSeq 3: ", playCount3);
+                    let playCountElement3 = $(`.play-count[data-game-id="3"]`);
+                    let rankElement3 = $(`.rank[data-game-id="3"]`);
+
+                    if (playCountElement3.length > 0) {
+                        playCountElement3.text(playCount3);
+                    } else {
+                        console.error("No element found for gameSeq: 3");
+                    }
+
+                    if (rankElement3.length > 0) {
+                        rankElement3.text(3); // 순위를 3로 설정
+                    } else {
+                        console.error("No element found for gameSeq: 3");
+                    }
+                } else {
+                    console.error("Invalid response format or empty response for gameSeq: 3");
+                }
+
+                // 게임 시퀀스 4번에 대한 처리
+                if (response && typeof response === 'object' && response.hasOwnProperty("4")) {
+                    let playCount4 = response["4"];
+                    console.log("Setting play count for gameSeq 4: ", playCount4);
+                    let playCountElement4 = $(`.play-count[data-game-id="4"]`);
+                    let rankElement4 = $(`.rank[data-game-id="4"]`);
+
+                    if (playCountElement4.length > 0) {
+                        playCountElement4.text(playCount4);
+                    } else {
+                        console.error("No element found for gameSeq: 4");
+                    }
+
+                    if (rankElement4.length > 0) {
+                        rankElement4.text(4); // 순위를 4로 설정
+                    } else {
+                        console.error("No element found for gameSeq: 4");
+                    }
+                } else {
+                    console.error("Invalid response format or empty response for gameSeq: 4");
+                }
+
+                // 게임 시퀀스 5번에 대한 처리
+                if (response && typeof response === 'object' && response.hasOwnProperty("5")) {
+                    let playCount5 = response["5"];
+                    console.log("Setting play count for gameSeq 5: ", playCount5);
+                    let playCountElement5 = $(`.play-count[data-game-id="5"]`);
+                    let rankElement5 = $(`.rank[data-game-id="5"]`);
+
+                    if (playCountElement5.length > 0) {
+                        playCountElement5.text(playCount5);
+                    } else {
+                        console.error("No element found for gameSeq: 5");
+                    }
+
+                    if (rankElement5.length > 0) {
+                        rankElement5.text(5); // 순위를 5로 설정
+                    } else {
+                        console.error("No element found for gameSeq: 5");
+                    }
+                } else {
+                    console.error("Invalid response format or empty response for gameSeq: 5");
+                }
             },
             error: function(error) {
                 console.error("플레이 횟수를 가져오는 중 오류 발생:", error);
             }
         });
     });
+
+
 
 
     </script>
