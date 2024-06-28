@@ -12,7 +12,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
- 
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
  <style>
         /* Inline styles for specific to this HTML file */
 
@@ -125,8 +126,9 @@
         }
 
         .board-table tbody tr {
-        	font-family: Arial, sans-serif;
             background-color: #f9f9f9b9;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            
         }
 
         .board-table tbody tr:nth-child(even) {
@@ -296,7 +298,7 @@
             padding: 6px 10px;
             border: none;
             border-radius: 4px;
-             background-color: rgba(237, 175, 18, 0.973); /*주황색*/
+            background-color: rgba(237, 175, 18, 0.973); /*주황색*/
             color: white;
             font-size: 14px;
             cursor: pointer;
@@ -362,11 +364,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -628,7 +626,7 @@
             <c:otherwise>
                 $(".write-button").on("click", function() {
                     alert("로그인이 필요합니다.");
-                    location.href = "/index.jsp";
+                    location.href = "/list.qboard";
                 });	
             </c:otherwise>
         </c:choose>

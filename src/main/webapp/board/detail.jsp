@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/header_styles.css">
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     
     <title>게시물 상세보기</title>
    <style>
@@ -102,7 +103,7 @@
 			
 		}
         .board-area {
-        	font-family: 'Open Sans', sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             flex: 2;
             padding: 20px;
             display: flex;
@@ -266,7 +267,7 @@
         }
         
         .post-comments textarea {
-        	font-family: 'Open Sans', sans-serif;
+        	font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -314,7 +315,7 @@
     	}
    	 	/*게시글 내용 영역*/
    	 	.contents{
-   	 		font-family: 'Open Sans', sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
    	 		min-height:150px;
    	 		margin-left:2%;
    	 		margin-right:2%;
@@ -392,7 +393,7 @@
 		
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
-			font-family: 'Open Sans', sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             width: 20%;
             padding: 10px;
             padding-right: 0;
@@ -463,9 +464,9 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
+                            
                             <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                            
                         </div>
                     </li>
                     <li>
@@ -485,11 +486,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -525,7 +522,8 @@
             <article class="board-area">
                 <h2></h2>
                 <div class="post-details">
-                    <p><strong>제목</strong><br>${dto.title}</p>
+                	<p style="margin-top: 20px; margin-bottom: 10px;"><strong>제목</strong></p>
+    				<p style="font-size: 18px; margin-top: 10px; margin-bottom: 20px;">${dto.title}</p>
                     
                     <p class="view-count-date">
                     	<span class="view-count">조회수 ${dto.view_count}</span>
@@ -539,9 +537,10 @@
 	                       	</c:otherwise>
                     	</c:choose>
                     </p>
-                    <p><strong>글쓴이</strong><br><p>${dto.writer}</p></p>
+                    <p><strong>글쓴이</strong></p><div class="writer-section" style="margin-bottom: 20px;">${dto.writer}</div>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
+                  
                 </div>
                 <div class="post-actions">
                     <c:choose>
@@ -868,7 +867,8 @@
 			        // 삭제된 댓글 처리
 			    if (comment.isDeleted === 'y') {
 			        if (comment.replies && comment.replies.length > 0) {
-			            commentDiv.append("<div>삭제된 댓글입니다</div>");
+			            commentDiv.append("<div class='deleted-reply' style='height:80px; font-weight:bold; padding:30px 10px;'>삭제된 댓글입니다</div>");
+			            
 			        } else {
 			            // 답글이 없는 경우 해당 댓글 출력하지 않음
 			            return;
@@ -913,9 +913,10 @@
 			        if (comment.userId === loginID) {
 			        	//1. 수정버튼 
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
-			    	
-					        $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
-					        $(".common-button:contains('답글')").show();
+			    			
+				    		$(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("삭제")').hide();
+					       // $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
+					       // $(".common-button:contains('답글')").hide();
 				    		
 			    		
 			                // contenteditable TRUE 	추가
@@ -944,8 +945,14 @@
 				                });
 		    		        
 			                let cancelButton = $("<button>", {"class": "common-button"}).text("취소").click(function() {
-			                    editTextarea.html(originalContent); // 원래 내용으로 복원
-			                    location.reload(); // 페이지 새로고침
+			                   // editTextarea.html(originalContent); // 원래 내용으로 복원
+			                   // location.reload(); // 페이지 새로고침
+				                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "false").css("background-color", "");
+				                editTextarea.html(originalContent);
+				                $(this).closest('.breakbox').find('.common-button:contains("수정"), .common-button:contains("삭제")').show();
+				                $(".common-button:contains('답글')").show();
+				                $(this).closest('.breakbox').find('.common-button:contains("저장"), .common-button:contains("취소")').hide();
+
 			                });
 			                
 			                $(this).parent().append(submitEditButton, cancelButton); // 수정 textarea, 저장 버튼 나오게
