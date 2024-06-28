@@ -17,7 +17,7 @@ class gameStart03 extends Phaser.Scene {
         
        
         // 화면 중앙에 텍스트 추가
-        this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 100, 'Shoot Enemies', {
+        this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 - 100, 'shoot Enemies', {
             fontSize: '48px',
             fill: '#ffffff',
             fontSize: '48px', 
@@ -30,7 +30,7 @@ class gameStart03 extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // 시작 버튼 추가
-        let startButton = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'startButton', {
+        let startButton = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2 + 200, 'startButton', {
             fontSize: "35px",
             fill: "#e2ce5d",
             fontStyle: 'bold', 
