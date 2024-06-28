@@ -504,7 +504,7 @@ footer {
         <div class="banner">
             <div class="slides">
                 <img src="image/background3.jpg" alt="Banner 1" class="active">
-                <img src="image/background.jpg" alt="Banner 2">
+                <img src="image/background2.png" alt="Banner 2">
                 <img src="image/슛 에니미스.png" alt="Banner 3">
                 <img src="image/Block.png" alt="Banner 4">
                 <img src="image/poke.png" alt="Banner 4">
@@ -513,7 +513,7 @@ footer {
 
         <div class="thumbnails">
             <img src="image/background3.jpg" alt="Thumbnail 1" onclick="showSlide(0)">
-            <img src="image/background.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
+            <img src="image/background2.png" alt="Thumbnail 2" onclick="showSlide(1)">
             <img src="image/슛 에니미스.png" alt="Thumbnail 3" onclick="showSlide(2)">
             <img src="image/Block.png" alt="Thumbnail 2" onclick="showSlide(3)">
             <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
@@ -524,35 +524,35 @@ footer {
 		    <h1> 인기 게임!</h1>
 		    <div class="game-container">
 		        <div class="game">
-    <img src="image/background3.jpg" alt="Game 1">
-    <h1>마리오</h1>
-    <p>플레이 횟수: <span class="play-count" data-game-id="1"></span></p>
-    <p>게임 순위: <span class="rank" data-game-id="1"></span></p>
-</div>
-<div class="game">
-    <img src="image/background.jpg" alt="Game 2">
-    <h1>Mission</h1>
-    <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
-    <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
-</div>
-<div class="game">
-    <img src="image/슛 에니미스.png" alt="Game 3">
-    <h1>슛 에니미스</h1>
-    <p>플레이 횟수: <span class="play-count" data-game-id="3"></span></p>
-    <p>게임 순위: <span class="rank" data-game-id="3"></span></p>
-</div>
-<div class="game">
-    <img src="image/Block.png" alt="Game 4">
-    <h1>게임 4</h1>
-    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
-    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
-</div>
-<div class="game">
-    <img src="image/teraria.jpg" alt="Game 5">
-    <h1>게임 5</h1>
-    <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
-    <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
-</div>
+				    <img src="image/background3.jpg" alt="Game 1">
+				    <h1>마리오</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="1"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="1"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/background2.png" alt="Game 2">
+				    <h1>Mission</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/슛 에니미스.png" alt="Game 3">
+				    <h1>슛 에니미스</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="3"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="3"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/Block.png" alt="Game 4">
+				    <h1>게임 4</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/teraria.jpg" alt="Game 5">
+				    <h1>게임 5</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
+				</div>
 
 		    </div>
 		</section>
@@ -576,13 +576,13 @@ footer {
             <div class="item game-description">
                 <p>
                     제목: Mission<br>
-                    장르:<br>
-                    게임설명:<br>
+                    장르: 회피<br>
+                    게임설명: 운석 피하기<br>
                 </p>
             </div>
             <div class="item game-image">
                 <a href="games/gamePage02.jsp">
-                    <img src="image/background.jpg" alt="게임 이미지" class="img-fluid">
+                    <img src="image/background2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
