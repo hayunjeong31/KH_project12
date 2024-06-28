@@ -224,7 +224,7 @@
     <header>
         <div class="header-container">
         <a href="/index.jsp">
-            <img src="image/GamebitLogo.png" alt="Gamebit Logo" class="logo"></a>
+            <img src="/image/gamebitlogo2.png" alt="Gamebit Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -371,7 +371,7 @@
 	            	    'unicode-bidi': 'isolate',
 	            	    'font-variant-numeric': 'tabular-nums',
 	            	    'text-transform': 'none',
-	            	    'text-indent': '10px', // 모든 줄을 20px 들여쓰기
+	            	    'text-indent': '0px', // 모든 줄을 20px 들여쓰기
 	            	    'text-align': 'start',
 	            	    'text-align-last': 'start'
 	            	});
