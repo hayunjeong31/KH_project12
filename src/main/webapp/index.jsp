@@ -262,11 +262,12 @@ footer {
     overflow: hidden;
     justify-content: center;
     margin: 0 auto;
+    
 }
 
 .slides img {
     width: 100%;
-    height: 100%;
+    height: 76%;
     display: none;
     position: absolute;
     margin-top: 150px;
@@ -394,6 +395,14 @@ footer {
 .game img {
     width: 100%;
     height: auto;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.characters1 .game img {
+    width: 200px; /* 1번 이미지의 가로 크기 */
+    height: 100px; /* 1번 이미지의 세로 크기 */
+    object-fit: cover; /* 이미지의 비율을 유지하면서 크기를 조절 */
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
@@ -543,7 +552,7 @@ footer {
 				</div>
 				<div class="game">
 				    <img src="image/Block.png" alt="Game 4">
-				    <h1>게임 4</h1>
+				    <h1>블럭 깨기</h1>
 				    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
 				    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
 				</div>
@@ -577,7 +586,7 @@ footer {
                 <p>
                     제목: Mission<br>
                     장르: 회피<br>
-                    게임설명: 운석 피하기<br>
+                    게임설명: 방향키를 사용하여 운석 피하기<br>
                 </p>
             </div>
             <div class="item game-image">
