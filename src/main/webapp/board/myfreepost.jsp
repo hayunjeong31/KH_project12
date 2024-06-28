@@ -385,20 +385,19 @@ nav ul li:hover>.dropdown {
 <body>
     <header>
         <div class="header-container">
-        <<a href="/index.jsp">
+        <a href="/index.jsp">
             <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
-                        <a href="index.jsp">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
-                            <a href="#">랭킹</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
@@ -406,7 +405,6 @@ nav ul li:hover>.dropdown {
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
@@ -418,11 +416,7 @@ nav ul li:hover>.dropdown {
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
