@@ -206,6 +206,7 @@
                 
         <div id="game2" class="tab-content">
             <h2> 🏆 Mission</h2>
+
             <div id="rankingList2"></div>
         </div>
         <div id="game3" class="tab-content">
