@@ -917,7 +917,18 @@
 			                        });
 			                    }
 			                });
-			                let cancelReplyButton = $("<button>", {"class":"common-butt"})
+			                // 답글 취소 버튼 클릭 시, 
+			                let cancelReplyButton = $("<button>", {"class":"common-button"}).text("답글취소").click(function(){
+			                	replyTextarea.hide();
+				               // $(this).closest('.breakbox').find('.common-button:contains("수정"), .common-button:contains("삭제")').show();
+				                $(this).closest('.breakbox').find('.common-button:contains("답글")').show();
+				                
+				                $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
+				               // $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("저장")').hide();
+
+				                
+			                });
+			                
 			                $(this).parent().append(replyTextarea, submitReplyButton); // 답글 textarea, 답글 등록 버튼 나오게
 			                $(this).hide(); // replyButton 답글 버튼 사라지게
 			            });
@@ -930,12 +941,12 @@
 			        if (comment.userId === loginID) {
 			        	//1. 수정버튼 
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
-			    			
-				    		$(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("삭제")').hide();
-					       // $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
-					       // $(".common-button:contains('답글')").hide();
-				    		
-			    		
+				    		$(".re-reply-textarea").hide();
+				           // $(".common-button:contains('등록'), .common-button:contains('답글취소')").hide();
+				           
+				            $(this).closest('.breakbox').find('.common-button:contains("삭제"), .common-button:contains("답글취소")').hide();
+				            $(this).closest('.breakbox').find('.common-button:contains("답글"), .common-button:contains("등록")').hide();
+					   
 			                // contenteditable TRUE 	추가
 			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
 			    				
