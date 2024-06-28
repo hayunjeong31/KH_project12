@@ -120,8 +120,8 @@ public class DashboardDAO {
 				String tempCode = rs.getString("tempcode");
 				int blacklistSeq = rs.getInt("blacklistseq");
 				String signout = rs.getString("signout");
-				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender
-						,signout,birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
+				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
+						signout, birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);
 
 			}
@@ -195,7 +195,7 @@ public class DashboardDAO {
 				int blacklistSeq = rs.getInt("blacklistseq");
 
 				selectedOneMember = new MembersDTO(userSeq, userId, userPwd, userName, nickName, phone, email, gender,
-						signout,birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
+						signout, birth_date, join_date, updated_date, adminKey, tempCode, blacklistSeq);
 				selectedAllmemberList.add(selectedOneMember);
 
 			}
@@ -328,7 +328,7 @@ public class DashboardDAO {
 					int blackListSeq = rs.getInt("blacklistSeq");
 
 					members = new MembersDTO(userSeq, userId, password, userName, nickName, phone, email, gender,
-							 signout,birth_date, join_date, upd_date, adminKey, tempCode, blackListSeq);
+							signout, birth_date, join_date, upd_date, adminKey, tempCode, blackListSeq);
 				}
 			}
 		}
@@ -355,9 +355,7 @@ public class DashboardDAO {
 	public int addBlockUser(String blockedReason, int userSeq, String userId) throws Exception {
 		int result = 0;
 		String addBlockUserSQL = "insert into blacklist values(blacklist_seq.nextval, ?, ?, sysdate, ?)";
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(addBlockUserSQL);
-				) {
+		try (Connection con = this.getConnection(); PreparedStatement pstmt = con.prepareStatement(addBlockUserSQL);) {
 			pstmt.setString(1, userId);
 			pstmt.setString(2, blockedReason);
 			pstmt.setInt(3, userSeq);
@@ -365,80 +363,76 @@ public class DashboardDAO {
 		}
 		return result;
 	}
-	
-	
-	//추가된 블랙리스트 seq 찾는 DAO
-	public int getBlackListSeq(int userSeq) throws Exception{
+
+	// 추가된 블랙리스트 seq 찾는 DAO
+	public int getBlackListSeq(int userSeq) throws Exception {
 		String getBlackListSeqSQL = "select blacklistSeq from blacklist where userSeq = ?";
 		int blacklistSeq = 0;
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(getBlackListSeqSQL);
-				) {
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(getBlackListSeqSQL);) {
 			pstmt.setInt(1, userSeq);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
 					blacklistSeq = rs.getInt("blacklistSeq");
 				}
-				
+
 			}
-		}return blacklistSeq;
+		}
+		return blacklistSeq;
 	}
-	
-	//블랙리스트 추가된 멤버의 정보를 업데이트 하는 DAO
-	public int updateBlockedMemberInfo(int blacklistSeq, int userSeq) throws Exception{
+
+	// 블랙리스트 추가된 멤버의 정보를 업데이트 하는 DAO
+	public int updateBlockedMemberInfo(int blacklistSeq, int userSeq) throws Exception {
 		int result = 0;
 		String updateBlockedMemberInfo = "update members set blacklistSeq = ? where userSeq = ?";
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(updateBlockedMemberInfo);
-				) {
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(updateBlockedMemberInfo);) {
 			pstmt.setInt(1, blacklistSeq);
 			pstmt.setInt(2, userSeq);
 			result = pstmt.executeUpdate();
 		}
 		return result;
 	}
-	
-	//블랙리스트 해제
-	public int unblockBlockedUser(int userSeq) throws Exception{
+
+	// 블랙리스트 해제
+	public int unblockBlockedUser(int userSeq) throws Exception {
 		int result = 0;
 		String unblockBlockedUserSQL = "update members set blacklistSeq = 0 where userSeq = ?";
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(unblockBlockedUserSQL);
-				) {
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(unblockBlockedUserSQL);) {
 			pstmt.setInt(1, userSeq);
 			result = pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}return result;
-	}
-	
-	//블랙리스트에서도 삭제
-	public int deleteBlacklist(int blacklistSeq, int userSeq) throws Exception{
-		int result = 0;
-		String deleteBlacklistSQL = "delete from blacklist where blacklistSeq=? and userSeq = ?";
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(deleteBlacklistSQL);
-				) {
-			pstmt.setInt(1, blacklistSeq);
-			pstmt.setInt(2, userSeq);
-			result = pstmt.executeUpdate();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-	//유저가 등록한 자유게시판 글 모아보기
+
+	// 블랙리스트에서도 삭제
+	public int deleteBlacklist(int blacklistSeq, int userSeq) throws Exception {
+		int result = 0;
+		String deleteBlacklistSQL = "delete from blacklist where blacklistSeq=? and userSeq = ?";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(deleteBlacklistSQL);) {
+			pstmt.setInt(1, blacklistSeq);
+			pstmt.setInt(2, userSeq);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 유저가 등록한 자유게시판 글 모아보기
 	public List<BoardDTO> showAllBoardByUserId(String userId) throws Exception {
 		BoardDTO userPost = new BoardDTO();
 		List<BoardDTO> postList = new ArrayList<>();
 		String showAllBoardByUserIdSQL = "select * from board where writer = ?";
-		try (Connection con = this.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(showAllBoardByUserIdSQL);
-				) {
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(showAllBoardByUserIdSQL);) {
 			pstmt.setString(1, userId);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
 					int seq = rs.getInt("seq");
 					String writer = rs.getString("writer");
 					String title = rs.getString("title");
@@ -449,95 +443,145 @@ public class DashboardDAO {
 				}
 
 			}
-		}return postList;
+		}
+		return postList;
 	}
-	
-	
+
 	// 데이터베이스 업데이트 메소드
 	public int updateUserInfoAsAdmin(int userSeq, String updatedNickName, String updatedEmail, String updatedPhone) {
-	    int result = 0;
-	    String updateUserInfoSQL = "UPDATE members SET nickname = ?, email = ?, phone = ? WHERE userseq = ?";
-	    
-	    try (Connection con = this.getConnection(); 
-	            PreparedStatement pstmt = con.prepareStatement(updateUserInfoSQL);) {
-	        
-	        // 디버깅: 쿼리에 설정될 값 출력
-	        System.out.println("Updating with values: " + updatedNickName + ", " + updatedEmail + ", " + updatedPhone + ", " + userSeq);
-	        
-	        pstmt.setString(1, updatedNickName);
-	        pstmt.setString(2, updatedEmail);
-	        pstmt.setString(3, updatedPhone);
-	        pstmt.setInt(4, userSeq);
-	        
-	        result = pstmt.executeUpdate();
-	        
-	        // 디버깅: 업데이트 결과 출력
-	        System.out.println("Update result from DB: " + result);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
-	    return result;
+		int result = 0;
+		String updateUserInfoSQL = "UPDATE members SET nickname = ?, email = ?, phone = ? WHERE userseq = ?";
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(updateUserInfoSQL);) {
+
+			// 디버깅: 쿼리에 설정될 값 출력
+			System.out.println("Updating with values: " + updatedNickName + ", " + updatedEmail + ", " + updatedPhone
+					+ ", " + userSeq);
+
+			pstmt.setString(1, updatedNickName);
+			pstmt.setString(2, updatedEmail);
+			pstmt.setString(3, updatedPhone);
+			pstmt.setInt(4, userSeq);
+
+			result = pstmt.executeUpdate();
+
+			// 디버깅: 업데이트 결과 출력
+			System.out.println("Update result from DB: " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
-	
-	//포스팅 수정 DAO
+
+	// 포스팅 수정 DAO
 	public int postUpdateAsAdmin(int boardSeq, String title, String contents) {
 		int result = 0;
 		String postUpdateAsAdminSQL = "update board set title = ? , contents = ? where seq = ?";
-	    try (Connection con = this.getConnection(); 
-	            PreparedStatement pstmt = con.prepareStatement(postUpdateAsAdminSQL);){
-	    	pstmt.setString(1, title);
-	    	pstmt.setString(2, contents);
-	    	pstmt.setInt(3, boardSeq);
-	    	result = pstmt.executeUpdate();
-	    	return result;
-	    }catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	return result;
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(postUpdateAsAdminSQL);) {
+			pstmt.setString(1, title);
+			pstmt.setString(2, contents);
+			pstmt.setInt(3, boardSeq);
+			result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
-	
+
+	// 게시물 삭제
 	public int postDeletionAsAdmin(int boardSeq) {
 		int result = 0;
 		String postDeletionAsAdminSQL = "delete board where seq = ?";
-	    try (Connection con = this.getConnection(); 
-	            PreparedStatement pstmt = con.prepareStatement(postDeletionAsAdminSQL);){
-	    	result = pstmt.executeUpdate();
-	    	return result;
-	    }catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	    return result;
-	    
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(postDeletionAsAdminSQL);) {
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+
 	}
-	//포스팅 페이지네이션 
-	public List<BoardDTO> selectPostAsPagination(int start, int end){
-		BoardDTO post = new BoardDTO();
-		List<BoardDTO> postList = new ArrayList<>();
-		String selectPostAsPaginationSQL = "select * from board where seq between ? and ? order by seq desc";
-	    try (Connection con = this.getConnection(); 
-	            PreparedStatement pstmt = con.prepareStatement(selectPostAsPaginationSQL);) {
-	    	pstmt.setInt(1, start);
-	    	pstmt.setInt(2, end);
-	    	try(ResultSet rs = pstmt.executeQuery();){
-	    		while(rs.next()) {
-	    			int seq = rs.getInt("seq");
-	    			int categorySeq = rs.getInt("categorySeq");
-	    			String writer = rs.getString("writer");
-	    			String title = rs.getString("title");
-	    			String contents = rs.getString("contents");
-	    			Timestamp write_date = rs.getTimestamp("write_date");
-	    			Timestamp upd_date = rs.getTimestamp("upd_date");
-	    			int view_count = rs.getInt("view_count");
-	    			int adminkey = rs.getInt("adminkey");
-	    			post = new BoardDTO(seq, categorySeq, writer, title, contents, write_date, upd_date, view_count, adminkey);
-	    			postList.add(post);
-	    		}
-	    	}
-	    }catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	    
-	    return postList;
+
+	// 중간관리자까지만 추가
+	public int promotionToAdmin(int userSeq, String userName, String userId) {
+		int result = 0;
+		String promotionToAdminSQL = "insert into admin values(admin_seq.nextval, 1, ?, ?, ?)";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(promotionToAdminSQL);) {
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userId);
+			pstmt.setInt(3, userSeq);
+
+			result = pstmt.executeUpdate();
+
+		}catch(Exception e)
+	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return result;
+
 	}
+
+	public int updateAdminKey(int userSeq) {
+		int result = 0;
+		String updateAdminKeySQL = "update members set adminKey = 1 where userSeq = ?";
+		try {
+			MembersDTO memberInfo = getOneUserInfoAsAdmin(userSeq);
+			if (memberInfo.getAdminKey() == 0 && memberInfo.getBlacklistSeq() == 0) {
+				try (Connection con = this.getConnection();
+						PreparedStatement pstmt = con.prepareStatement(updateAdminKeySQL);) {
+					pstmt.setInt(1, userSeq);
+					result = pstmt.executeUpdate();
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//유저별 작성한 게시글 갯수 찾는 DAO
+	public int getAllPostCountPerUser(String writer) {
+		int count = 0;
+		String getAllPostCountPerUserSQL = "select count (*) as cnt from board where writer = ?";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(getAllPostCountPerUserSQL);) {
+			pstmt.setString(1,writer);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					count = rs.getInt("cnt");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+
+	//유저별 작성한 댓글 갯수 찾는 DAO
+	public int getAllReplyCountPerUser(String writer) {
+		int count = 0;
+		String getAllReplyCountPerUser = "select count (*) as cnt from Reply where userId = ?";
+		try (Connection con = this.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(getAllReplyCountPerUser);) {
+			pstmt.setString(1,writer);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					count = rs.getInt("cnt");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+
 }

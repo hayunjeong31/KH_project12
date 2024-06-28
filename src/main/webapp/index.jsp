@@ -504,7 +504,7 @@ footer {
         <div class="banner">
             <div class="slides">
                 <img src="image/background3.jpg" alt="Banner 1" class="active">
-                <img src="image/background.jpg" alt="Banner 2">
+                <img src="image/background2.png" alt="Banner 2">
                 <img src="image/슛 에니미스.png" alt="Banner 3">
                 <img src="image/Block.png" alt="Banner 4">
                 <img src="image/poke.png" alt="Banner 4">
@@ -513,7 +513,7 @@ footer {
 
         <div class="thumbnails">
             <img src="image/background3.jpg" alt="Thumbnail 1" onclick="showSlide(0)">
-            <img src="image/background.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
+            <img src="image/background2.png" alt="Thumbnail 2" onclick="showSlide(1)">
             <img src="image/슛 에니미스.png" alt="Thumbnail 3" onclick="showSlide(2)">
             <img src="image/Block.png" alt="Thumbnail 2" onclick="showSlide(3)">
             <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
@@ -524,39 +524,36 @@ footer {
 		    <h1> 인기 게임!</h1>
 		    <div class="game-container">
 		        <div class="game">
-		            <img src="image/background3.jpg" alt="Game 1">
-		            <h1>마리오</h1>
-		            <p>플레이 횟수: <span class="play-count" data-game-id="1"></span></p>
-		            <p>게임 순위: <span class="rank" data-game-id="1"></span></p>
-		        </div>
-		        
-		        <div class="game">
-		            <img src="image/background.jpg" alt="Game 2">
-		            <h1>Mission</h1>
-		            <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
-		            <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
-		        </div>
-		        
-		        <div class="game">
-		            <img src="image/슛 에니미스.png" alt="Game 3">
-		            <h1>슛 에니미스</h1>
-		            <p>플레이 횟수: <span class="play-count" data-game-id="3"></span></p>
-		            <p>게임 순위: <span class="rank" data-game-id="3"></span></p>
-		        </div>
-		        
-		        <div class="game">
-		            <img src="image/Block.png" alt="Game 4">
-		            <h1>게임 4</h1>
-		            <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
-		            <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
-		        </div>
-		        
-		        <div class="game">
-		            <img src="image/teraria.jpg" alt="Game 5">
-		            <h1>게임 5</h1>
-		            <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
-		            <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
-		        </div>
+				    <img src="image/background3.jpg" alt="Game 1">
+				    <h1>마리오</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="1"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="1"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/background2.png" alt="Game 2">
+				    <h1>Mission</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/슛 에니미스.png" alt="Game 3">
+				    <h1>슛 에니미스</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="3"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="3"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/Block.png" alt="Game 4">
+				    <h1>게임 4</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
+				</div>
+				<div class="game">
+				    <img src="image/teraria.jpg" alt="Game 5">
+				    <h1>게임 5</h1>
+				    <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
+				    <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
+				</div>
+
 		    </div>
 		</section>
     </sub>
@@ -579,13 +576,13 @@ footer {
             <div class="item game-description">
                 <p>
                     제목: Mission<br>
-                    장르:<br>
-                    게임설명:<br>
+                    장르: 회피<br>
+                    게임설명: 운석 피하기<br>
                 </p>
             </div>
             <div class="item game-image">
                 <a href="games/gamePage02.jsp">
-                    <img src="image/background.jpg" alt="게임 이미지" class="img-fluid">
+                    <img src="image/background2.png" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
@@ -750,114 +747,126 @@ footer {
             success: function(response) {
                 console.log("Response: ", response); // 응답 데이터 로깅
 
-                // 게임 시퀀스 1번에 대한 처리
-                if (response && typeof response === 'object' && response.hasOwnProperty("1")) {
-                    let playCount1 = response["1"];
-                    console.log("Setting play count for gameSeq 1: ", playCount1);
-                    let playCountElement1 = $(`.play-count[data-game-id="1"]`);
-                    let rankElement1 = $(`.rank[data-game-id="1"]`);
+                if (response && typeof response === 'object') {
+                    let playCounts = response.playCounts;
+                    let ranks = response.ranks;
 
-                    if (playCountElement1.length > 0) {
-                        playCountElement1.text(playCount1);
+                    // 게임 시퀀스 1번에 대한 처리
+                    if (playCounts.hasOwnProperty("1")) {
+                        let playCount1 = playCounts["1"];
+                        let rank1 = ranks["1"];
+                        console.log("Setting play count and rank for gameSeq 1: ", playCount1, rank1);
+                        let playCountElement1 = $(`.play-count[data-game-id="1"]`);
+                        let rankElement1 = $(`.rank[data-game-id="1"]`);
+
+                        if (playCountElement1.length > 0) {
+                            playCountElement1.text(playCount1);
+                        } else {
+                            console.error("No element found for gameSeq: 1");
+                        }
+
+                        if (rankElement1.length > 0) {
+                            rankElement1.text(rank1);
+                        } else {
+                            console.error("No element found for gameSeq: 1");
+                        }
                     } else {
-                        console.error("No element found for gameSeq: 1");
+                        console.error("Invalid response format or empty response for gameSeq: 1");
                     }
 
-                    if (rankElement1.length > 0) {
-                        rankElement1.text(1); // 순위를 1로 설정
+                    // 게임 시퀀스 2번에 대한 처리
+                    if (playCounts.hasOwnProperty("2")) {
+                        let playCount2 = playCounts["2"];
+                        let rank2 = ranks["2"];
+                        console.log("Setting play count and rank for gameSeq 2: ", playCount2, rank2);
+                        let playCountElement2 = $(`.play-count[data-game-id="2"]`);
+                        let rankElement2 = $(`.rank[data-game-id="2"]`);
+
+                        if (playCountElement2.length > 0) {
+                            playCountElement2.text(playCount2);
+                        } else {
+                            console.error("No element found for gameSeq: 2");
+                        }
+
+                        if (rankElement2.length > 0) {
+                            rankElement2.text(rank2);
+                        } else {
+                            console.error("No element found for gameSeq: 2");
+                        }
                     } else {
-                        console.error("No element found for gameSeq: 1");
+                        console.error("Invalid response format or empty response for gameSeq: 2");
+                    }
+
+                    // 게임 시퀀스 3번에 대한 처리
+                    if (playCounts.hasOwnProperty("3")) {
+                        let playCount3 = playCounts["3"];
+                        let rank3 = ranks["3"];
+                        console.log("Setting play count and rank for gameSeq 3: ", playCount3, rank3);
+                        let playCountElement3 = $(`.play-count[data-game-id="3"]`);
+                        let rankElement3 = $(`.rank[data-game-id="3"]`);
+
+                        if (playCountElement3.length > 0) {
+                            playCountElement3.text(playCount3);
+                        } else {
+                            console.error("No element found for gameSeq: 3");
+                        }
+
+                        if (rankElement3.length > 0) {
+                            rankElement3.text(rank3);
+                        } else {
+                            console.error("No element found for gameSeq: 3");
+                        }
+                    } else {
+                        console.error("Invalid response format or empty response for gameSeq: 3");
+                    }
+
+                    // 게임 시퀀스 4번에 대한 처리
+                    if (playCounts.hasOwnProperty("4")) {
+                        let playCount4 = playCounts["4"];
+                        let rank4 = ranks["4"];
+                        console.log("Setting play count and rank for gameSeq 4: ", playCount4, rank4);
+                        let playCountElement4 = $(`.play-count[data-game-id="4"]`);
+                        let rankElement4 = $(`.rank[data-game-id="4"]`);
+
+                        if (playCountElement4.length > 0) {
+                            playCountElement4.text(playCount4);
+                        } else {
+                            console.error("No element found for gameSeq: 4");
+                        }
+
+                        if (rankElement4.length > 0) {
+                            rankElement4.text(rank4);
+                        } else {
+                            console.error("No element found for gameSeq: 4");
+                        }
+                    } else {
+                        console.error("Invalid response format or empty response for gameSeq: 4");
+                    }
+
+                    // 게임 시퀀스 5번에 대한 처리
+                    if (playCounts.hasOwnProperty("5")) {
+                        let playCount5 = playCounts["5"];
+                        let rank5 = ranks["5"];
+                        console.log("Setting play count and rank for gameSeq 5: ", playCount5, rank5);
+                        let playCountElement5 = $(`.play-count[data-game-id="5"]`);
+                        let rankElement5 = $(`.rank[data-game-id="5"]`);
+
+                        if (playCountElement5.length > 0) {
+                            playCountElement5.text(playCount5);
+                        } else {
+                            console.error("No element found for gameSeq: 5");
+                        }
+
+                        if (rankElement5.length > 0) {
+                            rankElement5.text(rank5);
+                        } else {
+                            console.error("No element found for gameSeq: 5");
+                        }
+                    } else {
+                        console.error("Invalid response format or empty response for gameSeq: 5");
                     }
                 } else {
-                    console.error("Invalid response format or empty response for gameSeq: 1");
-                }
-
-                // 게임 시퀀스 2번에 대한 처리
-                if (response && typeof response === 'object' && response.hasOwnProperty("2")) {
-                    let playCount2 = response["2"];
-                    console.log("Setting play count for gameSeq 2: ", playCount2);
-                    let playCountElement2 = $(`.play-count[data-game-id="2"]`);
-                    let rankElement2 = $(`.rank[data-game-id="2"]`);
-
-                    if (playCountElement2.length > 0) {
-                        playCountElement2.text(playCount2);
-                    } else {
-                        console.error("No element found for gameSeq: 2");
-                    }
-
-                    if (rankElement2.length > 0) {
-                        rankElement2.text(2); // 순위를 2로 설정
-                    } else {
-                        console.error("No element found for gameSeq: 2");
-                    }
-                } else {
-                    console.error("Invalid response format or empty response for gameSeq: 2");
-                }
-
-                // 게임 시퀀스 3번에 대한 처리
-                if (response && typeof response === 'object' && response.hasOwnProperty("3")) {
-                    let playCount3 = response["3"];
-                    console.log("Setting play count for gameSeq 3: ", playCount3);
-                    let playCountElement3 = $(`.play-count[data-game-id="3"]`);
-                    let rankElement3 = $(`.rank[data-game-id="3"]`);
-
-                    if (playCountElement3.length > 0) {
-                        playCountElement3.text(playCount3);
-                    } else {
-                        console.error("No element found for gameSeq: 3");
-                    }
-
-                    if (rankElement3.length > 0) {
-                        rankElement3.text(3); // 순위를 3로 설정
-                    } else {
-                        console.error("No element found for gameSeq: 3");
-                    }
-                } else {
-                    console.error("Invalid response format or empty response for gameSeq: 3");
-                }
-
-                // 게임 시퀀스 4번에 대한 처리
-                if (response && typeof response === 'object' && response.hasOwnProperty("4")) {
-                    let playCount4 = response["4"];
-                    console.log("Setting play count for gameSeq 4: ", playCount4);
-                    let playCountElement4 = $(`.play-count[data-game-id="4"]`);
-                    let rankElement4 = $(`.rank[data-game-id="4"]`);
-
-                    if (playCountElement4.length > 0) {
-                        playCountElement4.text(playCount4);
-                    } else {
-                        console.error("No element found for gameSeq: 4");
-                    }
-
-                    if (rankElement4.length > 0) {
-                        rankElement4.text(4); // 순위를 4로 설정
-                    } else {
-                        console.error("No element found for gameSeq: 4");
-                    }
-                } else {
-                    console.error("Invalid response format or empty response for gameSeq: 4");
-                }
-
-                // 게임 시퀀스 5번에 대한 처리
-                if (response && typeof response === 'object' && response.hasOwnProperty("5")) {
-                    let playCount5 = response["5"];
-                    console.log("Setting play count for gameSeq 5: ", playCount5);
-                    let playCountElement5 = $(`.play-count[data-game-id="5"]`);
-                    let rankElement5 = $(`.rank[data-game-id="5"]`);
-
-                    if (playCountElement5.length > 0) {
-                        playCountElement5.text(playCount5);
-                    } else {
-                        console.error("No element found for gameSeq: 5");
-                    }
-
-                    if (rankElement5.length > 0) {
-                        rankElement5.text(5); // 순위를 5로 설정
-                    } else {
-                        console.error("No element found for gameSeq: 5");
-                    }
-                } else {
-                    console.error("Invalid response format or empty response for gameSeq: 5");
+                    console.error("Invalid response format or empty response");
                 }
             },
             error: function(error) {
@@ -865,9 +874,6 @@ footer {
             }
         });
     });
-
-
-
 
     </script>
 </body>
