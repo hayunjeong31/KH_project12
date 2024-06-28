@@ -109,7 +109,7 @@ public class ReplyDAO {
    
    // 댓글 좋아요 등록하기
       public boolean addLike(String userId, int replySeq)throws Exception{
-         String sql = "insert into likes values (likes_seq.nextval,?,?)";
+         String sql = "insert into likes (seq,userid,replyseq) values (likes_seq.nextval,?,?)";
          try(Connection con = this.getConnection();
                PreparedStatement pstat = con.prepareStatement(sql)){
             pstat.setString(1, userId);

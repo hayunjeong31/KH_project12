@@ -138,7 +138,7 @@ public class BoardController extends HttpServlet {
              request.getRequestDispatcher("/board/list.jsp").forward(request, response);
              
              if(list != null) {
-                response.sendRedirect("/search.board");
+            	response.sendRedirect("/search.board");
              }
              
          } else if (cmd.equals("/write.board")) {
