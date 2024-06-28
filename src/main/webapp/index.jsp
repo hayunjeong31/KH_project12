@@ -503,7 +503,7 @@ footer {
         <div class="banner">
             <div class="slides">
                 <img src="image/background3.jpg" alt="Banner 1" class="active">
-                <img src="image/teraria.jpg" alt="Banner 2">
+                <img src="image/background.jpg" alt="Banner 2">
                 <img src="image/ded.png" alt="Banner 3">
                 <img src="image/skull.png" alt="Banner 4">
                 <img src="image/poke.png" alt="Banner 4">
@@ -512,7 +512,7 @@ footer {
 
         <div class="thumbnails">
             <img src="image/background3.jpg" alt="Thumbnail 1" onclick="showSlide(0)">
-            <img src="image/teraria.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
+            <img src="image/background.jpg" alt="Thumbnail 2" onclick="showSlide(1)">
             <img src="image/ded.png" alt="Thumbnail 3" onclick="showSlide(2)">
             <img src="image/skull.png" alt="Thumbnail 2" onclick="showSlide(3)">
             <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
@@ -530,7 +530,7 @@ footer {
 		        </div>
 		        
 		        <div class="game">
-		            <img src="image/teraria.jpg" alt="Game 2">
+		            <img src="image/background.jpg" alt="Game 2">
 		            <h1>게임 2</h1>
 		            <p>플레이 횟수: <span class="play-count" data-game-id="2"></span></p>
 		            <p>게임 순위: <span class="rank" data-game-id="2"></span></p>
@@ -584,7 +584,7 @@ footer {
             </div>
             <div class="item game-image">
                 <a href="games/gamePage02.jsp">
-                    <img src="image/skull2.png" alt="게임 이미지" class="img-fluid">
+                    <img src="image/background.jpg" alt="게임 이미지" class="img-fluid">
                 </a>
             </div>
             <div class="item game-image">
@@ -747,28 +747,49 @@ footer {
             data: { action: 'getPlayCounts' },
             success: function(response) {
                 console.log("Response: ", response); // 응답 데이터 로깅
+
+                // 게임 시퀀스 1번에 대한 처리
                 if (response && typeof response === 'object' && response.hasOwnProperty("1")) {
-                    let playCount = response["1"];
-                    console.log("Setting play count for gameSeq 1: ", playCount);
-                    let playCountElement = $(`.play-count[data-game-id="1"]`);
-                    let rankElement = $(`.rank[data-game-id="1"]`);
+                    let playCount1 = response["1"];
+                    console.log("Setting play count for gameSeq 1: ", playCount1);
+                    let playCountElement1 = $(`.play-count[data-game-id="1"]`);
+                    let rankElement1 = $(`.rank[data-game-id="1"]`);
 
-                    console.log("playCountElement: ", playCountElement);
-                    console.log("rankElement: ", rankElement);
-
-                    if (playCountElement.length > 0) {
-                        playCountElement.text(playCount);
+                    if (playCountElement1.length > 0) {
+                        playCountElement1.text(playCount1);
                     } else {
                         console.error("No element found for gameSeq: 1");
                     }
 
-                    if (rankElement.length > 0) {
-                        rankElement.text(1); // 순위를 1로 설정
+                    if (rankElement1.length > 0) {
+                        rankElement1.text(1); // 순위를 1로 설정
                     } else {
                         console.error("No element found for gameSeq: 1");
                     }
                 } else {
-                    console.error("Invalid response format or empty response");
+                    console.error("Invalid response format or empty response for gameSeq: 1");
+                }
+
+                // 게임 시퀀스 2번에 대한 처리
+                if (response && typeof response === 'object' && response.hasOwnProperty("2")) {
+                    let playCount2 = response["2"];
+                    console.log("Setting play count for gameSeq 2: ", playCount2);
+                    let playCountElement2 = $(`.play-count[data-game-id="2"]`);
+                    let rankElement2 = $(`.rank[data-game-id="2"]`);
+
+                    if (playCountElement2.length > 0) {
+                        playCountElement2.text(playCount2);
+                    } else {
+                        console.error("No element found for gameSeq: 2");
+                    }
+
+                    if (rankElement2.length > 0) {
+                        rankElement2.text(2); // 순위를 2로 설정
+                    } else {
+                        console.error("No element found for gameSeq: 2");
+                    }
+                } else {
+                    console.error("Invalid response format or empty response for gameSeq: 2");
                 }
             },
             error: function(error) {
@@ -776,6 +797,7 @@ footer {
             }
         });
     });
+
 
     </script>
 </body>

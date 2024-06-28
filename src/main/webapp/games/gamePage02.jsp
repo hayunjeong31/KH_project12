@@ -240,6 +240,11 @@
     </footer>
     
     <script>
+    	function toggleMenu() {
+        	const nav = document.querySelector('nav ul');
+       		nav.classList.toggle('show');
+    	}
+    
         let config = {
             type:Phaser.AUTO,
             parent:"game-container",
@@ -247,9 +252,8 @@
             height:600,
             physics: {
                 default: "arcade",
-                arcade:{
-              
-                    // debug:true
+                arcade:{              
+                     debug:false
                 }
             },
             scene: [gameStart02, game02, gameOver02]
