@@ -20,11 +20,8 @@
 <link rel="stylesheet" href="css/header_styles.css">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
-<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
-=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
-
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <style>
         
 
@@ -228,18 +225,6 @@ nav ul li:hover>.dropdown {
             align-items: center;
         }
 
-        .new-button {
-            padding: 8px 16px;
-            background-color: rgb(64, 64, 116);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 850px;
-            /* This might need adjustment based on your layout */
-            font-family: "GalmuriMono9", monospace;
-            
-        }
 
         .board-area h2 {
             margin-bottom: 20px;
@@ -273,6 +258,7 @@ nav ul li:hover>.dropdown {
 
         .board-table tbody tr {
             background-color: #f9f9f9b9;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
         }
 
         .board-table tbody tr:nth-child(even) {
@@ -300,11 +286,7 @@ nav ul li:hover>.dropdown {
             background-color: rgba(255, 255, 255, 0.855);
             cursor: pointer;
             color: black;
-<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
-            font-family: "GalmuriMono9", monospace;
-=======
             text-align:center;
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
         }
         .pagination a.active{
         	font-weight: bold;
@@ -313,17 +295,12 @@ nav ul li:hover>.dropdown {
         .pagination a:hover{
         	 background-color: rgba(231, 231, 232, 0.004);
             color: white;
-<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
-            
-=======
             font-weight: bold;
-           
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
         }
 
         .board-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             width: 100%;
             max-width: 800px;
             
@@ -358,8 +335,7 @@ nav ul li:hover>.dropdown {
             height: 60px;
             background-image: url('image/9.png');
         }
-<<<<<<< HEAD:src/main/webapp/board/myqpost.jsp
-=======
+
         .welcome-text {
   font-weight: bold;
   color: #fff;
@@ -403,7 +379,7 @@ nav ul li:hover>.dropdown {
 	       	padding: 0 30px !important;
 	       	text-align: left;
 		}
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f:src/main/webapp/qboard/myqpost.jsp
+
     </style>
     <title>게시판</title>
 </head>
@@ -416,14 +392,15 @@ nav ul li:hover>.dropdown {
             <nav>
                 <ul>
                     <li>
-                        <a href="index.jsp">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.html">명예의 전당</a>
-                            <a href="#">Subitem 2</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="#">게임 플레이 순위</a>
+                            <a href="#">즐겨찾기</a>
                             <a href="#">랭킹</a>
                         </div>
                     </li>
@@ -444,11 +421,7 @@ nav ul li:hover>.dropdown {
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -483,9 +456,6 @@ nav ul li:hover>.dropdown {
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
-                <div class="top-right-button">
-                    <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
-                </div>
                 <h2></h2>
                 <table class="board-table">
                     <thead>
