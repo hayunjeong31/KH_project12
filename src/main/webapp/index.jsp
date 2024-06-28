@@ -577,7 +577,7 @@ footer {
                 <p>
                     제목: Mission<br>
                     장르: 회피<br>
-                    게임설명: 운석 피하기<br>
+                    게임설명: 방향키를 사용하여 운석 피하기<br>
                 </p>
             </div>
             <div class="item game-image">
