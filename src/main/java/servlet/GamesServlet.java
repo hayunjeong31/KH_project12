@@ -3,8 +3,11 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,17 +58,26 @@ public class GamesServlet extends HttpServlet {
                 try {
                     if ("getPlayCounts".equals(action)) {
                         // 각 게임의 플레이 횟수를 가져옵니다.
-                        GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
-                        Map<Integer, Integer> playCounts = gamesScoreDao.getPlayCounts();
+                    	 GamesScoreDAO gamesScoreDao = GamesScoreDAO.getInstance();
+                    	    Map<Integer, Integer> playCounts = gamesScoreDao.getPlayCounts();
 
-                        response.setContentType("application/json");
-                        response.setCharacterEncoding("UTF-8");
-                        PrintWriter out = response.getWriter();
-                        Gson gson = new Gson();
-                        String jsonPlayCounts = gson.toJson(playCounts);
-                        System.out.println("Play Counts: " + jsonPlayCounts); // 로그 추가
-                        out.write(jsonPlayCounts);
-                        out.close();
+                    	    // 플레이 횟수에 따라 순위를 계산합니다. -- 추가
+                    	    List<Map.Entry<Integer, Integer>> sortedPlayCounts = playCounts.entrySet().stream()
+                    	            .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                    	            .collect(Collectors.toList());
+
+                    	    Map<Integer, Integer> ranks = new HashMap<>();
+                    	    for (int i = 0; i < sortedPlayCounts.size(); i++) {
+                    	        ranks.put(sortedPlayCounts.get(i).getKey(), i + 1);
+                    	    }
+
+                    	    response.setContentType("application/json");
+                    	    response.setCharacterEncoding("UTF-8");
+                    	    PrintWriter out = response.getWriter();
+                    	    Gson gson = new Gson();
+                    	    String jsonResponse = gson.toJson(Map.of("playCounts", playCounts, "ranks", ranks));
+                    	    out.write(jsonResponse);
+                    	    out.close();
                         
                     } else if ("save".equals(action)) {
                         // 게임 점수를 저장합니다.
