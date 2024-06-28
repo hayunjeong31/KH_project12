@@ -34,7 +34,8 @@ class game03 extends Phaser.Scene {
         this.gameRank = 1; // 게임 랭크 초기화
         this.userId = sessionStorage.getItem('userName'); // 유저 ID 초기화
         this.highScore = localStorage.getItem('highScore') || 0; // 로컬 스토리지에서 최고 기록을 가져옴
-
+	 	this.userSeq = null; // 유저 시퀀스 초기화
+         this.gameSeq = 3; // 게임 시퀀스 초기화
     }
 
     preload() {
