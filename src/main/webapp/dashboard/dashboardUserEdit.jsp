@@ -17,7 +17,28 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.swal2-popup {
+	font-size: 1.0rem !important;
+	font-family: 'NucleoIcons';
+}
 
+#figure {
+	background: rgba(55, 55, 55, 0.2);
+	position: relative;
+}
+
+#figcaption {
+	color: white;
+	padding: 1em;
+	top: 0;
+	position: absolute;
+}
+
+img {
+	display: block;
+}
+</style>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -138,8 +159,22 @@
 					<div class="col-auto"></div>
 					<div class="col-auto my-auto">
 						<div class="h-100">
-							<h5 class="mb-1">Sayo Kravits</h5>
-							<p class="mb-0 font-weight-bold text-sm">Public Relations</p>
+							<h5 class="mb-1">${memberInfo.userName }</h5>
+
+							<c:choose>
+								<c:when test="${memberInfo.adminKey eq 0}">
+									<p class="mb-0 font-weight-bold text-sm" id="userAuth">일반
+										사용자</p>
+								</c:when>
+								<c:when test="${memberInfo.adminKey eq 1}">
+									<p class="mb-0 font-weight-bold text-sm" id="userAuth">중간
+										관리자</p>
+								</c:when>
+								<c:when test="${memberInfo.adminKey eq 2}">
+									<p class="mb-0 font-weight-bold text-sm" id="userAuth">최고
+										관리자</p>
+								</c:when>
+							</c:choose>
 						</div>
 					</div>
 
@@ -160,30 +195,38 @@
 										data-bs-toggle="modal" data-bs-target="#addBlacklistModal">블랙리스트
 										등록</button>
 								</c:if>
+								<!-- swal.fire 추가 -->
 								<c:if test="${not empty blockedReason }">
-									<!-- sweet alert로 추가 -->
 									<button class="btn btn-primary btn-sm ms-2"
 										onclick='deleteBlackList()'>블랙리스트 해제</button>
 								</c:if>
-								<button class="btn btn-danger btn-sm ms-2"
-									data-bs-toggle="modal" data-bs-target="#updateUserInfoModal">유저
-									정보 수정</button>
+								<c:if test="${adminKey eq 2}">
+									<button class="btn btn-danger btn-sm ms-2"
+										data-bs-toggle="modal" data-bs-target="#updateUserInfoModal">유저
+										정보 수정</button>
+								</c:if>
+								<c:if test="${adminKey eq 2 && userAdminKey eq 0}">
+									<button class="btn btn-info btn-sm ms-2"
+										onclick='adminPromotion()'>관리자 승격</button>
+								</c:if>
+
 							</div>
 						</div>
+
 						<div class="card-body">
 							<p class="text-uppercase text-sm">User Information</p>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="username">유저 이름</label>
-										<input class="form-control" type="text"
-											id = "username" value="${memberInfo.userName }" readonly>
+										<input class="form-control" type="text" id="username"
+											value="${memberInfo.userName }" readonly>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="email">이메일 주소</label> <input
-											id ="email" class="form-control" type="email"
+											id="email" class="form-control" type="email"
 											value="${memberInfo.email }" readonly>
 									</div>
 								</div>
@@ -197,8 +240,8 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label for="example-text-input" class="phone">전화번호</label> <input
-											id="phone" class="form-control" type="text" value="${memberInfo.phone }"
-											readonly>
+											id="phone" class="form-control" type="text"
+											value="${memberInfo.phone }" readonly>
 									</div>
 								</div>
 							</div>
@@ -275,86 +318,88 @@
 									</div>
 								</c:if>
 							</div>
-							<c:if test="${memberInfo.blacklistSeq != 0 }">
-								<hr class="horizontal dark">
-								<p class="text-uppercase text-sm">정지 사유</p>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
+
+							<hr class="horizontal dark">
+							<p class="text-uppercase text-sm">정지 사유</p>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<c:if test="${memberInfo.blacklistSeq != 0 }">
 											<input class="form-control" type="text"
 												value="${blockedReason}">
-										</div>
+										</c:if>
 									</div>
 								</div>
-							</c:if>
+							</div>
+
 							<!-- 블랙리스트 정보 있으면 나타나는 부분 끝-->
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="card card-profile">
-						<img src="/dashboard/assets/img/bg-profile.jpg"
-							alt="Image placeholder" class="card-img-top">
+						<div id="figure">
+							<img src="/dashboard/assets/img/bg-profile.jpg"
+								alt="Image placeholder" class="card-img-top"
+								style="position: relative; opacity: 50%" id="">
+							<h5 style="position: absolute" id="figcaption">사용자 통계</h5>
+						</div>
 						<div class="row justify-content-center">
-							<div class="col-4 col-lg-4 order-lg-2">
-								<div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-									<a href="javascript:;"> <img
-										src="/dashboard/assets/img/team-2.jpg"
-										class="rounded-circle img-fluid border border-2 border-white">
-									</a>
-								</div>
-							</div>
-						</div>
-						<div
-							class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3">
-							<div class="d-flex justify-content-between">
-								<a href="javascript:;"
-									class="btn btn-sm btn-info mb-0 d-none d-lg-block">Connect</a>
-								<a href="javascript:;"
-									class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i
-									class="ni ni-collection"></i></a> <a href="javascript:;"
-									class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
-								<a href="javascript:;"
-									class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i
-									class="ni ni-email-83"></i></a>
-							</div>
-						</div>
-						<div class="card-body pt-0">
-							<div class="row">
-								<div class="col">
-									<div class="d-flex justify-content-center">
-										<div class="d-grid text-center">
-											<span class="text-lg font-weight-bolder">22</span> <span
-												class="text-sm opacity-8">Friends</span>
-										</div>
-										<div class="d-grid text-center mx-4">
-											<span class="text-lg font-weight-bolder">10</span> <span
-												class="text-sm opacity-8">Photos</span>
-										</div>
-										<div class="d-grid text-center">
-											<span class="text-lg font-weight-bolder">89</span> <span
-												class="text-sm opacity-8">Comments</span>
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<div class="card">
+											<div class="card-body p-3">
+												<div class="row">
+													<div class="col-8">
+														<div class="numbers">
+															<p class="text-lg mb-0 text-uppercase font-weight-bold">이
+																유저가 등록한 게시물 갯수</p>
+															<h5 class="font-weight-bolder">${postCountPerUser}</h5>
+														</div>
+													</div>
+													<div class="col-4 text-end">
+														<div
+															class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+															<i class="ni ni-money-coins text-lg opacity-10"
+																aria-hidden="true"></i>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="text-center mt-4">
-								<h5>
-									Mark Davis<span class="font-weight-light">, 35</span>
-								</h5>
-								<div class="h6 font-weight-300">
-									<i class="ni location_pin mr-2"></i>Bucharest, Romania
-								</div>
-								<div class="h6 mt-4">
-									<i class="ni business_briefcase-24 mr-2"></i>Solution Manager -
-									Creative Tim Officer
-								</div>
-								<div>
-									<i class="ni education_hat mr-2"></i>University of Computer
-									Science
+							<div class="card-body pt-0">
+								<div class="row">
+									<div class="col">
+										<div class="card">
+											<div class="card-body p-3">
+												<div class="row">
+													<div class="col-8">
+														<div class="numbers">
+															<p class="text-lg mb-0 text-uppercase font-weight-bold">이
+																유저가 등록한 댓글 갯수</p>
+															<h5 class="font-weight-bolder">${replyCountPerUser }</h5>
+														</div>
+													</div>
+													<div class="col-4 text-end">
+														<div
+															class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+															<i class="ni ni-money-coins text-lg opacity-10"
+																aria-hidden="true"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+
+
 					</div>
 				</div>
 			</div>
@@ -404,12 +449,16 @@
 											</td>
 											<td class="align-middle text-sm">
 												<div class="col text-center">
-													<p class="text-xs font-weight-bold mb-0"></p>
-													<h6 class="text-sm">
-														<input type="button" class="btn btn-primary" id="postEdit" value="수정">
-														<input type="hidden" value="${post.seq}" id="postSeq">
-														<input type="button" class="btn btn-danger" id="postDelete" value="삭제">
-													</h6>
+													<c:if test="${adminKey eq 2}">
+														<p class="text-xs font-weight-bold mb-0"></p>
+														<h6 class="text-sm">
+															<input type="button" class="btn btn-primary"
+																id="postEdit" value="수정"> <input type="hidden"
+																value="${post.seq}" id="postSeq"> <input
+																type="button" class="btn btn-danger" id="postDelete"
+																value="삭제">
+														</h6>
+													</c:if>
 												</div>
 											</td>
 										</tr>
@@ -423,40 +472,6 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer pt-3  ">
-			<div class="container-fluid">
-				<div class="row align-items-center justify-content-lg-between">
-					<div class="col-lg-6 mb-lg-0 mb-4">
-						<div
-							class="copyright text-center text-sm text-muted text-lg-start">
-							©
-							<script>
-								document.write(new Date().getFullYear())
-							</script>
-							, made with <i class="fa fa-heart"></i> by <a
-								href="https://www.creative-tim.com" class="font-weight-bold"
-								target="_blank">Creative Tim</a> for a better web.
-						</div>
-					</div>
-					<div class="col-lg-6">
-						<ul
-							class="nav nav-footer justify-content-center justify-content-lg-end">
-							<li class="nav-item"><a href="https://www.creative-tim.com"
-								class="nav-link text-muted" target="_blank">Creative Tim</a></li>
-							<li class="nav-item"><a
-								href="https://www.creative-tim.com/presentation"
-								class="nav-link text-muted" target="_blank">About Us</a></li>
-							<li class="nav-item"><a
-								href="https://www.creative-tim.com/blog"
-								class="nav-link text-muted" target="_blank">Blog</a></li>
-							<li class="nav-item"><a
-								href="https://www.creative-tim.com/license"
-								class="nav-link pe-0 text-muted" target="_blank">License</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</footer>
 		</div>
 		<div class="fixed-plugin">
 			<a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -587,26 +602,31 @@
 					</div>
 					<div class="modal-body">
 						<!-- 닉네임 검사 필요함 (연결) -->
-						<label for="userSeq" class="userSeq">닉네임</label>
-						<input type="hidden" id="userSeq" name="userSeq" value="${memberInfo.userSeq }" >
-						<label for="updatedNickname" class="updateNickname">닉네임</label>
-						<input id="updatedNickname" class="form-control" name="updateNickname" type="text" value="${memberInfo.nickName }"> 
-						<label for="updatedEmail" class="updatedEmail">이메일</label> 
-						<input id="updatedEmail" class="form-control" name="updateEmail" type="text" value="${memberInfo.email }"> 
-						<label for="updatedPhone" class="updatedPhone">전화번호</label> 
-						<input id="updatedPhone" class="form-control" name="updatePhone" type="text" value="${memberInfo.phone}">
+						<label for="userSeq" class="userSeq">닉네임</label> <input
+							type="hidden" id="userSeq" name="userSeq"
+							value="${memberInfo.userSeq }"> <label
+							for="updatedNickname" class="updateNickname">닉네임</label> <input
+							id="updatedNickname" class="form-control" name="updateNickname"
+							type="text" value="${memberInfo.nickName }"> <label
+							for="updatedEmail" class="updatedEmail">이메일</label> <input
+							id="updatedEmail" class="form-control" name="updateEmail"
+							type="text" value="${memberInfo.email }"> <label
+							for="updatedPhone" class="updatedPhone">전화번호</label> <input
+							id="updatedPhone" class="form-control" name="updatePhone"
+							type="text" value="${memberInfo.phone}">
 					</div>
 					<div class="modal-footer col flex-nowrap">
 						<input type="submit" value="수정"
-							class="form-control submit px-3 rounded-right w-50" id="userInfo-update"> 
-						<input type="submit" value="닫기" class="w-50 form-control submit px-3 rounded-right"
+							class="form-control submit px-3 rounded-right w-50"
+							id="userInfo-update"> <input type="submit" value="닫기"
+							class="w-50 form-control submit px-3 rounded-right"
 							data-bs-dismiss="modal" aria-label="Close">
 					</div>
 				</div>
 			</div>
 		</div>
-	<div class="modal fade" id="updatePostModal"
-			data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		<div class="modal fade" id="updatePostModal" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content d-flex" id="blocked-reason-modal">
@@ -615,17 +635,20 @@
 					</div>
 					<div class="modal-body">
 						<!-- 닉네임 검사 필요함 (연결) -->
-						<label for="boardSeq" class="boardSeq">닉네임</label>
-						<input type="hidden" id="boardSeq" name="boardSeq" value="${post.seq }">
-						<label for="updatedTitle" class="updatedTitle"></label>
-						<input id="updatedTitle" class="form-control" name="updatedTitle" type="text" value="${memberInfo.nickName }">
-						<label for="updatedContents" class="updatedContents">닉네임</label>
-						<textarea id="updatedContents" class="form-control" name="updatedContents"></textarea> 
+						<label for="boardSeq" class="boardSeq">닉네임</label> <input
+							type="hidden" id="boardSeq" name="boardSeq" value="${post.seq }">
+						<label for="updatedTitle" class="updatedTitle"></label> <input
+							id="updatedTitle" class="form-control" name="updatedTitle"
+							type="text" value="${memberInfo.nickName }"> <label
+							for="updatedContents" class="updatedContents">닉네임</label>
+						<textarea id="updatedContents" class="form-control"
+							name="updatedContents"></textarea>
 					</div>
 					<div class="modal-footer col flex-nowrap">
 						<input type="submit" value="수정"
-							class="form-control submit px-3 rounded-right w-50" id="post-update"> 
-						<input type="submit" value="닫기" class="w-50 form-control submit px-3 rounded-right"
+							class="form-control submit px-3 rounded-right w-50"
+							id="post-update"> <input type="submit" value="닫기"
+							class="w-50 form-control submit px-3 rounded-right"
 							data-bs-dismiss="modal" aria-label="Close">
 					</div>
 				</div>
@@ -639,6 +662,7 @@
 		<script src="/dashboard/assets/js/core/popper.js"></script>
 		<script src="/dashboard/assets/js/core/bootstrap.min.js"></script>
 		<script src="/dashboard/assets/js/core/main.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script>
 			var win = navigator.platform.indexOf('Win') > -1;
 			if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -670,54 +694,96 @@
 		})
 	});
 
-	function deleteBlackList() {
-		$.ajax({
-			url : "/deleteBlackList.dashBoard",
-			method : "post",
-			complete : function(data, status) {
-				console.log(data);
-			}
-		})
+	function adminPromotion(){
+		Swal.fire({
+			  title: "중간 관리자로 추가하시겠습니까?",
+			  showDenyButton: true,
+			  showCancelButton: true,
+			  confirmButtonText: "추가",
+			  denyButtonText: `취소`
+			}).then((result) => {
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.isConfirmed) {
+			    Swal.fire("저장되었습니다.", "", "success");
+			    $.ajax({
+					url : "/addAsAdmin.dashBoard",
+					method : "post",
+					data:{"userSeq":$("#userSeq").val()},
+					success : function(data, status) {
+						console.log(data.promotionResult);
+						if(data.updateResult === 1){
+							console.log($("#userAuth").text())
+							$("#userAuth").text('중간 관리자')
+							}
+					}
+				})
+			  } else if (result.isDenied) {
+			    Swal.fire("저장되지 않았습니다.", "", "info");
+			  }
+			});
 	}
-	
+	function deleteBlackList() {
+		Swal.fire({
+			  title: "블랙리스트에서 삭제하시겠습니까?",
+			  showDenyButton: true,
+			  showCancelButton: true,
+			  confirmButtonText: "추가",
+			  denyButtonText: `취소`
+			}).then((result) => {
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.isConfirmed) {
+				  $.ajax({
+						url : "/deleteBlackList.dashBoard",
+						method : "post",
+						complete : function(data, status) {
+							console.log(data);
+						}
+					})
+			    Swal.fire("저장되었습니다.", "", "success");
+			  } else if (result.isDenied) {
+			    Swal.fire("저장되지 않았습니다.", "", "info");
+			  }
+			});
+		
+	}
 
 	$("#userInfo-update").on("click", function() {
-	    console.log("유저 정보 관리자가 업데이트하려고 함!!");
-	    $.ajax({
-	        url : "/updateUser.dashBoard",
-	        method : "get",
-	        contentType: 'application/json; charset=UTF-8',
-	        dataType: 'json',
-	        data : {
-	            "userSeq": $("#userSeq").val(),
-	            "updatedNickname" : $("#updatedNickname").val(),
-	            "updatedEmail" : $("#updatedEmail").val(),
-	            "updatedPhone" : $("#updatedPhone").val()
-	        },
-	        success : function(response) {
-	            console.log(response);
-	            
-	            $("#updateUserInfoModal").modal('hide');
-	            $('body').removeClass('modal-open');
-	            $('.modal-backdrop').remove();
-	            
-	            $("#email").val(response.email);
-	            $("#nickname").val(response.nickname);
-	            $("#phone").val(response.phone);
-	        },
-	        error: function(error) {
-	            console.error("업데이트 실패:", error);
-	        }
-	    });
+		console.log("유저 정보 관리자가 업데이트하려고 함!!");
+		$.ajax({
+			url : "/updateUser.dashBoard",
+			method : "get",
+			contentType : 'application/json; charset=UTF-8',
+			dataType : 'json',
+			data : {
+				"userSeq" : $("#userSeq").val(),
+				"updatedNickname" : $("#updatedNickname").val(),
+				"updatedEmail" : $("#updatedEmail").val(),
+				"updatedPhone" : $("#updatedPhone").val()
+			},
+			success : function(response) {
+				console.log(response);
+
+				$("#updateUserInfoModal").modal('hide');
+				$('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
+
+				$("#email").val(response.email);
+				$("#nickname").val(response.nickname);
+				$("#phone").val(response.phone);
+			},
+			error : function(error) {
+				console.error("업데이트 실패:", error);
+			}
+		});
 	});
-	
-	let seq =$("#postSeq").val()
-	$("#postEdit").on("click", function(){
-		location.href="/detail.board?seq="+seq;
+
+	let seq = $("#postSeq").val()
+	$("#postEdit").on("click", function() {
+		location.href = "/detail.board?seq=" + seq;
 	})
-	
-	$("#postDelete").on("click", function(){
-		location.href="/delete.board?seq="+seq;
+
+	$("#postDelete").on("click", function() {
+		location.href = "/delete.board?seq=" + seq;
 	})
 </script>
 </html>

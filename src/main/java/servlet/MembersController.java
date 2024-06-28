@@ -162,8 +162,16 @@ public class MembersController extends HttpServlet {
                     session.setAttribute("loginID", member.getUserId());
                     session.setAttribute("userName", member.getUserName()); // 사용자 이름 세션에 저장
                     session.setAttribute("adminKey", member.getAdminKey());
+                    System.out.println(member.getAdminKey());
                     session.setAttribute("userSeq", member.getUserSeq()); // 사용자 유저 시퀀스 저장 -- 기존에 이것만 추가
-                    response.sendRedirect("/index.jsp");
+                    
+                    //혜린 수정 : 관리자는 접속하자마자 대시보드 페이지로 이동하고, 일반 유저는 인덱스로 이동하도록
+                    if(member != null && member.getAdminKey() == 2 || member.getAdminKey() == 1) {
+                    	request.getRequestDispatcher("/showMain.dashBoard").forward(request, response);
+                    	//대시보드 내용 안뜨는 오류 있어서 수정
+                    }else if(member != null && member.getAdminKey() == 0) {
+                    	request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    }
                 } else {
                     session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
                     response.sendRedirect("/members/login.jsp"); // 로그인 실패 시 처리
