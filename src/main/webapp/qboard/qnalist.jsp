@@ -327,7 +327,7 @@
 </head>
 
 <body>
- <header>
+ 
          <header>
         <div class="header-container">
         <a href="/index.jsp">
@@ -399,9 +399,7 @@
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
-                <div class="top-right-button">
-                    <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
-                </div>
+                
                 <h2></h2>
                 
                 <table class="board-table">
