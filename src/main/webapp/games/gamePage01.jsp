@@ -200,7 +200,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
@@ -216,18 +216,14 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
             <div class="header-buttons">
                  <c:choose>
                     <c:when test="${not empty sessionScope.loginID}">
-                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                        <span class="welcome-text-button" onclick="location.href='/mypage.members'">
                             <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
                         </span>
                         <div class="btn-container">
