@@ -16,6 +16,8 @@
 
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    
 
     <style>
 
@@ -226,11 +228,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
                 </ul>
             </nav>
@@ -351,7 +349,28 @@
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
-            ]
+            ],
+            callbacks: {
+	            onInit: function() {
+	                // 에디터 초기화 후 실행할 작업
+	            	$('.note-editable').css({
+	            	    'unicode-bidi': 'isolate',
+	            	    'font-variant-numeric': 'tabular-nums',
+	            	    'text-transform': 'none',
+	            	    'text-indent': '10px', // 모든 줄을 20px 들여쓰기
+	            	    'text-align': 'start',
+	            	    'text-align-last': 'start'
+	            	});
+
+	            },
+	            onChange: function(contents, $editable) {
+	                // 내용이 변경될 때 추가 작업 수행
+	                $('.note-editable ul, .note-editable ol').css({
+	                    'margin-left': '20px', // ul, ol의 왼쪽 여백 설정 (예시에서는 20px로 설정)
+	                    'padding-left': '0'     // ul, ol의 내부 padding 초기화
+	                });
+	            }
+	        }
         });
         // 게시글 취소버튼 누를 시 confirm 버튼 
         $(".btn-cancel").on("click",function(){

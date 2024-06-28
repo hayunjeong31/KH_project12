@@ -192,69 +192,34 @@
     <div class="container">
         <h1>명예의 전당</h1>
         <div class="tabs">
-            <button class="tab-button" onclick="showGame(1)">Mario</button>
-            <button class="tab-button" onclick="showGame(2)">Mission</button>
-            <button class="tab-button" onclick="showGame(3)">game3</button>
-            <button class="tab-button" onclick="showGame(4)">game4</button>
-            <button class="tab-button" onclick="showGame(5)">game5</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="1">Mario</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="2">Mission</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="3">game3</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="4">game4</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="5">game5</button>
         </div>
 
         <div id="game1" class="tab-content">
             <h2>🏆 Mario</h2>
-            <div id="rankingList1">
-                <c:forEach var="ranking" items="${topRankings}">
-                    <p class="ranking-text">⭐${ranking.userId}: ${ranking.score}, 
-                        <fmt:formatDate value="${ranking.rank_date}" pattern="yyyy-MM-dd HH:mm:ss" />⭐
-                    </p>
-                </c:forEach>
-                <c:if test="${empty topRankings}">
-                    <p class="ranking-text">데이터가 없습니다.</p>
-                </c:if>
-            </div>
+            <div id="rankingList1"></div>
         </div>
                 
         <div id="game2" class="tab-content">
             <h2> 🏆 Mission</h2>
-            <div id="rankingList1">
-                <c:forEach var="ranking" items="${topRankings}">
-                    <p class="ranking-text">⭐${ranking.userId}: ${ranking.score}, 
-                        <fmt:formatDate value="${ranking.rank_date}" pattern="yyyy-MM-dd HH:mm:ss" />⭐
-                    </p>
-                </c:forEach>
-                <c:if test="${empty topRankings}">
-                    <p class="ranking-text">데이터가 없습니다.</p>
-                </c:if>
-            </div>
+
+            <div id="rankingList2"></div>
         </div>
         <div id="game3" class="tab-content">
             <h2> ⭐ game3</h2>
-            <ol>
-                <li>PlayerA</li>
-                <li>PlayerB</li>
-                <li>PlayerC</li>
-                <li>PlayerD</li>
-                <li>PlayerE</li>
-            </ol>
+            <div id="rankingList3"></div>
         </div>
         <div id="game4" class="tab-content">
             <h2> 🔥 game4</h2>
-            <ol>
-                <li>Gamer1</li>
-                <li>Gamer2</li>
-                <li>Gamer3</li>
-                <li>Gamer4</li>
-                <li>Gamer5</li>
-            </ol>
+            <div id="rankingList4"></div>
         </div>
         <div id="game5" class="tab-content">
             <h2> 🎯 game5</h2>
-            <ol>
-                <li>Winner1</li>
-                <li>Winner2</li>
-                <li>Winner3</li>
-                <li>Winner4</li>
-                <li>Winner5</li>
-            </ol>
+            <div id="rankingList5"></div>
         </div>
     </div>
     <script>
@@ -285,19 +250,21 @@
             });
         }
 
-        function showGame(gameId) {
+        function showGame(button) {
+            var gameSeq = button.getAttribute('data-gameseq');
             var tabs = document.getElementsByClassName('tab-content');
             for (var i = 0; i < tabs.length; i++) {
                 tabs[i].style.display = 'none';
             }
-            document.getElementById('game' + gameId).style.display = 'block';
+            document.getElementById('game' + gameSeq).style.display = 'block';
 
             // 게임 순위를 불러오는 함수 호출
-            fetchGameRankings(gameId, 'rankingList' + gameId);
+            fetchGameRankings(gameSeq, 'rankingList' + gameSeq);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            showGame(1);
+            // 기본적으로 첫 번째 게임을 표시
+            showGame(document.querySelector('.tab-button[data-gameseq="1"]'));
         });
 
         function toggleMenu() {
