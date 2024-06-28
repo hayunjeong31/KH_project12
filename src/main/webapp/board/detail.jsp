@@ -105,7 +105,9 @@
         .board-area {
 			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             flex: 2;
-            padding: 20px;
+            
+        	margin-left:20px;
+            padding-bottom: 20px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -174,10 +176,21 @@
             max-width: 800px;
             margin-bottom: 20px;
             padding-top:40px;
-            margin-left:5%;
-            margin-right:5%;
+            padding-right:20px;
+            margin-left:30px;
+            margin-right:20px;
+            
         }
-
+        .flex-div{
+        	display:flex;
+        }
+        .title{
+        	flex:0.5;
+        }
+        .view-count-date{
+        	flex:0.5;
+        }
+	
         .post-details p {
             margin-bottom: 10px;
             font-size: 1em;
@@ -522,21 +535,24 @@
             <article class="board-area">
                 <h2></h2>
                 <div class="post-details">
-                	<p style="margin-top: 20px; margin-bottom: 10px;"><strong>제목</strong></p>
-    				<p style="font-size: 18px; margin-top: 10px; margin-bottom: 20px;">${dto.title}</p>
-                    
-                    <p class="view-count-date">
-                    	<span class="view-count">조회수 ${dto.view_count}</span>
-                   
-                        <c:choose>
-	                       	<c:when test="${dto.upd_date != null}">
-	                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd HH:mm" />
-	                       	</c:when>
-	                       	<c:otherwise>
-	                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
-	                       	</c:otherwise>
-                    	</c:choose>
-                    </p>
+	                <div class="flex-div">
+	                	<div class="title">
+		                	<p style="font-size: 20px;"><strong>제목</strong></p>
+		    				<p style="font-size: 18px;">${dto.title}</p>
+	                    </div>
+	                    <div class="view-count-date">
+	                    	<span class="view-count">조회수 ${dto.view_count}</span>
+	                   
+	                        <c:choose>
+		                       	<c:when test="${dto.upd_date != null}">
+		                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd HH:mm" />
+		                       	</c:when>
+		                       	<c:otherwise>
+		                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
+		                       	</c:otherwise>
+	                    	</c:choose>
+	                    </div>
+                    </div>
                     <p><strong>글쓴이</strong></p><div class="writer-section" style="margin-bottom: 20px;">${dto.writer}</div>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
