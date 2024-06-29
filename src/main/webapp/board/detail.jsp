@@ -374,6 +374,7 @@
             border-radius: 5px;
             font-size: 1em;
             margin-bottom: 10px;
+            
    	 	}
    	 	
    	 	button{
@@ -414,7 +415,7 @@
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
 			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-            width: 20%;
+            width: 100%;
             padding: 10px;
             padding-right: 0;
             border: 1px solid #ccc;
@@ -422,6 +423,7 @@
             font-size: 1em;
             margin: 10px 0;
             word-wrap: break-word;
+            resize:none;
         }
 	
 	/*좋아요 싫어요 버튼0*/
@@ -468,6 +470,7 @@
 		.no-resize{
 			resize:none;
 		}
+		
     </style>
 </head>
 
@@ -905,7 +908,8 @@
 			        if (!comment.parent_cmt) {
 			            // 원댓글일 경우에만 답글 버튼 추가
 			            let replyButton = $("<button>", {"class": "common-button"}).text("답글").click(function() {
-			                let replyTextarea = $("<textarea>",{"class":"re-reply-textarea"}).attr("placeholder", "답글 입력").css("width", "100%");
+			                let replyTextarea = $("<textarea>",{"class":"re-reply-textarea","rows":"3","cols":"50"}).attr("placeholder", "답글 입력");//.css({"width":"100%",});
+			              
 			                // 답글 등록 버튼 클릭 시 저장되게 하기
 			                let submitReplyButton = $("<button>",{"class":"common-button"}).text("등록").click(function() {
 			                    let replyContent = replyTextarea.val().trim();
@@ -929,16 +933,12 @@
 			                // 답글 취소 버튼 클릭 시, 
 			                let cancelReplyButton = $("<button>", {"class":"common-button"}).text("답글취소").click(function(){
 			                	replyTextarea.hide();
-				               // $(this).closest('.breakbox').find('.common-button:contains("수정"), .common-button:contains("삭제")').show();
-				                $(this).closest('.breakbox').find('.common-button:contains("답글")').show();
-				                
-				                $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
-				               // $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("저장")').hide();
-
+				               	$(this).closest('.breakbox').find('.common-button:contains("답글")').show();
+				               	$(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
 				                
 			                });
 			                
-			                $(this).parent().append(replyTextarea, submitReplyButton); // 답글 textarea, 답글 등록 버튼 나오게
+			                $(this).parent().append(replyTextarea, submitReplyButton, cancelReplyButton); // 답글 textarea, 등록 버튼 나오게
 			                $(this).hide(); // replyButton 답글 버튼 사라지게
 			            });
 						
@@ -952,9 +952,11 @@
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
 				    		$(".re-reply-textarea").hide();
 				           // $(".common-button:contains('등록'), .common-button:contains('답글취소')").hide();
-				           
-				            $(this).closest('.breakbox').find('.common-button:contains("삭제"), .common-button:contains("답글취소")').hide();
-				            $(this).closest('.breakbox').find('.common-button:contains("답글"), .common-button:contains("등록")').hide();
+				           $(".common-button:contains('등록')").hide();
+				           $(".common-button:contains('답글취소')").hide();
+				           $(".common-button:contains('답글')").show();
+				            $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
+				            $(this).closest('.breakbox').find('.common-button:contains("답글"), .common-button:contains("삭제")').hide();
 					   
 			                // contenteditable TRUE 	추가
 			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
