@@ -380,9 +380,9 @@ nav ul li:hover>.dropdown {
 </head>
 
 <body>
-	    <header>
+	   <header>
         <div class="header-container">
-            <img src="image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
@@ -401,7 +401,6 @@ nav ul li:hover>.dropdown {
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>

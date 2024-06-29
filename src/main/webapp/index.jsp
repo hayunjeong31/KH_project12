@@ -268,7 +268,7 @@ footer {
 .slides img {
     width: 100%;
     height: 76%;
-    display: none;
+    display: none; 	
     position: absolute;
     margin-top: 150px;
 }
@@ -470,7 +470,6 @@ footer {
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
