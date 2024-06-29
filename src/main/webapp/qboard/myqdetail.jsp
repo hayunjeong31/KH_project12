@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
     <title>게시물 상세보기</title>
     <style>
@@ -29,7 +30,7 @@
             height: 100%;
         }
 
-       body {
+        body {
 			font-family: "GalmuriMono9", monospace;
             margin: 0;
             padding: 0;
@@ -96,7 +97,12 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
+		strong{
+			font-family: "GalmuriMono9", monospace;
+		}
         .board-area {
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
             flex: 2;
             padding: 20px;
             display: flex;
@@ -105,7 +111,6 @@
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
-            font-family: Arial, sans-serif;
         }
 
         .board-area h2 {
@@ -189,8 +194,19 @@
             max-width: 800px;
             margin-bottom: 20px;
             padding-top:40px;
-            margin-left:5%;
-            margin-right:5%;
+            padding-right:20px;
+            margin-left:30px;
+            margin-right:20px;
+            
+        }
+        .flex-div{
+        	display:flex;
+        }
+        .title{
+        	flex:0.5;
+        }
+        .view-count-date{
+        	flex:0.5;
         }
 
         .post-details p {
@@ -203,9 +219,6 @@
         .post-details strong {
             font-weight: bold;
         }
-        strong{
-        font-family: "GalmuriMono9", monospace;
-        }
 
 
         .post-actions {
@@ -217,7 +230,7 @@
         }
 
         .post-actions button {
-        font-family: "GalmuriMono9", monospace;
+        	font-family: "GalmuriMono9", monospace;
             padding: 10px 20px;
             border: none;
             background-color: rgba(45, 19, 112, 0.684);
@@ -243,6 +256,7 @@
             font-size: 1.2em;
             margin-bottom: 10px;
             font-family: "GalmuriMono9", monospace;
+            
         }
 
         .post-attachments ul {
@@ -276,10 +290,12 @@
             margin-top: 20px;
             margin-bottom: 10px;
             font-family: "GalmuriMono9", monospace;
+            
         }
 
         .post-comments textarea {
-        	font-family: 'Open Sans', sans-serif;
+        	            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -324,7 +340,8 @@
    	 	}
    	 	/*게시글 내용 영역*/
    	 	.contents{
-   	 		font-family: 'Open Sans', sans-serif;
+   	 		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+   	 	
    	 		min-height:150px;
    	 		margin-left:2%;
    	 		margin-right:2%;
@@ -337,6 +354,26 @@
             margin-left: 5%;
             padding-left:20px;
    	 	}
+   	 	.comment-box {
+    word-wrap: break-word;
+    padding-bottom: 9px;
+    padding-left: 10px;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #00FFFF; /* 네온 청록색 테두리 */
+    border-radius: 0; /* 픽셀 느낌을 위해 둥근 모서리 제거 */
+    font-size: 1em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #ffffff; /* 흰색 배경 */
+    color: #000000; /* 검은색 글씨 */
+    font-size: 16px; /* 큰 픽셀 느낌의 글꼴 크기 */
+    animation: borderGlow 1.5s infinite alternate;
+}
+   	 	
    	 	.box_comment{
    	 		padding-bottom: 20px;
    	 	}
@@ -394,23 +431,24 @@
     position: relative; /* position 속성 추가 */
 }
 
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-
+		.welcome-text-button i {
+		    position: absolute;
+		    left: 10px; /* 아이콘 위치 조정 */
+		    top: 50%;
+		    transform: translateY(-50%);
+		}
+		
+		.welcome-text-button:hover {
+		    background: rgba(0, 0, 0, 0.7);
+		}
+		.no-resize{
+			resize:none;
+		}
     </style>
 </head>
 
 <body>
-     <header>
+      <header>
         <div class="header-container">
         <a href="/index.jsp">
             <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
@@ -477,26 +515,29 @@
             </article>
             <article class="board-area">
                 <h2></h2>
-                <div class="post-details">
-                    <p><strong>제목</strong><br>${dto.title}</p>
-                   
-                    <p class="view-count-date">
-                    	<span class="view-count">조회수 ${dto.view_count}</span>
-                    작성일
-                        <c:choose>
-	                       	<c:when test="${dto.upd_date != null}">
-	                       		<fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd" />
-	                       	</c:when>
-	                       	<c:otherwise>
-	                       		<fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" />
-	                       	</c:otherwise>
-                    	</c:choose>
-                    </p>
-                     <p><strong>글쓴이</strong><br>${dto.writer}</p>
+                 <div class="post-details">
+	                <div class="flex-div">
+	                	<div class="title">
+		                	<p style="font-size: 20px;"><strong>제목</strong></p>
+		    				<p style="font-size: 18px;">${dto.title}</p>
+	                    </div>
+	                    <div class="view-count-date">
+	                    	<span class="view-count">조회수 ${dto.view_count}</span>
+	                   
+	                        <c:choose>
+		                       	<c:when test="${dto.upd_date != null}">
+		                       		수정일: <fmt:formatDate value="${dto.upd_date}" pattern="yyyy.MM.dd HH:mm" />
+		                       	</c:when>
+		                       	<c:otherwise>
+		                       		작성일: <fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd HH:mm" />
+		                       	</c:otherwise>
+	                    	</c:choose>
+	                    </div>
+                    </div>
+                    <p><strong>글쓴이</strong></p><div class="writer-section" style="margin-bottom: 20px;">${dto.writer}</div>
                     <p><strong>내용</strong><br></p>
                     <div class="contents">${dto.contents}</div>
-                    
-                </div>
+                    </div>
                 <div class="post-actions">
                     <c:choose>
 	                	<c:when test="${iswriter && count==0}">
@@ -532,9 +573,7 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
-                		<div class="post-comments">
-		                    <h3>댓글</h3>
-		                </div>
+                		
                 	</c:otherwise>
                 </c:choose>
 
@@ -582,7 +621,11 @@
                         let c_list = resp.c_list;
                         let loginID = "${loginID}";
         				
-                            
+                       	// 답변 없을때, c_list가 null 일때. 
+                       	if(c_list.length == 0){
+                       		
+                       		$("#comment-box").html( "<div class='message'>답변이 작성되지 않았습니다.</div>")
+                       	}else{
                         
                         for(let i of c_list){
                             let box_comment = $("<div>",{"class":"box_comment"});
@@ -625,7 +668,7 @@
                            
                             $("#comment-box").append(box_comment);
                         }
-                    }
+                    }}
                 });
                 
                 // 댓글 수정하기 버튼 클릭 시

@@ -370,8 +370,7 @@ font-family: 'Open Sans', sans-serif;
 		text-decoration: none;
 		cursor: pointer;
 	}
-<<<<<<< HEAD
-=======
+
 	.welcome-text {
   font-weight: bold;
   color: #fff;
@@ -400,7 +399,7 @@ font-family: 'Open Sans', sans-serif;
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+
 	
 
 
@@ -477,7 +476,7 @@ font-family: 'Open Sans', sans-serif;
 			<article class="mypage-info-area">
 				<h2>내 정보</h2>
 				<c:choose>
-					<c:when test="${dto == null}">에러</c:when>
+					<c:when test="${dto == null}">비로그인 상태입니다.<br> 로그인 후 이용 바랍니다.</c:when>
 					<c:otherwise>
 						<form class="info-form" action="/edit.members" id="edit_form"
 							method="post">

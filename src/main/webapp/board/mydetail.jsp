@@ -97,16 +97,22 @@
 		/* 스크롤 scroll 주기(overflow-x:hidden)
 			justify-content: flex-start줘서 글 시작 상단에 시작되게!
 		*/
+		strong{
+			font-family: "GalmuriMono9", monospace;
+			
+		}
         .board-area {
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             flex: 2;
-            padding: 20px;
+            
+        	margin-left:20px;
+            padding-bottom: 20px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             overflow-y:auto;
             overflow-x:hidden;
-            font-family: 'Open Sans', sans-serif;
         }
 
         .board-area h2 {
@@ -169,10 +175,21 @@
             max-width: 800px;
             margin-bottom: 20px;
             padding-top:40px;
-            margin-left:5%;
-            margin-right:5%;
+            padding-right:20px;
+            margin-left:30px;
+            margin-right:20px;
+            
         }
-
+        .flex-div{
+        	display:flex;
+        }
+        .title{
+        	flex:0.5;
+        }
+        .view-count-date{
+        	flex:0.5;
+        }
+	
         .post-details p {
             margin-bottom: 10px;
             font-size: 1em;
@@ -183,8 +200,6 @@
         .post-details strong {
             font-weight: bold;
         }
-        
-        strong{font-family: "GalmuriMono9", monospace;}
 
 
         .post-actions {
@@ -222,9 +237,10 @@
         }
 
         .post-attachments h3 {
+        	font-family: "GalmuriMono9", monospace;
+        	
             font-size: 1.2em;
             margin-bottom: 10px;
-            font-family: "GalmuriMono9", monospace;
         }
 
         .post-attachments ul {
@@ -253,15 +269,17 @@
 
 		/* 댓글 - 타이틀  */
         .post-comments h3 {
+        font-family: "GalmuriMono9", monospace;
+        
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
-            font-family: "GalmuriMono9", monospace;
+            
         }
         
         .post-comments textarea {
-        	font-family: 'Open Sans', sans-serif;
+        	font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -309,7 +327,7 @@
     	}
    	 	/*게시글 내용 영역*/
    	 	.contents{
-   	 		font-family: 'Open Sans', sans-serif;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
    	 		min-height:150px;
    	 		margin-left:2%;
    	 		margin-right:2%;
@@ -340,15 +358,57 @@
    	 	.col4{
    	 		float:left;
    	 		padding-left:10px;
-   	 		width:30%;
+   	 		width:40%;
    	 		padding-right:20px;
    	 	}
-   	 		/*댓글 내용 부분*/
+   	 		/*댓글 내용 부분
    	 	.col3{
    	 		word-wrap: break-word;
    	 		padding-bottom: 9px;
    	 		padding-left:10px;
-   	 	}
+   	 		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+            
+   	 	}*/
+   	 	
+/* 댓글 영역 스타일 */
+.col3 {
+    word-wrap: break-word;
+    padding-bottom: 9px;
+    padding-left: 10px;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    width: 85%;
+    padding: 10px;
+    border: 2px solid #00FFFF; /* 네온 청록색 테두리 */
+    border-radius: 0; /* 픽셀 느낌을 위해 둥근 모서리 제거 */
+    font-size: 1em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #ffffff; /* 흰색 배경 */
+    color: #000000; /* 검은색 글씨 */
+    font-size: 16px; /* 큰 픽셀 느낌의 글꼴 크기 */
+    animation: borderGlow 1.5s infinite alternate;
+}
+
+/* 댓글 영역이 들어갈 공간 스타일 */
+.comment-area {
+    background: rgba(45, 19, 112, 0.684); /* 지정된 배경 색상 */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+
+
+   			
+
    	 	
    	 	button{
    	 		font-family: "GalmuriMono9", monospace;
@@ -387,8 +447,8 @@
 		
 		/*답글 textarea 아마도?? ㅎㅎ */
 		.re-reply-textarea{
-			font-family: 'Open Sans', sans-serif;
-            width: 20%;
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            width: 100%;
             padding: 10px;
             padding-right: 0;
             border: 1px solid #ccc;
@@ -396,6 +456,7 @@
             font-size: 1em;
             margin: 10px 0;
             word-wrap: break-word;
+            resize:none;
         }
 	
 	/*좋아요 싫어요 버튼0*/
@@ -429,16 +490,19 @@
     position: relative; /* position 속성 추가 */
 }
 
-.welcome-text-button i {
-    position: absolute;
-    left: 10px; /* 아이콘 위치 조정 */
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.welcome-text-button:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
+		.welcome-text-button i {
+		    position: absolute;
+		    left: 10px; /* 아이콘 위치 조정 */
+		    top: 50%;
+		    transform: translateY(-50%);
+		}
+		
+		.welcome-text-button:hover {
+		    background: rgba(0, 0, 0, 0.7);
+		}
+		.no-resize{
+			resize:none;
+		}
 		
     </style>
 </head>
@@ -603,6 +667,10 @@
 				        alert("댓글을 입력하세요.");
 				        return;
 				    }
+				    if(!loginID){
+				    	alert("로그인 하세요.");
+				    	return;
+				    }
 				    $.ajax({
 				        url: "/comment.reply",
 				        type: "post",
@@ -645,7 +713,10 @@
 	             let bookmarkBtn = $(this);
 	             let bookmarkIcon = $(this).find('i');
 	             let isBookmarked = bookmarkIcon.hasClass('fas');
-	
+					if(!loginID){
+						alert("로그인을 하세요.");
+						return false;
+					}
 	            $.ajax({
 	                url: "/bookmark.board",
 	                method: "post",
@@ -762,9 +833,7 @@
 				                if (isHated) {
 				                    co_hates.removeClass('fa-solid').addClass('fa-regular');
 				                    co_hates_count.html(response.result4);
-			                	} else {
-			                    	console.error('좋아요 상태 저장에 실패했습니다.');
-			               		}
+			                	} 
 			          	  	}
 			          	  }
 			        	});
@@ -847,7 +916,8 @@
 			        // 삭제된 댓글 처리
 			    if (comment.isDeleted === 'y') {
 			        if (comment.replies && comment.replies.length > 0) {
-			            commentDiv.append("<div>삭제된 댓글입니다</div>");
+			            commentDiv.append("<div class='deleted-reply' style='height:80px; font-weight:bold; padding:30px 10px;'>삭제된 댓글입니다</div>");
+			            
 			        } else {
 			            // 답글이 없는 경우 해당 댓글 출력하지 않음
 			            return;
@@ -859,7 +929,8 @@
 			        if (!comment.parent_cmt) {
 			            // 원댓글일 경우에만 답글 버튼 추가
 			            let replyButton = $("<button>", {"class": "common-button"}).text("답글").click(function() {
-			                let replyTextarea = $("<textarea>",{"class":"re-reply-textarea"}).attr("placeholder", "답글 입력").css("width", "100%");
+			                let replyTextarea = $("<textarea>",{"class":"re-reply-textarea","rows":"3","cols":"50"}).attr("placeholder", "답글 입력");//.css({"width":"100%",});
+			              
 			                // 답글 등록 버튼 클릭 시 저장되게 하기
 			                let submitReplyButton = $("<button>",{"class":"common-button"}).text("등록").click(function() {
 			                    let replyContent = replyTextarea.val().trim();
@@ -880,25 +951,42 @@
 			                        });
 			                    }
 			                });
-			                $(this).parent().append(replyTextarea, submitReplyButton); // 답글 textarea, 답글 등록 버튼 나오게
+			                // 답글 취소 버튼 클릭 시, 
+			                let cancelReplyButton = $("<button>", {"class":"common-button"}).text("답글취소").click(function(){
+			                	replyTextarea.hide();
+				               	$(this).closest('.breakbox').find('.common-button:contains("답글")').show();
+				               	$(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
+				                
+			                });
+			                
+			                
+	//		                $(this).append(replyTextarea, submitReplyButton, cancelReplyButton); // 답글 textarea, 등록 버튼 나오게
+			                
+			                $(this).parent().append(replyTextarea, submitReplyButton, cancelReplyButton); // 답글 textarea, 등록 버튼 나오게
 			                $(this).hide(); // replyButton 답글 버튼 사라지게
 			            });
 						
 						breakbox.append(replyButton); // replyButton 답글 버튼 다시 나타나기.
 						commentDiv.append(breakbox);
-			        }
+			        } 
 	
 			        // 로그인한 사용자와 댓글 작성자가 같을 경우 수정 및 삭제 버튼 추가
 			        if (comment.userId === loginID) {
 			        	//1. 수정버튼 
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
-			    	
-					        $(".re-reply-textarea, .common-button:contains('등록'), .common-button:contains('삭제')").hide();
-					        $(".common-button:contains('답글')").show();
-				    		
-			    		
+				    		 // 기존에 생성된 '답글취소' 버튼이 있다면 삭제
+				            $('.common-button:contains("답글취소")').remove();
+				    		$(".re-reply-textarea").hide();
+				           // $(".common-button:contains('등록'), .common-button:contains('답글취소')").hide();
+				           $(".common-button:contains('등록')").hide();
+				           $(".common-button:contains('답글취소')").hide();
+				           $(".common-button:contains('답글')").show();
+				            $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
+				            $(this).closest('.breakbox').find('.common-button:contains("답글"), .common-button:contains("삭제")').hide();
+				            $(this).parent().siblings('.comment').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
+					   
 			                // contenteditable TRUE 	추가
-			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
+			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white").focus();
 			    				
 			    		    let originalContent = editTextarea.html(); // 원래 내용을 저장
 
@@ -923,13 +1011,20 @@
 				                });
 		    		        
 			                let cancelButton = $("<button>", {"class": "common-button"}).text("취소").click(function() {
-			                    editTextarea.html(originalContent); // 원래 내용으로 복원
-			                    location.reload(); // 페이지 새로고침
+			                   // editTextarea.html(originalContent); // 원래 내용으로 복원
+			                   // location.reload(); // 페이지 새로고침
+				                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "false").css("background-color", "");
+				                editTextarea.html(originalContent);
+				                $(this).closest('.breakbox').find('.common-button:contains("수정"), .common-button:contains("삭제")').show();
+				                $(this).closest('.breakbox').find('.common-button:contains("답글")').show();
+				                
+				                $(this).closest('.breakbox').find('.common-button:contains("저장"), .common-button:contains("취소")').hide();
+
 			                });
 			                
 			                $(this).parent().append(submitEditButton, cancelButton); // 수정 textarea, 저장 버튼 나오게
 			                $(this).hide(); // editButton 수정 버튼 사라지게
-			            });
+			            }); // 수정버튼기능끝
 		
 			            // 2. 삭제 기능 추가
 			            let deleteButton = $("<button>", {"class": "common-button"}).text("삭제").click(function() {
@@ -977,10 +1072,6 @@
 		
 		    
 	    });	// document.ready  끝 부분 -
-	 
-    
-	    
-	    
 	 
 </script>
 </body>
