@@ -383,7 +383,7 @@
     padding-bottom: 9px;
     padding-left: 10px;
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-    width: 70%;
+    width: 85%;
     padding: 10px;
     border: 2px solid #00FFFF; /* 네온 청록색 테두리 */
     border-radius: 0; /* 픽셀 느낌을 위해 둥근 모서리 제거 */
@@ -406,15 +406,7 @@
     margin: 20px 0;
 }
 
-/* 네온 효과 애니메이션 */
-@keyframes borderGlow {
-    0% {
-        box-shadow: 0 0 2px #00FFFF, 0 0 4px #00FFFF, 0 0 6px #00FFFF, 0 0 8px #00FFFF;
-    }
-    100% {
-        box-shadow: 0 0 4px #00FFFF, 0 0 8px #00FFFF, 0 0 12px #00FFFF, 0 0 16px #00FFFF;
-    }
-}
+
 
    			
 
