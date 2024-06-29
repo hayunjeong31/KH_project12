@@ -327,7 +327,7 @@
 </head>
 
 <body>
- <header>
+ 
          <header>
         <div class="header-container">
         <a href="/index.jsp">
@@ -342,9 +342,7 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
@@ -352,7 +350,6 @@
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
@@ -399,9 +396,7 @@
                 <div class="wc_message"></div>
             </article>
             <article class="board-area">
-                <div class="top-right-button">
-                    <button class="new-button" onclick="location.href='bookmark.html'"> 북마크 </button>
-                </div>
+                
                 <h2></h2>
                 
                 <table class="board-table">

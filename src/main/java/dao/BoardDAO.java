@@ -184,118 +184,125 @@ public class BoardDAO {
 	
 
 	
-//		    public List<BoardDTO> selectNtoM(int a, int b) throws Exception{
-		    public List<BoardWithReplyCount> selectNtoM(int a, int b) throws Exception{
-		    	//String sql = "select * from ( select board.*, row_number() over(order by seq desc) rown from board) subquery where rown between ? and ?";
-		    	String sql = "select board.*,NVL(reply_count,0) as reply_count "
-		    			+ "	from (select board.*,row_number() over (order by board.seq desc) as rown from board) board "
-		    			+ "left join(select boardseq, count(*) as reply_count from reply where isDeleted != 'y' group by boardseq) "
-		    			+ "	reply_count on board.seq = reply_count.boardseq "
-		    			+ "where board.rown between ? and ?";	
-		    	try(Connection con = this.getConnection();
-		    			PreparedStatement pstat = con.prepareStatement(sql)){
-		    		pstat.setInt(1, a);
-		    		pstat.setInt(2, b);
-		    		try(ResultSet rs = pstat.executeQuery()){
-		    			List<BoardWithReplyCount> list = new ArrayList<>();
-		    			while(rs.next()) {
-		    				BoardWithReplyCount board = new BoardWithReplyCount();
-		    				board.setSeq(rs.getInt("seq"));
-		    				board.setCategorySeq(rs.getInt("categoryseq"));
-		    				board.setWriter(rs.getString("writer"));
-		    				board.setTitle(rs.getString("title"));
-		    				board.setContents(rs.getString("contents"));
-		    				
-		                    board.setWrite_date(rs.getTimestamp("write_date"));
-		                    board.setUpd_date(rs.getTimestamp("upd_date"));
-		                    board.setView_count(rs.getInt("view_count"));
-		                    board.setAdminKey(rs.getInt("adminKey"));
-		                    board.setReplyCount(rs.getInt("reply_count"));
-		                    list.add(board);
-		                    
+		public List<BoardWithReplyCount> selectNtoM(int a, int b) throws Exception{
+//	    	String sql = "select board.*,NVL(reply_count,0) as reply_count "
+//	    			+ "	from (select board.*,row_number() over (order by board.seq desc) as rown from board) board "
+//	    			+ "left join(select boardseq, count(*) as reply_count from reply where isDeleted != 'y' group by boardseq) "
+//	    			+ "	reply_count on board.seq = reply_count.boardseq "
+//	    			+ "where board.rown between ? and ?";	
+			String sql = "    SELECT board.*, NVL(reply_count, 0) AS reply_count \r\n"
+					+ " 		                   FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown \r\n"
+					+ " 		                   FROM board \r\n"
+					+ " 		                   ) board \r\n"
+					+ " 		             LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count \r\n"
+					+ " 		                        FROM reply where isDeleted !='y' \r\n"
+					+ " 		                        GROUP BY boardseq) reply_count \r\n"
+					+ " 		             ON board.seq = reply_count.boardseq \r\n"
+					+ " 		             WHERE board.rown BETWEEN ? AND ?";
+	    	try(Connection con = this.getConnection();
+	    			PreparedStatement pstat = con.prepareStatement(sql)){
+	    		pstat.setInt(1, a);
+	    		pstat.setInt(2, b);
+	    		try(ResultSet rs = pstat.executeQuery()){
+	    			List<BoardWithReplyCount> list = new ArrayList<>();
+	    			while(rs.next()) {
+	    				BoardWithReplyCount board = new BoardWithReplyCount();
+	    				board.setSeq(rs.getInt("seq"));
+	    				board.setCategorySeq(rs.getInt("categoryseq"));
+	    				board.setWriter(rs.getString("writer"));
+	    				board.setTitle(rs.getString("title"));
+	    				board.setContents(rs.getString("contents"));
+	    				
+	                    board.setWrite_date(rs.getTimestamp("write_date"));
+	                    board.setUpd_date(rs.getTimestamp("upd_date"));
+	                    board.setView_count(rs.getInt("view_count"));
+	                    board.setAdminKey(rs.getInt("adminKey"));
+	                    board.setReplyCount(rs.getInt("reply_count"));
+	                    list.add(board);
+	                    
 //					
-						}
-						return list;
-		    		}
-		    	}
-		    }
-		 // 게시글 검색. start에서 end까지 번호 게시글들 뽑기. 
-	 		public List<BoardWithReplyCount> searchPosts(String keyword, String option, int start, int end) throws Exception {
-	 		    List<BoardWithReplyCount> list = new ArrayList<>();
-	 		    String sql = "";
+					}
+					return list;
+	    		}
+	    	}
+	    }
+	 // 게시글 검색. start에서 end까지 번호 게시글들 뽑기. 
+ 		public List<BoardWithReplyCount> searchPosts(String keyword, String option, int start, int end) throws Exception {
+ 		    List<BoardWithReplyCount> list = new ArrayList<>();
+ 		    String sql = "";
 
-	 		    switch (option) {
-	 		        case "title":
-	 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
-	 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
-	 		                   "FROM board " +
-	 		                   "WHERE title LIKE ?) board " +
-	 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
-	 		                        "FROM reply where isDeleted !='y' " +
-	 		                        "GROUP BY boardseq) reply_count " +
-	 		             "ON board.seq = reply_count.boardseq " +
-	 		             "WHERE board.rown BETWEEN ? AND ?";
-	 		           // sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where title like ?) subquery where rown between ? and ?";
-	 		            break;
-	 		        case "writer":
-	 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
-	 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
-	 		                   "FROM board " +
-	 		                   "WHERE writer LIKE ?) board " +
-	 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
-	 		                        "FROM reply where isDeleted !='y' " +
-	 		                        "GROUP BY boardseq) reply_count " +
-	 		             "ON board.seq = reply_count.boardseq " +
-	 		             "WHERE board.rown BETWEEN ? AND ?";
-	 		            //sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where writer like ?) subquery where rown between ? and ?";
-	 		            break;
-	 		        case "title_writer":
-	 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
-	 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
-	 		                   "FROM board " +
-	 		                   "WHERE title LIKE ? or writer like ?) board " +
-	 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
-	 		                        "FROM reply where isDeleted !='y'" +
-	 		                        "GROUP BY boardseq) reply_count " +
-	 		             "ON board.seq = reply_count.boardseq " +
-	 		             "WHERE board.rown BETWEEN ? AND ?";
-	 		          //  sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where title like ? OR writer like ?) subquery where rown between ? and ?";
-	 		            break;
-	 		    }
+ 		    switch (option) {
+ 		        case "title":
+ 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
+ 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
+ 		                   "FROM board " +
+ 		                   "WHERE title LIKE ?) board " +
+ 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
+ 		                        "FROM reply where isDeleted !='y' " +
+ 		                        "GROUP BY boardseq) reply_count " +
+ 		             "ON board.seq = reply_count.boardseq " +
+ 		             "WHERE board.rown BETWEEN ? AND ?";
+ 		           // sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where title like ?) subquery where rown between ? and ?";
+ 		            break;
+ 		        case "writer":
+ 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
+ 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
+ 		                   "FROM board " +
+ 		                   "WHERE writer LIKE ?) board " +
+ 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
+ 		                        "FROM reply where isDeleted !='y' " +
+ 		                        "GROUP BY boardseq) reply_count " +
+ 		             "ON board.seq = reply_count.boardseq " +
+ 		             "WHERE board.rown BETWEEN ? AND ?";
+ 		            //sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where writer like ?) subquery where rown between ? and ?";
+ 		            break;
+ 		        case "title_writer":
+ 		        	sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count " +
+ 		                   "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown " +
+ 		                   "FROM board " +
+ 		                   "WHERE title LIKE ? or writer like ?) board " +
+ 		             "LEFT JOIN (SELECT boardseq, COUNT(*) AS reply_count " +
+ 		                        "FROM reply where isDeleted !='y'" +
+ 		                        "GROUP BY boardseq) reply_count " +
+ 		             "ON board.seq = reply_count.boardseq " +
+ 		             "WHERE board.rown BETWEEN ? AND ?";
+ 		          //  sql = "select * from (select board.*, row_number() over(order by seq desc) rown from board where title like ? OR writer like ?) subquery where rown between ? and ?";
+ 		            break;
+ 		    }
 
-	 		    try (Connection conn = getConnection(); 
-	 		         PreparedStatement pstat = conn.prepareStatement(sql)) {
-	 		        pstat.setString(1, "%" + keyword + "%");
-	 		        if (option.equals("title_writer")) {
-	 		            pstat.setString(2, "%" + keyword + "%");
-	 		            pstat.setInt(3, start);
-	 		            pstat.setInt(4, end);
-	 		        } else {
-	 		            pstat.setInt(2, start);
-	 		            pstat.setInt(3, end);
-	 		        }
-	 		        try (ResultSet rs = pstat.executeQuery()) {
-	 		            while (rs.next()) {
-	 		            	BoardWithReplyCount board = new BoardWithReplyCount();
-		    				board.setSeq(rs.getInt("seq"));
-		    				board.setCategorySeq(rs.getInt("categoryseq"));
-		    				board.setWriter(rs.getString("writer"));
-		    				board.setTitle(rs.getString("title"));
-		    				board.setContents(rs.getString("contents"));
-		    				
-		                    board.setWrite_date(rs.getTimestamp("write_date"));
-		                    board.setUpd_date(rs.getTimestamp("upd_date"));
-		                    board.setView_count(rs.getInt("view_count"));
-		                    board.setAdminKey(rs.getInt("adminKey"));
-		                    board.setReplyCount(rs.getInt("reply_count"));
-		                    list.add(board);
-		                    
+ 		    try (Connection conn = getConnection(); 
+ 		         PreparedStatement pstat = conn.prepareStatement(sql)) {
+ 		        pstat.setString(1, "%" + keyword + "%");
+ 		        if (option.equals("title_writer")) {
+ 		            pstat.setString(2, "%" + keyword + "%");
+ 		            pstat.setInt(3, start);
+ 		            pstat.setInt(4, end);
+ 		        } else {
+ 		            pstat.setInt(2, start);
+ 		            pstat.setInt(3, end);
+ 		        }
+ 		        try (ResultSet rs = pstat.executeQuery()) {
+ 		            while (rs.next()) {
+ 		            	BoardWithReplyCount board = new BoardWithReplyCount();
+	    				board.setSeq(rs.getInt("seq"));
+	    				board.setCategorySeq(rs.getInt("categoryseq"));
+	    				board.setWriter(rs.getString("writer"));
+	    				board.setTitle(rs.getString("title"));
+	    				board.setContents(rs.getString("contents"));
+	    				
+	                    board.setWrite_date(rs.getTimestamp("write_date"));
+	                    board.setUpd_date(rs.getTimestamp("upd_date"));
+	                    board.setView_count(rs.getInt("view_count"));
+	                    board.setAdminKey(rs.getInt("adminKey"));
+	                    board.setReplyCount(rs.getInt("reply_count"));
+	                    list.add(board);
+	                    
 //	 		               
-	 		            }
-	 		        }
-	 		    }
-	 		    return list;
-	 		}
+ 		            }
+ 		        }
+ 		    }
+ 		    return list;
+ 		}
 	 	// if keyword null값이면 전체 수 얻기 
 	 		// if keyword option값 있으면 아래. 
 	 		// 검색 게시글 수 얻기 
