@@ -362,7 +362,7 @@
    	 		width:40%;
    	 		padding-right:20px;
    	 	}
-   	 		/*댓글 내용 부분*/
+   	 		/*댓글 내용 부분
    	 	.col3{
    	 		word-wrap: break-word;
    	 		padding-bottom: 9px;
@@ -375,7 +375,49 @@
             font-size: 1em;
             margin-bottom: 10px;
             
-   	 	}
+   	 	}*/
+   	 	
+/* 댓글 영역 스타일 */
+.col3 {
+    word-wrap: break-word;
+    padding-bottom: 9px;
+    padding-left: 10px;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #00FFFF; /* 네온 청록색 테두리 */
+    border-radius: 0; /* 픽셀 느낌을 위해 둥근 모서리 제거 */
+    font-size: 1em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #ffffff; /* 흰색 배경 */
+    color: #000000; /* 검은색 글씨 */
+    font-size: 16px; /* 큰 픽셀 느낌의 글꼴 크기 */
+    animation: borderGlow 1.5s infinite alternate;
+}
+
+/* 댓글 영역이 들어갈 공간 스타일 */
+.comment-area {
+    background: rgba(45, 19, 112, 0.684); /* 지정된 배경 색상 */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+/* 네온 효과 애니메이션 */
+@keyframes borderGlow {
+    0% {
+        box-shadow: 0 0 2px #00FFFF, 0 0 4px #00FFFF, 0 0 6px #00FFFF, 0 0 8px #00FFFF;
+    }
+    100% {
+        box-shadow: 0 0 4px #00FFFF, 0 0 8px #00FFFF, 0 0 12px #00FFFF, 0 0 16px #00FFFF;
+    }
+}
+
+   			
+
    	 	
    	 	button{
    	 		font-family: "GalmuriMono9", monospace;
