@@ -810,9 +810,7 @@
 				                if (isHated) {
 				                    co_hates.removeClass('fa-solid').addClass('fa-regular');
 				                    co_hates_count.html(response.result4);
-			                	} else {
-			                    	console.error('좋아요 상태 저장에 실패했습니다.');
-			               		}
+			                	} 
 			          	  	}
 			          	  }
 			        	});
@@ -938,18 +936,23 @@
 				                
 			                });
 			                
+			                
+	//		                $(this).append(replyTextarea, submitReplyButton, cancelReplyButton); // 답글 textarea, 등록 버튼 나오게
+			                
 			                $(this).parent().append(replyTextarea, submitReplyButton, cancelReplyButton); // 답글 textarea, 등록 버튼 나오게
 			                $(this).hide(); // replyButton 답글 버튼 사라지게
 			            });
 						
 						breakbox.append(replyButton); // replyButton 답글 버튼 다시 나타나기.
 						commentDiv.append(breakbox);
-			        }
+			        } 
 	
 			        // 로그인한 사용자와 댓글 작성자가 같을 경우 수정 및 삭제 버튼 추가
 			        if (comment.userId === loginID) {
 			        	//1. 수정버튼 
 				    	let editButton = $("<button>", {"class": "common-button"}).text("수정").click(function() {
+				    		 // 기존에 생성된 '답글취소' 버튼이 있다면 삭제
+				            $('.common-button:contains("답글취소")').remove();
 				    		$(".re-reply-textarea").hide();
 				           // $(".common-button:contains('등록'), .common-button:contains('답글취소')").hide();
 				           $(".common-button:contains('등록')").hide();
@@ -957,6 +960,7 @@
 				           $(".common-button:contains('답글')").show();
 				            $(this).closest('.breakbox').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
 				            $(this).closest('.breakbox').find('.common-button:contains("답글"), .common-button:contains("삭제")').hide();
+				            $(this).parent().siblings('.comment').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
 					   
 			                // contenteditable TRUE 	추가
 			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
@@ -997,7 +1001,7 @@
 			                
 			                $(this).parent().append(submitEditButton, cancelButton); // 수정 textarea, 저장 버튼 나오게
 			                $(this).hide(); // editButton 수정 버튼 사라지게
-			            });
+			            }); // 수정버튼기능끝
 		
 			            // 2. 삭제 기능 추가
 			            let deleteButton = $("<button>", {"class": "common-button"}).text("삭제").click(function() {
