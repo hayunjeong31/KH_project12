@@ -13,7 +13,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
 
-    
+    <link rel="stylesheet" href="css/header_styles.css">
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -26,6 +26,7 @@
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <script src="/js/gameStart03.js"></script>
     <script src="/js/game03.js"></script>
     <script src="/js/gameOver03.js"></script>
@@ -195,9 +196,8 @@
     </script>
 <body>
    <header>
-        	<div class="header-container">
-        		<a href="/index.jsp">
-            	<img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
+        <div class="header-container">
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
@@ -208,9 +208,7 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <!-- <a href="#">게임 플레이 순위</a> -->
-                            <a href="#">즐겨찾기</a>
-                            <!-- <a href="#">랭킹</a> -->
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
@@ -218,7 +216,6 @@
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
@@ -235,7 +232,7 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                 <c:choose>
+               <c:choose>
                     <c:when test="${not empty sessionScope.loginID}">
                         <span class="welcome-text-button" onclick="location.href='mypage.members'">
                             <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
@@ -256,6 +253,7 @@
             </div>
         </div>
     </header>
+
 
     <div class="content">
         <!-- 이쪽에 게임 작성 코드 올리면 될것-->
@@ -319,18 +317,19 @@
         // 페이지 로드 시 즐겨찾기 상태 확인
         $.ajax({
             type: "GET",
-            url: `${pageContext.request.contextPath}/checkFavorite.Favorite`,
+            url: "/checkFavorite.Favorite",
             data: {
                 userId: '${sessionScope.loginID}',
                 pageUrl: window.location.href
             },
+            dataType: "json",
             success: function(response) {
                 if (response.isFavorite) {
                     favoriteButton.addClass('active');
                 }
             },
             error: function(xhr, status, error) {
-                console.error("오류가 발생했습니다.");
+                console.error("오류가 발생했습니다: " + error);
             }
         });
 
@@ -340,18 +339,19 @@
             const isFavorite = favoriteButton.hasClass('active');
 
             $.ajax({
-                type: "GET",
-                url: `${pageContext.request.contextPath}/updateFavorite.Favorite`,
+                type: "POST", // POST 요청으로 변경
+                url: "/updateFavorite.Favorite",
                 data: {
                     userId: '${sessionScope.loginID}',
                     pageUrl: window.location.href,
                     isFavorite: isFavorite
                 },
+                dataType: "json",
                 success: function(response) {
                     alert(response.message);
                 },
                 error: function(xhr, status, error) {
-                    alert("오류가 발생했습니다.");
+                    console.error("오류가 발생했습니다: " + error);
                 }
             });
         });
