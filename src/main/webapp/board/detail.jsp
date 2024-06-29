@@ -963,7 +963,7 @@
 				            $(this).parent().siblings('.comment').find('.common-button:contains("등록"), .common-button:contains("답글취소")').hide();
 					   
 			                // contenteditable TRUE 	추가
-			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white");
+			                let editTextarea = $(this).parent().siblings(".col3").attr("contenteditable", "true").css("background-color", "white").focus();
 			    				
 			    		    let originalContent = editTextarea.html(); // 원래 내용을 저장
 
