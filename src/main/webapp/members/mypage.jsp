@@ -370,8 +370,7 @@ font-family: 'Open Sans', sans-serif;
 		text-decoration: none;
 		cursor: pointer;
 	}
-<<<<<<< HEAD
-=======
+
 	.welcome-text {
   font-weight: bold;
   color: #fff;
@@ -400,7 +399,7 @@ font-family: 'Open Sans', sans-serif;
 .welcome-text-button:hover {
     background: rgba(0, 0, 0, 0.7);
 }
->>>>>>> 07569663bf800ac0c061fb073e5fe4da73153a1f
+
 	
 
 

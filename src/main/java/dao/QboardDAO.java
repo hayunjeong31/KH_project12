@@ -264,36 +264,34 @@ public class QboardDAO {
    public List<QBoardDTO>selectByWriter(String writer, int start, int end) throws Exception{
       String sql = "select * from (select qboard.*, row_number() over (order by seq desc) rown from qboard where writer=?) subquery where rown between ? and ?";
 
-      List<QBoardDTO> list = new ArrayList<>();
+      
       try(Connection con = this.getConnection();
             PreparedStatement pstat = con.prepareStatement(sql)){
          pstat.setString(1, writer);
          pstat.setInt(2, start);
-         pstat.setInt(3, end);
-         ResultSet rs = pstat.executeQuery();
-
-         while(rs.next()){
-            QBoardDTO dto = new QBoardDTO();
-            dto.setSeq(rs.getInt("seq"));
-            dto.setCategorySeq(rs.getInt("categorySeq"));
-            dto.setWriter(rs.getString("writer"));
-            dto.setTitle(rs.getString("title"));
-            dto.setContents(rs.getString("contents"));
-            dto.setWrite_date(rs.getTimestamp("write_date"));
-            dto.setUpd_date(rs.getTimestamp("upd_date"));
-            dto.setView_count(rs.getInt("view_count"));
-            dto.setPassword(rs.getString("password"));
-            dto.setIsAnswered(rs.getString("isAnswered"));
-            dto.setAdminKey(rs.getInt("adminKey"));
-            list.add(dto);
+         pstat.setInt(3, end);         
+        	 try(ResultSet rs = pstat.executeQuery()){
+        		 List<QBoardDTO> list = new ArrayList<>();
+                 while(rs.next()) {
+                    int seq = rs.getInt("seq");
+                    int categorySeq = rs.getInt("categorySeq");
+                    String title = rs.getString("title");
+                    String contents = rs.getString("contents"); 
+                    Timestamp write_date = rs.getTimestamp("write_date");
+                    Timestamp upd_date = rs.getTimestamp("upd_date");
+                    int view_count = rs.getInt("view_count");
+                    String password = rs.getString("password");
+                    String isAnswered = rs.getString("isAnswered");
+                    int adminKey = rs.getInt("adminKey");
+            list.add(new QBoardDTO(seq,categorySeq,writer,title,contents,write_date,upd_date,view_count,password,isAnswered,adminKey));   
          }
-      }catch(Exception e) {
-         e.printStackTrace();
+         return list;    
       }
-      return list;
+      }
    }
-
-
-    
-    
 }
+
+
+
+    
+    
