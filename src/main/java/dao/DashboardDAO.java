@@ -519,11 +519,11 @@ public class DashboardDAO {
 
 			result = pstmt.executeUpdate();
 
-		}catch(Exception e)
-	{
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}return result;
+		}
+		return result;
 
 	}
 
@@ -545,42 +545,42 @@ public class DashboardDAO {
 		}
 		return result;
 	}
-	
-	//유저별 작성한 게시글 갯수 찾는 DAO
+
+	// 유저별 작성한 게시글 갯수 찾는 DAO
 	public int getAllPostCountPerUser(String writer) {
 		int count = 0;
 		String getAllPostCountPerUserSQL = "select count (*) as cnt from board where writer = ?";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(getAllPostCountPerUserSQL);) {
-			pstmt.setString(1,writer);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
+			pstmt.setString(1, writer);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
 					count = rs.getInt("cnt");
 				}
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
 
-	//유저별 작성한 댓글 갯수 찾는 DAO
+	// 유저별 작성한 댓글 갯수 찾는 DAO
 	public int getAllReplyCountPerUser(String writer) {
 		int count = 0;
 		String getAllReplyCountPerUser = "select count (*) as cnt from Reply where userId = ?";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(getAllReplyCountPerUser);) {
-			pstmt.setString(1,writer);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
+			pstmt.setString(1, writer);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
 					count = rs.getInt("cnt");
 				}
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
 

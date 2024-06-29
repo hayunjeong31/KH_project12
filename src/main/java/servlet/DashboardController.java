@@ -58,6 +58,11 @@ public class DashboardController extends HttpServlet {
 				session.setAttribute("recentFourUserList", recentFourUser);
 				session.setAttribute("recentFourPostList", recentFourPost);
 				
+				int userSeq = (int)session.getAttribute("userSeq");
+				System.out.println(userSeq);
+				session.setAttribute("userSeq", userSeq);
+				
+				
 				request.getRequestDispatcher("/dashboard/dashboardIndex.jsp").forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -75,6 +80,8 @@ public class DashboardController extends HttpServlet {
 			request.getRequestDispatcher("/dashboard/dashboardDetail.jsp").forward(request, response);
 		} else if (cmd.equals("/showUser.dashBoard")) {
 			int adminKey = (int) session.getAttribute("adminKey");
+			
+
 			System.out.println("파라미터: " + request.getParameter("userSeq"));
 			String originUserSeq = request.getParameter("userSeq");
 			session.setAttribute("userSeq", originUserSeq);

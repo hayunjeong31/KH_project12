@@ -171,6 +171,9 @@ public class MembersController extends HttpServlet {
                     	//대시보드 내용 안뜨는 오류 있어서 수정
                     }else if(member != null && member.getAdminKey() == 0) {
                     	request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    }else if(member != null && member.getBlacklistSeq() != 0) {
+                    	session.setAttribute("loginError", "현재 로그인 하시는 아이디는 정지 상태입니다. 다시 로그인 해주세요.");
+                    	 response.sendRedirect("/members/login.jsp");//블랙리스트 등재 시 로그인 불가상태
                     }
                 } else {
                     session.setAttribute("loginError", "아이디가 존재하지 않거나 비밀번호가 일치하지 않습니다.");

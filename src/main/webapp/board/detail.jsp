@@ -612,6 +612,20 @@
 			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
 			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
 					    </c:when>
+					    <!-- 혜린 수정 : 최고관리자(adminKey 2 이면 수정 삭제 가능하도록) -->
+   	                	<c:when test="${adminKey eq 2}">
+					        <button type="button" id="btnedit">수정</button>
+					        <button type="button" id="btndelete">삭제</button>
+			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
+					    </c:when>
+					    <!-- 혜린 수정 : 중간관리자(adminKey 1 이면 삭제 가능하도록) -->
+   	                	<c:when test="${adminKey eq 2}">
+					        <button type="button" id="btnedit">수정</button>
+					        <button type="button" id="btndelete">삭제</button>
+			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
+			                 <button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>
+					    </c:when>
 			            <c:otherwise>
 			                <button type="button" id="btnlist" onclick="location.href='/list.board'">목록</button>
  							<button type="button" id="bookmark-btn" class="bookmark" data-postseq="${dto.seq }"><i id="bookmarkIcon" class="far fa-bookmark"></i></button>				            

@@ -174,6 +174,9 @@ public class BoardController extends HttpServlet {
          else if (cmd.equals("/detail.board")) {
             String loginID = (String) request.getSession().getAttribute("loginID");
             int seq = Integer.parseInt(request.getParameter("seq"));
+            //혜린 추가: 어드민키 확인해서 수정하는 기능
+            int adminKey = (int) session.getAttribute("adminKey");
+            System.out.println("adminKey: "+adminKey);
             BoardDTO dto = dao.getinfo(seq);
             int categorySeq = 1;
             request.setAttribute("dto", dto);
