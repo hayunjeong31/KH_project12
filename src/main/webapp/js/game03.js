@@ -15,13 +15,13 @@ class game03 extends Phaser.Scene {
         this.bonusBoxHitCount = 0; // 보너스 박스 맞힌 횟수
         this.bonusBoxText = null; // 보너스 박스 텍스트 
         this.requiredHits = 15; // 맞혀야 하는 횟수 초기화
-        this.gameRank = 1; // 게임 랭크 초기화
-        this.userId = null; // 유저 ID 초기화
         
         this.highScore = 0;
-       
-         this.userSeq = null; // 유저 시퀀스 초기화
-         this.gameSeq = 3; // 게임 시퀀스 초기화
+        this.gameRank = 1; // 게임 랭크 초기화
+        this.userId = null; // 유저 ID 초기화
+             
+        this.userSeq = null; // 유저 시퀀스 초기화
+        this.gameSeq = 3; // 게임 시퀀스 초기화
 
         
     }
@@ -31,11 +31,11 @@ class game03 extends Phaser.Scene {
         this.enemyCount = 8;
         this.bonusBoxHitCount = 0; // 초기화: 보너스 박스 맞힌 횟수
         this.requiredHits = 15; // 초기화: 맞혀야 하는 횟수
+        
+        this.highScore = localStorage.getItem('highScore') || 0; // 로컬 스토리지에서 최고 기록을 가져옴
         this.gameRank = 1; // 게임 랭크 초기화
         this.userId = sessionStorage.getItem('userName'); // 유저 ID 초기화
-        this.highScore = localStorage.getItem('highScore') || 0; // 로컬 스토리지에서 최고 기록을 가져옴
-	 	this.userSeq = null; // 유저 시퀀스 초기화
-         this.gameSeq = 3; // 게임 시퀀스 초기화
+	 	
     }
 
     preload() {
