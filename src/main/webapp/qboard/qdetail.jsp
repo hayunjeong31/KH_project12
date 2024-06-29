@@ -414,6 +414,33 @@
    	 		margin-top:15px;
    	 		margin-bottom: 25px;
    	 	}
+   	 	   	 	.welcome-text {
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20px;
+}
+.welcome-text-button {
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    transition: background 0.3s;
+    position: relative; /* position 속성 추가 */
+}
+
+.welcome-text-button i {
+    position: absolute;
+    left: 10px; /* 아이콘 위치 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.welcome-text-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
     </style>
 </head>
 
