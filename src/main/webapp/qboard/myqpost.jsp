@@ -462,6 +462,7 @@ nav ul li:hover>.dropdown {
                             <th>글쓴이</th>
                             <th>등록일</th>
                             <th>조회수</th>
+                            <th>답변</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -472,6 +473,7 @@ nav ul li:hover>.dropdown {
                             <td>${dto.writer}</td>
                             <td><fmt:formatDate value="${dto.write_date}" pattern="yyyy.MM.dd" /></td>
                             <td>${dto.view_count}</td>
+                            <td>${dto.isAnswered}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
