@@ -7,227 +7,209 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
-    <title>게시물 작성</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/header_styles.css"> <!-- Linking external CSS file -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-    
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" ></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+ 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
 </head>
 <style>
-	* {
-	    box-sizing: border-box;
-	    margin: 0;
-	    padding: 0;
-	    
-	}
-	
-	body, html {
-	    height: 100%;
-	    font-family: "GalmuriMono9", monospace;
-	    
-	}
-	
-	.main {
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    height: 100%;
-	    background-color: #f4f4f4;
-	
-	    background-image: url('../image/5033917.jpg');
-	     
 
-	
-	.create-post-section {
-	    display: flex;
-	    width: 70%;
-	    height: 80%;
-	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	    border-radius: 10px;
-	    overflow: hidden;
-	    background-color: rgba(255, 255, 255, 0.563);
-	}
-	
-	.create-post-left {
-	    flex: 1;
-	    background-color:  rgba(45, 19, 112, 0.684);
-	    color: white;
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    align-items: center;
-	    padding: 20px;
-	}
-	
-	.create-post-left h1 {
-	    font-size: 36px;
-	}
-	
-	.create-post-area {
-	    flex: 2;
-	    padding: 40px;
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    align-items: center;
-	}
-	
-	.create-post-area h2 {
-	    font-size: 24px;
-	    margin-bottom: 20px;
-	    color: black;
-	    text-align: center;
-	}
-	
-	.post-form {
-	    width: 100%;
-	    max-width: 800px;
-	}
-	
-	.form-field {
-		margin-bottom: 20px;
-	    display: flex;
-	    flex-direction: column;
-	}
-	
-	.form-field label {
-	   	margin-bottom: 5px;
-	    font-weight: bold;
-	    font-size: 1em;
-	}
-	
-	.form-field input[type="text"],
-	.form-field input[type="file"] {
-	    width: 100%;
-	    padding: 10px;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    font-size: 1em;
-		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-	}
-	
-	.form-field input[type="file"] {
-	    font-family: "GalmuriMono9", monospace;
-	    border: none;
-	}
-	
-	.form-buttons {
-	    display: flex;
-	    justify-content: space-between;
-	    width: 100%;
-	}
-	
-	.form-buttons button {
-		font-family: "GalmuriMono9", monospace;
-	    padding: 10px 20px;
-	    border: none;
-	    background-color:  rgba(45, 19, 112, 0.684);
-	    color: white;
-	    border-radius: 5px;
-	    cursor: pointer;
-	    font-size: 1em;
-	    width: 48%;
-	}
-	.form-buttons button:hover {
-	    background-color:  rgba(237, 175, 18, 0.973);
-	        }
-	
-	.form-buttons .btn-cancel {
-	    background-color: #dc3545;
-	}
-	
-	.form-buttons .btn-cancel:hover {
-	    background-color: #c82333;
-	}
-	
-	.form-buttons .btn-submit {
-	    background-color: #28a745;
-	}
-	
-	.form-buttons .btn-submit:hover {
-	    background-color: #218838;
-	}
-	
-	.wc_message {
-	    display: none;
-	}
-	header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 2000;
-            background-color: black;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            height: 60px;
-            background-image: url('../image/5033917.jpg');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
 
+body, html {
+    height: 100%;
+    font-family: "GalmuriMono9", monospace;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #f4f4f4;
+    background-image: url('../image/5033917.jpg'); 
+     
+}
+
+.create-post-section {
+    display: flex;
+    width: 70%;
+    height: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.563);
+}
+
+.create-post-left {
+    flex: 1;
+    background-color: rgba(45, 19, 112, 0.684);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.create-post-left h1 {
+    font-size: 36px;
+}
+
+.create-post-area {
+    flex: 2;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-post-area h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    text-align: center;
+}
+
+.post-form {
+    width: 100%;
+    max-width: 800px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.form-field input[type="text"],
+.form-field textarea,
+.form-field input[type="file"] {
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+
+}
+
+.form-field input[type="file"] {
+    border: none;
+    font-family: "GalmuriMono9", monospace;     
+}
+input{
+	font-family: "GalmuriMono9", monospace;
+}
+ 
+
+.form-buttons {
+    display: flex;
+    justify-content: space-evenly;;
+    width: 100%;
+}
+
+.form-buttons button {
+    font-family: "GalmuriMono9", monospace;
+    padding: 10px 20px;
+    border: none;
+    background-color: rgba(45, 19, 112, 0.684);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 48%;
+}
+.form-buttons button:hover {
+    background-color: rgba(237, 175, 18, 0.973);
         }
- 	/* Summernote 배경색 설정 */
-	.note-editable {
-		background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
-		font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-		
-	}
-    .note-placeholder {
-	    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
-	    font-size: 16px; /* 원하는 크기로 변경 */
-	    color: #888; /* 원하는 색상으로 변경 */
-	}
-   	.note-resizebar{
-   	 	display: none;
-   	}
+
+.form-buttons .btn-cancel {
+    background-color: #dc3545;
+}
+
+.form-buttons .btn-cancel:hover {
+    background-color: #c82333;
+}
+
+.form-buttons .btn-submit {
+    background-color: #28a745;
+}
+
+.form-buttons .btn-submit:hover {
+    background-color: #218838;
+}
+
+.wc_message {
+    display: none;
+}
+  header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: black;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 60px;
+        background-image: url('../image/9.png');
+        
+    }
+
+   .file-input{
+   		font-family: "GalmuriMono9", monospace;
+   }
+
+ /* Summernote 배경색 설정 */
+     .note-editable {
+         background-color: #d3d2d8d5; /* 원하는 배경색으로 설정 */
+			font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+     }
+     .note-placeholder {
+    font-family: "GalmuriMono9", monospace; /* 원하는 글꼴로 변경 */
+    font-size: 16px; /* 원하는 크기로 변경 */
+    color: #888; /* 원하는 색상으로 변경 */
+}
    
-   	.form-password{
-   		margin-bottom : 2%;
-   	}
-    #fileloading{
-	   	margin-bottom:0;
-	   	padding-bottom:0;
-	}
-   	.file-input-container{
+   .note-resizebar{
+   	 	display: none;
+   }
+   /* password */
+   #password{
+   		margin-bottom: 20px;
+   		text-align:center;
+   }
+   .file-input-container{
    		padding-bottom:5px;
-   	}
-   	.welcome-text {
-  		font-weight: bold;
-		color: #fff;
-		margin-right: 20px;
-	}
-	.welcome-text-button {
-    	color: #fff;
-    	font-weight: bold;
-    	cursor: pointer;
-	    margin-right: 10px;
-	    padding: 5px 10px 5px 30px; /* 왼쪽 패딩 추가 */
-	    background: rgba(0, 0, 0, 0.5);
-	    border-radius: 5px;
-    	transition: background 0.3s;
-    	position: relative; /* position 속성 추가 */
-	}
-
-	.welcome-text-button i {
-    	position: absolute;
-	    left: 10px; /* 아이콘 위치 조정 */
-	    top: 50%;
-	    transform: translateY(-50%);
-	}
-
-	.welcome-text-button:hover {
-    	background: rgba(0, 0, 0, 0.7);
-	}
+   }
+   
     </style>
-	<body>
-    	<header>
-        	<div class="header-container">
-        		<a href="/index.jsp">
-            	<img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
+<body>
+     <header>
+        <div class="header-container">
+        <a href="/index.jsp">
+            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -238,9 +220,7 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <!-- <a href="#">게임 플레이 순위</a> -->
-                            <a href="#">즐겨찾기</a>
-                            <!-- <a href="#">랭킹</a> -->
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
@@ -248,7 +228,6 @@
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>

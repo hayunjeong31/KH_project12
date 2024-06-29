@@ -354,6 +354,26 @@
             margin-left: 5%;
             padding-left:20px;
    	 	}
+   	 	.comment-box {
+    word-wrap: break-word;
+    padding-bottom: 9px;
+    padding-left: 10px;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #00FFFF; /* 네온 청록색 테두리 */
+    border-radius: 0; /* 픽셀 느낌을 위해 둥근 모서리 제거 */
+    font-size: 1em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #ffffff; /* 흰색 배경 */
+    color: #000000; /* 검은색 글씨 */
+    font-size: 16px; /* 큰 픽셀 느낌의 글꼴 크기 */
+    animation: borderGlow 1.5s infinite alternate;
+}
+   	 	
    	 	.box_comment{
    	 		padding-bottom: 20px;
    	 	}
@@ -412,9 +432,7 @@
                         <a href="#">게임</a>
                         <div class="dropdown">
                             <a href="/games/win.jsp">명예의 전당</a>
-                            <a href="#">게임 플레이 순위</a>
-                            <a href="#">즐겨찾기</a>
-                            <a href="#">랭킹</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
@@ -422,7 +440,6 @@
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
@@ -526,10 +543,7 @@
 		                </div>
                 	</c:when>
                 	<c:otherwise>
-                		<div class="post-comments">
-		                    <h3>댓글</h3>
-		                    <div class="message">답변이 작성되지 않았습니다.</div>
-		                </div>
+                		
                 	</c:otherwise>
                 </c:choose>
 
@@ -577,7 +591,11 @@
                         let c_list = resp.c_list;
                         let loginID = "${loginID}";
         				
-                            
+                       	// 답변 없을때, c_list가 null 일때. 
+                       	if(c_list.length == 0){
+                       		
+                       		$("#comment-box").html( "<div class='message'>답변이 작성되지 않았습니다.</div>")
+                       	}else{
                         
                         for(let i of c_list){
                             let box_comment = $("<div>",{"class":"box_comment"});
@@ -620,7 +638,7 @@
                            
                             $("#comment-box").append(box_comment);
                         }
-                    }
+                    }}
                 });
                 
                 // 댓글 수정하기 버튼 클릭 시
