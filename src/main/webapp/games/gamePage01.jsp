@@ -5,23 +5,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
-    <link rel="stylesheet" href="../css/header_styles.css">
-    <script src="/js/game01.js"></script>
-    <script src="/js/gameOver01.js"></script>
     <title>Mario 피하기</title>
+    <link rel="stylesheet" href="css/header_styles.css">
+    <link rel="stylesheet" href="../css/header_styles.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
+    <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/header_styles.css">
-    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="/js/game01.js"></script>
+    <script src="/js/gameOver01.js"></script>
     <style>
         body {
             margin: 0;
@@ -183,28 +182,27 @@
     </script>
 </head>
 <body>
-    <header>
+     <header>
         <div class="header-container">
-            <img src="/image/gamebitlogo2.png" class="logo">
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/index.jsp">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="${pageContext.request.contextPath}/games/win.jsp">명예의 전당</a>
-                            <a href="#">즐겨찾기</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
                         <a href="/list.board">게시판</a>
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
-                            <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
+                            <a href="/list.qboard">Q&A</a>                           
                         </div>
                     </li>
                     <li>
@@ -221,9 +219,9 @@
                 </ul>
             </nav>
             <div class="header-buttons">
-                 <c:choose>
+               <c:choose>
                     <c:when test="${not empty sessionScope.loginID}">
-                        <span class="welcome-text-button" onclick="location.href='/mypage.members'">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
                             <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
                         </span>
                         <div class="btn-container">
@@ -301,18 +299,19 @@
             // 페이지 로드 시 즐겨찾기 상태 확인
             $.ajax({
                 type: "GET",
-                url: `${pageContext.request.contextPath}/checkFavorite.Favorite`,
+                url: "/checkFavorite.Favorite",
                 data: {
                     userId: '${sessionScope.loginID}',
                     pageUrl: window.location.href
                 },
+                dataType: "json",
                 success: function(response) {
                     if (response.isFavorite) {
                         favoriteButton.addClass('active');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error("오류가 발생했습니다.");
+                    console.error("오류가 발생했습니다: " + error);
                 }
             });
 
@@ -322,18 +321,19 @@
                 const isFavorite = favoriteButton.hasClass('active');
 
                 $.ajax({
-                    type: "GET",
-                    url: `${pageContext.request.contextPath}/updateFavorite.Favorite`,
+                    type: "POST", // POST 요청으로 변경
+                    url: "/updateFavorite.Favorite",
                     data: {
                         userId: '${sessionScope.loginID}',
                         pageUrl: window.location.href,
                         isFavorite: isFavorite
                     },
+                    dataType: "json",
                     success: function(response) {
                         alert(response.message);
                     },
                     error: function(xhr, status, error) {
-                        alert("오류가 발생했습니다.");
+                        console.error("오류가 발생했습니다: " + error);
                     }
                 });
             });

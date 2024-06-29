@@ -4,6 +4,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
 <link rel="stylesheet" href="../css/header_styles.css">
@@ -23,6 +24,7 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-pen.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="${pageContext.request.contextPath}/css/header_styles.css" rel="stylesheet" type="text/css">
 <style>
 body {
    margin: 0;
@@ -178,56 +180,63 @@ footer {
 </head>
 <body>
    <header>
-      <div class="header-container">
-         <img src="/image/gamebitlogo2.png" class="logo">
-         <nav>
-            <ul>
-               <li><a href="${pageContext.request.contextPath}/index.jsp">홈</a>
-                  <div class="dropdown"></div></li>
-               <li><a href="#">게임</a>
-                  <div class="dropdown">
-                     <a href="${pageContext.request.contextPath}/games/win.jsp">명예의
-                        전당</a> <a href="#">게임 플레이 순위</a> <a href="#">즐겨찾기</a> <a href="#">랭킹</a>
-                  </div></li>
-               <li><a href="/board.html">게시판</a>
-                  <div class="dropdown">
-                     <a href="../board.html">게시판</a> <a href="#">Q&A</a> <a href="#">공지사항</a>
-                  </div></li>
-               <li><a href="#">마이페이지</a>
-                  <div class="dropdown">
-                     <a href="#">내 정보 수정</a>
-                  </div></li>
-               <li><a href="#">관리자 페이지</a>
-                  <div class="dropdown">
-                     <a href="#">대시보드</a> <a href="#">통계</a>
-                  </div></li>
-            </ul>
-         </nav>
-         <div class="header-buttons">
-            <c:choose>
-               <c:when test="${not empty sessionScope.loginID}">
-                  <span class="welcome-text-button"
-                     onclick="location.href='mypage.members'"> <i
-                     class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
-                  </span>
-                  <div class="btn-container">
-                     <button class="logout-button"
-                        onclick="location.href='/logout.members'">Logout</button>
-                  </div>
-               </c:when>
-               <c:otherwise>
-                  <button class="login-button"
-                     onclick="location.href='members/login.jsp'">Login</button>
-               </c:otherwise>
-            </c:choose>
-            <div class="hamburger-menu" onclick="toggleMenu()">
-               <div></div>
-               <div></div>
-               <div></div>
+        <div class="header-container">
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/index.jsp">홈</a>
+                        <div class="dropdown"></div>
+                    </li>
+                    <li>
+                        <a href="#">게임</a>
+                        <div class="dropdown">
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/list.board">게시판</a>
+                        <div class="dropdown">
+                            <a href="/list.board">게시판</a>
+                            <a href="/list.qboard">Q&A</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">마이페이지</a>
+                        <div class="dropdown">
+                            <a href="/mypage.members">내 정보 보기</a>
+                            <a href="/myfreepostlist.board">내가 작성한 게시글</a>
+                            <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/showMain.dashBoard">관리자 페이지</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+               <c:choose>
+                    <c:when test="${not empty sessionScope.loginID}">
+                        <span class="welcome-text-button" onclick="location.href='mypage.members'">
+                            <i class="fa-solid fa-user"></i>${sessionScope.userName}님 환영합니다
+                        </span>
+                        <div class="btn-container">
+                            <button class="logout-button" onclick="location.href='/logout.members'">Logout</button>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                    </c:otherwise>
+                </c:choose>
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-         </div>
-      </div>
-   </header>
+        </div>
+    </header>
    <div class="content">
       <div id="gamebox">
          <div id="game-container"></div>
@@ -286,18 +295,19 @@ footer {
        // 페이지 로드 시 즐겨찾기 상태 확인
        $.ajax({
            type: "GET",
-           url: `${pageContext.request.contextPath}/checkFavorite.Favorite`,
+           url: "/checkFavorite.Favorite",
            data: {
                userId: '${sessionScope.loginID}',
                pageUrl: window.location.href
            },
+           dataType: "json",
            success: function(response) {
                if (response.isFavorite) {
                    favoriteButton.addClass('active');
                }
            },
            error: function(xhr, status, error) {
-               console.error("오류가 발생했습니다.");
+               console.error("오류가 발생했습니다: " + error);
            }
        });
 
@@ -307,18 +317,19 @@ footer {
            const isFavorite = favoriteButton.hasClass('active');
 
            $.ajax({
-               type: "GET",
-               url: `${pageContext.request.contextPath}/updateFavorite.Favorite`,
+               type: "POST", // POST 요청으로 변경
+               url: "/updateFavorite.Favorite",
                data: {
                    userId: '${sessionScope.loginID}',
                    pageUrl: window.location.href,
                    isFavorite: isFavorite
                },
+               dataType: "json",
                success: function(response) {
                    alert(response.message);
                },
                error: function(xhr, status, error) {
-                   alert("오류가 발생했습니다.");
+                   console.error("오류가 발생했습니다: " + error);
                }
            });
        });
