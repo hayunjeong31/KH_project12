@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Random;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -16,13 +17,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import dao.MembersDAO;
 
 @WebServlet("/sendAuthCode")
 public class EmailSenderServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+    private static final Logger logger = Logger.getLogger(EmailSenderServlet.class.getName());
     private String username;
     private String appPassword;
 
@@ -31,14 +31,14 @@ public class EmailSenderServlet extends HttpServlet {
         Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
+                logger.severe("config.properties 파일을 찾을 수 없습니다.");
                 return;
             }
             properties.load(input);
             username = properties.getProperty("email.username");
             appPassword = properties.getProperty("email.password");
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "config.properties 로드 실패", ex);
         }
     }
 
@@ -62,16 +62,18 @@ public class EmailSenderServlet extends HttpServlet {
                 // 임시 코드를 데이터베이스에 저장
                 try {
                     MembersDAO dao = MembersDAO.getInstance();
-                    dao.updateTempCodeByEmail(email, checkNumStr);
+                    boolean updateSuccess = dao.updateTempCodeByEmail(email, checkNumStr);
+                    if (updateSuccess) {
+                        response.getWriter().write("이메일로 인증번호가 전송되었습니다.");
+                    } else {	
+                        response.getWriter().write("데이터베이스 업데이트 실패: 업데이트되지 않았습니다.");
+                    }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "데이터베이스 업데이트 실패", e);
                     response.getWriter().write("데이터베이스 업데이트 실패: " + e.getMessage());
-                    return;
                 }
-
-                response.getWriter().write("이메일로 인증번호가 전송되었습니다.");
             } catch (MessagingException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "이메일 전송 실패", e);
                 response.getWriter().write("이메일 전송 실패: " + e.getMessage());
             }
         } else {

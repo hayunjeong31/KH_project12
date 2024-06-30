@@ -29,7 +29,29 @@ public class FileController extends HttpServlet {
 		FilesDAO dao = new FilesDAO();
 		
 		try {
-			if(cmd.equals("/download.file")) {
+			if(cmd.equals("/upload.file")) {
+//				int maxSize = 1024 * 1024 *10; //1024byte=1kbyte 1mbyte*10 =  10mbyte제한
+//				String realPath = request.getServletContext().getRealPath("files");// 파일이 저장될 위치 . 주소값 문자열
+//				File uploadPath = new File(realPath); // 저장 위치 폴더를 파일인스턴스로 생성해준다. 
+//				if(!uploadPath.exists()) { //존재하지 않는다면
+//					uploadPath.mkdir(); //make a directory 폴더생성
+//				} 
+//				MultipartRequest multi = new MultipartRequest(request,realPath,maxSize, "UTF8",new DefaultFileRenamePolicy());
+//				
+//				// 첨부파일 업로드 여러개 한거 받을 때 
+//				Enumeration<String> names = multi.getFileNames();
+//				while(names.hasMoreElements()) {
+//					String name = names.nextElement();
+//					String oriname = multi.getOriginalFileName(name);
+//					String sysname = multi.getFilesystemName(name);
+//					if(oriname!=null) {dao.insert(new FilesDTO(0, oriname, sysname, 0));}
+//				}
+//				
+//				response.sendRedirect("/index.jsp");
+//			
+				
+			
+			}else if(cmd.equals("/download.file")) {
 				String filepath = request.getServletContext().getRealPath("files");   // 다운 받을 파일의 위치 확보
 	            String sysname = request.getParameter("sysname");              		 // 다운 받을 파일 이름 확보
 	            String oriname = request.getParameter("oriname");
@@ -46,24 +68,12 @@ public class FileController extends HttpServlet {
 	            try(FileInputStream fis = new FileInputStream(target);         
 	               DataInputStream dis = new DataInputStream(fis);   
 	               ServletOutputStream sos = response.getOutputStream();){
-	               dis.readFully(null);
+	               dis.readFully(fileContents);
 	               sos.write(fileContents);
 	               sos.flush();   
 			}
 		}
 			
-			// 파일 삭제 servlet - > 수정완료했을떼 실행되도록 해야함. 
-			else if (cmd.equals("/delete.file")) {
-	           
-	                String sysname = request.getParameter("sysname");
-	                int result = dao.deleteBySysname(sysname);
-	                if (result > 0) {
-	                    response.getWriter().write("success");
-	                } else {
-	                    response.getWriter().write("failure");
-	                }
-	           
-	        }	
 			
 			
 		

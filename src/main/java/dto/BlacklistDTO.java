@@ -5,10 +5,17 @@ import java.sql.Timestamp;
 public class BlacklistDTO {
 	
 	private int blacklistSeq;
+	private int userSeq;
 	private String userId;
 	private String reason;
 	private Timestamp reg_date;
 	
+	public int getUserSeq() {
+		return userSeq;
+	}
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
+	}
 	
 	public int getBlacklistSeq() {
 		return blacklistSeq;
@@ -37,12 +44,13 @@ public class BlacklistDTO {
 	
 	public BlacklistDTO() {}
 	
-	public BlacklistDTO(int blacklistSeq, String userId, String reason, Timestamp reg_date) {
+	public BlacklistDTO(int blacklistSeq, String userId, String reason, Timestamp reg_date, int userSeq) {
 		super();
 		this.blacklistSeq = blacklistSeq;
 		this.userId = userId;
 		this.reason = reason;
 		this.reg_date = reg_date;
+		this.userSeq = userSeq;
 	}
 	
 	
