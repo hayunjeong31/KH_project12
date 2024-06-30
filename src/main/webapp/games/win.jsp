@@ -210,15 +210,15 @@
             <div id="rankingList2"></div>
         </div>
         <div id="game3" class="tab-content">
-            <h2> ⭐ game3</h2>
+            <h2> 🏆 슛 에니미스</h2>
             <div id="rankingList3"></div>
         </div>
         <div id="game4" class="tab-content">
-            <h2> 🔥 game4</h2>
+            <h2> 🏆 블럭 깨기</h2>
             <div id="rankingList4"></div>
         </div>
         <div id="game5" class="tab-content">
-            <h2> 🎯 game5</h2>
+            <h2> 🏆 game5</h2>
             <div id="rankingList5"></div>
         </div>
     </div>
