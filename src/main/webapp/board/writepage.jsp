@@ -209,7 +209,7 @@ input{
      <header>
         <div class="header-container">
         <a href="/index.jsp">
-            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            <img src="../image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>

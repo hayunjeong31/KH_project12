@@ -382,7 +382,7 @@ nav ul li:hover>.dropdown {
 <body>
        <header>
         <div class="header-container">
-            <img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+            <img src="../image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
