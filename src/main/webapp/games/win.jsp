@@ -128,26 +128,25 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+            <img src="/image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
-                        <a href="${pageContext.request.contextPath}/index.jsp">홈</a>
+                        <a href="/index.jsp">홈</a>
                         <div class="dropdown"></div>
                     </li>
                     <li>
                         <a href="#">게임</a>
                         <div class="dropdown">
-                            <a href="win.jsp">명예의 전당</a>
-                            <a href="#">즐겨찾기</a>
+                            <a href="/games/win.jsp">명예의 전당</a>
+                            <a href="/games/Favorite.jsp">즐겨찾기</a>
                         </div>
                     </li>
                     <li>
-                        <a href="/board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>
-                            <a href="#">공지사항</a>
                         </div>
                     </li>
                     <li>
@@ -158,13 +157,11 @@
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
-                    <li>
-                        <a href="#">관리자 페이지</a>
-                        <div class="dropdown">
-                            <a href="#">대시보드</a>
-                            <a href="#">통계</a>
-                        </div>
-                    </li>
+                    <c:if test="${adminKey eq 2}">
+	                    <li>
+	                        <a href="/showMain.dashBoard">관리자 페이지</a>
+	                    </li>
+	                </c:if>    
                 </ul>
             </nav>
             <div class="header-buttons">
@@ -194,16 +191,14 @@
         <div class="tabs">
             <button class="tab-button" onclick="showGame(this)" data-gameseq="1">Mario</button>
             <button class="tab-button" onclick="showGame(this)" data-gameseq="2">Mission</button>
-            <button class="tab-button" onclick="showGame(this)" data-gameseq="3">game3</button>
-            <button class="tab-button" onclick="showGame(this)" data-gameseq="4">game4</button>
-            <button class="tab-button" onclick="showGame(this)" data-gameseq="5">game5</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="3">슛 에니미스</button>
+            <button class="tab-button" onclick="showGame(this)" data-gameseq="4">블럭 깨기</button>
         </div>
 
         <div id="game1" class="tab-content">
             <h2>🏆 Mario</h2>
             <div id="rankingList1"></div>
-        </div>
-                
+        </div>  
         <div id="game2" class="tab-content">
             <h2> 🏆 Mission</h2>
 
@@ -216,10 +211,6 @@
         <div id="game4" class="tab-content">
             <h2> 🏆 블럭 깨기</h2>
             <div id="rankingList4"></div>
-        </div>
-        <div id="game5" class="tab-content">
-            <h2> 🏆 game5</h2>
-            <div id="rankingList5"></div>
         </div>
     </div>
     <script>

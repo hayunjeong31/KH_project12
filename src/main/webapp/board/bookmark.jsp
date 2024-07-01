@@ -382,7 +382,7 @@ nav ul li:hover>.dropdown {
 <body>
        <header>
         <div class="header-container">
-            <img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+            <img src="../image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
             <nav>
                 <ul>
                     <li>
@@ -411,9 +411,11 @@ nav ul li:hover>.dropdown {
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
+                                        <c:if test="${adminKey eq 2}">
                     <li>
                         <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
+                    </c:if>
                 </ul>
             </nav>
             <div class="header-buttons">

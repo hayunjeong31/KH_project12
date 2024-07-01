@@ -236,7 +236,7 @@ input{
      <header>
         <div class="header-container">
         <a href="/index.jsp">
-            <img src="../image/GamebitLogo.png" alt="Nintendo Logo" class="logo"></a>
+            <img src="../image/gamebitlogo2.png" alt="Nintendo Logo" class="logo"></a>
             <nav>
                 <ul>
                     <li>
@@ -265,9 +265,11 @@ input{
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
+                                        <c:if test="${adminKey eq 2}">
                     <li>
                         <a href="/showMain.dashBoard">관리자 페이지</a>
                     </li>
+                    </c:if>
                 </ul>
             </nav>
             <div class="header-buttons">

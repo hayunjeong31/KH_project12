@@ -142,7 +142,7 @@ public class BoardController extends HttpServlet {
          } else if (cmd.equals("/write.board")) {
 
             int maxSize = 1024 * 1024 * 10;
-            String realPath = request.getServletContext().getRealPath("files");
+            String realPath = "C:\\file";
             File uploadPath = new File(realPath);
             if (!uploadPath.exists()) {
                uploadPath.mkdir();
@@ -175,7 +175,11 @@ public class BoardController extends HttpServlet {
             String loginID = (String) request.getSession().getAttribute("loginID");
             int seq = Integer.parseInt(request.getParameter("seq"));
             //혜린 추가: 어드민키 확인해서 수정하는 기능
-            int adminKey = (int) session.getAttribute("adminKey");
+            Integer adminKey = (Integer) session.getAttribute("adminKey");
+            // 로그인 하지 않아도 list.qboard들어갈 수 있게 하기. 
+    			if (adminKey == null) {
+    		        adminKey = 0; // 0은 관리자가 아님을 의미하도록 가정
+    		    }
             System.out.println("adminKey: "+adminKey);
             BoardDTO dto = dao.getinfo(seq);
             int categorySeq = 1;
@@ -206,7 +210,7 @@ public class BoardController extends HttpServlet {
 
    
             int maxSize = 1024 * 1024 * 10;
-            String realPath = request.getServletContext().getRealPath("files");
+            String realPath = "C:\\file";
             File uploadPath = new File(realPath);
             if (!uploadPath.exists()) {
                uploadPath.mkdir();
