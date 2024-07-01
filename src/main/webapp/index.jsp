@@ -356,7 +356,7 @@ footer {
     color: rgba(180, 185, 195, 0.769);
     font-size: 70px;
     margin-bottom: 220px;
-    margin-left: 230px;
+    margin-left: 0px;
     text-align: center;
 }
 
@@ -515,7 +515,6 @@ footer {
                 <img src="image/background2.png" alt="Banner 2">
                 <img src="image/슛 에니미스.png" alt="Banner 3">
                 <img src="image/Block.png" alt="Banner 4">
-                <img src="image/poke.png" alt="Banner 4">
             </div>
         </div>
 
@@ -524,7 +523,6 @@ footer {
             <img src="image/background2.png" alt="Thumbnail 2" onclick="showSlide(1)">
             <img src="image/슛 에니미스.png" alt="Thumbnail 3" onclick="showSlide(2)">
             <img src="image/Block.png" alt="Thumbnail 2" onclick="showSlide(3)">
-            <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
         </div>
     </main>
     <sub>
@@ -555,13 +553,6 @@ footer {
 				    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
 				    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
 				</div>
-				<div class="game">
-				    <img src="image/teraria.jpg" alt="Game 5">
-				    <h1>게임 5</h1>
-				    <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
-				    <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
-				</div>
-
 		    </div>
 		</section>
     </sub>
@@ -617,18 +608,6 @@ footer {
                 <a href="games/gamePage04.jsp">
                     <img src="image/play.png" alt="게임 이미지" class="img-fluid">
                 </a>
-            </div>
-            <div class="item game-image">
-                <a href="games/gamePage05.jsp">
-                    <img src="image/poke2.png" alt="게임 이미지" class="img-fluid">
-                </a>
-            </div>
-            <div class="item game-description">
-                <p>
-                    제목:<br>
-                    장르:<br>
-                    게임설명:<br>
-                </p>
             </div>
         </div>
     </section>
@@ -851,28 +830,6 @@ footer {
                         console.error("Invalid response format or empty response for gameSeq: 4");
                     }
 
-                    // 게임 시퀀스 5번에 대한 처리
-                    if (playCounts.hasOwnProperty("5")) {
-                        let playCount5 = playCounts["5"];
-                        let rank5 = ranks["5"];
-                        console.log("Setting play count and rank for gameSeq 5: ", playCount5, rank5);
-                        let playCountElement5 = $(`.play-count[data-game-id="5"]`);
-                        let rankElement5 = $(`.rank[data-game-id="5"]`);
-
-                        if (playCountElement5.length > 0) {
-                            playCountElement5.text(playCount5);
-                        } else {
-                            console.error("No element found for gameSeq: 5");
-                        }
-
-                        if (rankElement5.length > 0) {
-                            rankElement5.text(rank5);
-                        } else {
-                            console.error("No element found for gameSeq: 5");
-                        }
-                    } else {
-                        console.error("Invalid response format or empty response for gameSeq: 5");
-                    }
                 } else {
                     console.error("Invalid response format or empty response");
                 }

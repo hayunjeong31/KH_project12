@@ -340,13 +340,7 @@ header {
                                     <option value="">선택</option>
                                     <option value="010">010</option>
                                     <option value="011">011</option>
-                                    <option value="012">012</option>
-                                    <option value="013">013</option>
-                                    <option value="014">014</option>
-                                    <option value="015">015</option>
-                                    <option value="016">016</option>
-                                    <option value="017">017</option>
-                                    <option value="070">070</option>
+                                
                                 </select>
                                 <input type="text" class="form-control" maxlength="4" id="vcMobile2" name="vcMobile2" style="width: 20%;" placeholder="1234">
                                 <input type="text" class="form-control" maxlength="4" id="vcMobile3" name="vcMobile3" style="width: 20%;" placeholder="5678">
