@@ -235,7 +235,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <button class="login-button" onclick="location.href='members/login.jsp'">Login</button>
+                        <button class="login-button" onclick="location.href='/members/login.jsp'">Login</button>
                     </c:otherwise>
                 </c:choose>
                 <div class="hamburger-menu" onclick="toggleMenu()">
