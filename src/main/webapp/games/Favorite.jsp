@@ -52,8 +52,9 @@ body, html {
 	/* 헤더 고정으로 인한 상단 마진 추가 */
 	border-radius: 10px;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-	background-color: rgba(255, 255, 255, 0.104);
+	background-color: rgba(255, 255, 255, 0.336);
 }
+
 
 .board-section, .edit-post-section {
 	display: flex;
@@ -234,6 +235,7 @@ header {
 	background-color: black;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	height: 60px;
+	background-image: url('/image/9.png');
 }
 
 .header-container {
