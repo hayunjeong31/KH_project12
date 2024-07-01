@@ -234,6 +234,7 @@ header {
     background-color: black;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 60px;
+    background-image: url('/image/9.png');
 }
 
 .header-container {
