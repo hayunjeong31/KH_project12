@@ -128,7 +128,9 @@
 <body>
     <header>
         <div class="header-container">
-            <img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+        	<a href="/index.jsp">
+            	<img src="/image/GamebitLogo.png" alt="Nintendo Logo" class="logo">
+            </a>
             <nav>
                 <ul>
                     <li>
@@ -143,7 +145,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/board.html">게시판</a>
+                        <a href="/list.board">게시판</a>
                         <div class="dropdown">
                             <a href="/list.board">게시판</a>
                             <a href="/list.qboard">Q&A</a>

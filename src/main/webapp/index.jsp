@@ -451,7 +451,9 @@ footer {
 
     <header>
         <div class="header-container">
-            <img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+        	<a href="/index.jsp">
+            	<img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+            </a>
             <nav>
                 <ul>
                     <li>
