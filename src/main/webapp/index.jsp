@@ -451,7 +451,9 @@ footer {
 
     <header>
         <div class="header-container">
-            <img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+        	<a href="/index.jsp">
+            	<img src="image/gamebitlogo2.png" alt="Nintendo Logo" class="logo">
+            </a>	
             <nav>
                 <ul>
                     <li>
@@ -480,9 +482,11 @@ footer {
                             <a href="/myqpostlist.qboard">내가 작성한 Q&A</a>
                         </div>
                     </li>
-                    <li>
-                        <a href="/showMain.dashBoard">관리자 페이지</a>
-                    </li>
+                    <c:if test="${adminKey eq 2}">
+	                    <li>
+	                        <a href="/showMain.dashBoard">관리자 페이지</a>
+	                    </li>
+	                </c:if>    
                 </ul>
             </nav>
             <div class="header-buttons">
@@ -515,7 +519,6 @@ footer {
                 <img src="image/background2.png" alt="Banner 2">
                 <img src="image/슛 에니미스.png" alt="Banner 3">
                 <img src="image/Block.png" alt="Banner 4">
-                <img src="image/poke.png" alt="Banner 4">
             </div>
         </div>
 
@@ -524,7 +527,6 @@ footer {
             <img src="image/background2.png" alt="Thumbnail 2" onclick="showSlide(1)">
             <img src="image/슛 에니미스.png" alt="Thumbnail 3" onclick="showSlide(2)">
             <img src="image/Block.png" alt="Thumbnail 2" onclick="showSlide(3)">
-            <img src="image/poke.png" alt="Thumbnail 3" onclick="showSlide(4)">
         </div>
     </main>
     <sub>
@@ -555,13 +557,6 @@ footer {
 				    <p>플레이 횟수: <span class="play-count" data-game-id="4"></span></p>
 				    <p>게임 순위: <span class="rank" data-game-id="4"></span></p>
 				</div>
-				<div class="game">
-				    <img src="image/teraria.jpg" alt="Game 5">
-				    <h1>게임 5</h1>
-				    <p>플레이 횟수: <span class="play-count" data-game-id="5"></span></p>
-				    <p>게임 순위: <span class="rank" data-game-id="5"></span></p>
-				</div>
-
 		    </div>
 		</section>
     </sub>
@@ -617,18 +612,6 @@ footer {
                 <a href="games/gamePage04.jsp">
                     <img src="image/play.png" alt="게임 이미지" class="img-fluid">
                 </a>
-            </div>
-            <div class="item game-image">
-                <a href="games/gamePage05.jsp">
-                    <img src="image/poke2.png" alt="게임 이미지" class="img-fluid">
-                </a>
-            </div>
-            <div class="item game-description">
-                <p>
-                    제목:<br>
-                    장르:<br>
-                    게임설명:<br>
-                </p>
             </div>
         </div>
     </section>

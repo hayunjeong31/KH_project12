@@ -118,7 +118,7 @@ public class QboardController extends HttpServlet {
          else if (cmd.equals("/write.qboard")) {
 
             int maxSize = 1024 * 1024 * 10;
-            String realPath = request.getServletContext().getRealPath("files");
+            String realPath = "C:\\file";
             File uploadPath = new File(realPath);
             if (!uploadPath.exists()) {
                uploadPath.mkdir();
@@ -213,7 +213,7 @@ public class QboardController extends HttpServlet {
 
             /////////////////////////////////////////////////
             int maxSize = 1024 * 1024 * 10;
-            String realPath = request.getServletContext().getRealPath("files");
+            String realPath = "C:\\file";
             File uploadPath = new File(realPath);
             if (!uploadPath.exists()) {
                uploadPath.mkdir();
