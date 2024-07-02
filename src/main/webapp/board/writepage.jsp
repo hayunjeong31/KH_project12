@@ -369,10 +369,11 @@ input{
     		}
     		$("#hidden_title").val($("#post-title").val().trim());
     		$("#hidden_content").val(markupStr);
-    		console.log($("#hidden_title").val());
-    		console.log($("#hidden_content").val());
-    		
+    	
+    		$("btnup").prop("disable",true); // 중복 방지 test
     		$("#writeform").submit();
+    		
+    		return false;
     	})
     });
         </script>
