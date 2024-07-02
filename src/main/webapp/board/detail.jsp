@@ -672,13 +672,16 @@
 
     <script>
 	    $("#btnlist").on("click",function(){
+	    	$("#btnlist").prop("disabled", true);
 			location.href="/list.board";
 		})
 		$("#btnedit").on("click", function() {
+			$("#btnedit").prop("disabled", true);
 	    	location.href = "/edit.board?seq=${dto.seq}";
 	    })
 	    $("#btndelete").on("click", function() {
 	        if (confirm('정말 삭제하시겠습니까?')) {
+	        	$("#btndelete").prop("disabled", true);
 	            location.href = "/delete.board?seq=${dto.seq}";
 	        }
 	    })
@@ -698,6 +701,9 @@
 				    	alert("로그인 하세요.");
 				    	return;
 				    }
+				    
+				    $("#submit-comment").prop("disabled", true); // 중복 방지 처리
+				    
 				    $.ajax({
 				        url: "/comment.reply",
 				        type: "post",
@@ -709,12 +715,19 @@
 				        dataType: "json",
 				        success: function(resp) {
 				            location.reload();
+				        },
+				        error:function() {
+				            // 요청 실패 시 버튼 다시 활성화
+				            $("#submit-comment").prop("disabled", false);
+				            alert("댓글 작성에 실패했습니다. 다시 시도하세요.");
 				        }
 				    });
 				});
-		    /////////////////////////////////////////////////////////////////////
-	    	// 북마크 상태 유지하기.... // 페이지 로드 시 초기 북마크 상태를 가져오는 AJAX 요청
+
+			// 북마크 상태 유지하기.... // 페이지 로드 시 초기 북마크 상태를 가져오는 AJAX 요청
 			   let postSeq = $("#bookmark-btn").data('postseq'); 
+			
+			    $("#bookmark-btn").prop("disabled", true); // 중복 클릭 방지
 			    $.ajax({
 			        url: "/getBookmarkStatus.board",
 			        method: "GET",
@@ -731,6 +744,9 @@
 			        },
 			        error: function(error) {
 			            console.error('북마크 상태 조회 중 오류가 발생했습니다:', error);
+			        },
+			        complete: function() {
+			            $("#bookmark-btn").prop("disabled", false);    // 요청 완료 후 버튼 다시 활성화
 			        }
 			    });
 	
