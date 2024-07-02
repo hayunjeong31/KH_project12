@@ -426,7 +426,10 @@ input{
                 $("#hidden_content").val(markupStr);
                 $("#hidden_password").val($("#password").val().trim());
                 
+                $("#btnup").prop("disable",true);
                 $("#writeform").submit();
+                
+                return false;
             })
     });
         </script>

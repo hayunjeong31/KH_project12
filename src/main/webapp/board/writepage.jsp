@@ -370,7 +370,7 @@ input{
     		$("#hidden_title").val($("#post-title").val().trim());
     		$("#hidden_content").val(markupStr);
     	
-    		$("btnup").prop("disable",true); // 중복 방지 test
+    		$("#btnup").prop("disable",true); // 중복 방지 test
     		$("#writeform").submit();
     		
     		return false;
