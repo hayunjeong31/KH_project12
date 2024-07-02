@@ -587,7 +587,7 @@
 	 	    }
 	 	    for(let i = startNavi; i <= endNavi; i++){
 	 	        //$(".pagination").append("<a href='/search.board?cpage=" + i + "&keyword=${keyword}&option=${option}'>" + i + "</a> ");
-                $(".pagination").append("<a href='/search.qboard?cpage=" + i + "&keyword=${keyword}&option=${option}'"+ (i== cpage ?"class='active'":"")+">" + i + "</a> ");
+                $(".pagination").append("<a href='/search.board?cpage=" + i + "&keyword=${keyword}&option=${option}'"+ (i== cpage ?"class='active'":"")+">" + i + "</a> ");
 
 	 	    }
 	 	    if(needNext == true){
