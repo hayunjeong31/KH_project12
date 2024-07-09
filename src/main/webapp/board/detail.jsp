@@ -778,9 +778,8 @@
 	            });
 	        });
 	        
-	        //
 	        
-	        ///////////////////////////////////////////////////////////////////////////
+	        
 	        // 대댓글 시도 - board6폴더
 	        // 로그인한 사용자 ID 
 	
@@ -845,7 +844,7 @@
 			    // c_seq_input :)
 			    let c_seq_input = $("<input>", {"type": "hidden", "class": "c_seq", "value": comment.seq});
 			
-			    //////////////////////////////////////////////
+			    
 			    // 좋아요 갯수 담을 span
 			    let co_likes_count = $("<span>",{"class":"co_likes_count"});
 			    let co_hates_count = $("<span>",{"class":"co_hates_count"});
@@ -858,6 +857,7 @@
 			        let isLiked = co_likes.hasClass('fa-solid');
 			        let isHated = co_hates.hasClass('fa-solid'); // 추가: 싫어요 버튼 상태 확인
 					
+			        co_likes_button.prop("disabled",true); // 좋아요 버튼 클릭 중복 방지
 			        $.ajax({
 			            url: "/like.reply",
 			            method: "post",
@@ -888,6 +888,7 @@
 			        let isHated = co_hates.hasClass('fa-solid');
 			        let isLiked = co_likes.hasClass('fa-solid'); // (싫어요 반대)좋아요 버튼 상태 확인
 					
+			        co_hates_button.prop("disabled",true);	// 싫어요 버튼 클릭 중복 방지 처리
 			        $.ajax({
 			            url: "/hate.reply",
 			            method: "post",

@@ -91,7 +91,6 @@ public class BoardDAO {
 				try(ResultSet rs = pstat.getGeneratedKeys();){
 					rs.next();
 					int seq = rs.getInt(1);
-					System.out.println("ddfdf"+seq);
 					return seq;
 				}
 			}
@@ -190,7 +189,7 @@ public class BoardDAO {
 //	    			+ "left join(select boardseq, count(*) as reply_count from reply where isDeleted != 'y' group by boardseq) "
 //	    			+ "	reply_count on board.seq = reply_count.boardseq "
 //	    			+ "where board.rown between ? and ?";	
-			String sql = "    SELECT board.*, NVL(reply_count, 0) AS reply_count \r\n"
+			String sql = "SELECT board.*, NVL(reply_count, 0) AS reply_count \r\n"
 					+ "FROM (SELECT board.*, row_number() OVER (ORDER BY board.seq DESC) AS rown \r\n"
 					+ "FROM board \r\n"
 					+ ") board \r\n"
