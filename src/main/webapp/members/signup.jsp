@@ -915,7 +915,7 @@ header {
         // 패스워드 유효성 검사
         let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if (!passwordRegex.test(password)) {
-            $("#passwordFeedback").text("패스워드는 알파벳 대문자, 소문자, 숫자를 각 하나 이상 포함해야 하며, 최소 8자 이상이어야 합니다.");
+            $("#passwordFeedback").text("패스워드는 특문제외 알파벳 대문자, 소문자, 숫자를 각 하나 이상 포함해야 하며, 최소 8자 이하이어야 합니다.");
             isValid = false;
         } else {
             $("#passwordFeedback").text("");
